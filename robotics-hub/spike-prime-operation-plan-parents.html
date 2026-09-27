@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIKE Prime 자기주도 학습 운영안 (부모용)</title>
+<style>
+:root{
+  --navy:#193773; --ink:#232323; --gray:#6f6f6f;
+  --blue-bg:#e9f0fd; --line:#b9c6e2;
+}
+*{box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Segoe UI",Roboto,sans-serif;
+  color:var(--ink); line-height:1.8; margin:0; background:#eef1f7;
+}
+.wrap{max-width:840px;margin:0 auto;padding:36px 28px 72px;background:#fff}
+@media(min-width:900px){
+  .wrap{margin:36px auto;border-radius:14px;box-shadow:0 4px 24px rgba(25,55,115,.10)}
+}
+.nav{background:var(--blue-bg);border-radius:10px;padding:10px 18px;margin-bottom:8px;font-size:14px}
+.nav a{color:var(--navy);font-weight:700}
+.hero{padding:36px 8px 8px}
+.eyebrow{letter-spacing:.22em;color:var(--gray);font-size:13px;font-weight:600}
+.hero h1{font-size:34px;color:var(--navy);margin:12px 0 4px;line-height:1.3}
+.hero .sub{font-size:16px;color:var(--ink);margin-top:6px}
+.hero-rule{border:none;border-top:3px solid var(--navy);margin:22px 0 8px}
+h2{color:var(--navy);font-size:20px;margin:38px 0 6px;padding-bottom:6px;border-bottom:2px solid #dbe4f5}
+p{margin:10px 0}
+ul{padding-left:22px}
+li{margin:8px 0}
+strong{color:#111}
+.num{display:inline-block;background:var(--navy);color:#fff;font-weight:800;
+  width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;
+  font-size:14px;margin-right:8px}
+.card{background:var(--blue-bg);border-radius:10px;padding:16px 20px;margin:18px 0}
+.note{font-size:14px;color:var(--gray)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #e2e6f0;color:var(--gray);font-size:13px;text-align:center}
+@media print{
+  body{background:#fff}
+  .wrap{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:0 4px}
+  .nav{display:none}
+  .card{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2{break-after:avoid}
+  li,.card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="nav">🤖 Alex용 교안: <a href="spike-prime-mission-guide-alex.html">SPIKE Prime Mission Guide</a></div>
+
+<div class="hero">
+  <div class="eyebrow">부모용 운영 가이드</div>
+  <h1>SPIKE Prime 자기주도 학습 운영안</h1>
+  <div class="sub">Alex 로봇 기초 코스 — 부모 개입 최소화 운영 가이드</div>
+</div>
+<hr class="hero-rule">
+
+<h2>1. 목표</h2>
+<ul>
+  <li>집에 있는 SPIKE Prime으로 로봇 기초(구동·자이로·센서·제어 구조)를 Alex 스스로 익힌다.</li>
+  <li>파이썬 학습 때 적용한 방식 <strong>(핵심 라인 손으로 쓰기 → 실행 예측 → 챌린지 확장)</strong>을 그대로 적용한다.</li>
+  <li>부모의 역할은 <strong>초기 셋업과 환경 조성</strong>으로 제한한다.</li>
+  <li>교안에 전체 파이썬 코드가 포함되어 있어 별도 사이트 검색 없이 진행할 수 있다.</li>
+</ul>
+
+<h2>2. 전체 구성 <span class="note">(교안: SPIKE Prime Mission Guide, 영어)</span></h2>
+<ul>
+  <li><strong>Phase 1</strong> 조립과 첫 이동 (Prime Lessons Unit 1–3): 미션 3개 + 미니프로젝트 <strong>로봇 댄스</strong></li>
+  <li><strong>Phase 2</strong> 센서 (Unit 5): 미션 3개 + 미니프로젝트 <strong>장애물 회피 로버</strong></li>
+  <li><strong>Phase 3</strong> 똑똑한 프로그램 (Unit 6·8): 미션 2개 + 미니프로젝트 <strong>Simon Says 게임</strong></li>
+  <li><strong>Phase 4</strong> 이동 마스터 (Unit 7·9): 미션 2개 + 캡스톤 <strong>배달 로봇</strong></li>
+  <li>총 <strong>10개 미션 + 4개 미니프로젝트</strong>. 1세션 1미션, 주 2–3회, 회당 30–45분 → 약 5–7주 분량 (자기 속도로 조절).</li>
+</ul>
+
+<h2>3. 부모의 역할 — 딱 세 가지</h2>
+<ul>
+  <li><span class="num">1</span><strong>초기 셋업 (최초 1회, 약 1시간):</strong> SPIKE 앱 설치·허브 펌웨어 업데이트, 드라이빙 베이스 조립 동행.</li>
+  <li><span class="num">2</span><strong>질문이 오면 가이드로 돌려보내기:</strong> “가이드 몇 페이지 다시 읽어봐”. 코드를 대신 읽어주거나 고쳐주지 않기.</li>
+  <li><span class="num">3</span><strong>미니프로젝트 완성 시 시연 관람:</strong> 로봇이 요구대로 움직이면 통과 — 코드 리뷰 불필요.</li>
+</ul>
+<div class="card">
+  ※ Prime Lessons 사이트(primelessons.org → Lessons)에서 매 미션의 <strong>Python 버전</strong> 레슨을 여는 것만 확인해 주세요.
+  앱과 같은 세대(SPIKE 2/3) 버전을 선택하고, 코드는 반드시 레슨 PDF에 있는 것을 그대로 옮겨 적게 해 주세요.
+</div>
+
+<h2>4. 세션 진행 구조 <span class="note">(Alex 가이드 내 4단계 루프)</span></h2>
+<ul>
+  <li><strong>WRITE (손으로 쓰기, 5분):</strong> 레슨의 핵심 라인을 노트에 손으로 베껴 쓰기. 복사-붙여넣기 금지.</li>
+  <li><strong>PREDICT (실행 예측, 3분):</strong> 실행 전에 라인별로 로봇이 무엇을 할지 쓰기.</li>
+  <li><strong>RUN (실행·비교, 10분):</strong> 실행 후 예측과 비교. 다르면 어느 라인이 예상을 깼는지 찾기.</li>
+  <li><strong>EXTEND (변형 도전, 10분):</strong> 하나만 바꿔서 새로운 동작 만들기. 바꾸기 전에 예측하기.</li>
+</ul>
+
+<h2>5. 막혔을 때 규칙 <span class="note">(Alex도 알고 있음)</span></h2>
+<ul>
+  <li><strong>15분 규칙:</strong> 15분 고민해도 못 풀면 Prime Lessons 해당 레슨의 Solution 페이지 확인 허용.</li>
+  <li>단, 본 후에는 닫고 <strong>기억으로 손으로 다시 쓰기</strong>. 해답을 보고 베껴서 실행하는 것은 금지.</li>
+  <li>항상 <strong>한 번에 하나만</strong> 바꾸고 테스트하기.</li>
+</ul>
+
+<h2>6. 진도 확인법</h2>
+<ul>
+  <li>가이드 마지막 페이지 <strong>체크리스트</strong> (미션·프로젝트별 시연 날짜 기록). HTML 버전에서는 체크 표시가 기기에 저장됩니다.</li>
+  <li><strong>미니프로젝트 4개의 시연</strong>만 보면 됩니다. 중간 미션은 Alex가 스스로 체크.</li>
+  <li>한 미션에 2세션 이상 멈출 때만 부모가 Prime Lessons 해답을 함께 읽어보기.</li>
+</ul>
+
+<h2>7. 준비물</h2>
+<ul>
+  <li>노트 1권(Robot Lab Notebook), 자, <strong>검은 전기테이프</strong>(바닥 라인용, Phase 4), 책 1권(벽 대용).</li>
+  <li>로봇은 과정 내내 분해하지 않고 유지 (테스트용 플랫폼).</li>
+  <li>허브 충전 상태 확인 (세션 전에 충전기에 있었는지).</li>
+</ul>
+
+<h2>8. 이 다음</h2>
+<ul>
+  <li>4개 미니프로젝트 완성 = FLL Challenge 팀 합류 시 로봇 담당으로 바로 기여 가능한 기초 완성.</li>
+  <li>심화 후보: Prime Lessons Unit 10 (Competition Skills) → FLL 미션 보드 도전.</li>
+</ul>
+
+<footer>SPIKE Prime 자기주도 학습 운영안 · 교안: SPIKE Prime Mission Guide (Alex용, 영어)</footer>
+</div>
+</body>
+</html>
