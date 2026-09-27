@@ -1,128 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Finish Your Snake Game</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finish Your Snake Game — Alex's Capstone</title>
 <style>
-  * { box-sizing: border-box; }
-  body {
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0; background: #f2f7f3; color: #1c2620; line-height: 1.7;
-  }
-  .page { max-width: 860px; margin: 0 auto; padding: 28px 20px 80px; }
-  .kicker { color: #b25a17; font-weight: 800; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 6px; }
-  h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 10px; line-height: 1.2; }
-  h2 { font-size: 1.45rem; margin: 44px 0 10px; padding-top: 8px; border-top: 3px solid #cfe3d4; }
-  h3 { font-size: 1.1rem; margin: 22px 0 8px; }
-  p { margin: 10px 0; }
-  .lede { font-size: 1.1rem; color: #44534a; }
-  .card { background: #fff; border: 1px solid #d8e4db; border-radius: 14px; padding: 18px 20px; margin: 16px 0; }
-  .card h3 { margin-top: 0; }
-  .newwords { background: #fff8e8; border: 1px solid #ecd9a8; }
-  .newwords code { background: #fff; }
-  .predict { background: #eef4ff; border: 1px solid #c3d6f5; }
-  .tryit { background: #eafaf0; border: 1px solid #bfe6cd; }
-  ul { margin: 8px 0; padding-left: 22px; }
-  li { margin: 6px 0; }
-  code { font-family: "SFMono-Regular", Consolas, monospace; background: #eef2ee; padding: 1px 6px; border-radius: 6px; font-size: .92em; }
-  .codeblock { position: relative; background: #101713; border-radius: 12px; margin: 14px 0; overflow: hidden; }
-  .codeblock pre { margin: 0; padding: 18px; overflow-x: auto; }
-  .codeblock code { background: none; color: #e8f5ec; padding: 0; font-size: .85rem; line-height: 1.6; }
-  .copy-btn {
-    position: absolute; top: 10px; right: 10px; border: 0; border-radius: 8px;
-    background: #2f7d4f; color: #fff; font-weight: 700; font-size: .8rem;
-    padding: 7px 12px; cursor: pointer;
-  }
-  .copy-btn:hover { background: #256641; }
-  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .95rem; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #d8e4db; vertical-align: top; }
-  th { background: #e4efe7; }
-  .check li { list-style: none; margin: 8px 0; }
-  .check { padding-left: 4px; }
-  .check li::before { content: "☐ "; font-size: 1.1em; }
-  footer { margin-top: 56px; color: #7d8b82; font-size: .85rem; text-align: center; }
-  .back { display: inline-block; margin-bottom: 18px; color: #2f7d4f; font-weight: 700; text-decoration: none; }
-  .session-tag { display: inline-block; background: #2f7d4f; color: #fff; font-size: .78rem; font-weight: 800;
-                 padding: 3px 10px; border-radius: 20px; margin-bottom: 6px; }
+  :root { --bg:#0e1520; --card:#16202e; --line:#2a3a52; --txt:#e8eef6;
+          --mut:#9fb0c7; --acc:#74bd8c; --acc2:#e4572e; --gold:#f2c14e; }
+  * { box-sizing:border-box; }
+  body { font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif; background:var(--bg);
+         color:var(--txt); margin:0; line-height:1.65; }
+  .wrap { max-width:860px; margin:0 auto; padding:24px 18px 70px; }
+  a { color:var(--acc); }
+  .back { display:inline-block; margin-bottom:14px; color:var(--mut); text-decoration:none; }
+  .back:hover { color:var(--acc); }
+  header.hero { text-align:center; padding:26px 10px 8px; }
+  header.hero h1 { font-size:2.1em; margin:.2em 0; }
+  header.hero p.lede { color:var(--mut); font-size:1.08em; max-width:640px; margin:0 auto; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px;
+          padding:20px 22px; margin:22px 0; }
+  .card h2 { margin-top:0; }
+  .muted { color:var(--mut); }
+  /* demo game */
+  .demo { text-align:center; }
+  #demoCanvas { background:#101820; border:2px solid var(--line); border-radius:10px;
+                max-width:100%; touch-action:none; }
+  .demo-row { display:flex; gap:14px; align-items:center; justify-content:center;
+              margin:12px 0; flex-wrap:wrap; }
+  #demoScore { font-size:1.5em; color:var(--gold); font-weight:bold; }
+  .btn { background:var(--acc); color:#0b120d; border:none; border-radius:10px;
+         padding:10px 22px; font-size:1.05em; font-weight:bold; cursor:pointer;
+         font-family:inherit; }
+  .btn:hover { filter:brightness(1.1); }
+  #demoMsg { min-height:1.6em; color:var(--gold); font-weight:bold; }
+  .dpad { display:grid; grid-template-columns:repeat(3,54px); gap:6px; justify-content:center; }
+  .dpad button { width:54px; height:54px; font-size:1.4em; border-radius:10px;
+                 border:1px solid var(--line); background:#1e2c40; color:var(--txt);
+                 cursor:pointer; }
+  .dpad button:active { background:var(--acc); }
+  /* progress */
+  .progress-wrap { background:var(--card); border:1px solid var(--line); border-radius:14px;
+                   padding:16px 22px; margin:22px 0; position:sticky; top:8px; z-index:5; }
+  .progress-bar { height:14px; background:#0b1220; border-radius:8px; overflow:hidden; margin-top:8px; }
+  .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--acc),var(--gold));
+                   border-radius:8px; transition:width .4s; }
+  /* chunks */
+  .chunk { background:var(--card); border:1px solid var(--line); border-radius:14px;
+           padding:20px 22px; margin:26px 0; }
+  .chunk-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .chunk-num { background:var(--acc); color:#0b120d; font-weight:bold; border-radius:20px;
+               padding:4px 14px; font-size:.95em; white-space:nowrap; }
+  .chunk-head h3 { margin:0; flex:1; min-width:180px; }
+  label.done { display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+               background:#0b1220; border:1px solid var(--line); border-radius:10px;
+               padding:8px 12px; font-weight:bold; }
+  label.done input { width:20px; height:20px; accent-color:var(--acc); cursor:pointer; }
+  .chunk.done-card { border-color:var(--acc); }
+  .goal { background:#0b1220; border-left:4px solid var(--acc); padding:10px 14px;
+          border-radius:0 10px 10px 0; }
+  .predict { background:#141d2c; border:1px dashed var(--line); border-radius:10px;
+             padding:12px 16px; margin:14px 0; }
+  .predict p { margin:.4em 0; }
+  .reveal-btn { background:#1e2c40; color:var(--txt); border:1px solid var(--line);
+                border-radius:8px; padding:6px 14px; cursor:pointer; font-family:inherit; }
+  .reveal-btn:hover { border-color:var(--acc); }
+  .reveal-a { background:#0b1220; border-radius:8px; padding:10px 14px; margin-top:10px;
+              border-left:4px solid var(--gold); }
+  .place { background:#1a2436; border-radius:10px; padding:10px 14px; }
+  .place code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+  .runbox { background:#12261a; border:1px solid var(--acc); border-radius:10px;
+            padding:12px 16px; margin:14px 0; }
+  .newword { background:#241d0e; border:1px solid var(--gold); border-radius:10px;
+             padding:12px 16px; margin:14px 0; }
+  .newword code { background:#0b1220; padding:2px 6px; border-radius:6px; color:var(--gold); }
+  .note { background:#101a2c; border-radius:10px; padding:10px 14px; margin:14px 0;
+          color:var(--mut); }
+  /* code blocks */
+  .codeblock { position:relative; margin:14px 0; }
+  .codeblock pre { background:#0b1220; border:1px solid var(--line); border-radius:10px;
+                   padding:16px; overflow-x:auto; font-size:.92em; line-height:1.55; margin:0; }
+  .codeblock code { font-family:Consolas,Menlo,monospace; color:#d7e3f4; }
+  .copybtn { position:absolute; top:8px; right:8px; background:#1e2c40; color:var(--txt);
+             border:1px solid var(--line); border-radius:8px; padding:5px 12px;
+             cursor:pointer; font-family:inherit; font-size:.85em; }
+  .copybtn:hover { border-color:var(--acc); color:var(--acc); }
+  /* lists, tables */
+  ul.check { list-style:none; padding-left:0; }
+  ul.check li { padding:6px 0 6px 34px; position:relative; }
+  ul.check li::before { content:"☐"; position:absolute; left:6px; color:var(--mut); }
+  ul.check li.yes::before { content:"☑"; color:var(--acc); }
+  table.bugs { width:100%; border-collapse:collapse; font-size:.95em; }
+  table.bugs th, table.bugs td { border:1px solid var(--line); padding:10px 12px;
+                                  text-align:left; vertical-align:top; }
+  table.bugs th { background:#1a2436; }
+  table.bugs td:first-child { color:var(--gold); }
+  details.fullfile { background:var(--card); border:1px solid var(--line);
+                     border-radius:14px; padding:16px 22px; margin:26px 0; }
+  details.fullfile summary { cursor:pointer; font-weight:bold; font-size:1.1em; }
+  .finish label { display:flex; gap:10px; align-items:flex-start; cursor:pointer;
+                  padding:8px 0; }
+  .finish input { width:20px; height:20px; margin-top:4px; accent-color:var(--acc);
+                  cursor:pointer; flex-shrink:0; }
+  footer { text-align:center; color:var(--mut); margin-top:40px; font-size:.9em; }
+  .kbd { background:#0b1220; border:1px solid var(--line); border-radius:6px;
+         padding:1px 8px; font-family:monospace; }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-<a class="back" href="../">← Alex's Python Learning Hub</a>
+<a class="back" href="../">← Back to Alex Learning</a>
 
-<p class="kicker">Capstone project</p>
-<h1>Finish Your Snake Game 🐍</h1>
-<p class="lede">You spent 8 weeks learning Python with the turtle. Now build a real game with it —
-a snake that moves, eats, grows, keeps score, speeds up, and ends when you crash.
-Four sessions, about 35 minutes each. <strong>Everything you need is on this page.</strong>
-No new chapters. No classes. No lists. Every idea here comes from your 8 weeks.</p>
+<header class="hero">
+  <h1>🐍 Finish Your Snake Game</h1>
+  <p class="lede">You already learned everything you need in the 8-week course.
+  Now build the real game — <strong>12 tiny chunks</strong>, one at a time.
+  Take a few days if you want. No rush. No new big ideas.</p>
+</header>
 
-<h2>Before you start</h2>
+<div class="card demo">
+  <h2>🎮 First, play the game you are about to build</h2>
+  <p class="muted">This is your target. In Python, chunk by chunk, you will make exactly this.</p>
+  <canvas id="demoCanvas" width="400" height="400"></canvas>
+  <div class="demo-row">
+    <button class="btn" id="demoPlay">▶ Play</button>
+    <div>Score: <span id="demoScore">0</span></div>
+  </div>
+  <div id="demoMsg"></div>
+  <div class="demo-row">
+    <div class="dpad">
+      <span></span><button data-dx="0" data-dy="-1" aria-label="up">▲</button><span></span>
+      <button data-dx="-1" data-dy="0" aria-label="left">◀</button>
+      <button data-dx="0" data-dy="1" aria-label="down">▼</button>
+      <button data-dx="1" data-dy="0" aria-label="right">▶</button>
+    </div>
+  </div>
+  <p class="muted" style="font-size:.9em">Tip: your keyboard arrow keys work too.</p>
+</div>
+
+<div class="progress-wrap">
+  <strong>🧱 Your build progress: <span id="progressText">0 / 12 chunks</span></strong>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
 <div class="card">
-<h3>What you need</h3>
-<ul>
-  <li><strong>Python 3</strong> — the same one you set up in Week 1.</li>
-  <li><strong>A text editor</strong> — Thonny, IDLE, or VS Code. Whichever you used before.</li>
-  <li><strong>This page.</strong> That is really it.</li>
-</ul>
-<h3>How to run your game</h3>
-<ol>
-  <li>Copy the session's code into a new file.</li>
-  <li>Save it as <code>snake.py</code>.</li>
-  <li>Run it: press <strong>Run</strong> in your editor, or type <code>python snake.py</code> in a terminal.</li>
-  <li>A black window opens. Press an arrow key — the green square starts moving!</li>
-</ol>
+  <h2>🧭 How this works</h2>
+  <ul>
+    <li>There are <strong>12 chunks</strong>. Each chunk is a few lines — never a wall of code.</li>
+    <li>Do <strong>2–3 chunks per sitting</strong>, or one chunk a day. A few days is totally fine.</li>
+    <li><strong>Every chunk runs.</strong> After each chunk, run your file and check the green box.</li>
+    <li>Always: <strong>predict on paper → type → run → check the box ✅</strong></li>
+    <li>Your file is called <code>snake.py</code>. Keep adding to the <em>same</em> file.</li>
+  </ul>
 </div>
 
-<h2>What you already know</h2>
 <div class="card">
-<p>If you finished the 8 weeks, you own all of this:</p>
-<ul>
-  <li>🐢 <strong>Turtle drawing</strong> — forward, right, penup, color, shape, goto (Week 1)</li>
-  <li>📦 <strong>Variables</strong> and <strong>input()</strong> (Week 2)</li>
-  <li>🔢 <strong>Math and comparisons</strong> with <code>and</code> / <code>or</code> (Week 3)</li>
-  <li>🔀 <strong>if / elif / else</strong> decisions (Week 4)</li>
-  <li>🔁 <strong>for</strong> loops and <strong>while</strong> loops (Weeks 5, 8)</li>
-  <li>🧰 <strong>Functions</strong> with <code>def</code> (Week 6)</li>
-  <li>⌨️ <strong>Keyboard controls</strong> with <code>onkey()</code> and <code>listen()</code> (Week 7)</li>
-  <li>🎮 <strong>The game loop</strong> — <code>while True</code> with <code>tracer(0)</code>, <code>update()</code>, <code>time.sleep()</code> (Week 8)</li>
-  <li>🏷️ <strong>Storing state on a turtle</strong>, like <code>head.direction = "stop"</code> (Week 8)</li>
-</ul>
+  <h2>🧰 Before you start</h2>
+  <p><strong>You need:</strong> a computer with Python, and the same turtle setup from the 8-week course.</p>
+  <p><strong>To run:</strong> save your file as <code>snake.py</code>, then run it the way you ran your course programs.</p>
+  <p class="note">⚠️ The game loop runs forever (<code>while True</code>), so the program never ends by itself.
+  To stop: <strong>close the game window</strong> (or press <span class="kbd">Ctrl</span>+<span class="kbd">C</span> in the terminal).</p>
 </div>
 
-<div class="card newwords">
-<h3>📖 Only 6 new words in the whole project</h3>
-<p>Each one is a single small idea. Everything else is from your 8 weeks.</p>
-<ul>
-  <li><code>import random</code> → <code>random.randint(a, b)</code> picks a random whole number from <code>a</code> to <code>b</code>. Same pattern as <code>import time</code> → <code>time.sleep()</code>.</li>
-  <li><code>stamp()</code> — the turtle leaves a copy of its shape on the screen, like a footprint.</li>
-  <li><code>clearstamps(1)</code> — erases the oldest footprint. <code>clearstamps()</code> with nothing inside erases all of them.</li>
-  <li><code>write("Hi")</code> — the turtle writes words on the screen instead of the console.</li>
-  <li><code>hideturtle()</code> — hides the turtle arrow so you only see what it drew or wrote.</li>
-  <li><code>head.distance(food)</code> — measures how far apart two turtles are, in pixels.</li>
-</ul>
+<div class="card">
+  <h2>🎒 What you already know</h2>
+  <p class="muted">Everything below is from your 8 weeks. Nothing else is needed.</p>
+  <ul class="check">
+    <li class="yes">turtle basics — <code>shape</code>, <code>color</code>, <code>goto</code>, <code>xcor</code></li>
+    <li class="yes">variables and math</li>
+    <li class="yes"><code>if</code> / <code>elif</code> / <code>else</code>, comparisons, <code>and</code> / <code>or</code></li>
+    <li class="yes"><code>while True</code> game loop with <code>tracer(0)</code> + <code>update()</code> + <code>time.sleep()</code></li>
+    <li class="yes">functions (<code>def</code>)</li>
+    <li class="yes">keyboard: <code>listen()</code>, <code>onkey()</code></li>
+    <li class="yes">the Week 8 trick: saving state on a turtle, like <code>head.direction</code></li>
+  </ul>
+  <h2>📖 6 new words (that's all!)</h2>
+  <p class="muted">Each one appears exactly where you first use it. No memorizing up front.</p>
+  <ul>
+    <li><code>random</code> — chunk 6</li>
+    <li><code>distance()</code> — chunk 7</li>
+    <li><code>stamp()</code>, <code>clearstamps()</code>, <code>hideturtle()</code> — chunk 8</li>
+    <li><code>write()</code> — chunk 10</li>
+  </ul>
 </div>
-
-<h2><span class="session-tag">Session 1 · about 35 min</span><br>Food appears</h2>
-<p>Your Week 8 prototype moves a square and resets at the walls. Today it gets hungry:
-a red dot appears, and when the square touches it, the dot jumps somewhere new.</p>
-
-<div class="card predict">
-<h3>✏️ Predict on paper (5 min)</h3>
-<p><code>place_food()</code> picks <code>x = random.randint(-14, 14) * 20</code>.
-Answer before you run anything:</p>
-<ol>
-  <li>What is the biggest <code>x</code> it can pick? The smallest?</li>
-  <li>Why multiply by 20?</li>
-</ol>
-<p><em>Answers: 280 and -280. Times 20 because the snake moves in 20-pixel steps, so the food always lands exactly on the snake's path.</em></p>
-</div>
-
-<h3>Build — copy the whole file, save as <code>snake.py</code></h3>
-<div class="codeblock"><button class="copy-btn">Copy</button><pre><code>import turtle
-import random
+<!-- ==================== CHUNK 1 ==================== -->
+<section class="chunk" id="chunk-1">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 1</span><h3>Open the Window 🪟</h3>
+    <label class="done"><input type="checkbox" data-chunk="1"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> a black game window that stays open.</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> what will you see when you run this? How do you stop the program?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>A black 600×600 window titled "Snake". The <code>while True</code> loop never ends, so <strong>close the window</strong> to stop it.</p>
+  </div>
+  <p class="place">📌 <strong>Brand-new file.</strong> Type this into <code>snake.py</code> — this is the whole file for now.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code1">Copy</button><pre><code id="code1">import turtle
 import time
 
 # --- Screen ---
@@ -132,27 +206,50 @@ screen.bgcolor(&quot;#101820&quot;)
 screen.title(&quot;Snake&quot;)
 screen.tracer(0)
 
-# --- Snake head (from Week 8) ---
+# --- Main loop ---
+while True:
+    screen.update()
+    time.sleep(0.1)</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> You should see a black window. Nothing moves yet — that is correct!</div>
+</section>
+
+<!-- ==================== CHUNK 2 ==================== -->
+<section class="chunk" id="chunk-2">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 2</span><h3>The Green Square 🟩</h3>
+    <label class="done"><input type="checkbox" data-chunk="2"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> the snake's head appears in the middle.</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> where will the square appear? What color is it?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>Center of the window, (0, 0). Light green. (<code>head.direction = "stop"</code> is just a label we will use soon — remember Week 8!)</p>
+  </div>
+  <p class="place">📌 Add <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code2">Copy</button><pre><code id="code2"># --- Snake head ---
 head = turtle.Turtle()
 head.shape(&quot;square&quot;)
 head.color(&quot;#74bd8c&quot;)
 head.penup()
-head.direction = &quot;stop&quot;
+head.goto(0, 0)
+head.direction = &quot;stop&quot;</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> A green square sits in the middle. Press the arrow keys — nothing happens yet.</div>
+</section>
 
-# --- Food: a red dot that jumps to a new spot ---
-food = turtle.Turtle()
-food.shape(&quot;circle&quot;)
-food.color(&quot;#e4572e&quot;)
-food.penup()
-
-def place_food():
-    x = random.randint(-14, 14) * 20
-    y = random.randint(-14, 14) * 20
-    food.goto(x, y)
-
-place_food()
-
-# --- Controls (from Week 8) ---
+<!-- ==================== CHUNK 3 ==================== -->
+<section class="chunk" id="chunk-3">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 3</span><h3>Steering ⌨️</h3>
+    <label class="done"><input type="checkbox" data-chunk="3"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> teach the arrow keys what to do.</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> you press the Up arrow. What happens on screen? Why?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>Nothing visible — <em>yet</em>. <code>go_up()</code> runs and changes <code>head.direction</code>, but nothing moves the head. No error = success!</p>
+  </div>
+  <p class="place">📌 Add <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code3">Copy</button><pre><code id="code3"># --- Controls ---
 def go_up():
     if head.direction != &quot;down&quot;:
         head.direction = &quot;up&quot;
@@ -173,9 +270,26 @@ screen.listen()
 screen.onkey(go_up, &quot;Up&quot;)
 screen.onkey(go_down, &quot;Down&quot;)
 screen.onkey(go_left, &quot;Left&quot;)
-screen.onkey(go_right, &quot;Right&quot;)
+screen.onkey(go_right, &quot;Right&quot;)</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> Press the arrow keys. Nothing moves — and that is <strong>expected</strong>. The steering is loaded; the engine comes in the very next chunk.</div>
+  <div class="note">🤔 <strong>Think:</strong> why can't the snake reverse? Look at <code>go_up</code>: if the direction is <code>"down"</code>, it does nothing. Can you explain why in your own words?</div>
+</section>
 
-def move_head():
+<!-- ==================== CHUNK 4 ==================== -->
+<section class="chunk" id="chunk-4">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 4</span><h3>The Game Loop 🔁</h3>
+    <label class="done"><input type="checkbox" data-chunk="4"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> the square moves! One frame at a time.</p>
+  <p><code>play_frame()</code> plays <strong>ONE</strong> frame of the game: read the direction → move the head. The <code>while</code> loop calls it over and over — about 10 frames every second. (Same storyboard as Week 8!)</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> press Up, then quickly press Left. What path does the square draw?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>It goes up, then turns left. Try pressing Down while moving up — nothing happens. No reversing!</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code4">Copy</button><pre><code id="code4">def move_head():
     x, y = head.xcor(), head.ycor()
     if head.direction == &quot;up&quot;:
         head.sety(y + 20)
@@ -186,9 +300,84 @@ def move_head():
     if head.direction == &quot;right&quot;:
         head.setx(x + 20)
 
-# --- Main loop ---
+def play_frame():
+    if head.direction != &quot;stop&quot;:
+        move_head()</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> change your loop at the very bottom to this.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code5">Copy</button><pre><code id="code5"># --- Main loop ---
 while True:
     screen.update()
+    play_frame()
+    time.sleep(0.1)</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> 🎉 Press an arrow — the square <strong>MOVES</strong>! Drive it around the window.</div>
+</section>
+
+<!-- ==================== CHUNK 5 ==================== -->
+<section class="chunk" id="chunk-5">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 5</span><h3>Walls 🧱</h3>
+    <label class="done"><input type="checkbox" data-chunk="5"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> crashing into a wall sends the snake back home.</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> drive into the right wall. Where does the square go? What is <code>head.direction</code> afterwards?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>Back to (0, 0), and the direction becomes <code>"stop"</code> — press an arrow to go again.</p>
+  </div>
+  <p class="place">📌 Find <code>play_frame()</code> in your file. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code6">Copy</button><pre><code id="code6">def play_frame():
+    if head.direction != &quot;stop&quot;:
+        move_head()
+        if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
+                or head.ycor() &gt; 290 or head.ycor() &lt; -290:
+            head.goto(0, 0)
+            head.direction = &quot;stop&quot;</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> Crash into each of the four walls. Every time: back to center, stopped.</div>
+</section>
+
+<!-- ==================== CHUNK 6 ==================== -->
+<section class="chunk" id="chunk-6">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 6</span><h3>Food Appears 🔴</h3>
+    <label class="done"><input type="checkbox" data-chunk="6"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> a red dot appears somewhere random.</p>
+  <div class="newword">📖 <strong>New word: <code>random</code>.</strong> First, add one line at the very top of your file, on line 2 (right under <code>import turtle</code>):<br><code>import random</code><br>It works just like <code>import time</code> — it loads a toolbox. This toolbox makes random numbers.</div>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> can the dot appear at (15, 15)? Why or why not?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>No! <code>x</code> and <code>y</code> are always multiples of 20: …-40, -20, 0, 20, 40… The snake moves in steps of 20, so the food lands on the same grid.</p>
+  </div>
+  <p class="place">📌 Add <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code7">Copy</button><pre><code id="code7"># --- Food ---
+food = turtle.Turtle()
+food.shape(&quot;circle&quot;)
+food.color(&quot;#e4572e&quot;)
+food.penup()
+
+def place_food():
+    x = random.randint(-14, 14) * 20
+    y = random.randint(-14, 14) * 20
+    food.goto(x, y)
+
+place_food()</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> A red dot sits somewhere in the window. Stop and run again — different spot!</div>
+</section>
+<!-- ==================== CHUNK 7 ==================== -->
+<section class="chunk" id="chunk-7">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 7</span><h3>Yum! 😋</h3>
+    <label class="done"><input type="checkbox" data-chunk="7"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> touch the dot → "Yum!" → a new dot appears.</p>
+  <div class="newword">📖 <strong>New word: <code>distance()</code>.</strong> <code>head.distance(food)</code> measures the gap between the head and the dot. If the gap is less than 20, they are touching!</div>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> what prints in the console when you eat? Where does the new dot go?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden><code>Yum!</code> prints in the console, and the dot jumps to a new random spot.</p>
+  </div>
+  <p class="place">📌 Find <code>play_frame()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code8">Copy</button><pre><code id="code8">def play_frame():
     if head.direction != &quot;stop&quot;:
         move_head()
         if head.distance(food) &lt; 20:
@@ -197,117 +386,38 @@ while True:
         if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
                 or head.ycor() &gt; 290 or head.ycor() &lt; -290:
             head.goto(0, 0)
-            head.direction = &quot;stop&quot;
-    time.sleep(0.12)</code></pre></div>
+            head.direction = &quot;stop&quot;</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> Steer into the red dot. Watch your console say <code>Yum!</code></div>
+</section>
 
-<div class="card tryit">
-<h3>✅ Try it — done when…</h3>
-<ul>
-  <li>Arrow keys move the green square, and it cannot reverse directly.</li>
-  <li>A red dot sits somewhere on the screen.</li>
-  <li>Touching the dot prints <code>Yum!</code> and the dot jumps to a new spot.</li>
-  <li>The dot always lands on the grid, never halfway between steps.</li>
-</ul>
-</div>
-
-<h2><span class="session-tag">Session 2 · about 35 min</span><br>A tail that grows</h2>
-<p>Now the magic trick. A second turtle — the <strong>painter</strong> — teleports to where the
-head <em>just was</em> and stamps a dark-green square. Every frame adds one footprint.
-When footprints outnumber the tail length, the oldest footprint is erased.
-Eating makes the tail length grow. No lists needed — just footprints!</p>
-
-<div class="card predict">
-<h3>✏️ Predict on paper (5 min)</h3>
-<p><code>tail_length = 3</code>. The game stamps 5 footprints, erasing the oldest whenever
-there are more than 3. After the 5th stamp, how many footprints do you see — and which ones?</p>
-<p><em>Answer: 3 — the 3 newest. The first two got erased.</em></p>
-</div>
-
-<h3>Build — copy the whole file over <code>snake.py</code></h3>
-<div class="codeblock"><button class="copy-btn">Copy</button><pre><code>import turtle
-import random
-import time
-
-# --- Screen ---
-screen = turtle.Screen()
-screen.setup(600, 600)
-screen.bgcolor(&quot;#101820&quot;)
-screen.title(&quot;Snake&quot;)
-screen.tracer(0)
-
-# --- Snake head ---
-head = turtle.Turtle()
-head.shape(&quot;square&quot;)
-head.color(&quot;#74bd8c&quot;)
-head.penup()
-head.direction = &quot;stop&quot;
-
-# --- Tail painter: jumps to where the head was and stamps a body square ---
+<!-- ==================== CHUNK 8 ==================== -->
+<section class="chunk" id="chunk-8">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 8</span><h3>The Footprint Trick 👣</h3>
+    <label class="done"><input type="checkbox" data-chunk="8"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> a short tail follows the head — with no lists!</p>
+  <p>Here is the trick: a second turtle, the <strong>painter</strong>, tiptoes behind the head and <strong>stamps a footprint</strong> everywhere the head just was. Too many footprints? Erase the oldest one. The tail is just footprints!</p>
+  <div class="newword">📖 <strong>New words:</strong><br>
+  <code>stamp()</code> — the turtle stamps a copy of its shape on the ground and stays where it is.<br>
+  <code>clearstamps(1)</code> — erases the <strong>oldest</strong> 1 stamp.<br>
+  <code>hideturtle()</code> — hides the turtle's arrow, but its stamps stay visible.</div>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> <code>tail_length</code> is 3. After 20 frames, how many footprints do you see? Why not 20?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>3. Every frame adds one footprint, but the oldest gets erased whenever there are more than 3. Try changing 3 to 6 — what happens?</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code9">Copy</button><pre><code id="code9"># --- Tail painter ---
 painter = turtle.Turtle()
 painter.shape(&quot;square&quot;)
 painter.color(&quot;#2f7d4f&quot;)
 painter.penup()
 painter.hideturtle()
 
-# --- Food ---
-food = turtle.Turtle()
-food.shape(&quot;circle&quot;)
-food.color(&quot;#e4572e&quot;)
-food.penup()
-
-def place_food():
-    x = random.randint(-14, 14) * 20
-    y = random.randint(-14, 14) * 20
-    food.goto(x, y)
-
-place_food()
-
-# --- Game state: the same trick as head.direction from Week 8 ---
+# --- Game state ---
 screen.tail_length = 3
 screen.stamp_count = 0
-
-# --- Controls ---
-def go_up():
-    if head.direction != &quot;down&quot;:
-        head.direction = &quot;up&quot;
-
-def go_down():
-    if head.direction != &quot;up&quot;:
-        head.direction = &quot;down&quot;
-
-def go_left():
-    if head.direction != &quot;right&quot;:
-        head.direction = &quot;left&quot;
-
-def go_right():
-    if head.direction != &quot;left&quot;:
-        head.direction = &quot;right&quot;
-
-def restart():
-    head.goto(0, 0)
-    head.direction = &quot;stop&quot;
-    painter.clearstamps()
-    screen.tail_length = 3
-    screen.stamp_count = 0
-    place_food()
-
-screen.listen()
-screen.onkey(go_up, &quot;Up&quot;)
-screen.onkey(go_down, &quot;Down&quot;)
-screen.onkey(go_left, &quot;Left&quot;)
-screen.onkey(go_right, &quot;Right&quot;)
-
-# --- Game actions ---
-def move_head():
-    x, y = head.xcor(), head.ycor()
-    if head.direction == &quot;up&quot;:
-        head.sety(y + 20)
-    if head.direction == &quot;down&quot;:
-        head.sety(y - 20)
-    if head.direction == &quot;left&quot;:
-        head.setx(x - 20)
-    if head.direction == &quot;right&quot;:
-        head.setx(x + 20)
 
 def grow_tail(old_x, old_y):
     painter.goto(old_x, old_y)
@@ -317,87 +427,70 @@ def grow_tail(old_x, old_y):
         painter.clearstamps(1)
         screen.stamp_count = screen.stamp_count - 1
 
-def eat_food():
-    place_food()
-    screen.tail_length = screen.tail_length + 1
-
-# --- Main loop ---
-while True:
-    screen.update()
+def restart():
+    head.goto(0, 0)
+    head.direction = &quot;stop&quot;
+    painter.clearstamps()
+    screen.stamp_count = 0
+    screen.tail_length = 3</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> find <code>play_frame()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code10">Copy</button><pre><code id="code10">def play_frame():
     if head.direction != &quot;stop&quot;:
         old_x, old_y = head.xcor(), head.ycor()
         move_head()
         grow_tail(old_x, old_y)
         if head.distance(food) &lt; 20:
-            eat_food()
+            print(&quot;Yum!&quot;)
+            place_food()
         if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
                 or head.ycor() &gt; 290 or head.ycor() &lt; -290:
-            restart()
-    time.sleep(0.12)</code></pre></div>
-<p>Notice: <code>restart()</code> is new. Hitting the wall now calls it, and it cleans up the
-whole trail too — <code>painter.clearstamps()</code> with nothing inside erases every footprint.</p>
+            restart()</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> Drive around — a dark-green tail follows you! Crash into the wall — the tail is cleaned up too.</div>
+  <div class="note">💡 <strong>New:</strong> <code>restart()</code> puts everything back to the start. The wall calls it now. It will grow bigger in later chunks!</div>
+</section>
 
-<div class="card tryit">
-<h3>✅ Try it — done when…</h3>
-<ul>
-  <li>A dark-green trail follows the head everywhere.</li>
-  <li>Eating the red dot makes the trail one square longer.</li>
-  <li>Hitting the wall resets the snake <em>and</em> erases the trail.</li>
-</ul>
-</div>
+<!-- ==================== CHUNK 9 ==================== -->
+<section class="chunk" id="chunk-9">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 9</span><h3>Growing 📏</h3>
+    <label class="done"><input type="checkbox" data-chunk="9"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> eating makes the tail longer.</p>
+  <p>Remember the footprint trick: if <code>tail_length</code> gets bigger, fewer old footprints get erased. So growing = just add 1 to <code>tail_length</code>!</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> eat 2 dots. How long is the tail now?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>3 + 2 = <strong>5</strong> footprints.</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code11">Copy</button><pre><code id="code11">def eat_food():
+    place_food()
+    screen.tail_length = screen.tail_length + 1</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> inside <code>play_frame()</code>, find these 3 lines:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code12">Copy</button><pre><code id="code12">        if head.distance(food) &lt; 20:
+            print(&quot;Yum!&quot;)
+            place_food()</code></pre></div>
+  <p class="place">📌 <strong>Step 3:</strong> change those 3 lines to this 1 line:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code13">Copy</button><pre><code id="code13">        if head.distance(food) &lt; 20:
+            eat_food()</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> Eat dots — your tail <strong>GROWS</strong>! 🐍</div>
+</section>
 
-<h2><span class="session-tag">Session 3 · about 35 min</span><br>Score and speed</h2>
-<p>A real game keeps score — and gets harder. A <code>writer</code> turtle (hidden, so you only
-see its words) prints the score at the top. Every food also shrinks the delay a little,
-so the snake speeds up. The delay never drops below 0.05, or the game would become impossible.</p>
-
-<div class="card predict">
-<h3>✏️ Predict on paper (5 min)</h3>
-<p>Delay starts at 0.12 and drops 0.005 per food. After 10 foods, what is the delay?
-After 100 foods?</p>
-<p><em>Answers: 0.07 after 10 foods. Still 0.05 after 100 — the <code>if screen.delay &gt; 0.05</code> guard stops it there.</em></p>
-</div>
-
-<h3>Build — copy the whole file over <code>snake.py</code></h3>
-<div class="codeblock"><button class="copy-btn">Copy</button><pre><code>import turtle
-import random
-import time
-
-# --- Screen ---
-screen = turtle.Screen()
-screen.setup(600, 600)
-screen.bgcolor(&quot;#101820&quot;)
-screen.title(&quot;Snake&quot;)
-screen.tracer(0)
-
-# --- Snake head ---
-head = turtle.Turtle()
-head.shape(&quot;square&quot;)
-head.color(&quot;#74bd8c&quot;)
-head.penup()
-head.direction = &quot;stop&quot;
-
-# --- Tail painter: jumps to where the head was and stamps a body square ---
-painter = turtle.Turtle()
-painter.shape(&quot;square&quot;)
-painter.color(&quot;#2f7d4f&quot;)
-painter.penup()
-painter.hideturtle()
-
-# --- Food ---
-food = turtle.Turtle()
-food.shape(&quot;circle&quot;)
-food.color(&quot;#e4572e&quot;)
-food.penup()
-
-def place_food():
-    x = random.randint(-14, 14) * 20
-    y = random.randint(-14, 14) * 20
-    food.goto(x, y)
-
-place_food()
-
-# --- Score writer ---
+<!-- ==================== CHUNK 10 ==================== -->
+<section class="chunk" id="chunk-10">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 10</span><h3>Score 🏅</h3>
+    <label class="done"><input type="checkbox" data-chunk="10"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> the score shows at the top of the window.</p>
+  <div class="newword">📖 <strong>New word: <code>write()</code>.</strong> A hidden turtle can write text on the screen — like a pen that writes words instead of lines.</div>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> eat a dot. What appears at the top of the window?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden><code>Score: 1</code> in white letters, near the top.</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code14">Copy</button><pre><code id="code14"># --- Score writer ---
 writer = turtle.Turtle()
 writer.hideturtle()
 writer.penup()
@@ -409,110 +502,128 @@ def show_score():
     writer.write(&quot;Score: &quot; + str(screen.score), align=&quot;center&quot;,
                  font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
 
-# --- Game state: the same trick as head.direction from Week 8 ---
 screen.score = 0
-screen.tail_length = 3
-screen.stamp_count = 0
-screen.delay = 0.12
-
-show_score()
-
-# --- Controls ---
-def go_up():
-    if head.direction != &quot;down&quot;:
-        head.direction = &quot;up&quot;
-
-def go_down():
-    if head.direction != &quot;up&quot;:
-        head.direction = &quot;down&quot;
-
-def go_left():
-    if head.direction != &quot;right&quot;:
-        head.direction = &quot;left&quot;
-
-def go_right():
-    if head.direction != &quot;left&quot;:
-        head.direction = &quot;right&quot;
-
-def restart():
+show_score()</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> find <code>eat_food()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code15">Copy</button><pre><code id="code15">def eat_food():
+    place_food()
+    screen.score = screen.score + 1
+    screen.tail_length = screen.tail_length + 1
+    show_score()</code></pre></div>
+  <p class="place">📌 <strong>Step 3:</strong> find <code>restart()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code16">Copy</button><pre><code id="code16">def restart():
     head.goto(0, 0)
     head.direction = &quot;stop&quot;
     painter.clearstamps()
     screen.score = 0
-    screen.tail_length = 3
     screen.stamp_count = 0
-    screen.delay = 0.12
-    place_food()
-    show_score()
+    screen.tail_length = 3
+    show_score()</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> <code>Score: 1</code>, <code>Score: 2</code>… Crash into the wall — the score resets to 0.</div>
+</section>
 
-screen.listen()
-screen.onkey(go_up, &quot;Up&quot;)
-screen.onkey(go_down, &quot;Down&quot;)
-screen.onkey(go_left, &quot;Left&quot;)
-screen.onkey(go_right, &quot;Right&quot;)
-
-# --- Game actions ---
-def move_head():
-    x, y = head.xcor(), head.ycor()
-    if head.direction == &quot;up&quot;:
-        head.sety(y + 20)
-    if head.direction == &quot;down&quot;:
-        head.sety(y - 20)
-    if head.direction == &quot;left&quot;:
-        head.setx(x - 20)
-    if head.direction == &quot;right&quot;:
-        head.setx(x + 20)
-
-def grow_tail(old_x, old_y):
-    painter.goto(old_x, old_y)
-    painter.stamp()
-    screen.stamp_count = screen.stamp_count + 1
-    if screen.stamp_count &gt; screen.tail_length:
-        painter.clearstamps(1)
-        screen.stamp_count = screen.stamp_count - 1
-
-def eat_food():
+<!-- ==================== CHUNK 11 ==================== -->
+<section class="chunk" id="chunk-11">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 11</span><h3>Speed ⚡</h3>
+    <label class="done"><input type="checkbox" data-chunk="11"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> every dot makes the game a little faster.</p>
+  <p>The loop waits <code>screen.delay</code> seconds each frame. Smaller wait = faster game!</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> eat 4 dots. What is the delay now?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>0.12 − 4 × 0.005 = <strong>0.10</strong> seconds per frame. It never goes below 0.05 — check the <code>if</code>!</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this one line <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code17">Copy</button><pre><code id="code17">screen.delay = 0.12</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> find <code>eat_food()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code18">Copy</button><pre><code id="code18">def eat_food():
     place_food()
     screen.score = screen.score + 1
     screen.tail_length = screen.tail_length + 1
     if screen.delay &gt; 0.05:
         screen.delay = screen.delay - 0.005
-    show_score()
-
-# --- Main loop ---
+    show_score()</code></pre></div>
+  <p class="place">📌 <strong>Step 3:</strong> find <code>restart()</code>. Change the <strong>whole function</strong> to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code19">Copy</button><pre><code id="code19">def restart():
+    head.goto(0, 0)
+    head.direction = &quot;stop&quot;
+    painter.clearstamps()
+    screen.score = 0
+    screen.stamp_count = 0
+    screen.tail_length = 3
+    screen.delay = 0.12
+    show_score()</code></pre></div>
+  <p class="place">📌 <strong>Step 4:</strong> change your loop at the very bottom to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code20">Copy</button><pre><code id="code20"># --- Main loop ---
 while True:
     screen.update()
-    if head.direction != &quot;stop&quot;:
-        old_x, old_y = head.xcor(), head.ycor()
-        move_head()
-        grow_tail(old_x, old_y)
-        if head.distance(food) &lt; 20:
-            eat_food()
-        if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
-                or head.ycor() &gt; 290 or head.ycor() &lt; -290:
-            restart()
+    play_frame()
     time.sleep(screen.delay)</code></pre></div>
-<p>Notice: <code>eat_food()</code> grew two new jobs (score + speed), and <code>restart()</code>
-now resets the score and delay too. <code>writer.clear()</code> erases the old score before
-writing the new one — the same <code>clear()</code> you used in Week 7.</p>
+  <div class="runbox"><strong>▶ Run it now.</strong> Eat 5+ dots — feel it speed up! ⚡</div>
+</section>
 
-<div class="card tryit">
-<h3>✅ Try it — done when…</h3>
-<ul>
-  <li><code>Score: 0</code> shows at the top, and goes up with every dot.</li>
-  <li>The snake gets a little faster with every dot.</li>
-  <li>Hitting the wall resets the score back to 0.</li>
-</ul>
-</div>
+<!-- ==================== CHUNK 12 ==================== -->
+<section class="chunk" id="chunk-12">
+  <div class="chunk-head">
+    <span class="chunk-num">Chunk 12</span><h3>Game Over 🏁</h3>
+    <label class="done"><input type="checkbox" data-chunk="12"> I built this ✅</label>
+  </div>
+  <p class="goal"><strong>Goal:</strong> crash → GAME OVER → press SPACE for a brand-new game.</p>
+  <div class="predict">
+    <p>✏️ <strong>Predict first:</strong> crash, press SPACE, then press SPACE again in the middle of the game. What happens each time?</p>
+    <button class="reveal-btn">Show answer</button>
+    <p class="reveal-a" hidden>First SPACE: a brand-new game starts. Second SPACE: <strong>nothing</strong> — <code>restart()</code> only works when <code>game_over</code> is <code>True</code>.</p>
+  </div>
+  <p class="place">📌 <strong>Step 1:</strong> add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code21">Copy</button><pre><code id="code21">screen.game_over = False
 
-<h2><span class="session-tag">Session 4 · about 35 min</span><br>Game over — press SPACE to play again</h2>
-<p>Last upgrade: the wall stops resetting quietly and ends the game instead.
-<code>end_game()</code> freezes the snake and writes the message.
-<code>restart()</code> gets one new line — it only runs <code>if screen.game_over</code>,
-so pressing SPACE mid-game does nothing. This is your finished game!</p>
+def end_game():
+    screen.game_over = True
+    writer.goto(0, 0)
+    writer.write(&quot;GAME OVER&quot;, align=&quot;center&quot;, font=(&quot;Arial&quot;, 36, &quot;bold&quot;))
+    writer.goto(0, -50)
+    writer.write(&quot;Press SPACE to play again&quot;, align=&quot;center&quot;,
+                 font=(&quot;Arial&quot;, 18, &quot;normal&quot;))</code></pre></div>
+  <p class="place">📌 <strong>Step 2:</strong> find <code>restart()</code>. Change the <strong>whole function</strong> to this (its final form!):</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code22">Copy</button><pre><code id="code22">def restart():
+    if screen.game_over:
+        head.goto(0, 0)
+        head.direction = &quot;stop&quot;
+        painter.clearstamps()
+        screen.score = 0
+        screen.stamp_count = 0
+        screen.tail_length = 3
+        screen.delay = 0.12
+        screen.game_over = False
+        place_food()
+        show_score()</code></pre></div>
+  <p class="place">📌 <strong>Step 3:</strong> add this one line <strong>BEFORE</strong> the <code># --- Main loop ---</code> line.<br>
+  <span class="muted">Python reads top to bottom — <code>restart()</code> (from chunk 8) must exist <em>before</em> this line runs. It does!</span></p>
+  <div class="codeblock"><button class="copybtn" data-copy="code23">Copy</button><pre><code id="code23">screen.onkey(restart, &quot;space&quot;)</code></pre></div>
+  <p class="place">📌 <strong>Step 4:</strong> inside <code>play_frame()</code>, find these 3 lines:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code24">Copy</button><pre><code id="code24">        if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
+                or head.ycor() &gt; 290 or head.ycor() &lt; -290:
+            restart()</code></pre></div>
+  <p class="place">📌 <strong>Step 5:</strong> change that last line to this:</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code25">Copy</button><pre><code id="code25">        if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
+                or head.ycor() &gt; 290 or head.ycor() &lt; -290:
+            end_game()</code></pre></div>
+  <p class="place">📌 <strong>Step 6:</strong> change your loop at the very bottom to this (the final loop!):</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code26">Copy</button><pre><code id="code26"># --- Main loop ---
+while True:
+    screen.update()
+    if screen.game_over == False:
+        play_frame()
+    time.sleep(screen.delay)</code></pre></div>
+  <div class="runbox"><strong>▶ Run it now.</strong> 🏆 <strong>YOU BUILT SNAKE!</strong> Crash on purpose, press <span class="kbd">SPACE</span>, and play again!</div>
+</section>
 
-<h3>Build — copy the whole file over <code>snake.py</code></h3>
-<div class="codeblock"><button class="copy-btn">Copy</button><pre><code>import turtle
+<details class="fullfile">
+  <summary>🆘 Stuck? Here is the complete finished file</summary>
+  <p class="muted">If something broke, compare your file with this chunk by chunk — or copy it fresh and rebuild from the chunk where you got lost.</p>
+  <div class="codeblock"><button class="copybtn" data-copy="code27">Copy</button><pre><code id="code27">import turtle
 import random
 import time
 
@@ -528,48 +639,8 @@ head = turtle.Turtle()
 head.shape(&quot;square&quot;)
 head.color(&quot;#74bd8c&quot;)
 head.penup()
+head.goto(0, 0)
 head.direction = &quot;stop&quot;
-
-# --- Tail painter: jumps to where the head was and stamps a body square ---
-painter = turtle.Turtle()
-painter.shape(&quot;square&quot;)
-painter.color(&quot;#2f7d4f&quot;)
-painter.penup()
-painter.hideturtle()
-
-# --- Food ---
-food = turtle.Turtle()
-food.shape(&quot;circle&quot;)
-food.color(&quot;#e4572e&quot;)
-food.penup()
-
-def place_food():
-    x = random.randint(-14, 14) * 20
-    y = random.randint(-14, 14) * 20
-    food.goto(x, y)
-
-place_food()
-
-# --- Score writer ---
-writer = turtle.Turtle()
-writer.hideturtle()
-writer.penup()
-writer.color(&quot;white&quot;)
-
-def show_score():
-    writer.clear()
-    writer.goto(0, 260)
-    writer.write(&quot;Score: &quot; + str(screen.score), align=&quot;center&quot;,
-                 font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
-
-# --- Game state: the same trick as head.direction from Week 8 ---
-screen.score = 0
-screen.tail_length = 3
-screen.stamp_count = 0
-screen.delay = 0.12
-screen.game_over = False
-
-show_score()
 
 # --- Controls ---
 def go_up():
@@ -587,6 +658,66 @@ def go_left():
 def go_right():
     if head.direction != &quot;left&quot;:
         head.direction = &quot;right&quot;
+
+screen.listen()
+screen.onkey(go_up, &quot;Up&quot;)
+screen.onkey(go_down, &quot;Down&quot;)
+screen.onkey(go_left, &quot;Left&quot;)
+screen.onkey(go_right, &quot;Right&quot;)
+
+def move_head():
+    x, y = head.xcor(), head.ycor()
+    if head.direction == &quot;up&quot;:
+        head.sety(y + 20)
+    if head.direction == &quot;down&quot;:
+        head.sety(y - 20)
+    if head.direction == &quot;left&quot;:
+        head.setx(x - 20)
+    if head.direction == &quot;right&quot;:
+        head.setx(x + 20)
+
+def play_frame():
+    if head.direction != &quot;stop&quot;:
+        old_x, old_y = head.xcor(), head.ycor()
+        move_head()
+        grow_tail(old_x, old_y)
+        if head.distance(food) &lt; 20:
+            eat_food()
+        if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
+                or head.ycor() &gt; 290 or head.ycor() &lt; -290:
+            end_game()
+
+# --- Food ---
+food = turtle.Turtle()
+food.shape(&quot;circle&quot;)
+food.color(&quot;#e4572e&quot;)
+food.penup()
+
+def place_food():
+    x = random.randint(-14, 14) * 20
+    y = random.randint(-14, 14) * 20
+    food.goto(x, y)
+
+place_food()
+
+# --- Tail painter ---
+painter = turtle.Turtle()
+painter.shape(&quot;square&quot;)
+painter.color(&quot;#2f7d4f&quot;)
+painter.penup()
+painter.hideturtle()
+
+# --- Game state ---
+screen.tail_length = 3
+screen.stamp_count = 0
+
+def grow_tail(old_x, old_y):
+    painter.goto(old_x, old_y)
+    painter.stamp()
+    screen.stamp_count = screen.stamp_count + 1
+    if screen.stamp_count &gt; screen.tail_length:
+        painter.clearstamps(1)
+        screen.stamp_count = screen.stamp_count - 1
 
 def restart():
     if screen.game_over:
@@ -594,39 +725,12 @@ def restart():
         head.direction = &quot;stop&quot;
         painter.clearstamps()
         screen.score = 0
-        screen.tail_length = 3
         screen.stamp_count = 0
+        screen.tail_length = 3
         screen.delay = 0.12
         screen.game_over = False
         place_food()
         show_score()
-
-screen.listen()
-screen.onkey(go_up, &quot;Up&quot;)
-screen.onkey(go_down, &quot;Down&quot;)
-screen.onkey(go_left, &quot;Left&quot;)
-screen.onkey(go_right, &quot;Right&quot;)
-screen.onkey(restart, &quot;space&quot;)
-
-# --- Game actions ---
-def move_head():
-    x, y = head.xcor(), head.ycor()
-    if head.direction == &quot;up&quot;:
-        head.sety(y + 20)
-    if head.direction == &quot;down&quot;:
-        head.sety(y - 20)
-    if head.direction == &quot;left&quot;:
-        head.setx(x - 20)
-    if head.direction == &quot;right&quot;:
-        head.setx(x + 20)
-
-def grow_tail(old_x, old_y):
-    painter.goto(old_x, old_y)
-    painter.stamp()
-    screen.stamp_count = screen.stamp_count + 1
-    if screen.stamp_count &gt; screen.tail_length:
-        painter.clearstamps(1)
-        screen.stamp_count = screen.stamp_count - 1
 
 def eat_food():
     place_food()
@@ -635,6 +739,25 @@ def eat_food():
     if screen.delay &gt; 0.05:
         screen.delay = screen.delay - 0.005
     show_score()
+
+# --- Score writer ---
+writer = turtle.Turtle()
+writer.hideturtle()
+writer.penup()
+writer.color(&quot;white&quot;)
+
+def show_score():
+    writer.clear()
+    writer.goto(0, 260)
+    writer.write(&quot;Score: &quot; + str(screen.score), align=&quot;center&quot;,
+                 font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
+
+screen.score = 0
+show_score()
+
+screen.delay = 0.12
+
+screen.game_over = False
 
 def end_game():
     screen.game_over = True
@@ -644,78 +767,211 @@ def end_game():
     writer.write(&quot;Press SPACE to play again&quot;, align=&quot;center&quot;,
                  font=(&quot;Arial&quot;, 18, &quot;normal&quot;))
 
+screen.onkey(restart, &quot;space&quot;)
+
 # --- Main loop ---
 while True:
     screen.update()
     if screen.game_over == False:
-        if head.direction != &quot;stop&quot;:
-            old_x, old_y = head.xcor(), head.ycor()
-            move_head()
-            grow_tail(old_x, old_y)
-            if head.distance(food) &lt; 20:
-                eat_food()
-            if head.xcor() &gt; 290 or head.xcor() &lt; -290 \
-                    or head.ycor() &gt; 290 or head.ycor() &lt; -290:
-                end_game()
+        play_frame()
     time.sleep(screen.delay)</code></pre></div>
+</details>
 
-<div class="card tryit">
-<h3>✅ Try it — done when…</h3>
-<ul>
-  <li>Crashing into the wall shows <strong>GAME OVER</strong> and the snake stops.</li>
-  <li>Pressing <strong>SPACE</strong> starts a brand-new game: score 0, short tail, slow speed.</li>
-  <li>SPACE does nothing while you are still playing.</li>
-  <li>Show someone. Let them play. 🏆</li>
-</ul>
-</div>
-
-<h2>Bug hunt — find it by what you see</h2>
-<table>
-  <tr><th>What you see</th><th>What to check</th></tr>
-  <tr><td>Keys do nothing</td><td>Click the game window once, then press keys. Check <code>listen()</code> and key spelling: <code>"Up"</code>, not <code>"up"</code>.</td></tr>
-  <tr><td>The snake never eats the dot</td><td>The food must land on the 20-grid. Check <code>random.randint(-14, 14) * 20</code> and the <code>distance(food) &lt; 20</code> line.</td></tr>
-  <tr><td>The trail covers the whole screen</td><td>Is the oldest footprint erased? Check the <code>if screen.stamp_count &gt; screen.tail_length:</code> block in <code>grow_tail()</code>.</td></tr>
-  <tr><td>Eating does not grow the tail</td><td>Does <code>eat_food()</code> add 1 to <code>screen.tail_length</code>?</td></tr>
-  <tr><td>Score stays 0</td><td>Does <code>eat_food()</code> call <code>show_score()</code>? Does <code>show_score()</code> <code>clear()</code> before <code>write()</code>?</td></tr>
-  <tr><td>SPACE restarts mid-game</td><td><code>restart()</code> needs the <code>if screen.game_over:</code> guard (Session 4).</td></tr>
-  <tr><td><code>NameError</code> on some name</td><td>A typo. Compare that line with the full code above, letter by letter.</td></tr>
-  <tr><td>Something weird — try 4 steps before “Help!”</td><td>1) Read the error's <em>last</em> line. 2) <code>print()</code> the suspicious value. 3) Re-read your paper prediction. 4) Re-copy the session's full code fresh.</td></tr>
-</table>
-
-<h2>You are finished when…</h2>
-<ul class="check card">
-  <li>Arrow keys steer the snake, and it can never reverse into itself.</li>
-  <li>Eating the red dot grows the tail by exactly one square.</li>
-  <li>The score shows at the top and goes up with every dot.</li>
-  <li>The snake speeds up as you eat (but never past the 0.05 limit).</li>
-  <li>Hitting the wall ends the game; SPACE starts a new one.</li>
-  <li>You can explain the footprint trick in your own words: <em>"The painter stamps where the head was, and the oldest stamp gets erased."</em></li>
-</ul>
-
-<h2>Your 35-minute routine (same as the 8 weeks)</h2>
 <div class="card">
-<ol>
-  <li><strong>Run yesterday's file</strong> (2 min) — make sure it still works.</li>
-  <li><strong>Predict on paper</strong> (5 min) — answer the session's questions first.</li>
-  <li><strong>Build one session</strong> (20 min) — copy the full code, run it.</li>
-  <li><strong>Try to break it</strong> (5 min) — weird keys, fast eating, corners.</li>
-  <li><strong>Save</strong> — keep <code>snake.py</code>. It is your game now.</li>
-</ol>
+  <h2>🐛 Bug hunt</h2>
+  <p class="muted">Something wrong? Read the <strong>last line</strong> of the red error first (Week 4 rule!).</p>
+  <table class="bugs">
+    <tr><th>Symptom</th><th>What to check</th></tr>
+    <tr><td>Window opens and closes instantly</td><td>Is the <code>while True</code> loop still the last lines of your file?</td></tr>
+    <tr><td><code>NameError: name '...' is not defined</code></td><td>Something is used before its chunk was added. Did you add every chunk in order 1 → 12?</td></tr>
+    <tr><td>Square doesn't move</td><td>Is <code>play_frame()</code> called inside the loop? Did you do chunk 4, step 2?</td></tr>
+    <tr><td>Tail never follows</td><td>Chunk 8: is <code>grow_tail(old_x, old_y)</code> inside <code>play_frame()</code>?</td></tr>
+    <tr><td>Tail never grows</td><td>Chunk 9: does <code>eat_food()</code> add 1 to <code>tail_length</code>? Is <code>eat_food()</code> called in <code>play_frame()</code>?</td></tr>
+    <tr><td>Score stays 0</td><td>Chunk 10: did you change <code>eat_food()</code> to the new version? Is <code>show_score()</code> called?</td></tr>
+    <tr><td>SPACE does nothing</td><td>Chunk 12, step 3: is <code>screen.onkey(restart, "space")</code> <strong>before</strong> the main-loop line? Is <code>restart()</code> the final version?</td></tr>
+    <tr><td>Still stuck</td><td>Open the full file above and compare chunk by chunk. That's debugging, not cheating!</td></tr>
+  </table>
 </div>
 
-<footer>Made for Alex · You built this with your own 8 weeks of Python. 🐍🚀</footer>
-
+<div class="card finish">
+  <h2>🏁 Finished when…</h2>
+  <label><input type="checkbox" data-finish="f1"> I can play and reach <strong>Score 5</strong>.</label>
+  <label><input type="checkbox" data-finish="f2"> I can explain the <strong>footprint trick</strong> in my own words.</label>
+  <label><input type="checkbox" data-finish="f3"> I know what each of the <strong>6 new words</strong> does.</label>
+  <label><input type="checkbox" data-finish="f4"> After GAME OVER, <strong>SPACE</strong> starts a brand-new game.</label>
+  <label><input type="checkbox" data-finish="f5"> I showed my game to someone and let <strong>them</strong> play it!</label>
 </div>
+
+<footer>
+  Made for Alex · Build it chunk by chunk 🐍<br>
+  <a href="../">← Back to Alex Learning</a>
+</footer>
+
+</div><!-- /wrap -->
+
 <script>
-document.querySelectorAll('.codeblock').forEach(function(block) {
-  var btn = block.querySelector('.copy-btn');
-  btn.addEventListener('click', function() {
-    navigator.clipboard.writeText(block.querySelector('code').innerText).then(function() {
+/* ---------- playable demo game ---------- */
+(function () {
+  var cv = document.getElementById('demoCanvas');
+  var ctx = cv.getContext('2d');
+  var N = 20, CELL = 20;
+  var snake, dir, pendingDir, food, score, timer = null, alive = false, started = false;
+  var scoreEl = document.getElementById('demoScore');
+  var msgEl = document.getElementById('demoMsg');
+
+  function reset() {
+    snake = [[10, 10], [9, 10], [8, 10]];
+    dir = [1, 0]; pendingDir = [1, 0];
+    score = 0; alive = true;
+    placeFood();
+    scoreEl.textContent = '0';
+    msgEl.textContent = '';
+  }
+  function placeFood() {
+    food = [Math.floor(Math.random() * N), Math.floor(Math.random() * N)];
+  }
+  function draw() {
+    ctx.fillStyle = '#101820';
+    ctx.fillRect(0, 0, 400, 400);
+    ctx.fillStyle = '#e4572e';
+    ctx.fillRect(food[0] * CELL + 3, food[1] * CELL + 3, CELL - 6, CELL - 6);
+    ctx.fillStyle = '#2f7d4f';
+    for (var i = 1; i < snake.length; i++) {
+      ctx.fillRect(snake[i][0] * CELL + 1, snake[i][1] * CELL + 1, CELL - 2, CELL - 2);
+    }
+    ctx.fillStyle = '#74bd8c';
+    ctx.fillRect(snake[0][0] * CELL + 1, snake[0][1] * CELL + 1, CELL - 2, CELL - 2);
+  }
+  function step() {
+    if (!alive) return;
+    dir = pendingDir;
+    var h = [snake[0][0] + dir[0], snake[0][1] + dir[1]];
+    var hitWall = h[0] < 0 || h[0] >= N || h[1] < 0 || h[1] >= N;
+    var hitSelf = snake.some(function (s) { return s[0] === h[0] && s[1] === h[1]; });
+    if (hitWall || hitSelf) {
+      alive = false;
+      clearInterval(timer); timer = null;
+      msgEl.textContent = 'Game over! Press Play to try again.';
+      return;
+    }
+    snake.unshift(h);
+    if (h[0] === food[0] && h[1] === food[1]) {
+      score++; scoreEl.textContent = String(score); placeFood();
+    } else {
+      snake.pop();
+    }
+    draw();
+  }
+  function setDir(x, y) {
+    if (!alive) return;
+    if (x === -dir[0] && y === -dir[1]) return; /* no reversing */
+    pendingDir = [x, y];
+  }
+  document.getElementById('demoPlay').addEventListener('click', function () {
+    reset(); draw(); started = true;
+    if (timer) clearInterval(timer);
+    timer = setInterval(step, 120);
+    msgEl.textContent = '';
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!started || !alive) return;
+    var k = e.key;
+    if (k === 'ArrowUp') setDir(0, -1);
+    else if (k === 'ArrowDown') setDir(0, 1);
+    else if (k === 'ArrowLeft') setDir(-1, 0);
+    else if (k === 'ArrowRight') setDir(1, 0);
+    else return;
+    e.preventDefault();
+  });
+  var btns = document.querySelectorAll('[data-dx]');
+  for (var i = 0; i < btns.length; i++) {
+    (function (b) {
+      b.addEventListener('click', function () {
+        setDir(parseInt(b.getAttribute('data-dx'), 10),
+               parseInt(b.getAttribute('data-dy'), 10));
+      });
+    })(btns[i]);
+  }
+  reset(); draw();
+})();
+
+/* ---------- copy buttons ---------- */
+document.querySelectorAll('.copybtn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var code = document.getElementById(btn.getAttribute('data-copy'));
+    var text = code.innerText;
+    function done() {
+      var old = btn.textContent;
       btn.textContent = 'Copied!';
-      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
-    });
+      setTimeout(function () { btn.textContent = old; }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
   });
 });
+
+/* ---------- reveal answers ---------- */
+document.querySelectorAll('.reveal-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var a = btn.parentElement.querySelector('.reveal-a');
+    var show = a.hasAttribute('hidden');
+    if (show) { a.removeAttribute('hidden'); btn.textContent = 'Hide answer'; }
+    else { a.setAttribute('hidden', ''); btn.textContent = 'Show answer'; }
+  });
+});
+
+/* ---------- chunk progress (saved in this browser) ---------- */
+(function () {
+  var KEY = 'snakeChunkV1';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  var boxes = document.querySelectorAll('input[data-chunk]');
+  var fill = document.getElementById('progressFill');
+  var text = document.getElementById('progressText');
+  function paint() {
+    var n = 0;
+    boxes.forEach(function (b) {
+      var on = !!done[b.getAttribute('data-chunk')];
+      b.checked = on;
+      n += on ? 1 : 0;
+      b.closest('.chunk').classList.toggle('done-card', on);
+    });
+    fill.style.width = (n / boxes.length * 100) + '%';
+    text.textContent = n + ' / ' + boxes.length + ' chunks';
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () {
+      done[b.getAttribute('data-chunk')] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      paint();
+    });
+  });
+  paint();
+})();
+
+/* ---------- finished checklist (saved in this browser) ---------- */
+(function () {
+  var KEY = 'snakeFinishV1';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('input[data-finish]').forEach(function (b) {
+    b.checked = !!done[b.getAttribute('data-finish')];
+    b.addEventListener('change', function () {
+      done[b.getAttribute('data-finish')] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    });
+  });
+})();
 </script>
 </body>
 </html>
