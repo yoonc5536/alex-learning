@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex's Python Learning Hub</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 40px 20px; background: #f4f7fb; color: #1e293b;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    }
+    h1 { font-size: 2rem; margin: 0 0 8px; text-align: center; }
+    .sub { color: #64748b; margin: 0 0 32px; text-align: center; font-size: 1.05rem; }
+    .cards { display: grid; gap: 16px; width: 100%; max-width: 560px; }
+    .card {
+      display: block; background: #fff; border-radius: 16px; padding: 22px 24px;
+      text-decoration: none; color: inherit;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.08);
+      border: 1px solid #e2e8f0; transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.12); }
+    .card .emoji { font-size: 1.8rem; }
+    .card h2 { margin: 8px 0 4px; font-size: 1.2rem; }
+    .card p { margin: 0; color: #64748b; font-size: 0.95rem; }
+    footer { margin-top: 40px; color: #94a3b8; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>🐍 Alex's Python Learning Hub</h1>
+  <p class="sub">Pick where to go today. Work for 35 minutes, then show someone what you made!</p>
+  <div class="cards">
+    <a class="card" href="python-curriculum/">
+      <span class="emoji">📋</span>
+      <h2>Python Learning Curriculum</h2>
+      <p>The 8-week plan: what to learn each week, with the self-study guide.</p>
+    </a>
+    <a class="card" href="lesson-plans/">
+      <span class="emoji">🛠️</span>
+      <h2>8-Week Mini-Project Lesson Plans</h2>
+      <p>Each week's mini project: predict on paper, build it, test it.</p>
+    </a>
+    <a class="card" href="snake-guide/">
+      <span class="emoji">🎮</span>
+      <h2>Snake Game Completion Guide</h2>
+      <p>The final project: build a real Snake game, step by step.</p>
+    </a>
+  </div>
+  <footer>Made for Alex · Keep coding! 🚀</footer>
+</body>
+</html>
