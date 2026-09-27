@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snake Remix Lab — 13 Tweak Challenges</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--txt:#e2e8f0;--dim:#94a3b8;--acc:#22d3ee;--grn:#4ade80;--gold:#f2c14e}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0;line-height:1.65}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 90px}
+a{color:var(--acc)}
+h1{font-size:1.9rem;margin:.4em 0 .2em}
+.sub{color:var(--dim);margin:0 0 1.2em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+.tip{background:#0c2b33;border:1px solid #155e75}
+.badge{display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 12px;margin-right:8px;vertical-align:middle}
+.easy{background:#14532d;color:#bbf7d0}.med{background:#713f12;color:#fde68a}.hard{background:#7f1d1d;color:#fecaca}
+.num{display:inline-block;background:var(--acc);color:#082f49;font-weight:800;border-radius:10px;width:30px;height:30px;line-height:30px;text-align:center;margin-right:8px}
+h2.ct{font-size:1.25rem;margin:.2em 0 .4em}
+.mission{font-size:1.02rem}
+.hint{color:var(--dim);font-size:.92rem}
+pre{background:#0b1220;border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code{background:#0b1220;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em}
+.btn{background:var(--acc);color:#082f49;border:0;border-radius:10px;padding:8px 16px;font-weight:700;cursor:pointer;font-size:.95rem}
+.btn.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+.ans{display:none;margin-top:10px}
+.check{display:flex;gap:10px;align-items:flex-start;background:#0b1220;border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-top:12px}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--grn);flex:none}
+.check.done{border-style:solid;border-color:var(--grn)}
+.prog{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0;backdrop-filter:blur(4px)}
+.bar{height:12px;background:#020617;border-radius:999px;overflow:hidden;margin-top:6px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--grn),var(--acc));width:0%;transition:width .4s}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.9rem;color:var(--dim);margin:8px 0}
+.newword{background:#3b2f0b;border:1px solid #a16207;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.95rem}
+footer{color:var(--dim);font-size:.85rem;text-align:center;margin-top:34px}
+.done-label{color:var(--grn);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p><a href="../">← Snake Guide</a> &nbsp;·&nbsp; <a href="../../">🏠 Home</a></p>
+<h1>🔧🐍 Snake Remix Lab</h1>
+<p class="sub">13 tweak challenges for <b>your finished snake game</b> — easiest first, trickiest last. Every challenge changes only a few lines!</p>
+
+<div class="card tip">
+<b>🛡️ Safety first:</b> copy your finished <code>snake.py</code> to <code>snake_remix.py</code> and do the challenges in the <b>copy</b>. Your champion game stays safe!
+</div>
+
+<div class="legend">
+<span><span class="badge easy">EASY</span> change a number or a color</span>
+<span><span class="badge med">MEDIUM</span> add a small feature</span>
+<span><span class="badge hard">TRICKY</span> combine ideas</span>
+</div>
+
+<div class="prog">
+<div><b id="pcount">0 / 13</b> challenges remixed <span id="pmsg"></span></div>
+<div class="bar"><div id="pfill"></div></div>
+</div>
+
+<!-- ============ 1 ============ -->
+<div class="card" data-ch="1">
+<h2 class="ct"><span class="num">1</span>New Look <span class="badge easy">EASY</span></h2>
+<p class="mission">Give your game a whole new style — snake, food, tail, and background colors.</p>
+<p class="hint">🔎 Where to look: the <code>color(...)</code> and <code>bgcolor(...)</code> lines in Chunks 1, 2, 6, 8.</p>
+<button class="btn ghost" data-ans="a1">👀 Show me how</button>
+<div class="ans" id="a1"><pre><code>head.color(&quot;purple&quot;)       # was &quot;#74bd8c&quot;
+food.color(&quot;yellow&quot;)       # was &quot;#e4572e&quot;
+painter.color(&quot;teal&quot;)      # was &quot;#2f7d4f&quot;
+screen.bgcolor(&quot;black&quot;)    # was &quot;#101820&quot;</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c1"><span><b>Try it:</b> run the game — everything wears the new colors. Try <code>"cyan"</code>, <code>"pink"</code>, <code>"navy"</code> too!</span></div>
+</div>
+
+<!-- ============ 2 ============ -->
+<div class="card" data-ch="2">
+<h2 class="ct"><span class="num">2</span>Speed Demon <span class="badge easy">EASY</span></h2>
+<p class="mission">Make the game start fast — like <i>really</i> fast. Or super slow-motion, your choice!</p>
+<p class="hint">🔎 Where to look: the <code>screen.delay</code> line (Chunk 11). Smaller wait = faster game.</p>
+<button class="btn ghost" data-ans="a2">👀 Show me how</button>
+<div class="ans" id="a2"><pre><code>screen.delay = 0.07   # was 0.12 — smaller wait = faster game!</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c2"><span><b>Try it:</b> run it — can you still steer? Try <code>0.2</code> for slow-motion practice.</span></div>
+</div>
+
+<!-- ============ 3 ============ -->
+<div class="card" data-ch="3">
+<h2 class="ct"><span class="num">3</span>Big Bite <span class="badge easy">EASY</span></h2>
+<p class="mission">Make the food dot HUGE — a giant berry worth chasing.</p>
+<div class="newword">📖 <b>New word:</b> <code>shapesize(2, 2)</code> makes a turtle 2× wider and 2× taller. Bigger number = bigger shape!</div>
+<p class="hint">🔎 Where to look: right after <code>food.shape("circle")</code> (Chunk 6).</p>
+<button class="btn ghost" data-ans="a3">👀 Show me how</button>
+<div class="ans" id="a3"><pre><code>food.shape(&quot;circle&quot;)
+food.shapesize(2, 2)   # &lt;-- add this line: 2x wider, 2x taller!</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c3"><span><b>Try it:</b> run it — giant berry! What happens with <code>shapesize(3, 3)</code>?</span></div>
+</div>
+
+<!-- ============ 4 ============ -->
+<div class="card" data-ch="4">
+<h2 class="ct"><span class="num">4</span>Long Start <span class="badge easy">EASY</span></h2>
+<p class="mission">Start the game with a longer tail — no eating required.</p>
+<p class="hint">🔎 Where to look: the <code>screen.tail_length</code> line (Chunk 8).</p>
+<button class="btn ghost" data-ans="a4">👀 Show me how</button>
+<div class="ans" id="a4"><pre><code>screen.tail_length = 6   # was 3</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c4"><span><b>Try it:</b> run it — the snake starts long. Try <code>10</code>!</span></div>
+</div>
+
+<!-- ============ 5 ============ -->
+<div class="card" data-ch="5">
+<h2 class="ct"><span class="num">5</span>Bigger Arena <span class="badge easy">EASY</span></h2>
+<p class="mission">Give your snake a bigger playground — an 800×800 window instead of 600×600.</p>
+<p class="hint">🔎 Where to look: <b>two</b> spots — <code>screen.setup</code> (Chunk 1) and the wall numbers (Chunk 12). They must match! Window 800 → half is 400 → leave a 10 margin → walls at 390.</p>
+<button class="btn ghost" data-ans="a5">👀 Show me how</button>
+<div class="ans" id="a5">
+<p><b>Change 1</b> — the window:</p>
+<pre><code>screen.setup(800, 800)   # was (600, 600)</code></pre>
+<p><b>Change 2</b> — the walls (all four 290s become 390s):</p>
+<pre><code>        if head.xcor() &gt; 390 or head.xcor() &lt; -390 \
+                or head.ycor() &gt; 390 or head.ycor() &lt; -390:
+            end_game()</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c5"><span><b>Try it:</b> run it — bigger window, and the walls still end the game in the right place.</span></div>
+</div>
+
+<!-- ============ 6 ============ -->
+<div class="card" data-ch="6">
+<h2 class="ct"><span class="num">6</span>WASD Controls <span class="badge med">MEDIUM</span></h2>
+<p class="mission">Steer with <b>W A S D</b> keys too — just like real PC games. Arrows keep working.</p>
+<p class="hint">🔎 Where to look: the four <code>screen.onkey</code> lines (Chunk 3). Same pattern, new keys!</p>
+<button class="btn ghost" data-ans="a6">👀 Show me how</button>
+<div class="ans" id="a6"><p>Add these four lines right under the arrow-key lines (use lowercase letters):</p><pre><code>screen.onkey(go_up, &quot;w&quot;)
+screen.onkey(go_down, &quot;s&quot;)
+screen.onkey(go_left, &quot;a&quot;)
+screen.onkey(go_right, &quot;d&quot;)</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c6"><span><b>Try it:</b> run it — steer with WASD. Both controls work at the same time!</span></div>
+</div>
+
+<!-- ============ 7 ============ -->
+<div class="card" data-ch="7">
+<h2 class="ct"><span class="num">7</span>Pause Button <span class="badge med">MEDIUM</span></h2>
+<p class="mission">Press <b>P</b> to freeze the game, press <b>P</b> again to continue. Just like Chunk 12's game-over switch!</p>
+<p class="hint">🔎 Where to look: add a <code>screen.paused</code> switch (like <code>game_over</code>), then use it in the main loop with <code>and</code>.</p>
+<button class="btn ghost" data-ans="a7">👀 Show me how</button>
+<div class="ans" id="a7">
+<p><b>Step 1</b> — add this block right <b>before</b> the <code># --- Main loop ---</code> line:</p>
+<pre><code>screen.paused = False
+
+def toggle_pause():
+    if screen.paused == False:
+        screen.paused = True
+    else:
+        screen.paused = False
+
+screen.onkey(toggle_pause, &quot;p&quot;)</code></pre>
+<p><b>Step 2</b> — change the main loop to check both switches:</p>
+<pre><code>while True:
+    screen.update()
+    if screen.game_over == False and screen.paused == False:
+        play_frame()
+    time.sleep(screen.delay)</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c7"><span><b>Try it:</b> run it — press <b>P</b> mid-game. The snake freezes; press <b>P</b> again and it wakes up!</span></div>
+</div>
+
+<!-- ============ 8 ============ -->
+<div class="card" data-ch="8">
+<h2 class="ct"><span class="num">8</span>Wrap World <span class="badge med">MEDIUM</span></h2>
+<p class="mission">No more GAME OVER at the walls! Fly off one edge and appear on the other side — like Pac-Man.</p>
+<p class="hint">🔎 Where to look: the wall check inside <code>play_frame()</code> (Chunk 12). Replace <code>end_game()</code> with teleports using <code>setx</code>/<code>sety</code> from Chunk 4.</p>
+<button class="btn ghost" data-ans="a8">👀 Show me how</button>
+<div class="ans" id="a8"><p><b>Find</b> the wall block and <b>replace</b> it with:</p><pre><code>        if head.xcor() &gt; 290:
+            head.setx(-290)
+        if head.xcor() &lt; -290:
+            head.setx(290)
+        if head.ycor() &gt; 290:
+            head.sety(-290)
+        if head.ycor() &lt; -290:
+            head.sety(290)</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c8"><span><b>Try it:</b> run it — drive into a wall. You pop out the other side and the game goes on!</span></div>
+</div>
+
+<!-- ============ 9 ============ -->
+<div class="card" data-ch="9">
+<h2 class="ct"><span class="num">9</span>Speed Keys <span class="badge med">MEDIUM</span></h2>
+<p class="mission">Press <b>1</b> for slow, <b>2</b> for normal, <b>3</b> for turbo — change speed while playing!</p>
+<p class="hint">🔎 Where to look: before the main loop. Three tiny functions + three <code>onkey</code> lines (same pattern as Chunk 3).</p>
+<button class="btn ghost" data-ans="a9">👀 Show me how</button>
+<div class="ans" id="a9"><pre><code>def set_slow():
+    screen.delay = 0.2
+
+def set_normal():
+    screen.delay = 0.12
+
+def set_fast():
+    screen.delay = 0.06
+
+screen.onkey(set_slow, &quot;1&quot;)
+screen.onkey(set_normal, &quot;2&quot;)
+screen.onkey(set_fast, &quot;3&quot;)</code></pre></div>
+<div class="check"><input type="checkbox" data-k="c9"><span><b>Try it:</b> run it — press <b>3</b> mid-game. Whoa, fast! Press <b>1</b> to chill.</span></div>
+</div>
+
+<!-- ============ 10 ============ -->
+<div class="card" data-ch="10">
+<h2 class="ct"><span class="num">10</span>Poison Berry <span class="badge med">MEDIUM</span></h2>
+<p class="mission">Add a <b style="color:#c084fc">purple</b> berry. Tasty-looking… but it <b>shrinks</b> your tail and steals a point!</p>
+<p class="hint">🔎 Where to look: copy the food pattern (Chunk 6) for a second turtle, then add an eating check in <code>play_frame()</code> (like Chunk 9).</p>
+<button class="btn ghost" data-ans="a10">👀 Show me how</button>
+<div class="ans" id="a10">
+<p><b>Step 1</b> — add this block right <b>before</b> the <code># --- Main loop ---</code> line:</p>
+<pre><code>poison = turtle.Turtle()
+poison.shape(&quot;circle&quot;)
+poison.color(&quot;#a06cd5&quot;)
+poison.penup()
+
+def place_poison():
+    x = random.randint(-14, 14) * 20
+    y = random.randint(-14, 14) * 20
+    poison.goto(x, y)
+
+place_poison()</code></pre>
+<p><b>Step 2</b> — in <code>play_frame()</code>, find the food-eating lines and add the poison check right after them:</p>
+<pre><code>        if head.distance(poison) &lt; 20:
+            place_poison()
+            if screen.tail_length &gt; 3:
+                screen.tail_length = screen.tail_length - 1
+            if screen.score &gt; 0:
+                screen.score = screen.score - 1
+            show_score()</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c10"><span><b>Try it:</b> run it — eat the purple dot. Tail shrinks, score drops, and it never goes below tail 3 / score 0. Nice guard!</span></div>
+</div>
+
+<!-- ============ 11 ============ -->
+<div class="card" data-ch="11">
+<h2 class="ct"><span class="num">11</span>Golden Food <span class="badge hard">TRICKY</span></h2>
+<p class="mission">Every <b>5th</b> dot is <b style="color:var(--gold)">golden</b> and worth <b>3 points</b> instead of 1!</p>
+<p class="hint">🔎 Where to look: <code>place_food()</code> decides the color; <code>eat_food()</code> decides the points. They share two new counters: <code>screen.food_count</code> and <code>screen.golden</code>.<br>⚠️ Python reads top to bottom — <code>place_food()</code> runs once at the very start, so add the counters <b>before</b> the <code>food = turtle.Turtle()</code> line.</p>
+<button class="btn ghost" data-ans="a11">👀 Show me how</button>
+<div class="ans" id="a11">
+<p><b>Step 1</b> — find <code>food = turtle.Turtle()</code> and add these two lines <b>before</b> it:</p>
+<pre><code>screen.food_count = 0
+screen.golden = False</code></pre>
+<p><b>Step 2</b> — replace the whole <code>place_food()</code> function with:</p>
+<pre><code>def place_food():
+    x = random.randint(-14, 14) * 20
+    y = random.randint(-14, 14) * 20
+    food.goto(x, y)
+    screen.food_count = screen.food_count + 1
+    if screen.food_count == 5:
+        food.color(&quot;#f2c14e&quot;)
+        screen.golden = True
+        screen.food_count = 0
+    else:
+        food.color(&quot;#e4572e&quot;)
+        screen.golden = False</code></pre>
+<p><b>Step 3</b> — replace the whole <code>eat_food()</code> function with:</p>
+<pre><code>def eat_food():
+    if screen.golden == True:
+        screen.score = screen.score + 3   # GOLDEN bonus!
+    else:
+        screen.score = screen.score + 1
+    place_food()
+    screen.tail_length = screen.tail_length + 1
+    if screen.delay &gt; 0.05:
+        screen.delay = screen.delay - 0.005
+    show_score()</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c11"><span><b>Try it:</b> run it — count your dots… 1, 2, 3, 4, <b style="color:var(--gold)">GOLD!</b> +3 points!</span></div>
+</div>
+
+<!-- ============ 12 ============ -->
+<div class="card" data-ch="12">
+<h2 class="ct"><span class="num">12</span>Beat the Clock <span class="badge hard">TRICKY</span></h2>
+<p class="mission">You have <b>60 seconds</b>! A live countdown ticks next to your score, and time-up ends the game.</p>
+<div class="newword">📖 <b>New words:</b> <code>time.time()</code> = the current time in seconds, so <code>time.time() - start</code> = seconds since start. <code>int(47.9)</code> throws away the decimal part → <code>47</code>.</div>
+<p class="hint">🔎 Where to look: <code>show_score()</code> draws the text (Chunk 10), <code>restart()</code> resets everything (Chunk 12), and the main loop is the heartbeat.</p>
+<button class="btn ghost" data-ans="a12">👀 Show me how</button>
+<div class="ans" id="a12">
+<p><b>Step 1</b> — find <code>screen.score = 0</code> and add this line right <b>after</b> it (before <code>show_score()</code>):</p>
+<pre><code>screen.start_time = time.time()</code></pre>
+<p><b>Step 2</b> — replace the whole <code>show_score()</code> function with:</p>
+<pre><code>def show_score():
+    writer.clear()
+    writer.goto(0, 260)
+    seconds_left = 60 - int(time.time() - screen.start_time)
+    if seconds_left &lt; 0:
+        seconds_left = 0
+    writer.write(&quot;Score: &quot; + str(screen.score) + &quot;   Time: &quot; + str(seconds_left),
+                 align=&quot;center&quot;, font=(&quot;Arial&quot;, 20, &quot;normal&quot;))</code></pre>
+<p><b>Step 3</b> — in <code>restart()</code>, restart the clock too. Find these lines:</p>
+<pre><code>        screen.delay = 0.12
+        screen.start_time = time.time()   # &lt;-- add this line
+        screen.game_over = False</code></pre>
+<p><b>Step 4</b> — replace the main loop with:</p>
+<pre><code>while True:
+    screen.update()
+    if screen.game_over == False:
+        play_frame()
+        show_score()
+        if time.time() - screen.start_time &gt; 60:
+            end_game()
+    time.sleep(screen.delay)</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c12"><span><b>Try it:</b> run it — watch the seconds tick down next to your score. How many points can you grab in 60 seconds?</span></div>
+</div>
+
+<!-- ============ 13 ============ -->
+<div class="card" data-ch="13">
+<h2 class="ct"><span class="num">13</span>Runaway Food <span class="badge hard">TRICKY</span></h2>
+<p class="mission">Too slow? The dot <b>runs away</b>! If you don't eat it within about 5 seconds, it jumps to a new spot.</p>
+<p class="hint">🔎 Where to look: count frames inside <code>play_frame()</code> — the game runs about 10 frames per second, so 50 frames ≈ 5 seconds. Same counter pattern as the score!</p>
+<button class="btn ghost" data-ans="a13">👀 Show me how</button>
+<div class="ans" id="a13">
+<p><b>Step 1</b> — add this line right <b>before</b> the <code># --- Main loop ---</code> line:</p>
+<pre><code>screen.frames = 0</code></pre>
+<p><b>Step 2</b> — in <code>play_frame()</code>, find the wall block and add the counter right <b>after</b> it:</p>
+<pre><code>        screen.frames = screen.frames + 1
+        if screen.frames == 50:
+            place_food()          # too slow — the food runs away!
+            screen.frames = 0</code></pre>
+</div>
+<div class="check"><input type="checkbox" data-k="c13"><span><b>Try it:</b> run it — chase the dot! Wait 5 seconds without eating… poof, it jumps away!</span></div>
+</div>
+
+<div class="card tip">
+<h2 class="ct">🏆 Remix Master!</h2>
+<p class="mission">Finished all 13? You didn't just <i>play</i> a game — you <b>redesigned</b> one. That's what real game developers do every day.</p>
+<p class="hint">💡 <b>Invent your own #14:</b> change one rule and see what happens. The best games start as silly "what if…?" tweaks!</p>
+</div>
+
+<footer>
+Built for Alex 🐍 · <a href="../">← Back to the Snake Guide</a> · <a href="../../">🏠 Home</a>
+</footer>
+
+</div>
+<script>
+(function(){
+  var KEY="snakeChalV1";
+  var saved={}; try{ saved=JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){}
+  function refresh(){
+    var boxes=document.querySelectorAll('.check input[type=checkbox]');
+    var done=0;
+    boxes.forEach(function(b){
+      var card=b.closest('.card');
+      if(b.checked){done++;card.classList.add('done');}
+      else{card.classList.remove('done');}
+    });
+    document.getElementById('pcount').textContent=done+" / "+boxes.length;
+    document.getElementById('pfill').style.width=(done/boxes.length*100)+"%";
+    document.getElementById('pmsg').innerHTML=done===boxes.length?
+      ' — <span class="done-label">🏆 Remix Master!</span>':"";
+  }
+  document.querySelectorAll('.check input[type=checkbox]').forEach(function(b){
+    var k=b.getAttribute('data-k');
+    if(saved[k])b.checked=true;
+    b.addEventListener('change',function(){
+      saved[k]=b.checked;try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}
+      refresh();
+    });
+  });
+  document.querySelectorAll('[data-ans]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-ans'));
+      var open=el.style.display==='block';
+      el.style.display=open?'none':'block';
+      btn.textContent=open?'👀 Show me how':'🙈 Hide it';
+    });
+  });
+  document.querySelectorAll('pre').forEach(function(pre){
+    var b=document.createElement('button');
+    b.className='btn ghost';b.style.cssText='margin:0 0 8px';
+    b.textContent='📋 Copy';
+    b.addEventListener('click',function(){
+      var t=pre.querySelector('code').innerText;
+      (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject())
+        .then(function(){b.textContent='✅ Copied!';setTimeout(function(){b.textContent='📋 Copy';},1500);})
+        .catch(function(){b.textContent='❌ Copy failed';});
+    });
+    pre.parentNode.insertBefore(b,pre);
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>
