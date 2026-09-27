@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIKE Prime Mission Guide — Alex</title>
+<style>
+:root{
+  --navy:#193773; --ink:#232323; --gray:#6f6f6f; --orange:#a85208;
+  --blue-bg:#e9f0fd; --orange-bg:#fff3e2; --line:#b9c6e2; --codebg:#0f1e3d;
+}
+*{box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink); line-height:1.75; margin:0; background:#eef1f7;
+}
+.wrap{max-width:860px;margin:0 auto;padding:36px 28px 72px;background:#fff}
+@media(min-width:920px){
+  .wrap{margin:36px auto;border-radius:14px;box-shadow:0 4px 24px rgba(25,55,115,.10)}
+}
+.nav{background:var(--blue-bg);border-radius:10px;padding:10px 18px;margin-bottom:8px;font-size:14px}
+.nav a{color:var(--navy);font-weight:700}
+.hero{text-align:center;padding:52px 12px 36px}
+.eyebrow{letter-spacing:.28em;color:var(--gray);font-size:13px;font-weight:600}
+.hero h1{font-size:46px;color:var(--navy);margin:14px 0 2px;line-height:1.15}
+.hero .for{font-size:20px;margin:10px 0 4px}
+.hero .tag{color:var(--gray);font-size:16px}
+.pill{display:inline-block;background:var(--blue-bg);color:var(--navy);font-weight:700;
+  border-radius:999px;padding:10px 26px;margin-top:18px;font-size:16px}
+.loop{font-size:19px;font-weight:700;color:var(--navy);margin-top:14px}
+h2.phase{color:var(--navy);border-bottom:3px solid var(--navy);padding-bottom:8px;
+  margin:56px 0 6px;font-size:24px}
+h3{color:var(--navy);margin:26px 0 6px;font-size:18px}
+p{margin:10px 0}
+.bar{background:var(--navy);color:#fff;font-weight:700;padding:11px 18px;border-radius:9px;
+  margin:30px 0 10px;font-size:17px}
+.bar.project{background:var(--orange)}
+.goal{font-weight:700;margin:8px 0}
+.learn{color:var(--gray);margin:6px 0 10px;font-size:15px}
+.step{margin:12px 0}
+.step .k{color:var(--navy);font-weight:800}
+.card{background:var(--blue-bg);border-radius:10px;padding:16px 20px;margin:18px 0}
+.card.orange{background:var(--orange-bg)}
+ul{padding-left:22px}
+li{margin:7px 0}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding:6px 6px 6px 40px;margin:8px 0;border-radius:8px;cursor:default}
+ul.check.interactive li{cursor:pointer}
+ul.check.interactive li:hover{background:#f2f5fc}
+ul.check li::before{content:"";position:absolute;left:8px;top:11px;width:17px;height:17px;
+  border:2px solid var(--navy);border-radius:5px;background:#fff}
+ul.check li.done::before{background:var(--navy) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3 8.5l3.5 3.5L13 4.5" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>') center/12px no-repeat}
+ul.check li.done{color:var(--gray)}
+.ruled{min-height:150px;border:1px solid #d7def0;border-radius:10px;
+  background:repeating-linear-gradient(#fff,#fff 31px,var(--line) 31px,var(--line) 32px);
+  margin:10px 0 18px}
+.small{font-size:14px;color:var(--gray)}
+.center{text-align:center}
+.finish{background:var(--blue-bg);border-radius:12px;padding:22px;text-align:center;
+  color:var(--navy);font-weight:700;font-size:17px;margin-top:36px}
+/* code blocks */
+.codehead{background:var(--codebg);color:#ffd98a;font-weight:700;font-size:13px;letter-spacing:.06em;
+  padding:9px 18px;border-radius:10px 10px 0 0;margin:18px 0 0}
+pre.code{background:var(--codebg);color:#e8eefc;border-radius:0 0 10px 10px;padding:16px 20px;
+  margin:0 0 6px;overflow-x:auto;font-family:"SF Mono",Menlo,Consolas,"Courier New",monospace;
+  font-size:13px;line-height:1.65;white-space:pre}
+pre.code .c{color:#8fa3c7}
+ul.cmd{list-style:none;padding:0;margin:10px 0}
+ul.cmd li{margin:9px 0;padding-left:4px}
+ul.cmd code, p code, li code{background:#eef2fb;color:var(--navy);padding:1px 7px;border-radius:5px;
+  font-family:"SF Mono",Menlo,Consolas,"Courier New",monospace;font-size:13.5px;white-space:nowrap}
+ul.cmd b.cmdname{color:var(--navy)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid #e2e6f0;color:var(--gray);font-size:13px;text-align:center}
+@media print{
+  body{background:#fff}
+  .wrap{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:0 4px}
+  .nav{display:none}
+  .bar,.card,.finish,.codehead{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  pre.code{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:11.5px}
+  h2.phase{break-before:page}
+  .bar,.step,.card,ul.check li,pre.code{break-inside:avoid}
+  .hero{padding:30px 0}
+}
+
+/* ---- interactive additions ---- */
+.stickybar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);
+  border:1px solid #dfe6f5;border-radius:12px;padding:10px 16px 8px;margin:-8px -8px 18px;
+  box-shadow:0 2px 12px rgba(25,55,115,.10)}
+.sticky-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sticky-title{font-weight:800;color:var(--navy);font-size:14px;letter-spacing:.04em}
+.sticky-count{font-weight:800;color:var(--orange);font-size:14px;white-space:nowrap}
+.pbar{height:10px;background:#e8edf7;border-radius:6px;overflow:hidden;margin:8px 0 6px}
+.pfill{height:100%;width:0%;border-radius:6px;
+  background:linear-gradient(90deg,var(--navy),var(--orange));transition:width .4s}
+.jumpnav{display:flex;gap:6px;overflow-x:auto;padding:2px 0;scrollbar-width:none}
+.jumpnav::-webkit-scrollbar{display:none}
+.jumpnav a{flex:0 0 auto;font-size:12.5px;font-weight:700;color:var(--navy);
+  background:var(--blue-bg);border-radius:999px;padding:4px 11px;text-decoration:none}
+.jumpnav a:hover{background:var(--navy);color:#fff}
+.mission-bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mission-bar span{flex:1}
+.done-btn{background:rgba(255,255,255,.16);border:2px solid #fff;color:#fff;
+  font-weight:800;border-radius:999px;padding:6px 16px;cursor:pointer;
+  font-size:14px;white-space:nowrap;font-family:inherit}
+.done-btn:hover{background:rgba(255,255,255,.32)}
+.mission-bar.is-done .done-btn{background:#fff;color:var(--navy)}
+.mission-bar.is-done{opacity:.85}
+.codehead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.codehead .cht{flex:1}
+.copybtn{background:rgba(255,255,255,.10);border:1px solid rgba(255,217,138,.65);
+  color:#ffd98a;border-radius:8px;padding:5px 12px;cursor:pointer;
+  font-size:12.5px;font-weight:700;white-space:nowrap;font-family:inherit}
+.copybtn:hover{background:rgba(255,255,255,.22)}
+.codeblock{position:relative}
+.copybtn.float{position:absolute;top:10px;right:10px;background:var(--codebg)}
+table.ports{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}
+table.ports th,table.ports td{border:1px solid #d7def0;padding:8px 12px;text-align:left}
+table.ports th{background:var(--blue-bg);color:var(--navy)}
+.build-card h3{margin-top:0;color:var(--orange)}
+#toTop{position:fixed;right:18px;bottom:18px;z-index:60;display:none;
+  background:var(--navy);color:#fff;border:none;border-radius:999px;
+  padding:11px 18px;font-weight:800;font-size:14px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(25,55,115,.35);font-family:inherit}
+.backlink{margin-bottom:10px;font-size:14px}
+.backlink a{color:var(--navy);font-weight:700;text-decoration:none}
+@media print{
+  .stickybar,.done-btn,.copybtn,#toTop,.backlink{display:none !important}
+  .mission-bar{opacity:1}
+}
+
+</style>
+</head>
+<body data-doc="guide">
+<div class="wrap">
+<div class="backlink"><a href="../">← Back to Alex's Learning Hub</a></div>
+
+<div class="stickybar">
+  <div class="sticky-top">
+    <span class="sticky-title">🤖 SPIKE PRIME · MISSION GUIDE</span>
+    <span class="sticky-count" id="pcount">0 / 14 done</span>
+  </div>
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <nav class="jumpnav" aria-label="Jump to a mission">
+    <a href="#mission-1">M1</a><a href="#mission-2">M2</a><a href="#mission-3">M3</a>
+    <a href="#mini-1">🚀1</a>
+    <a href="#mission-4">M4</a><a href="#mission-5">M5</a><a href="#mission-6">M6</a>
+    <a href="#mini-2">🚀2</a>
+    <a href="#mission-7">M7</a><a href="#mission-8">M8</a>
+    <a href="#mini-3">🚀3</a>
+    <a href="#mission-9">M9</a><a href="#mission-10">M10</a>
+    <a href="#capstone">🏆</a>
+    <a href="#troubleshooting">❓ Help</a><a href="#checklist">✅ List</a>
+  </nav>
+</div>
+
+<div class="nav">👨‍👩‍👦 Parents — read the <a href="spike-prime-operation-plan-parents.html">Operation Plan (운영안)</a> first. It explains your (small) role.</div>
+
+<div class="hero">
+  <div class="eyebrow">A SELF-STUDY ROBOTICS COURSE</div>
+  <h1>SPIKE PRIME<br>MISSION GUIDE</h1>
+  <div class="for">For Alex</div>
+  <div class="tag">Build it. Code it in Python. Make it move.<br>All by yourself — everything you need is in this guide.</div>
+  <div><span class="pill">10 Missions &nbsp;+&nbsp; 4 Mini-Projects</span></div>
+  <div style="margin-top:10px"><a id="nextup" href="#mission-1" style="color:var(--orange);font-weight:800;text-decoration:none">Next up: MISSION 1</a></div>
+  <div class="loop">✍️ WRITE &nbsp;→&nbsp; 🔮 PREDICT &nbsp;→&nbsp; ▶️ RUN &nbsp;→&nbsp; 🚀 EXTEND</div>
+</div>
+
+<h2 class="phase" id="howto">How To Use This Guide</h2>
+<p>You are the engineer now. This guide is <strong>complete</strong>: every mission contains the full Python program, explained line by line. You do <strong>not</strong> need to search any website — the only link that leaves this page is the robot <strong>Build</strong> in Mission 1, which points to the official building instructions. (If you finish early and want bonus challenges, the Prime Lessons site has more — ask a parent.)</p>
+<p>For each mission you follow the same 4-step loop you used when learning Python:</p>
+
+<div class="bar">THE 4-STEP LOOP</div>
+<div class="step"><span class="k">✍️ 1. WRITE &nbsp;(5–10 min) —</span> Find the <strong>NEW LINES</strong> box in the mission. <strong>Copy those lines BY HAND</strong> into your Robot Lab Notebook. No copy-paste, no photos. Your brain remembers what your hand writes. (The gray "magic header" at the top of every program is always the same — memorize it once, then just write it from memory.)</div>
+<div class="step"><span class="k">🔮 2. PREDICT &nbsp;(3 min) —</span> Before you run anything, write what you think the robot will do — <strong>line by line</strong>. Be specific: which direction? How far? What sound? What will the sensor see?</div>
+<div class="step"><span class="k">▶️ 3. RUN &nbsp;(10 min) —</span> Type the <strong>whole program</strong> (header + new lines) into a new Python project in the SPIKE app and run it. Compare it with your prediction. If the robot did something different, find the line that surprised you. <strong>That surprise is where the learning lives.</strong></div>
+<div class="step"><span class="k">🚀 4. EXTEND &nbsp;(10 min) —</span> Do the mission's <strong>EXTEND challenge</strong>: change <strong>ONE thing</strong> to make the robot do something new. Predict again before you run. Write what happened in your notebook.</div>
+
+<div class="bar">HOUSE RULES</div>
+<ul>
+  <li>One mission per session. A session is <strong>30–45 minutes</strong>, 2–3 times a week.</li>
+  <li><strong>The 15-Minute Rule:</strong> stuck for 15 minutes? Re-read the mission's LINE BY LINE box slowly, then check the <strong>Troubleshooting</strong> section at the end of this guide.</li>
+  <li><strong>Change one thing at a time.</strong> Always.</li>
+  <li>Keep your test robot built. Do not take it apart during this course.</li>
+</ul>
+
+<h2 class="phase" id="magic-header">The Magic Header — Memorize Once</h2>
+<p>Every program in this course starts with the same lines. They tell the hub which tools (motors, sensors, lights, sounds) your program may use. <strong>Copy this header by hand until you can write it from memory</strong> — then every mission gets shorter.</p>
+<div class="codehead"><span class="cht">THE MAGIC HEADER — TOP OF EVERY PROGRAM</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code">from hub import port, light_matrix, motion_sensor
+from app import sound
+import runloop
+import motor_pair
+import color_sensor
+import color
+import distance_sensor
+import force_sensor
+
+motor_pair.pair(motor_pair.PAIR_1, port.A, port.E)</pre>
+<ul class="cmd">
+  <li><b class="cmdname">What it means:</b> <code>port.A</code> … <code>port.F</code> are the six plugs on the hub. This course always uses the same plugs: <strong>left drive motor → A, right drive motor → E, distance sensor → C, color sensor → F, force sensor → D</strong>. The last line pairs the two drive motors so they can work as a team.</li>
+  <li><b class="cmdname">The shape of every program:</b> after the header comes <code>async def main():</code> with your robot's steps inside it, and the very last line is always <code>runloop.run(main())</code> which means <strong>"start!"</strong>.</li>
+  <li><b class="cmdname">async / await:</b> <code>async def main():</code> means "these steps happen one at a time, in order." <code>await</code> in front of a step means <strong>"wait until this step finishes before going on."</strong> You don't need to understand it deeply yet — just always include them.</li>
+</ul>
+<div class="card">💡 <strong>Your first WRITE exercise:</strong> copy the magic header into your notebook right now, from the screen, by hand. Then close this guide and write it again from memory. Repeat until you can do it without peeking.</div>
+
+<h2 class="phase" id="setup">Setup Checklist <span class="small">(do once, with a parent)</span></h2>
+<ul class="check interactive">
+  <li>Install the <strong>SPIKE app</strong> on the computer and update the hub firmware (ask a parent to help — one time only). Open a <strong>Python</strong> project (not Word Blocks).</li>
+  <li>Build the <strong>Driving Base</strong> from the app's building instructions. When you connect the cables, use <strong>these ports</strong> (they match all the code in this guide): left drive motor → <strong>port A</strong>, right drive motor → <strong>port E</strong>. <strong>Keep the robot built!</strong></li>
+  <li>Plug in the sensors: distance sensor → <strong>port C</strong> (front), color sensor → <strong>port F</strong> (front, facing down), force sensor → <strong>port D</strong>.</li>
+  <li>Get a notebook. Write <strong>ROBOT LAB NOTEBOOK</strong> on the cover. All hand-writing goes here.</li>
+  <li>Ask a parent for <strong>black electrical tape</strong> (floor lines) and some <strong>red tape or red paper</strong> (door marks) — you need them from Phase 2 on.</li>
+</ul>
+
+<h2 class="phase" id="phase-1">Phase 1 — Build &amp; First Moves</h2>
+<p>You learn how to wake up the hub and drive with precision.</p>
+
+<div class="bar mission-bar" id="mission-1"><span>MISSION 1 — Build Your Test Robot</span><button class="done-btn" data-mid="mission-1" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Have a driving robot ready for every mission after this.</p>
+<div class="card orange build-card">
+  <h3>🧱 BUILD — the one step that lives outside this guide</h3>
+  <p>Everything else in this course is on this page. The physical robot is the <strong>only</strong> part that comes from outside: build the official <strong>Driving Base</strong> from the real instructions (about 1 hour — do it with a parent). Pick either source:</p>
+  <ul>
+    <li>📱 <strong>In the SPIKE app</strong> — open the LEGO Education SPIKE app → <em>Building Instructions</em> → <strong>Driving Base</strong>.</li>
+    <li>🌐 <strong>Online</strong> — <a href="https://primelessons.org/en/RobotDesigns.html" target="_blank" rel="noopener">Prime Lessons: Robot Designs</a> — free building instructions for training robots (choose one built from a single SPIKE Prime set).</li>
+  </ul>
+  <p><strong>Cable ports</strong> — every program in this guide expects exactly these, so plug in like this:</p>
+  <table class="ports">
+    <tr><th>Port</th><th>What plugs in</th><th>Where</th></tr>
+    <tr><td><strong>A</strong></td><td>Left drive motor</td><td>left side</td></tr>
+    <tr><td><strong>E</strong></td><td>Right drive motor</td><td>right side</td></tr>
+    <tr><td><strong>C</strong></td><td>Distance sensor</td><td>front</td></tr>
+    <tr><td><strong>F</strong></td><td>Color sensor</td><td>front, facing down</td></tr>
+    <tr><td><strong>D</strong></td><td>Force sensor</td><td>where you can press it</td></tr>
+  </table>
+</div>
+<div class="step"><span class="k">✍️ WRITE —</span> Copy the five port letters into your Robot Lab Notebook:</div>
+<div class="ruled" style="min-height:90px"></div>
+<div class="step"><span class="k">✅ DONE WHEN —</span> The hub turns on, the app connects, and your notebook has the five port letters.</div>
+
+<div class="bar mission-bar" id="mission-2"><span>MISSION 2 — Wake Up the Hub</span><button class="done-btn" data-mid="mission-2" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Make the hub show a letter, wait, and play a sound.</p>
+<p class="learn">New commands in this mission: <code>light_matrix.write</code>, <code>runloop.sleep_ms</code>, <code>sound.play</code>.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (write from memory!)</span>
+from hub import port, light_matrix, motion_sensor
+from app import sound
+import runloop
+import motor_pair
+import color_sensor
+import color
+import distance_sensor
+import force_sensor
+
+motor_pair.pair(motor_pair.PAIR_1, port.A, port.E)
+
+async def main():
+    await light_matrix.write('A')
+    await runloop.sleep_ms(1000)
+    await sound.play('Sport Whistle 1')
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>await light_matrix.write('A')</code> — scrolls the letter <strong>A</strong> across the hub's 5×5 lights. <code>await</code> = wait until the scrolling finishes.</li>
+  <li><code>await runloop.sleep_ms(1000)</code> — do nothing for <strong>1000 milliseconds</strong> (1 second).</li>
+  <li><code>await sound.play('Sport Whistle 1')</code> — plays a built-in sound. The hub knows several: <code>'Sport Whistle 1'</code>, <code>'Sport Whistle 2'</code>, <code>'Male Jump 1'</code>.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> The header comes from memory. Hand-copy only the <strong>3 new lines</strong> inside <code>main()</code>.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> What will you see first — the letter or the sound? How long is the pause?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Compare. Did the letter scroll before the whistle?</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Show the <strong>first letter of your name</strong>, wait 2 seconds, then play a different sound. Which lines changed?</div>
+
+<div class="bar mission-bar" id="mission-3"><span>MISSION 3 — Move Straight &amp; Turn</span><button class="done-btn" data-mid="mission-3" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Drive forward an exact distance, then make an exact 90° turn using the gyro sensor.</p>
+<p class="learn">New commands: <code>motor_pair.move_for_degrees</code>, <code>motor_pair.move</code>, <code>motor_pair.stop</code>, <code>motion_sensor.reset_yaw</code>, <code>motion_sensor.tilt_angles</code>, <code>runloop.until</code>.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory)</span>
+from hub import port, light_matrix, motion_sensor
+from app import sound
+import runloop
+import motor_pair
+import color_sensor
+import color
+import distance_sensor
+import force_sensor
+
+motor_pair.pair(motor_pair.PAIR_1, port.A, port.E)
+
+async def turn_right():
+    motion_sensor.reset_yaw(0)
+    motor_pair.move(motor_pair.PAIR_1, 100, velocity=200)
+    await runloop.until(lambda: motion_sensor.tilt_angles()[0] &lt;= -900)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def main():
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 720, 0, velocity=300)
+    await runloop.sleep_ms(500)
+    await turn_right()
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>await motor_pair.move_for_degrees(motor_pair.PAIR_1, 720, 0, velocity=300)</code> — drive both motors <strong>720 degrees</strong> of wheel turning. The <strong>0</strong> is <em>steering</em>: 0 = straight, 100 = spin right, -100 = spin left. <code>velocity=300</code> is speed (degrees per second). <code>await</code> = wait until the driving finishes. <span class="small">720° = 2 full wheel turns ≈ 55 cm with the big wheels.</span></li>
+  <li><code>motion_sensor.reset_yaw(0)</code> — set the gyro's "which way am I facing" meter to zero, right now.</li>
+  <li><code>motor_pair.move(motor_pair.PAIR_1, 100, velocity=200)</code> — <strong>start</strong> spinning right (steering 100). No <code>await</code>: it starts and the program keeps going immediately.</li>
+  <li><code>await runloop.until(lambda: motion_sensor.tilt_angles()[0] <= -900)</code> — wait until the gyro says we turned 90°. <code>tilt_angles()[0]</code> is the turn angle in <strong>tenths of a degree</strong>, so 900 = 90°. Negative = right turn.</li>
+  <li><code>motor_pair.stop(motor_pair.PAIR_1)</code> — stop both motors.</li>
+  <li><code>async def turn_right():</code> — you just taught the robot a <strong>brand-new command</strong>. <code>await turn_right()</code> uses it. (You know functions from Python!)</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy <code>turn_right()</code> and the two driving lines in <code>main()</code>.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> How far will the robot drive? (Measure with a ruler after!) Which way does it turn — and how do you know it's 90°?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Measure the real distance. How close was your prediction?</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Drive a <strong>perfect square</strong> and stop where you started. Plan on paper first: you need <code>turn_right()</code> four times and a loop. <span class="small">Hint: <code>for side in range(4):</code></span></div>
+<div class="card">💡 <strong>Backward?</strong> If your robot drives backward, change <code>velocity=300</code> to <code>velocity=-300</code>. The minus sign flips the direction.</div>
+
+<div class="bar mission-bar" id="mini-1"><span>🚀 MINI-PROJECT 1 — Robot Dance Party</span><button class="done-btn" data-mid="mini-1" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Choreograph a 20-second robot dance. You are the director.</p>
+<div class="codehead"><span class="cht">STARTER PROGRAM — MAKE IT YOUR OWN</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def main():
+    await sound.play('Sport Whistle 1')
+    await light_matrix.write('DANCE')
+    <span class="c"># move 1: forward, then backward</span>
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 720, 0, velocity=400)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 720, 0, velocity=-400)
+    <span class="c"># move 2: spin in a circle</span>
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 720, 100, velocity=300)
+    <span class="c"># move 3: wiggle left-right-left-right</span>
+    for _ in range(2):
+        await motor_pair.move_for_degrees(motor_pair.PAIR_1, 180, -60, velocity=300)
+        await motor_pair.move_for_degrees(motor_pair.PAIR_1, 180, 60, velocity=300)
+    <span class="c"># finale</span>
+    await light_matrix.write('TA DA')
+    await sound.play('Male Jump 1')
+
+runloop.run(main())</pre>
+<ul>
+  <li><strong>Must include:</strong> driving forward AND backward, at least 2 turns, a light-matrix message, at least one sound. The starter has all four — rearrange them into <strong>your</strong> dance.</li>
+  <li><strong>Steps:</strong> 1) Hand-write your dance plan (which moves, in which order). 2) Predict the dance, move by move. 3) Type it, run it, fix it. 4) <strong>Perform it for your family.</strong></li>
+  <li><strong>Done when:</strong> the dance runs from start to finish with no help.</li>
+  <li><strong>EXTEND:</strong> add a big spin as the finale, and make the lights spell your name.</li>
+</ul>
+
+<h2 class="phase" id="phase-2">Phase 2 — Sensors</h2>
+<p>Sensors are the robot's eyes and ears. A robot that uses sensors is 10× more reliable than one that just guesses — this is the biggest secret in robotics.</p>
+
+<div class="bar mission-bar" id="mission-4"><span>MISSION 4 — Parking Assistant</span><button class="done-btn" data-mid="mission-4" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Drive toward a wall and stop 20 cm before hitting it.</p>
+<p class="learn">New commands: <code>distance_sensor.distance</code>. New idea: a <strong>helper function</strong> that answers yes/no.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+def wall_close():
+    d = distance_sensor.distance(port.C)   <span class="c"># millimeters, or None</span>
+    return d is not None and d &lt; 200        <span class="c"># 200 mm = 20 cm</span>
+
+async def main():
+    motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
+    await runloop.until(wall_close)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>distance_sensor.distance(port.C)</code> — how far is the nearest object, in <strong>millimeters</strong>. Returns <code>None</code> if nothing is in range.</li>
+  <li><code>def wall_close():</code> — a helper that returns <code>True</code> only when a wall is closer than 200 mm. The <code>d is not None</code> check keeps the program from crashing when the sensor sees nothing.</li>
+  <li><code>await runloop.until(wall_close)</code> — wait here until the helper says <code>True</code>. This is the "wait for the wall" trick — <strong>memorize this pattern</strong>, you will use it in every phase.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy <code>wall_close()</code> and the three lines in <code>main()</code>.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> Exactly where will the robot stop? Which number decides it? What happens if you start it facing an empty room?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Test with a book as the wall. Measure the stopping distance with a ruler.</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Change the stop distance to <strong>10 cm</strong>. Then make it beep <strong>faster as the wall gets closer</strong>:
+<pre class="code">async def main():
+    while True:
+        d = distance_sensor.distance(port.C)
+        if d is None:
+            d = 9999
+        if d &lt; 150:
+            break
+        motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
+        await sound.play('Sport Whistle 1')
+        await runloop.sleep_ms(d)   <span class="c"># far = long wait, close = short wait!</span>
+    motor_pair.stop(motor_pair.PAIR_1)</pre></div>
+
+<div class="bar mission-bar" id="mission-5"><span>MISSION 5 — Stop at the Line</span><button class="done-btn" data-mid="mission-5" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Stop the robot the moment it sees a black line.</p>
+<p class="learn">New commands: <code>color_sensor.color</code>, <code>import color</code>.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def main():
+    motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
+    await runloop.until(lambda: color_sensor.color(port.F) is color.BLACK)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>color_sensor.color(port.F)</code> — the color under the sensor: <code>color.BLACK</code>, <code>color.WHITE</code>, <code>color.RED</code>, <code>color.BLUE</code>, <code>color.GREEN</code>, <code>color.YELLOW</code>…</li>
+  <li><code>is color.BLACK</code> — colors are compared with <code>is</code>, not <code>==</code>. (You need <code>import color</code> in the header for the names.)</li>
+  <li>Same <code>runloop.until</code> pattern as Mission 4 — but now the robot waits for a <strong>color</strong> instead of a distance.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy the three lines in <code>main()</code>.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> What color makes it stop? What happens on a plain white floor?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Lay a black tape line on the floor and drive at it.</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Make it stop <strong>only on RED</strong> (drive straight over black). One word changes — which one?</div>
+
+<div class="bar mission-bar" id="mission-6"><span>MISSION 6 — Press to Start</span><button class="done-btn" data-mid="mission-6" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: The robot drives only while you press the force sensor — a dead-man's switch.</p>
+<p class="learn">New commands: <code>force_sensor.pressed</code>. New idea: a <code>while True</code> loop that keeps checking.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def main():
+    while True:
+        if force_sensor.pressed(port.D):
+            motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
+        else:
+            motor_pair.stop(motor_pair.PAIR_1)
+        await runloop.sleep_ms(50)
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>force_sensor.pressed(port.D)</code> — <code>True</code> while the button is pressed, <code>False</code> when released.</li>
+  <li><code>while True:</code> — check again and again, forever (until you stop the program).</li>
+  <li><code>await runloop.sleep_ms(50)</code> inside the loop — a tiny rest so the hub can breathe between checks. <strong>Always put a short sleep inside a <code>while True</code> loop.</strong></li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy the loop.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> What happens the exact moment you let go? What happens if you press it again?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Try it. Press, release, press.</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Flip it: drive when <strong>released</strong>, stop when <strong>pressed</strong>. Then make <code>velocity</code> depend on <em>how hard</em> you press: <code>force_sensor.force(port.D)</code> returns the push strength — multiply it and use it as the velocity!</div>
+
+<div class="bar mission-bar" id="mini-2"><span>🚀 MINI-PROJECT 2 — Obstacle Course Rover</span><button class="done-btn" data-mid="mini-2" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Your robot must drive around the room for about 30 seconds without touching anything.</p>
+<div class="codehead"><span class="cht">STARTER PROGRAM — FINISH IT</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+def wall_close():
+    d = distance_sensor.distance(port.C)
+    return d is not None and d &lt; 250
+
+async def turn_right():
+    motion_sensor.reset_yaw(0)
+    motor_pair.move(motor_pair.PAIR_1, 100, velocity=200)
+    await runloop.until(lambda: motion_sensor.tilt_angles()[0] &lt;= -900)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def main():
+    for round in range(20):
+        motor_pair.move(motor_pair.PAIR_1, 0, velocity=300)
+        await runloop.until(wall_close)   <span class="c"># drive until a wall appears...</span>
+        motor_pair.stop(motor_pair.PAIR_1)
+        await turn_right()                <span class="c"># ...then turn away!</span>
+        await runloop.sleep_ms(200)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+runloop.run(main())</pre>
+<ul>
+  <li><strong>Must use:</strong> the distance sensor, a loop, and a turn. The starter combines Mission 3 + Mission 4 — read it until you can explain every line.</li>
+  <li><strong>Steps:</strong> hand-write the program, predict the route, run it, fix it. Scatter books and boxes as obstacles.</li>
+  <li><strong>Done when:</strong> 20 rounds pass with <strong>zero touches</strong>.</li>
+  <li><strong>EXTEND:</strong> beep faster as the wall gets closer (Mission 4's EXTEND), and turn <strong>left</strong> instead of right every 3rd round.</li>
+</ul>
+
+<h2 class="phase" id="phase-3">Phase 3 — Smarter Programs</h2>
+<p>Good news: you already know <strong>for</strong> loops, <strong>while</strong> loops, and <strong>if</strong> from Python turtle. Same ideas — now they move a real robot.</p>
+
+<div class="bar mission-bar" id="mission-7"><span>MISSION 7 — Loops &amp; Decisions</span><button class="done-btn" data-mid="mission-7" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Count your button presses and show the count on the lights.</p>
+<p class="learn">New idea: <strong>waiting for press AND release</strong> so one press counts exactly once. (You know variables from Python!)</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) — no pair line needed today</span>
+<span class="c"># ...</span>
+def is_pressed():
+    return force_sensor.pressed(port.D)
+
+def is_released():
+    return not force_sensor.pressed(port.D)
+
+async def main():
+    count = 0
+    await light_matrix.write('0')
+    while True:
+        await runloop.until(is_pressed)    <span class="c"># wait for press...</span>
+        await runloop.until(is_released)   <span class="c"># ...and release (one press = one count!)</span>
+        count = count + 1
+        await light_matrix.write(str(count))
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>await runloop.until(is_pressed)</code> — <code>until</code> accepts a helper function (no <code>lambda</code> needed). Clean and readable — this is the official LEGO style.</li>
+  <li>Why wait for the release too? Without it, one long press would count dozens of times. <strong>Press + release = exactly one count.</strong></li>
+  <li><code>str(count)</code> — <code>write()</code> needs text, so the number becomes a string first. (You know <code>str()</code> from Python!)</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy the two helpers and the loop.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> Press 3 times, quickly. What shows? Now hold one press for 5 seconds — what shows, and why?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Try both. Was the release-wait the reason?</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Play a sound every time the count hits a <strong>multiple of 5</strong>. <span class="small">Hint: <code>count % 5 == 0</code> — you know <code>%</code> from Python!</span></div>
+
+<div class="bar mission-bar" id="mission-8"><span>MISSION 8 — Functions: Your Own Commands</span><button class="done-btn" data-mid="mission-8" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Teach the robot <code>turn_left()</code> and <code>turn_right()</code>, then drive a square in 4 lines.</p>
+<p class="learn">New idea: <strong>async functions</strong> — <code>async def</code> + <code>await</code> when you call them.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def turn_right():
+    motion_sensor.reset_yaw(0)
+    motor_pair.move(motor_pair.PAIR_1, 100, velocity=200)
+    await runloop.until(lambda: motion_sensor.tilt_angles()[0] &lt;= -900)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def turn_left():
+    motion_sensor.reset_yaw(0)
+    motor_pair.move(motor_pair.PAIR_1, -100, velocity=200)
+    await runloop.until(lambda: motion_sensor.tilt_angles()[0] &gt;= 900)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def beep_flash():
+    await light_matrix.write('!')
+    await sound.play('Sport Whistle 1')
+
+async def main():
+    for side in range(4):
+        await motor_pair.move_for_degrees(motor_pair.PAIR_1, 360, 0, velocity=300)
+        await turn_right()
+    await beep_flash()
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>async def turn_left():</code> — same shape as <code>turn_right()</code>, but <strong>steering -100</strong> (left) and wait for <strong>+900</strong> (positive = left turn).</li>
+  <li>Functions that contain <code>await</code> must be <code>async def</code>, and you must <code>await</code> them when calling. <strong>Forget the <code>await</code> and the robot will skip the turn!</strong></li>
+  <li>Look at <code>main()</code>: the Mission 3 square is now <strong>4 lines</strong> instead of 8. That is why functions exist.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy <code>turn_left()</code> and <code>beep_flash()</code> (you already know <code>turn_right</code>).</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> What happens if you call <code>turn_right()</code> <strong>without</strong> <code>await</code>? Write your guess, then try it and watch.</div>
+<div class="step"><span class="k">▶️ RUN —</span> Run the square. Is it squarer than your Mission 3 square?</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Write <code>turn_around()</code> (180°) and make the robot drive a <strong>triangle</strong>: 3 sides, 3 turns. How many degrees is each turn?</div>
+<div class="card">💡 <strong>Left and right swapped?</strong> If your robot turns left when you call <code>turn_right()</code>, your motors are mirrored — just swap the two steering numbers (100 ↔ -100). One change, then test.</div>
+
+<div class="bar mission-bar" id="mini-3"><span>🚀 MINI-PROJECT 3 — Simon Says</span><button class="done-btn" data-mid="mini-3" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Build a memory game that runs entirely on the hub.</p>
+<p class="learn">New commands: <code>random.choice</code>. New ideas: <strong>lists</strong> and <strong>return</strong> (both from Python!).</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) — no pair line needed today</span>
+from hub import port, light_matrix, motion_sensor
+from app import sound
+import runloop
+import motor_pair
+import color_sensor
+import color
+import distance_sensor
+import force_sensor
+import random
+
+MOVES = ['A', 'B']   <span class="c"># A = short press, B = long press</span>
+
+def pressed():
+    return force_sensor.pressed(port.D)
+
+async def show_move(move):
+    await light_matrix.write(move)
+    await sound.play('Sport Whistle 1')
+    await runloop.sleep_ms(400)
+
+async def read_move():
+    await runloop.until(pressed)
+    await runloop.sleep_ms(300)
+    if pressed():                                <span class="c"># still holding after 300 ms?</span>
+        await runloop.until(lambda: not pressed())
+        return 'B'                               <span class="c"># long press!</span>
+    return 'A'                                   <span class="c"># short press</span>
+
+async def main():
+    pattern = []
+    for round in range(5):
+        pattern.append(random.choice(MOVES))
+        for move in pattern:                     <span class="c"># show the pattern...</span>
+            await show_move(move)
+        await light_matrix.write('?')            <span class="c"># ...now YOUR turn</span>
+        for move in pattern:                     <span class="c"># read your answer...</span>
+            if await read_move() != move:
+                await light_matrix.write('X')    <span class="c"># wrong!</span>
+                await sound.play('Male Jump 1')
+                return
+        await sound.play('Sport Whistle 2')      <span class="c"># round passed!</span>
+    await light_matrix.write('WIN')
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>import random</code> + <code>random.choice(MOVES)</code> — picks <code>'A'</code> or <code>'B'</code> at random. <code>pattern.append(...)</code> grows the list every round — <strong>lists, just like Python turtle!</strong></li>
+  <li><code>return 'B'</code> — a function can <strong>send an answer back</strong>. <code>await read_move()</code> becomes <code>'A'</code> or <code>'B'</code>.</li>
+  <li><code>return</code> with nothing after it (in <code>main</code>) means <strong>"game over, stop the program."</strong></li>
+</ul>
+<ul>
+  <li><strong>How it plays:</strong> the hub flashes a pattern of <code>A</code>/<code>B</code>. You repeat it: <strong>short press = A, long press = B</strong>. Each round adds one step.</li>
+  <li><strong>Steps:</strong> hand-write <code>read_move()</code>, predict what a long press returns, play, fix.</li>
+  <li><strong>Done when:</strong> you can survive <strong>5 rounds</strong>.</li>
+  <li><strong>EXTEND:</strong> make each round faster (shrink the 400 ms pause as <code>round</code> grows), or add a third move <code>'C'</code> = double-press.</li>
+</ul>
+
+<h2 class="phase" id="phase-4">Phase 4 — Movement Mastery</h2>
+<p>This is where robots stop being clumsy and start being precise — the skills real competition teams use.</p>
+
+<div class="bar mission-bar" id="mission-9"><span>MISSION 9 — Follow the Line</span><button class="done-btn" data-mid="mission-9" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Make the robot follow your black tape line all by itself.</p>
+<p class="learn">New commands: <code>color_sensor.reflection</code>. New idea: <strong>steer a little, check, steer again — hundreds of times per second.</strong></p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def main():
+    while True:
+        if color_sensor.reflection(port.F) &lt; 50:
+            motor_pair.move(motor_pair.PAIR_1, -40, velocity=250)
+        else:
+            motor_pair.move(motor_pair.PAIR_1, 40, velocity=250)
+        await runloop.sleep_ms(10)
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>color_sensor.reflection(port.F)</code> — how much light bounces back: <strong>0</strong> (black) to <strong>100</strong> (white). Below 50 ≈ "I'm on the black line."</li>
+  <li>The loop's logic: <strong>on black → steer left a little; on white → steer right a little.</strong> The robot wiggles along the <em>edge</em> of the line — that wiggle IS line following.</li>
+  <li><code>await runloop.sleep_ms(10)</code> — check the sensor <strong>100 times per second</strong>.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy the loop (4 lines).</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> What does the robot do when the sensor sees white? When it sees black? Draw the wiggle path in your notebook.</div>
+<div class="step"><span class="k">▶️ RUN —</span> Lay a long tape line (gentle curves!) and let it go. Stop the program by pressing the hub button.</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Make it follow <strong>faster</strong>: raise <code>velocity</code> to 400. Predict first: faster, or flying off the line? Then tune the <strong>50</strong> and the <strong>40</strong> — one at a time — until it handles a sharp curve.</div>
+<div class="card">💡 <strong>Drives AWAY from the line?</strong> Your sensor sits on the other side — just swap the two steering numbers (-40 ↔ 40). One change, then test.</div>
+
+<div class="bar mission-bar" id="mission-10"><span>MISSION 10 — Drive Arrow-Straight</span><button class="done-btn" data-mid="mission-10" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: Drive perfectly straight by letting the gyro fix the steering 50 times per second.</p>
+<p class="learn">New idea: <strong>correction</strong> — if the robot drifts a little left, steer a little right. Automatically. Forever.</p>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def drive_straight(seconds):
+    motion_sensor.reset_yaw(0)
+    for _ in range(seconds * 50):
+        drift = motion_sensor.tilt_angles()[0]  <span class="c"># tenths of a degree off course</span>
+        steering = drift // 10                  <span class="c"># small drift -&gt; small correction</span>
+        if steering &gt; 100:
+            steering = 100
+        if steering &lt; -100:
+            steering = -100
+        motor_pair.move(motor_pair.PAIR_1, steering, velocity=300)
+        await runloop.sleep_ms(20)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def main():
+    await drive_straight(3)
+
+runloop.run(main())</pre>
+<ul class="cmd">
+  <li><code>drift = motion_sensor.tilt_angles()[0]</code> — how far the robot has turned away from straight, in tenths of a degree. Positive = drifted left, negative = drifted right.</li>
+  <li><code>steering = drift // 10</code> — turn the drift into a steering correction: drifted 5° left (50) → steer 5 right. <strong>The fix is proportional to the mistake.</strong> (This idea even has a grown-up name: <em>proportional control</em>.)</li>
+  <li>The <code>if</code> lines keep steering inside -100…100 so the motors never get an impossible command.</li>
+  <li><code>for _ in range(seconds * 50)</code> — 50 corrections per second, for <code>seconds</code> seconds. <code>await drive_straight(3)</code> drives straight for 3 seconds.</li>
+</ul>
+<div class="step"><span class="k">✍️ WRITE —</span> Hand-copy <code>drive_straight()</code>.</div>
+<div class="step"><span class="k">🔮 PREDICT —</span> Why should this drive straighter than Mission 3's <code>move_for_degrees</code>? What would happen if the correction used <code>drift</code> directly instead of <code>drift // 10</code>?</div>
+<div class="step"><span class="k">▶️ RUN —</span> Mark a start line with tape. Drive 3 seconds. Measure how far sideways it drifted.</div>
+<div class="step"><span class="k">🚀 EXTEND —</span> Race: Mission 3's square vs. a square built with <code>drive_straight</code> + <code>turn_right()</code>. Which one ends closer to the start? Then try <code>drive_straight(5)</code> — does a longer run drift more?</div>
+
+<div class="bar mission-bar" id="capstone"><span>🏆 CAPSTONE MINI-PROJECT — Delivery Robot</span><button class="done-btn" data-mid="capstone" aria-pressed="false">✓ Done</button></div>
+<p class="goal">Goal: A package must travel from your desk to the kitchen door — and back. Nobody touches the robot.</p>
+<p class="learn">New idea: <strong>pseudocode first</strong> — plan the whole trip in plain English before typing a single line.</p>
+<div class="codehead"><span class="cht">PSEUDOCODE — WRITE THIS IN YOUR NOTEBOOK FIRST</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c">1. Leave the red START mark (drive forward 1 second)
+2. Follow the black line until the red DOOR mark
+3. Stop. Beep 3 times ("delivery!").
+4. Turn around 180 degrees
+5. Follow the black line back until the red START mark
+6. Show "HOME"</span></pre>
+<div class="codehead"><span class="cht">THE PROGRAM — TYPE THIS INTO THE SPIKE APP</span><button class="copybtn">📋 Copy</button></div>
+<pre class="code"><span class="c"># magic header (from memory) + pair line</span>
+<span class="c"># ...</span>
+async def turn_around():
+    motion_sensor.reset_yaw(0)
+    motor_pair.move(motor_pair.PAIR_1, 100, velocity=150)
+    await runloop.until(lambda: motion_sensor.tilt_angles()[0] &lt;= -1800)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def follow_line_until_red():
+    motor_pair.move(motor_pair.PAIR_1, 0, velocity=250)
+    await runloop.sleep_ms(800)      <span class="c"># leave the red start mark first!</span>
+    while True:
+        if color_sensor.color(port.F) is color.RED:
+            break
+        if color_sensor.reflection(port.F) &lt; 50:
+            motor_pair.move(motor_pair.PAIR_1, -40, velocity=250)
+        else:
+            motor_pair.move(motor_pair.PAIR_1, 40, velocity=250)
+        await runloop.sleep_ms(10)
+    motor_pair.stop(motor_pair.PAIR_1)
+
+async def main():
+    await follow_line_until_red()    <span class="c"># go: desk -&gt; door</span>
+    for _ in range(3):               <span class="c"># "delivery!"</span>
+        await sound.play('Sport Whistle 1')
+    await turn_around()
+    await follow_line_until_red()    <span class="c"># return: door -&gt; desk</span>
+    await light_matrix.write('HOME')
+
+runloop.run(main())</pre>
+<ul>
+  <li><strong>Build the course:</strong> a black tape line on the floor with a <strong>red tape square at BOTH ends</strong> (desk = start, kitchen door = door). Start the robot just behind the start mark.</li>
+  <li><strong>Steps:</strong> 1) Write the pseudocode in your notebook (in your own words!). 2) Hand-write the program. 3) Predict the whole trip. 4) Run it.</li>
+  <li><strong>Done when:</strong> the round trip finishes with nobody touching the robot.</li>
+  <li><strong>EXTEND:</strong> carry a LEGO "package" on top without dropping it. Then add a second delivery stop in the middle.</li>
+</ul>
+
+<h2 class="phase" id="troubleshooting">Troubleshooting — When Something Goes Wrong</h2>
+<div class="card">
+<ul>
+  <li><strong><code>NameError: name '...' is not defined</code></strong> — a line from the magic header is missing. Compare your header with this guide, letter by letter.</li>
+  <li><strong>Nothing happens when you press run</strong> — did you forget the last line, <code>runloop.run(main())</code>? Without it, the program never starts.</li>
+  <li><strong>Robot skips a step instantly</strong> — you forgot <code>await</code> in front of it. Every step that takes time needs <code>await</code>.</li>
+  <li><strong>Robot drives backward?</strong> Change <code>velocity=300</code> to <code>velocity=-300</code>. One change, then test.</li>
+  <li><strong>Robot turns the wrong way?</strong> Swap the steering sign (100 ↔ -100) in that turn.</li>
+  <li><strong><code>TypeError</code> with the distance sensor?</strong> You compared <code>None</code> with a number — use the <code>d is not None and ...</code> pattern from Mission 4.</li>
+  <li><strong>Sensor sees nothing?</strong> Is the cable in the <strong>same port letter</strong> the code uses? (A = left motor, E = right motor, C = distance, F = color, D = force.)</li>
+  <li><strong>Line follower drives AWAY from the line?</strong> Swap the two steering numbers (-40 ↔ 40).</li>
+  <li><strong>Red error message?</strong> Read it! It tells you the exact <strong>line number</strong>. Go to that line.</li>
+  <li><strong>Hub won't connect?</strong> Charge the battery, then restart the app.</li>
+  <li><strong>Golden rule, always:</strong> change ONE thing at a time, then test.</li>
+</ul>
+</div>
+
+<h2 class="phase" id="checklist">Progress Checklist</h2>
+<p>Tap each box when its EXTEND step works. Your checkmarks are saved on this device.</p>
+
+<h3>Phase 1 — Build &amp; First Moves</h3>
+<ul class="check interactive">
+  <li>Mission 1 — Build Your Test Robot</li>
+  <li>Mission 2 — Wake Up the Hub</li>
+  <li>Mission 3 — Move Straight &amp; Turn</li>
+  <li><strong>MINI-PROJECT 1 — Robot Dance Party</strong> &nbsp;·&nbsp; Demo date: ______</li>
+</ul>
+<h3>Phase 2 — Sensors</h3>
+<ul class="check interactive">
+  <li>Mission 4 — Parking Assistant</li>
+  <li>Mission 5 — Stop at the Line</li>
+  <li>Mission 6 — Press to Start</li>
+  <li><strong>MINI-PROJECT 2 — Obstacle Course Rover</strong> &nbsp;·&nbsp; Demo date: ______</li>
+</ul>
+<h3>Phase 3 — Smarter Programs</h3>
+<ul class="check interactive">
+  <li>Mission 7 — Loops &amp; Decisions</li>
+  <li>Mission 8 — Functions: Your Own Commands</li>
+  <li><strong>MINI-PROJECT 3 — Simon Says</strong> &nbsp;·&nbsp; Demo date: ______</li>
+</ul>
+<h3>Phase 4 — Movement Mastery</h3>
+<ul class="check interactive">
+  <li>Mission 9 — Follow the Line</li>
+  <li>Mission 10 — Drive Arrow-Straight</li>
+  <li><strong>CAPSTONE — Delivery Robot</strong> &nbsp;·&nbsp; Demo date: ______</li>
+</ul>
+
+<div class="finish">Finished everything?<br>Show this page to a parent and perform your Delivery Robot! 🤖</div>
+
+<h2 class="phase" id="notebook">Robot Lab Notebook — Practice Layout</h2>
+<p>Use a layout like this in your notebook for every WRITE and PREDICT step:</p>
+<h3>✍️ WRITE — lines I copied by hand</h3>
+<div class="ruled"></div>
+<h3>🔮 PREDICT — what I think will happen</h3>
+<div class="ruled"></div>
+<h3>▶️ RUN — what actually happened</h3>
+<div class="ruled"></div>
+
+<footer>SPIKE Prime Mission Guide · Complete Python programs included — only the robot Build links out · API: LEGO Education SPIKE app (SPIKE 3) Python</footer>
+</div>
+
+<script>
+/* ---- clickable checklists (setup + progress), saved on this device ---- */
+document.querySelectorAll('ul.check.interactive').forEach(function(ul, ui){
+  var key = 'spike-check-' + document.body.dataset.doc + '-' + ui;
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){}
+  ul.querySelectorAll('li').forEach(function(li, i){
+    if (saved[i]) li.classList.add('done');
+    li.addEventListener('click', function(){
+      li.classList.toggle('done');
+      saved[i] = li.classList.contains('done');
+      try { localStorage.setItem(key, JSON.stringify(saved)); } catch(e){}
+    });
+  });
+});
+
+/* ---- mission progress: 10 missions + 4 projects ---- */
+var ORDER = ['mission-1','mission-2','mission-3','mini-1','mission-4','mission-5',
+             'mission-6','mini-2','mission-7','mission-8','mini-3',
+             'mission-9','mission-10','capstone'];
+var PKEY = 'spike-progress-v1';
+var done = {};
+try { done = JSON.parse(localStorage.getItem(PKEY) || '{}'); } catch(e){}
+function saveProgress(){ try { localStorage.setItem(PKEY, JSON.stringify(done)); } catch(e){} }
+function renderProgress(){
+  var c = ORDER.filter(function(id){ return done[id]; }).length;
+  document.getElementById('pfill').style.width = (c / ORDER.length * 100) + '%';
+  document.getElementById('pcount').textContent = c + ' / ' + ORDER.length + ' done';
+  var nxt = ORDER.find(function(id){ return !done[id]; });
+  var link = document.getElementById('nextup');
+  if (link && nxt) {
+    var bar = document.getElementById(nxt);
+    link.textContent = 'Next up: ' + (bar ? bar.querySelector('span').textContent : nxt);
+    link.href = '#' + nxt;
+  } else if (link) {
+    link.textContent = '🎉 All done! Show your Delivery Robot to the family!';
+    link.href = '#checklist';
+  }
+}
+document.querySelectorAll('.done-btn').forEach(function(btn){
+  var id = btn.dataset.mid, bar = document.getElementById(id);
+  function paint(){
+    var on = !!done[id];
+    if (bar) bar.classList.toggle('is-done', on);
+    btn.textContent = on ? '✓ Done!' : '✓ Done';
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  paint();
+  btn.addEventListener('click', function(ev){
+    ev.preventDefault();
+    done[id] = !done[id];
+    saveProgress(); paint(); renderProgress();
+  });
+});
+renderProgress();
+
+/* ---- copy buttons on code blocks ---- */
+function copyText(txt, btn){
+  function ok(){
+    btn.textContent = '✓ Copied!';
+    setTimeout(function(){ btn.textContent = '📋 Copy'; }, 1500);
+  }
+  function fallback(){
+    var ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); ok(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(ok).catch(fallback);
+  } else { fallback(); }
+}
+document.querySelectorAll('.codehead .copybtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.codehead').nextElementSibling;
+    while (pre && !(pre.classList && pre.classList.contains('code')))
+      pre = pre.nextElementSibling;
+    if (pre) copyText(pre.innerText, btn);
+  });
+});
+/* lone pre.code blocks without a codehead get a floating copy button */
+document.querySelectorAll('pre.code').forEach(function(pre){
+  var prev = pre.previousElementSibling;
+  if (prev && prev.classList && prev.classList.contains('codehead')) return;
+  var wrap = document.createElement('div');
+  wrap.className = 'codeblock';
+  pre.parentNode.insertBefore(wrap, pre);
+  wrap.appendChild(pre);
+  var b = document.createElement('button');
+  b.className = 'copybtn float'; b.textContent = '📋 Copy';
+  b.addEventListener('click', function(){ copyText(pre.innerText, b); });
+  wrap.appendChild(b);
+});
+
+/* ---- back to top ---- */
+var toTop = document.getElementById('toTop');
+window.addEventListener('scroll', function(){
+  toTop.style.display = window.scrollY > 600 ? 'block' : 'none';
+}, {passive:true});
+toTop.addEventListener('click', function(){
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+<button id="toTop" aria-label="Back to top">↑ Top</button>
+</body>
+</html>
