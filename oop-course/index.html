@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake OOP Academy — 10-Week Course</title>
+<style>
+  :root { --bg:#0e1520; --card:#16202e; --line:#2a3a52; --txt:#e8eef6;
+          --mut:#9fb0c7; --acc:#74bd8c; --acc2:#e4572e; --gold:#f2c14e; --pur:#a06cd5; }
+  * { box-sizing:border-box; }
+  body { font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif; background:var(--bg);
+         color:var(--txt); margin:0; line-height:1.65; }
+  .wrap { max-width:860px; margin:0 auto; padding:24px 18px 70px; }
+  a { color:var(--acc); }
+  .back { display:inline-block; margin-bottom:14px; color:var(--mut); text-decoration:none; }
+  .back:hover { color:var(--acc); }
+  header.hero { text-align:center; padding:26px 10px 8px; }
+  header.hero h1 { font-size:2.1em; margin:.2em 0; }
+  header.hero p.lede { color:var(--mut); font-size:1.08em; max-width:640px; margin:0 auto; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px;
+          padding:20px 22px; margin:22px 0; }
+  .card h2 { margin-top:0; }
+  .muted { color:var(--mut); }
+  .progress-wrap { background:var(--card); border:1px solid var(--line); border-radius:14px;
+                   padding:16px 22px; margin:22px 0; position:sticky; top:8px; z-index:5; }
+  .progress-bar { height:14px; background:#0b1220; border-radius:8px; overflow:hidden; margin-top:8px; }
+  .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--acc),var(--gold));
+                   border-radius:8px; transition:width .4s; }
+  .weeknav { background:#0b1220; border:1px solid var(--line); border-radius:14px;
+             padding:12px 16px; margin:22px 0; position:sticky; top:86px; z-index:4; }
+  .weeknav strong { color:var(--mut); font-size:.9em; }
+  .weeknav a { display:inline-block; margin:4px 4px; padding:4px 12px; border:1px solid var(--line);
+               border-radius:20px; text-decoration:none; font-size:.9em; color:var(--txt); }
+  .weeknav a:hover { border-color:var(--acc); color:var(--acc); }
+  .week { border:2px solid var(--line); border-radius:18px; padding:6px 22px 18px; margin:34px 0;
+          background:#111a29; }
+  .week-head { display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+               border-bottom:1px solid var(--line); padding:14px 0; margin-bottom:6px; }
+  .week-badge { background:var(--pur); color:#0b120d; font-weight:bold; border-radius:20px;
+                padding:6px 18px; font-size:1em; white-space:nowrap; }
+  .week-head h2 { margin:0; flex:1; min-width:200px; }
+  .week-goal { color:var(--mut); font-size:1.02em; }
+  .chunk { background:var(--card); border:1px solid var(--line); border-radius:14px;
+           padding:20px 22px; margin:26px 0; }
+  .chunk-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .chunk-num { background:var(--acc); color:#0b120d; font-weight:bold; border-radius:20px;
+               padding:4px 14px; font-size:.95em; white-space:nowrap; }
+  .chunk-head h3 { margin:0; flex:1; min-width:180px; }
+  label.done { display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+               background:#0b1220; border:1px solid var(--line); border-radius:10px;
+               padding:8px 12px; font-weight:bold; }
+  label.done input { width:20px; height:20px; accent-color:var(--acc); cursor:pointer; }
+  .chunk.done-card { border-color:var(--acc); }
+  .goal { background:#0b1220; border-left:4px solid var(--acc); padding:10px 14px;
+          border-radius:0 10px 10px 0; }
+  .predict { background:#141d2c; border:1px dashed var(--line); border-radius:10px;
+             padding:12px 16px; margin:14px 0; }
+  .predict p { margin:.4em 0; }
+  .reveal-btn { background:#1e2c40; color:var(--txt); border:1px solid var(--line);
+                border-radius:8px; padding:6px 14px; cursor:pointer; font-family:inherit; }
+  .reveal-btn:hover { border-color:var(--acc); }
+  .reveal-a { background:#0b1220; border-radius:8px; padding:10px 14px; margin-top:10px;
+              border-left:4px solid var(--gold); }
+  .reveal-a code, .predict code, p code, li code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+  .place { background:#1a2436; border-radius:10px; padding:10px 14px; }
+  .place code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+  .runbox { background:#12261a; border:1px solid var(--acc); border-radius:10px;
+            padding:12px 16px; margin:14px 0; }
+  .newword { background:#241d0e; border:1px solid var(--gold); border-radius:10px;
+             padding:12px 16px; margin:14px 0; }
+  .newword code { background:#0b1220; padding:2px 6px; border-radius:6px; color:var(--gold); }
+  .design { background:#1c1530; border:1px solid var(--pur); border-radius:10px;
+            padding:12px 16px; margin:14px 0; }
+  .design code { background:#0b1220; padding:2px 6px; border-radius:6px; color:var(--pur); }
+  .design strong.title { color:var(--pur); }
+  .note { background:#101a2c; border-radius:10px; padding:10px 14px; margin:14px 0;
+          color:var(--mut); }
+  .note code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+  .diagram { background:#0b1220; border:1px solid var(--line); border-radius:10px;
+             padding:14px 16px; margin:14px 0; font-family:Consolas,Menlo,monospace;
+             font-size:.92em; line-height:1.7; overflow-x:auto; }
+  .codeblock { position:relative; margin:14px 0; }
+  .codeblock pre { background:#0b1220; border:1px solid var(--line); border-radius:10px;
+                   padding:16px; overflow-x:auto; font-size:.92em; line-height:1.55; margin:0; }
+  .codeblock code { font-family:Consolas,Menlo,monospace; color:#d7e3f4; }
+  .copybtn { position:absolute; top:8px; right:8px; background:#1e2c40; color:var(--txt);
+             border:1px solid var(--line); border-radius:8px; padding:5px 12px;
+             cursor:pointer; font-family:inherit; font-size:.85em; }
+  .copybtn:hover { border-color:var(--acc); color:var(--acc); }
+  ul.check { list-style:none; padding-left:0; }
+  ul.check li { padding:6px 0 6px 34px; position:relative; }
+  ul.check li::before { content:"☐"; position:absolute; left:6px; color:var(--mut); }
+  ul.check li.yes::before { content:"☑"; color:var(--acc); }
+  details.fullfile { background:var(--card); border:1px solid var(--line);
+                     border-radius:14px; padding:16px 22px; margin:26px 0; }
+  details.fullfile summary { cursor:pointer; font-weight:bold; font-size:1.1em; }
+  .finish label { display:flex; gap:10px; align-items:flex-start; cursor:pointer;
+                  padding:8px 0; }
+  .finish input { width:20px; height:20px; margin-top:4px; accent-color:var(--acc);
+                  cursor:pointer; flex-shrink:0; }
+  footer { text-align:center; color:var(--mut); margin-top:40px; font-size:.9em; }
+  .kbd { background:#0b1220; border:1px solid var(--line); border-radius:6px;
+         padding:1px 8px; font-family:monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../">← Back to Alex Learning</a>
+
+<header class="hero">
+  <h1>🏗️ Snake OOP Academy</h1>
+  <p class="lede">You built Snake with stamps. Now learn the tool the pros use — <strong>classes</strong> —
+  and rebuild your game the pro way. <strong>10 weeks, 33 small steps.</strong> Take your time.</p>
+</header>
+
+<div class="progress-wrap">
+  <strong>🏗️ Your academy progress: <span id="progressText">0 / 33 steps</span></strong>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="weeknav">
+  <strong>Jump to a week:</strong><br>
+  <a href="#week-1">1 · Blueprints</a><a href="#week-2">2 · self</a><a href="#week-3">3 · Data or Action?</a><a href="#week-4">4 · Lists</a><a href="#week-5">5 · Classes + Turtle</a><a href="#week-6">6 · Inheritance</a><a href="#week-7">7 · Snake Class</a><a href="#week-8">8 · Scoreboard</a><a href="#week-9">9 · Assembly</a><a href="#week-10">10 · Capstone</a>
+</div>
+
+<div class="card">
+  <h2>🧭 How this works</h2>
+  <ul>
+    <li>Each week has <strong>2–4 small steps</strong>. Do one step per sitting, or a whole week — your choice.</li>
+    <li>Steps 1a–5c need <strong>no turtle</strong> — just Python. They teach the ideas.</li>
+    <li>From week 6, you build a <strong>new file</strong> called <code>snake_oop.py</code>. Keep adding to the <em>same</em> file.</li>
+    <li>Always: <strong>predict on paper → type → run → check the box ✅</strong></li>
+    <li>Purple boxes (💡 <strong>Design Note</strong>) teach you to <em>think</em> like a programmer, not just type.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>🧰 Before you start</h2>
+  <p><strong>You need:</strong> the same Python + turtle setup from the 8-week course, and your finished <code>snake.py</code> nearby (for week 9's comparison).</p>
+  <p><strong>Your new file:</strong> <code>snake_oop.py</code> — a fresh start. Your old <code>snake.py</code> stays safe.</p>
+  <p class="note">⚠️ From week 7, the game loop runs forever (<code>while True</code>).
+  To stop: <strong>close the game window</strong> (or press <span class="kbd">Ctrl</span>+<span class="kbd">C</span> in the terminal).</p>
+</div>
+
+<div class="card">
+  <h2>🎒 What you already know</h2>
+  <p class="muted">Everything from the 8-week course + Snake guide. Nothing else.</p>
+  <ul class="check">
+    <li class="yes">turtle basics, variables, math</li>
+    <li class="yes"><code>if</code> / loops / functions / keyboard</li>
+    <li class="yes"><code>while True</code> game loop with <code>tracer(0)</code> + <code>update()</code> + <code>time.sleep()</code></li>
+  </ul>
+  <h2>📖 New words (only 8!)</h2>
+  <p class="muted">Each one appears exactly where you first use it.</p>
+  <ul>
+    <li><code>class</code>, <code>__init__</code> — week 1</li>
+    <li><code>self</code> — week 2</li>
+    <li>lists: <code>[]</code>, <code>[0]</code>, <code>append()</code>, <code>len()</code>, <code>[-1]</code>, <code>[1:]</code> — week 4</li>
+    <li><code>super().__init__()</code> — week 6</li>
+    <li><code>heading()</code>, <code>setheading()</code> — week 7</li>
+  </ul>
+</div>
+<!-- ==================== WEEK 1 ==================== -->
+<section class="week" id="week-1">
+  <div class="week-head"><span class="week-badge">Week 1</span><h2>Blueprints — What Is a Class? 🍪</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> understand that a <strong>class</strong> is a cookie cutter and an <strong>object</strong> is a cookie. Make your first class.</p>
+  <p>Think of a cookie cutter. You make <strong>one</strong> cutter, then bake as many cookies as you want.
+  Every cookie has the same shape, but each one is its own cookie.<br>
+  In Python: the <strong>class</strong> is the cutter. Each <strong>object</strong> you create is a cookie.</p>
+  <div class="diagram">CLASS (the cutter)              OBJECTS (the cookies)
+  ┌─────────────┐               ┌─────────┐  ┌─────────┐
+  │  class Dog  │  ──bake──▶    │  buddy  │  │  milo   │
+  │  (shape)    │  ──bake──▶    └─────────┘  └─────────┘
+  └─────────────┘               two separate dogs!</div>
+
+  <section class="chunk" id="step-1a">
+    <div class="chunk-head"><span class="chunk-num">Step 1a</span><h3>The Cookie Cutter</h3>
+      <label class="done"><input type="checkbox" data-step="1a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> create a class and bake two objects from it.</p>
+    <div class="newword">📖 <strong>New word: <code>class</code></strong> — defines a blueprint.
+    <strong><code>pass</code></strong> means "empty for now" (every class needs <em>something</em> inside).</div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> how many dogs exist after this runs? Are <code>buddy</code> and <code>milo</code> the same dog?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><strong>Two</strong> dogs — and <strong>no</strong>, they are not the same!
+      <code>buddy</code> and <code>milo</code> are two <em>separate</em> objects, like two cookies from one cutter.</p>
+    </div>
+    <p class="place">📌 <strong>Throwaway file.</strong> Weeks 1–5 are experiments — type each in a new file and run it.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code1">Copy</button><pre><code id="code1">class Dog:
+    pass
+
+buddy = Dog()
+milo = Dog()
+
+print(&quot;Two dogs were born!&quot;)</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> You should see "Two dogs were born!". The dogs are invisible for now — next step gives them names.</div>
+  </section>
+
+  <section class="chunk" id="step-1b">
+    <div class="chunk-head"><span class="chunk-num">Step 1b</span><h3>The Setup Robot 🤖</h3>
+      <label class="done"><input type="checkbox" data-step="1b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> give each object its own data with <code>__init__</code>.</p>
+    <div class="newword">📖 <strong>New word: <code>__init__</code></strong> (say "init") — short for <em>initialize</em> = "set up".
+    Python runs it <strong>automatically</strong> every time you create an object. It is the setup robot inside the cutter.</div>
+    <p><code>self.name = name</code> means: "take the <code>name</code> I was given, and save it as <strong>this object's</strong> <code>name</code>."
+    Each dog keeps its <em>own</em> name.</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what two lines print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>Buddy</code><br><code>Milo</code><br>Each object remembered its <em>own</em> name!</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code2">Copy</button><pre><code id="code2">class Dog:
+    def __init__(self, name):
+        self.name = name
+
+buddy = Dog(&quot;Buddy&quot;)
+milo = Dog(&quot;Milo&quot;)
+print(buddy.name)
+print(milo.name)</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Two lines: Buddy, then Milo. <code>Dog("Buddy")</code> runs the setup robot with <code>name = "Buddy"</code>.</div>
+  </section>
+
+  <section class="chunk" id="step-1c">
+    <div class="chunk-head"><span class="chunk-num">Step 1c</span><h3>Your Turn: Cat 🐱</h3>
+      <label class="done"><input type="checkbox" data-step="1c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> write a class all by yourself.</p>
+    <p>On paper first: write a <code>Cat</code> class with a <code>__init__</code> that saves a <code>name</code>.
+    Then create a cat named <code>"Whiskers"</code> and print <code>kitty.name + " says meow!"</code>.
+    Stuck? Peek at the answer — then type it yourself.</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what will your program print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>Whiskers says meow!</code><br><br>Full code:<br><div class="codeblock"><button class="copybtn" data-copy="code3">Copy</button><pre><code id="code3">class Cat:
+    def __init__(self, name):
+        self.name = name
+
+kitty = Cat(&quot;Whiskers&quot;)
+print(kitty.name + &quot; says meow!&quot;)</code></pre></div></p>
+    </div>
+    <div class="runbox"><strong>▶ Run it now.</strong> One line: "Whiskers says meow!". You just designed your own class! 🎉</div>
+  </section>
+</section>
+
+<!-- ==================== WEEK 2 ==================== -->
+<section class="week" id="week-2">
+  <div class="week-head"><span class="week-badge">Week 2</span><h2><code>self</code> — Talking About Yourself 🪞</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> learn the magic word <code>self</code> and add <strong>methods</strong> (actions) to a class.</p>
+  <p>Inside a class, <code>self</code> means <strong>THIS object</strong> — the one talking right now.
+  When buddy barks, <code>self</code> is buddy. When milo barks, <code>self</code> is milo.</p>
+
+  <section class="chunk" id="step-2a">
+    <div class="chunk-head"><span class="chunk-num">Step 2a</span><h3>Dogs That Bark</h3>
+      <label class="done"><input type="checkbox" data-step="2a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add a method (an action) to the Dog class.</p>
+    <div class="newword">📖 <strong>New word: <code>self</code></strong> — means "this object".
+    A <strong>method</strong> is a function that lives <em>inside</em> a class. Every method's first input is always <code>self</code>.</div>
+    <p>🧠 <strong>The big secret:</strong> when you write <code>buddy.bark()</code>, Python <em>secretly</em> calls
+    <code>Dog.bark(buddy)</code>. It passes buddy in as <code>self</code> — automatically! That is why you write
+    <code>def bark(self):</code> but call <code>buddy.bark()</code> with nothing inside.</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what two lines print? <em>Why</em> does the first line say Buddy?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>Buddy says WOOF!</code><br><code>Milo says WOOF!</code><br>
+      The first line says Buddy because in <code>buddy.bark()</code>, <code>self</code> <strong>is</strong> buddy — so <code>self.name</code> is <code>"Buddy"</code>.</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code4">Copy</button><pre><code id="code4">class Dog:
+    def __init__(self, name):
+        self.name = name
+
+    def bark(self):
+        print(self.name + &quot; says WOOF!&quot;)
+
+buddy = Dog(&quot;Buddy&quot;)
+milo = Dog(&quot;Milo&quot;)
+buddy.bark()
+milo.bark()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Two barks — each dog says its <em>own</em> name.</div>
+  </section>
+
+  <section class="chunk" id="step-2b">
+    <div class="chunk-head"><span class="chunk-num">Step 2b</span><h3>Say Hello</h3>
+      <label class="done"><input type="checkbox" data-step="2b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add a second method to the class.</p>
+    <p>A class can have as many methods as you want. Add <code>introduce</code> right after <code>bark</code>
+    (same indent — it belongs to the class, not to <code>bark</code>!).</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what prints?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>Hi! I am Buddy!</code></p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code5">Copy</button><pre><code id="code5">class Dog:
+    def __init__(self, name):
+        self.name = name
+
+    def bark(self):
+        print(self.name + &quot; says WOOF!&quot;)
+
+    def introduce(self):
+        print(&quot;Hi! I am &quot; + self.name + &quot;!&quot;)
+
+buddy = Dog(&quot;Buddy&quot;)
+buddy.introduce()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Buddy introduces itself. Try <code>milo.introduce()</code> too!</div>
+  </section>
+
+  <section class="chunk" id="step-2c">
+    <div class="chunk-head"><span class="chunk-num">Step 2c</span><h3>Challenge: Wag 🏆</h3>
+      <label class="done"><input type="checkbox" data-step="2c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add a method with no help.</p>
+    <p>Add a <code>wag</code> method to your Dog class. When called, it should print
+    <code>"Buddy is wagging its tail!"</code> (with the dog's own name, of course).
+    Then call <code>buddy.wag()</code>.</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> write the method on paper before peeking!</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden>Add this inside the class (same indent as <code>bark</code>):<br><div class="codeblock"><button class="copybtn" data-copy="code6">Copy</button><pre><code id="code6">    def wag(self):
+        print(self.name + &quot; is wagging its tail!&quot;)</code></pre></div></p>
+    </div>
+    <div class="runbox"><strong>▶ Run it now.</strong> "Buddy is wagging its tail!" — you wrote a method from scratch. 🎉</div>
+  </section>
+</section>
+
+<!-- ==================== WEEK 3 ==================== -->
+<section class="week" id="week-3">
+  <div class="week-head"><span class="week-badge">Week 3</span><h2>Data or Action? — Designing Classes 🎨</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> build a bigger class and learn the first design rule: <strong>data</strong> vs <strong>action</strong>.</p>
+
+  <section class="chunk" id="step-3a">
+    <div class="chunk-head"><span class="chunk-num">Step 3a</span><h3>The Car 🚗</h3>
+      <label class="done"><input type="checkbox" data-step="3a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> a class with two pieces of data and two actions.</p>
+    <p>Notice: <code>self.speed = 0</code> — every new car <em>starts</em> at speed 0. The setup robot can set starting values, not just save inputs!
+    And <code>str(self.speed)</code> turns the number into text so we can glue it with <code>+</code>.</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what three lines print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>red car is going 10</code><br><code>red car is going 20</code><br><code>red car stopped!</code><br>
+      Each <code>drive()</code> adds 10 to <em>this car's own</em> speed.</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code7">Copy</button><pre><code id="code7">class Car:
+    def __init__(self, color):
+        self.color = color
+        self.speed = 0
+
+    def drive(self):
+        self.speed = self.speed + 10
+        print(self.color + &quot; car is going &quot; + str(self.speed))
+
+    def stop(self):
+        self.speed = 0
+        print(self.color + &quot; car stopped!&quot;)
+
+my_car = Car(&quot;red&quot;)
+my_car.drive()
+my_car.drive()
+my_car.stop()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> The car speeds up twice, then stops. Try making a second car — does it share the speed? (No!)</div>
+  </section>
+
+  <section class="chunk" id="step-3b">
+    <div class="chunk-head"><span class="chunk-num">Step 3b</span><h3>💡 Design Note: Data or Action?</h3>
+      <label class="done"><input type="checkbox" data-step="3b"> I got it ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> learn to <em>think</em> before you type.</p>
+    <div class="design">
+      <strong class="title">💡 DESIGN RULE #1 — Data or Action?</strong><br>
+      When you design a class, ask about everything:<br>
+      • Is it a <strong>THING the object HAS</strong>? → <strong>data</strong> → save it in <code>__init__</code> (like <code>name</code>, <code>color</code>, <code>speed</code>).<br>
+      • Is it something the object <strong>DOES</strong>? → <strong>action</strong> → make it a <strong>method</strong> (like <code>bark()</code>, <code>drive()</code>).
+    </div>
+    <div class="predict">
+      <p>✏️ <strong>Sort these for a <code>Dragon</code> class</strong> — which are data, which are actions?<br>
+      <code>name</code> · <code>fire_power</code> · <code>fly()</code> · <code>roar()</code></p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><strong>Data</strong> (things it has): <code>name</code>, <code>fire_power</code> → go in <code>__init__</code>.<br>
+      <strong>Actions</strong> (things it does): <code>fly()</code>, <code>roar()</code> → become methods.<br>
+      Trick: actions are usually <em>verbs</em>!</p>
+    </div>
+  </section>
+
+  <section class="chunk" id="step-3c">
+    <div class="chunk-head"><span class="chunk-num">Step 3c</span><h3>Design Your Own: Robot 🤖</h3>
+      <label class="done"><input type="checkbox" data-step="3c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> plan a class on paper, then build it.</p>
+    <p><strong>Step 1 — plan</strong> (paper!): a <code>Robot</code> class. Data: <code>name</code>, <code>energy</code> (starts at 100).
+    Actions: <code>work()</code> (energy − 10), <code>charge()</code> (energy back to 100).</p>
+    <p><strong>Step 2 — build.</strong> Compare with this version:</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code8">Copy</button><pre><code id="code8">class Robot:
+    def __init__(self, name):
+        self.name = name
+        self.energy = 100
+
+    def work(self):
+        self.energy = self.energy - 10
+        print(self.name + &quot; is working! Energy: &quot; + str(self.energy))
+
+    def charge(self):
+        self.energy = 100
+        print(self.name + &quot; is fully charged!&quot;)
+
+r2 = Robot(&quot;R2&quot;)
+r2.work()
+r2.work()
+r2.charge()</code></pre></div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what three lines print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>R2 is working! Energy: 90</code><br><code>R2 is working! Energy: 80</code><br><code>R2 is fully charged!</code></p>
+    </div>
+    <div class="runbox"><strong>▶ Run it now.</strong> The robot works twice, then recharges. 🎉 Next: the missing tool your snake needs!</div>
+  </section>
+</section>
+<!-- ==================== WEEK 4 ==================== -->
+<section class="week" id="week-4">
+  <div class="week-head"><span class="week-badge">Week 4</span><h2>The Missing Tool — Lists 🧰</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> learn <strong>lists</strong> — the tool your snake's body needs. (Skipped in the 8-week course. Not anymore!)</p>
+  <p>A list is like a lunchbox with numbered compartments. One variable holds <em>many</em> values.</p>
+
+  <section class="chunk" id="step-4a">
+    <div class="chunk-head"><span class="chunk-num">Step 4a</span><h3>Counting From Zero 0️⃣</h3>
+      <label class="done"><input type="checkbox" data-step="4a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> make a list and read items by number.</p>
+    <div class="newword">📖 <strong>New words:</strong> a <strong>list</strong> <code>[]</code> holds many values.
+    Each spot has a <strong>number</strong> — and computers start counting at <strong>0</strong>! So <code>fruits[0]</code> is the <em>first</em> fruit.</div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what three lines print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>apple</code><br><code>banana</code><br><code>cherry</code><br>
+      <code>[0]</code> = first, <code>[1]</code> = second, <code>[2]</code> = third.</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code9">Copy</button><pre><code id="code9">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
+print(fruits[0])
+print(fruits[1])
+print(fruits[2])</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Three fruits. Zero is first — weird, but you will get used to it!</div>
+  </section>
+
+  <section class="chunk" id="step-4b">
+    <div class="chunk-head"><span class="chunk-num">Step 4b</span><h3>Grow and Measure 📏</h3>
+      <label class="done"><input type="checkbox" data-step="4b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add to a list and count its items.</p>
+    <div class="newword">📖 <strong>New words:</strong> <code>append()</code> sticks a new item at the <em>end</em>.
+    <code>len()</code> tells you <em>how many</em> items are inside.</div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what three things print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>3</code><br><code>[10, 20, 30, 40]</code><br><code>4</code><br>
+      The list grows from 3 items to 4!</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code10">Copy</button><pre><code id="code10">scores = [10, 20, 30]
+print(len(scores))
+scores.append(40)
+print(scores)
+print(len(scores))</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> 3 → grow → 4. Your snake will <code>append()</code> a new body piece every time it eats!</div>
+  </section>
+
+  <section class="chunk" id="step-4c">
+    <div class="chunk-head"><span class="chunk-num">Step 4c</span><h3>Loop the List 🔁</h3>
+      <label class="done"><input type="checkbox" data-step="4c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> visit every item with a <code>for</code> loop.</p>
+    <p><code>for pet in pets:</code> means "take each item out of the lunchbox, one at a time, and call it <code>pet</code>."</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code11">Copy</button><pre><code id="code11">pets = [&quot;dog&quot;, &quot;cat&quot;, &quot;fish&quot;]
+for pet in pets:
+    print(&quot;I love my &quot; + pet + &quot;!&quot;)</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Three lines: "I love my dog!", "I love my cat!", "I love my fish!"</div>
+  </section>
+
+  <section class="chunk" id="step-4d">
+    <div class="chunk-head"><span class="chunk-num">Step 4d</span><h3>Two Secret Moves 🥷</h3>
+      <label class="done"><input type="checkbox" data-step="4d"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> grab the last item and skip the first.</p>
+    <div class="newword">📖 <strong>New words:</strong> <code>[-1]</code> means the <strong>LAST</strong> item (counting backwards!).
+    <code>[1:]</code> means <strong>"from #1 to the end"</strong> — everything <em>except</em> the first.</div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> what two things print?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><code>fish</code><br><code>['cat', 'fish']</code><br>
+      <code>[-1]</code> = last one. <code>[1:]</code> = skip #0, keep the rest.</p>
+    </div>
+    <div class="codeblock"><button class="copybtn" data-copy="code12">Copy</button><pre><code id="code12">pets = [&quot;dog&quot;, &quot;cat&quot;, &quot;fish&quot;]
+print(pets[-1])
+print(pets[1:])</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Remember these two — your snake's <code>grow()</code> needs <code>[-1]</code>, and self-collision needs <code>[1:]</code>!</div>
+  </section>
+</section>
+
+<!-- ==================== WEEK 5 ==================== -->
+<section class="week" id="week-5">
+  <div class="week-head"><span class="week-badge">Week 5</span><h2>Classes Meet Turtle 🐢</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> control turtles with classes. Discover two designs: <strong>HAS-A</strong> vs <strong>IS-A</strong>.</p>
+
+  <section class="chunk" id="step-5a">
+    <div class="chunk-head"><span class="chunk-num">Step 5a</span><h3>A Ball That HAS a Turtle</h3>
+      <label class="done"><input type="checkbox" data-step="5a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> a class that keeps a turtle <em>inside</em> it.</p>
+    <p><code>self.body = turtle.Turtle()</code> — the ball <strong>HAS</strong> a turtle called <code>body</code>.
+    To move, the ball tells its body: <code>self.body.forward(30)</code>. Two layers: ball → body → move.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code13">Copy</button><pre><code id="code13">import turtle
+
+class Ball:
+    def __init__(self):
+        self.body = turtle.Turtle()
+        self.body.shape(&quot;circle&quot;)
+        self.body.color(&quot;red&quot;)
+        self.body.penup()
+
+    def roll(self):
+        self.body.forward(30)
+
+screen = turtle.Screen()
+ball = Ball()
+ball.roll()
+ball.roll()
+screen.exitonclick()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> A red ball rolls right twice (30 + 30 steps). Close the window when done.</div>
+  </section>
+
+  <section class="chunk" id="step-5b">
+    <div class="chunk-head"><span class="chunk-num">Step 5b</span><h3>A Ball That IS a Turtle</h3>
+      <label class="done"><input type="checkbox" data-step="5b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> a class that <em>is</em> a special turtle.</p>
+    <p><code>class SuperBall(turtle.Turtle):</code> — the ball <strong>IS</strong> a turtle! No <code>self.body</code> needed:
+    <code>self.forward(30)</code> moves the ball itself. (The strange <code>super().__init__()</code> line just runs Turtle's own setup — full story next week!)</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code14">Copy</button><pre><code id="code14">import turtle
+
+class SuperBall(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape(&quot;circle&quot;)
+        self.color(&quot;blue&quot;)
+        self.penup()
+
+    def roll(self):
+        self.forward(30)
+
+screen = turtle.Screen()
+ball = SuperBall()
+ball.roll()
+ball.roll()
+screen.exitonclick()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> A blue ball rolls right twice — same result, shorter code!</div>
+  </section>
+
+  <section class="chunk" id="step-5c">
+    <div class="chunk-head"><span class="chunk-num">Step 5c</span><h3>💡 Design Note: HAS-A vs IS-A</h3>
+      <label class="done"><input type="checkbox" data-step="5c"> I got it ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> choose the right design.</p>
+    <div class="design">
+      <strong class="title">💡 DESIGN RULE #2 — HAS-A vs IS-A</strong><br>
+      • <strong>HAS-A:</strong> the object <em>owns</em> a turtle (<code>self.body = turtle.Turtle()</code>). Use when the object just <em>uses</em> a turtle.<br>
+      • <strong>IS-A:</strong> the object <em>is</em> a special turtle (<code>class SuperBall(turtle.Turtle)</code>). Use when your object <strong>is a kind of</strong> turtle — then it gets all turtle powers for free!
+    </div>
+    <div class="predict">
+      <p>✏️ <strong>Think:</strong> our snake food is a red dot that jumps to random spots. Is food a <em>kind of</em> turtle, or does it just <em>use</em> one?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><strong>IS-A!</strong> A food <em>is</em> a circle turtle with one extra trick (<code>jump</code>).
+      Next week you will build exactly that — with the magic called <strong>inheritance</strong>. 🧬</p>
+    </div>
+  </section>
+</section>
+<!-- ==================== WEEK 6 ==================== -->
+<section class="week" id="week-6">
+  <div class="week-head"><span class="week-badge">Week 6</span><h2>Inheritance — Special Turtles 🧬</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> start <code>snake_oop.py</code> and build the <strong>Food</strong> class with <strong>inheritance</strong>.</p>
+  <p><strong>Inheritance</strong> = a class that <em>borrows everything</em> from another class, then adds its own tricks.
+  Like you inherit your mom's eyes, then add your own smile.</p>
+
+  <section class="chunk" id="step-6a">
+    <div class="chunk-head"><span class="chunk-num">Step 6a</span><h3>Fresh File 🪟</h3>
+      <label class="done"><input type="checkbox" data-step="6a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> the same game window, in a brand-new file.</p>
+    <p class="place">📌 <strong>Brand-new file.</strong> Save this as <code>snake_oop.py</code>. Your old <code>snake.py</code> stays untouched!</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code15">Copy</button><pre><code id="code15">import turtle
+import random
+import time
+
+# --- Screen ---
+screen = turtle.Screen()
+screen.setup(600, 600)
+screen.bgcolor(&quot;#101820&quot;)
+screen.title(&quot;Snake OOP&quot;)
+screen.tracer(0)</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> A dark window flashes and closes. (Nothing stays on screen yet — that is correct!)</div>
+  </section>
+
+  <section class="chunk" id="step-6b">
+    <div class="chunk-head"><span class="chunk-num">Step 6b</span><h3>Food IS a Turtle</h3>
+      <label class="done"><input type="checkbox" data-step="6b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> write <code>class Food(turtle.Turtle):</code> — inheritance!</p>
+    <div class="newword">📖 <strong>New word: <code>super().__init__()</code></strong> — means "run the <em>parent's</em> setup first".
+    Before Food adds its own special stuff, it lets <code>Turtle</code> do <em>its</em> setup. Always the first line of <code>__init__</code> in a child class.</div>
+    <p class="place">📌 Add this <strong>AFTER</strong> the screen code.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code16">Copy</button><pre><code id="code16"># --- Food ---
+class Food(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape(&quot;circle&quot;)
+        self.color(&quot;#e4572e&quot;)
+        self.penup()
+        self.jump()</code></pre></div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> <code>Food</code> never defines <code>shape()</code>. So what happens at <code>self.shape("circle")</code> — crash, or circle?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><strong>Circle!</strong> <code>Food</code> <em>inherited</em> <code>shape()</code> from <code>Turtle</code>.
+      It can use every turtle power — <code>goto</code>, <code>color</code>, <code>penup</code> — without writing them!</p>
+    </div>
+  </section>
+
+  <section class="chunk" id="step-6c">
+    <div class="chunk-head"><span class="chunk-num">Step 6c</span><h3>The Jump Trick</h3>
+      <label class="done"><input type="checkbox" data-step="6c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> give Food its one special trick: <code>jump()</code>.</p>
+    <p><code>jump()</code> picks a random spot on the grid and goes there. Notice it is called <em>inside</em> <code>__init__</code> —
+    the food jumps to a random spot <strong>the moment it is born</strong>! Then <code>food = Food()</code> creates our one food object.</p>
+    <p class="place">📌 Add this at the <strong>END</strong> of your file. The <code>def jump</code> lines are indented (inside the class); <code>food = Food()</code> is not.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code17">Copy</button><pre><code id="code17">    def jump(self):
+        x = random.randint(-14, 14) * 20
+        y = random.randint(-14, 14) * 20
+        self.goto(x, y)
+
+food = Food()</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-6d">
+    <div class="chunk-head"><span class="chunk-num">Step 6d</span><h3>See It! 🔴</h3>
+      <label class="done"><input type="checkbox" data-step="6d"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> run and see your first object.</p>
+    <p class="place">📌 Add this <strong>last line</strong> for now (we will replace it next week).</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code18">Copy</button><pre><code id="code18">screen.exitonclick()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> A red dot appears at a random spot! Run it 3 times — different spot each time? Click the window to close. 🎉</div>
+  </section>
+</section>
+
+<!-- ==================== WEEK 7 ==================== -->
+<section class="week" id="week-7">
+  <div class="week-head"><span class="week-badge">Week 7</span><h2>The Snake Class 🐍</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> build the star of the show — a <strong>Snake</strong> class whose body is a <strong>list</strong> of turtle pieces.</p>
+  <p>Design check (Rule #1): the snake's <strong>data</strong> = its <code>segments</code> list + <code>head</code>.
+  Its <strong>actions</strong> = <code>move</code>, <code>grow</code>, <code>up/down/left/right</code>.</p>
+
+  <section class="chunk" id="step-7a">
+    <div class="chunk-head"><span class="chunk-num">Step 7a</span><h3>The Body Factory 🏭</h3>
+      <label class="done"><input type="checkbox" data-step="7a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> a Snake that builds its own 3-piece body.</p>
+    <p><code>self.segments = []</code> — an empty lunchbox. <code>make_snake()</code> bakes 3 pieces at
+    <code>(0, 0)</code>, <code>(-20, 0)</code>, <code>(-40, 0)</code> (see the <code>-i * 20</code>?).
+    <code>add_segment()</code> builds ONE turtle piece and <code>append()</code>s it — week 4 in action!
+    <code>self.head = self.segments[0]</code> saves piece #0 as the head.</p>
+    <p class="place">📌 <strong>Delete</strong> the <code>screen.exitonclick()</code> line. Then add this <strong>AFTER</strong> the <code>food = Food()</code> line.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code19">Copy</button><pre><code id="code19"># --- Snake ---
+class Snake:
+    def __init__(self):
+        self.segments = []
+        self.make_snake()
+        self.head = self.segments[0]
+
+    def make_snake(self):
+        for i in range(3):
+            self.add_segment((-i * 20, 0))
+
+    def add_segment(self, position):
+        part = turtle.Turtle()
+        part.shape(&quot;square&quot;)
+        part.color(&quot;#74bd8c&quot;)
+        part.penup()
+        part.goto(position)
+        self.segments.append(part)</code></pre></div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> after this, how many turtles live in <code>segments</code>? Where is piece #2?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden><strong>3</strong> turtles. Piece #2 is at <code>(-40, 0)</code> — 40 steps left of center.</p>
+    </div>
+  </section>
+
+  <section class="chunk" id="step-7b">
+    <div class="chunk-head"><span class="chunk-num">Step 7b</span><h3>The Conga Line 💃</h3>
+      <label class="done"><input type="checkbox" data-step="7b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> make the body follow the head.</p>
+    <p>Picture a conga line: each dancer steps into the spot of the dancer <strong>in front</strong> — starting from the <em>tail</em>!
+    Then the head steps forward 20.</p>
+    <div class="diagram">BEFORE:        AFTER move():
+[H][A][B][C]     [H→][H][A][B]
+ head A B C       C steps to B's spot, B to A's, A to H's, head forward!</div>
+    <div class="newword">📖 <strong>New word: <code>range(len(self.segments) - 1, 0, -1)</code></strong> —
+    count <strong>backwards</strong> from the tail (#2) down to #1. (With 3 pieces: <code>i</code> = 2, then 1.)</div>
+    <p class="place">📌 Add this <strong>INSIDE</strong> the Snake class, right after <code>add_segment</code> (same indent as <code>def add_segment</code>).</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code20">Copy</button><pre><code id="code20">    def move(self):
+        for i in range(len(self.segments) - 1, 0, -1):
+            x = self.segments[i - 1].xcor()
+            y = self.segments[i - 1].ycor()
+            self.segments[i].goto(x, y)
+        self.head.forward(20)</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-7c">
+    <div class="chunk-head"><span class="chunk-num">Step 7c</span><h3>Grow + Steer 🌱</h3>
+      <label class="done"><input type="checkbox" data-step="7c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add <code>grow()</code> and the four direction methods.</p>
+    <p><code>grow()</code> uses week 4's secret move: <code>self.segments[-1]</code> = the LAST piece.
+    <code>.position()</code> asks "where are you?" — the new piece starts at the tail's spot.<br>
+    <code>up/down/left/right</code> use two new turtle powers:</p>
+    <div class="newword">📖 <strong>New words:</strong> <code>heading()</code> asks "which way am I facing?" in degrees:
+    <code>0</code> = right, <code>90</code> = up, <code>180</code> = left, <code>270</code> = down.
+    <code>setheading(90)</code> turns to face up. The <code>if</code> lines forbid 180° U-turns (no crashing into your own neck!).</div>
+    <p class="place">📌 Add these <strong>INSIDE</strong> the Snake class, after <code>move</code>. The last line <code>snake = Snake()</code> has <strong>no indent</strong> (it ends the class).</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code21">Copy</button><pre><code id="code21">    def grow(self):
+        self.add_segment(self.segments[-1].position())</code></pre></div>
+    <div class="codeblock"><button class="copybtn" data-copy="code22">Copy</button><pre><code id="code22">    def up(self):
+        if self.head.heading() != 270:
+            self.head.setheading(90)
+
+    def down(self):
+        if self.head.heading() != 90:
+            self.head.setheading(270)
+
+    def left(self):
+        if self.head.heading() != 0:
+            self.head.setheading(180)
+
+    def right(self):
+        if self.head.heading() != 180:
+            self.head.setheading(0)
+
+snake = Snake()</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-7d">
+    <div class="chunk-head"><span class="chunk-num">Step 7d</span><h3>Test Drive 🚗</h3>
+      <label class="done"><input type="checkbox" data-step="7d"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> drive your snake with the arrow keys!</p>
+    <p>Look closely: <code>screen.onkey(snake.up, "Up")</code> — a <strong>method</strong> works as a key action!
+    <code>onkey</code> just needs <em>something to call</em>, and methods are callable.</p>
+    <p class="place">📌 Add this at the <strong>END</strong> of your file.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code23">Copy</button><pre><code id="code23"># --- Controls ---
+screen.listen()
+screen.onkey(snake.up, &quot;Up&quot;)
+screen.onkey(snake.down, &quot;Down&quot;)
+screen.onkey(snake.left, &quot;Left&quot;)
+screen.onkey(snake.right, &quot;Right&quot;)</code></pre></div>
+    <div class="codeblock"><button class="copybtn" data-copy="code24">Copy</button><pre><code id="code24"># --- Test drive ---
+while True:
+    screen.update()
+    time.sleep(0.1)
+    snake.move()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Drive the snake with arrow keys! It never stops and never dies yet — close the window when done. Try a U-turn: blocked? ✅</div>
+  </section>
+</section>
+<!-- ==================== WEEK 8 ==================== -->
+<section class="week" id="week-8">
+  <div class="week-head"><span class="week-badge">Week 8</span><h2>The Scoreboard Class 🏆</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> add the third object — and learn the pro design rule: <strong>one class, one job</strong>.</p>
+
+  <section class="chunk" id="step-8a">
+    <div class="chunk-head"><span class="chunk-num">Step 8a</span><h3>One Class, One Job</h3>
+      <label class="done"><input type="checkbox" data-step="8a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> a Scoreboard that counts.</p>
+    <div class="design">
+      <strong class="title">💡 DESIGN RULE #3 — One Class, One Job</strong><br>
+      Look at our team: <strong>Snake</strong> moves. <strong>Food</strong> jumps. <strong>Scoreboard</strong> counts.
+      Each class has <em>one</em> job. If a class starts doing two jobs, split it! (Imagine a <code>Snake</code> class that also draws the score — messy!)
+    </div>
+    <p><code>Scoreboard</code> IS-A turtle (inherits again!). It hides its turtle arrow (<code>hideturtle()</code> — we only want its writing),
+    keeps <code>self.score</code>, and <code>show()</code> rewrites the text. <code>point()</code> = score + 1, then show.</p>
+    <p class="place">📌 Add this <strong>BEFORE</strong> the <code># --- Test drive ---</code> line.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code25">Copy</button><pre><code id="code25"># --- Scoreboard ---
+class Scoreboard(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.penup()
+        self.color(&quot;white&quot;)
+        self.score = 0
+        self.show()
+
+    def show(self):
+        self.clear()
+        self.goto(0, 260)
+        self.write(&quot;Score: &quot; + str(self.score), align=&quot;center&quot;,
+                   font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
+
+    def point(self):
+        self.score = self.score + 1
+        self.show()
+
+board = Scoreboard()</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-8b">
+    <div class="chunk-head"><span class="chunk-num">Step 8b</span><h3>The Eat Moment 😋</h3>
+      <label class="done"><input type="checkbox" data-step="8b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> eating works — food jumps, snake grows, score goes up.</p>
+    <p>Watch the objects talk to each other: the <em>game</em> asks the head how far the food is, then tells
+    <code>food</code> to jump, <code>snake</code> to grow, and <code>board</code> to add a point. Each object does its one job!</p>
+    <p class="place">📌 <strong>Delete</strong> the test-drive loop (the 5 lines under <code># --- Test drive ---</code>, keep the line itself or not — your choice).
+    Put this loop <strong>at the end</strong> of your file.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code26">Copy</button><pre><code id="code26"># --- Main loop ---
+game_on = True
+while game_on:
+    screen.update()
+    time.sleep(0.1)
+    snake.move()
+    if snake.head.distance(food) &lt; 15:
+        food.jump()
+        snake.grow()
+        board.point()</code></pre></div>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> the head touches the food. What <em>three</em> things happen, in order?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden>1. <code>food.jump()</code> — food teleports.<br>2. <code>snake.grow()</code> — a new tail piece appears.<br>3. <code>board.point()</code> — score becomes 1.</p>
+    </div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Eat the red dot! Score: 1, and the tail gets longer. The game never ends yet — close the window when done.</div>
+  </section>
+</section>
+
+<!-- ==================== WEEK 9 ==================== -->
+<section class="week" id="week-9">
+  <div class="week-head"><span class="week-badge">Week 9</span><h2>The Grand Assembly 🎮</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> walls, self-bite, GAME OVER — the full game!</p>
+
+  <section class="chunk" id="step-9a">
+    <div class="chunk-head"><span class="chunk-num">Step 9a</span><h3>Game Over Writer ✍️</h3>
+      <label class="done"><input type="checkbox" data-step="9a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> teach the Scoreboard to announce GAME OVER.</p>
+    <p class="place">📌 Find the line <code>board = Scoreboard()</code>. Add this method <strong>right BEFORE it</strong> — indented, inside the class.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code27">Copy</button><pre><code id="code27">    def game_over(self):
+        self.goto(0, 0)
+        self.write(&quot;GAME OVER&quot;, align=&quot;center&quot;, font=(&quot;Arial&quot;, 36, &quot;bold&quot;))</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Nothing new on screen yet — the method is just waiting to be called.</div>
+  </section>
+
+  <section class="chunk" id="step-9b">
+    <div class="chunk-head"><span class="chunk-num">Step 9b</span><h3>Walls + Self-Bite 🧱</h3>
+      <label class="done"><input type="checkbox" data-step="9b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> the game can now end.</p>
+    <p>Two new checks in the loop: <strong>walls</strong> (same as your stamp game!) and <strong>self-bite</strong> —
+    <code>for part in snake.segments[1:]:</code> visits every body piece <em>except the head</em>. Week 4's other secret move!</p>
+    <div class="predict">
+      <p>✏️ <strong>Predict first:</strong> why <code>[1:]</code> — why skip piece #0?</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden>Piece #0 <strong>is</strong> the head — it is always touching itself (distance 0)!
+      Without <code>[1:]</code>, the game would end on the very first frame. 😅</p>
+    </div>
+    <p class="place">📌 <strong>Replace</strong> your whole main loop with this bigger one.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code28">Copy</button><pre><code id="code28"># --- Main loop ---
+game_on = True
+while game_on:
+    screen.update()
+    time.sleep(0.1)
+    snake.move()
+    if snake.head.distance(food) &lt; 15:
+        food.jump()
+        snake.grow()
+        board.point()
+    if snake.head.xcor() &gt; 290 or snake.head.xcor() &lt; -290 \
+            or snake.head.ycor() &gt; 290 or snake.head.ycor() &lt; -290:
+        game_on = False
+        board.game_over()
+    for part in snake.segments[1:]:
+        if snake.head.distance(part) &lt; 10:
+            game_on = False
+            board.game_over()
+
+screen.exitonclick()</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Play! Hit a wall → GAME OVER. (Bite yourself: grow long, then loop back into your tail!) Click to close.</div>
+  </section>
+
+  <section class="chunk" id="step-9c">
+    <div class="chunk-head"><span class="chunk-num">Step 9c</span><h3>🏆 Same Game, New Engine</h3>
+      <label class="done"><input type="checkbox" data-step="9c"> I compared ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> see what OOP bought you.</p>
+    <p>Open your old <code>snake.py</code> next to <code>snake_oop.py</code>. <strong>Same game.</strong> But look at the difference:</p>
+    <ul>
+      <li>Old: one long script, everything mixed together.</li>
+      <li>New: three objects with <strong>jobs</strong> — <code>Snake</code> moves, <code>Food</code> jumps, <code>Scoreboard</code> counts.</li>
+    </ul>
+    <p>Want a blue food? Change <strong>one</strong> line in the <code>Food</code> class — done. That is the power of OOP:
+    <strong>each piece has its own home.</strong></p>
+    <details class="fullfile">
+      <summary>📄 My file so far (click to check yours)</summary>
+      <div class="codeblock"><button class="copybtn" data-copy="code38">Copy</button><pre><code id="code38">import turtle
+import random
+import time
+
+# --- Screen ---
+screen = turtle.Screen()
+screen.setup(600, 600)
+screen.bgcolor(&quot;#101820&quot;)
+screen.title(&quot;Snake OOP&quot;)
+screen.tracer(0)
+
+# --- Food ---
+class Food(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape(&quot;circle&quot;)
+        self.color(&quot;#e4572e&quot;)
+        self.penup()
+        self.jump()
+
+    def jump(self):
+        x = random.randint(-14, 14) * 20
+        y = random.randint(-14, 14) * 20
+        self.goto(x, y)
+
+food = Food()
+
+# --- Snake ---
+class Snake:
+    def __init__(self):
+        self.segments = []
+        self.make_snake()
+        self.head = self.segments[0]
+
+    def make_snake(self):
+        for i in range(3):
+            self.add_segment((-i * 20, 0))
+
+    def add_segment(self, position):
+        part = turtle.Turtle()
+        part.shape(&quot;square&quot;)
+        part.color(&quot;#74bd8c&quot;)
+        part.penup()
+        part.goto(position)
+        self.segments.append(part)
+
+    def move(self):
+        for i in range(len(self.segments) - 1, 0, -1):
+            x = self.segments[i - 1].xcor()
+            y = self.segments[i - 1].ycor()
+            self.segments[i].goto(x, y)
+        self.head.forward(20)
+
+    def grow(self):
+        self.add_segment(self.segments[-1].position())
+
+    def up(self):
+        if self.head.heading() != 270:
+            self.head.setheading(90)
+
+    def down(self):
+        if self.head.heading() != 90:
+            self.head.setheading(270)
+
+    def left(self):
+        if self.head.heading() != 0:
+            self.head.setheading(180)
+
+    def right(self):
+        if self.head.heading() != 180:
+            self.head.setheading(0)
+
+snake = Snake()
+
+# --- Controls ---
+screen.listen()
+screen.onkey(snake.up, &quot;Up&quot;)
+screen.onkey(snake.down, &quot;Down&quot;)
+screen.onkey(snake.left, &quot;Left&quot;)
+screen.onkey(snake.right, &quot;Right&quot;)
+
+# --- Scoreboard ---
+class Scoreboard(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.penup()
+        self.color(&quot;white&quot;)
+        self.score = 0
+        self.show()
+
+    def show(self):
+        self.clear()
+        self.goto(0, 260)
+        self.write(&quot;Score: &quot; + str(self.score), align=&quot;center&quot;,
+                   font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
+
+    def point(self):
+        self.score = self.score + 1
+        self.show()
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write(&quot;GAME OVER&quot;, align=&quot;center&quot;, font=(&quot;Arial&quot;, 36, &quot;bold&quot;))
+
+board = Scoreboard()
+
+# --- Main loop ---
+game_on = True
+while game_on:
+    screen.update()
+    time.sleep(0.1)
+    snake.move()
+    if snake.head.distance(food) &lt; 15:
+        food.jump()
+        snake.grow()
+        board.point()
+    if snake.head.xcor() &gt; 290 or snake.head.xcor() &lt; -290 \
+            or snake.head.ycor() &gt; 290 or snake.head.ycor() &lt; -290:
+        game_on = False
+        board.game_over()
+    for part in snake.segments[1:]:
+        if snake.head.distance(part) &lt; 10:
+            game_on = False
+            board.game_over()
+
+screen.exitonclick()</code></pre></div>
+    </details>
+  </section>
+</section>
+
+<!-- ==================== WEEK 10 ==================== -->
+<section class="week" id="week-10">
+  <div class="week-head"><span class="week-badge">Week 10</span><h2>Capstone 🎓</h2></div>
+  <p class="week-goal"><strong>Goal:</strong> play again with <span class="kbd">SPACE</span>, then remix your OOP game!</p>
+
+  <section class="chunk" id="step-10a">
+    <div class="chunk-head"><span class="chunk-num">Step 10a</span><h3>Teach Them to Reset 🔄</h3>
+      <label class="done"><input type="checkbox" data-step="10a"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> add <code>reset()</code> methods to Snake and Scoreboard.</p>
+    <p>To play again, each object must clean up after itself: the Snake hides its old pieces and builds a fresh 3-piece body;
+    the Scoreboard sets score back to 0. <strong>Each object resets itself</strong> — one class, one job, even for cleanup!</p>
+    <p class="place">📌 Add the first method <strong>right BEFORE</strong> <code>snake = Snake()</code> (indented, inside the class).
+    Add the second <strong>right BEFORE</strong> <code>board = Scoreboard()</code>.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code29">Copy</button><pre><code id="code29">    def reset(self):
+        for part in self.segments:
+            part.goto(1000, 1000)
+        self.segments = []
+        self.make_snake()
+        self.head = self.segments[0]</code></pre></div>
+    <div class="codeblock"><button class="copybtn" data-copy="code30">Copy</button><pre><code id="code30">    def reset(self):
+        self.score = 0
+        self.show()</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-10b">
+    <div class="chunk-head"><span class="chunk-num">Step 10b</span><h3>Press SPACE to Play Again</h3>
+      <label class="done"><input type="checkbox" data-step="10b"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> wire up the SPACE key with a <code>waiting</code> flag.</p>
+    <p>Remember the stamp game's trick — storing <code>screen.game_over</code> <strong>on the screen</strong>? Same idea:
+    <code>screen.waiting</code> remembers "are we waiting for SPACE?". <code>start_round()</code> flips it to <code>False</code>.</p>
+    <p class="place">📌 First, <strong>replace</strong> your <code>game_over</code> method with this one (it now shows the SPACE hint):</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code31">Copy</button><pre><code id="code31">    def game_over(self):
+        self.goto(0, 0)
+        self.write(&quot;GAME OVER&quot;, align=&quot;center&quot;, font=(&quot;Arial&quot;, 36, &quot;bold&quot;))
+        self.goto(0, -50)
+        self.write(&quot;Press SPACE to play again&quot;, align=&quot;center&quot;,
+                   font=(&quot;Arial&quot;, 18, &quot;normal&quot;))</code></pre></div>
+    <p class="place">📌 Then add this <strong>BEFORE</strong> the <code># --- Main loop ---</code> line:</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code32">Copy</button><pre><code id="code32">screen.waiting = False
+
+def start_round():
+    screen.waiting = False
+
+screen.onkey(start_round, &quot;space&quot;)</code></pre></div>
+  </section>
+
+  <section class="chunk" id="step-10c">
+    <div class="chunk-head"><span class="chunk-num">Step 10c</span><h3>The Final Loop 🏁</h3>
+      <label class="done"><input type="checkbox" data-step="10c"> I built this ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> the outer loop — wait, reset, play, repeat.</p>
+    <p>Two loops now: the <strong>outer</strong> <code>while True</code> spins while <code>waiting</code> is <code>True</code>,
+    then resets everything and starts a round. The <strong>inner</strong> loop plays one round.
+    When the round ends → <code>waiting = True</code> → back to waiting for SPACE.</p>
+    <p class="place">📌 <strong>Replace</strong> your whole main loop with this final one.</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code33">Copy</button><pre><code id="code33"># --- Main loop ---
+while True:
+    while screen.waiting == True:
+        screen.update()
+        time.sleep(0.1)
+    game_on = True
+    snake.reset()
+    board.reset()
+    food.jump()
+    while game_on:
+        screen.update()
+        time.sleep(0.1)
+        snake.move()
+        if snake.head.distance(food) &lt; 15:
+            food.jump()
+            snake.grow()
+            board.point()
+        if snake.head.xcor() &gt; 290 or snake.head.xcor() &lt; -290 \
+                or snake.head.ycor() &gt; 290 or snake.head.ycor() &lt; -290:
+            game_on = False
+            board.game_over()
+        for part in snake.segments[1:]:
+            if snake.head.distance(part) &lt; 10:
+                game_on = False
+                board.game_over()
+    screen.waiting = True</code></pre></div>
+    <div class="runbox"><strong>▶ Run it now.</strong> Play → GAME OVER → press <span class="kbd">SPACE</span> → fresh snake, score 0, play again! 🔁</div>
+    <details class="fullfile">
+      <summary>📄 My finished file (click to check yours)</summary>
+      <div class="codeblock"><button class="copybtn" data-copy="code39">Copy</button><pre><code id="code39">import turtle
+import random
+import time
+
+# --- Screen ---
+screen = turtle.Screen()
+screen.setup(600, 600)
+screen.bgcolor(&quot;#101820&quot;)
+screen.title(&quot;Snake OOP&quot;)
+screen.tracer(0)
+
+# --- Food ---
+class Food(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape(&quot;circle&quot;)
+        self.color(&quot;#e4572e&quot;)
+        self.penup()
+        self.jump()
+
+    def jump(self):
+        x = random.randint(-14, 14) * 20
+        y = random.randint(-14, 14) * 20
+        self.goto(x, y)
+
+food = Food()
+
+# --- Snake ---
+class Snake:
+    def __init__(self):
+        self.segments = []
+        self.make_snake()
+        self.head = self.segments[0]
+
+    def make_snake(self):
+        for i in range(3):
+            self.add_segment((-i * 20, 0))
+
+    def add_segment(self, position):
+        part = turtle.Turtle()
+        part.shape(&quot;square&quot;)
+        part.color(&quot;#74bd8c&quot;)
+        part.penup()
+        part.goto(position)
+        self.segments.append(part)
+
+    def move(self):
+        for i in range(len(self.segments) - 1, 0, -1):
+            x = self.segments[i - 1].xcor()
+            y = self.segments[i - 1].ycor()
+            self.segments[i].goto(x, y)
+        self.head.forward(20)
+
+    def grow(self):
+        self.add_segment(self.segments[-1].position())
+
+    def up(self):
+        if self.head.heading() != 270:
+            self.head.setheading(90)
+
+    def down(self):
+        if self.head.heading() != 90:
+            self.head.setheading(270)
+
+    def left(self):
+        if self.head.heading() != 0:
+            self.head.setheading(180)
+
+    def right(self):
+        if self.head.heading() != 180:
+            self.head.setheading(0)
+
+    def reset(self):
+        for part in self.segments:
+            part.goto(1000, 1000)
+        self.segments = []
+        self.make_snake()
+        self.head = self.segments[0]
+
+snake = Snake()
+
+# --- Controls ---
+screen.listen()
+screen.onkey(snake.up, &quot;Up&quot;)
+screen.onkey(snake.down, &quot;Down&quot;)
+screen.onkey(snake.left, &quot;Left&quot;)
+screen.onkey(snake.right, &quot;Right&quot;)
+
+# --- Scoreboard ---
+class Scoreboard(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.penup()
+        self.color(&quot;white&quot;)
+        self.score = 0
+        self.show()
+
+    def show(self):
+        self.clear()
+        self.goto(0, 260)
+        self.write(&quot;Score: &quot; + str(self.score), align=&quot;center&quot;,
+                   font=(&quot;Arial&quot;, 20, &quot;normal&quot;))
+
+    def point(self):
+        self.score = self.score + 1
+        self.show()
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write(&quot;GAME OVER&quot;, align=&quot;center&quot;, font=(&quot;Arial&quot;, 36, &quot;bold&quot;))
+        self.goto(0, -50)
+        self.write(&quot;Press SPACE to play again&quot;, align=&quot;center&quot;,
+                   font=(&quot;Arial&quot;, 18, &quot;normal&quot;))
+
+    def reset(self):
+        self.score = 0
+        self.show()
+
+board = Scoreboard()
+
+screen.waiting = False
+
+def start_round():
+    screen.waiting = False
+
+screen.onkey(start_round, &quot;space&quot;)
+
+# --- Main loop ---
+while True:
+    while screen.waiting == True:
+        screen.update()
+        time.sleep(0.1)
+    game_on = True
+    delay = 0.1
+    snake.reset()
+    board.reset()
+    food.jump()
+    while game_on:
+        screen.update()
+        time.sleep(delay)
+        snake.move()
+        if snake.head.distance(food) &lt; 15:
+            food.jump()
+            snake.grow()
+            board.point()
+            if delay &gt; 0.05:
+                delay = delay - 0.005
+        if snake.head.xcor() &gt; 290 or snake.head.xcor() &lt; -290 \
+                or snake.head.ycor() &gt; 290 or snake.head.ycor() &lt; -290:
+            game_on = False
+            board.game_over()
+        for part in snake.segments[1:]:
+            if snake.head.distance(part) &lt; 10:
+                game_on = False
+                board.game_over()
+    screen.waiting = True</code></pre></div>
+    </details>
+  </section>
+
+  <section class="chunk" id="step-10d">
+    <div class="chunk-head"><span class="chunk-num">Step 10d</span><h3>🏁 Capstone Challenges</h3>
+      <label class="done"><input type="checkbox" data-step="10d"> I finished ✅</label></div>
+    <p class="goal"><strong>Goal:</strong> remix your OOP game — and design like a pro.</p>
+    <p><strong>Challenge 1 — Speed Demon 🏎️.</strong> Make the game faster every time you eat (like the Remix Lab!).
+    Three small edits — try on paper first, then peek:</p>
+    <div class="predict">
+      <p>✏️ <strong>Hint:</strong> you need a <code>delay</code> variable, <code>time.sleep(delay)</code>, and a shrink when eating.</p>
+      <button class="reveal-btn">Show answer</button>
+      <p class="reveal-a" hidden>
+        <strong>Edit 1</strong> — after <code>game_on = True</code>, add:<br><div class="codeblock"><button class="copybtn" data-copy="code34">Copy</button><pre><code id="code34">    game_on = True
+    delay = 0.1</code></pre></div><br>
+        <strong>Edit 2</strong> — in the inner loop, change the sleep:<br><div class="codeblock"><button class="copybtn" data-copy="code35">Copy</button><pre><code id="code35">    while game_on:
+        screen.update()
+        time.sleep(delay)
+        snake.move()</code></pre></div><br>
+        <strong>Edit 3</strong> — when eating, shrink the delay:<br><div class="codeblock"><button class="copybtn" data-copy="code36">Copy</button><pre><code id="code36">        if snake.head.distance(food) &lt; 15:
+            food.jump()
+            snake.grow()
+            board.point()
+            if delay &gt; 0.05:
+                delay = delay - 0.005</code></pre></div>
+      </p>
+    </div>
+    <p><strong>Challenge 2 — Poison Food ☠️.</strong> Inheritance in almost one line!
+    A <code>PoisonFood</code> <strong>is a</strong> <code>Food</code> — it inherits <code>jump()</code> and only changes its color:</p>
+    <div class="codeblock"><button class="copybtn" data-copy="code37">Copy</button><pre><code id="code37">class PoisonFood(Food):
+    def __init__(self):
+        super().__init__()
+        self.color(&quot;#a06cd5&quot;)
+
+poison = PoisonFood()</code></pre></div>
+    <p class="muted">Add it after the <code>Food</code> class, run, and watch a purple dot appear. (Wiring it into the game rules is extra credit!)</p>
+    <div class="design">
+      <strong class="title">💡 FINAL DESIGN WORKSHOP — Plan Pong's Classes</strong><br>
+      On paper (no typing!): if you rebuilt <strong>Pong</strong> with OOP, what classes would you make?
+      For each class, list its <strong>data</strong> (things it has) and its <strong>actions</strong> (things it does).<br>
+      <span class="muted">Example start: <code>Ball</code> — data: position, speed · actions: move, bounce. Your turn: <code>Paddle</code>? <code>Scoreboard</code>?</span>
+    </div>
+    <div class="card finish" style="margin:18px 0;">
+      <h3>🎓 Graduation checklist</h3>
+      <label><input type="checkbox" data-finish="g1"> I can explain what a class is (cookie cutter!) to someone else.</label>
+      <label><input type="checkbox" data-finish="g2"> I know what <code>self</code> means and why every method takes it.</label>
+      <label><input type="checkbox" data-finish="g3"> I can use inheritance: <code>class Food(turtle.Turtle)</code>.</label>
+      <label><input type="checkbox" data-finish="g4"> My <code>snake_oop.py</code> plays the full game and restarts with SPACE.</label>
+      <label><input type="checkbox" data-finish="g5"> I planned Pong's classes on paper (data + actions).</label>
+    </div>
+    <p><strong>You did it.</strong> You don't just write code anymore — you <strong>design</strong> it: break a big thing into objects, give each one a job, and let them talk to each other. That is how real programmers think. 🚀</p>
+  </section>
+</section>
+
+<div class="card">
+  <h2>📚 Keep going</h2>
+  <ul>
+    <li>Replay the <a href="./challenges/">Snake Remix Lab</a> challenges — now try them in <code>snake_oop.py</code>! (Hint: WASD = new methods, Poison Berry = a <code>PoisonFood</code> class…)</li>
+    <li>Rebuild <strong>Pong</strong> with classes: <code>Ball</code>, <code>Paddle</code>, <code>Scoreboard</code>.</li>
+    <li>Invent your own class — a <code>Dragon</code>, a <code>RobotPet</code> — and show someone how it works.</li>
+  </ul>
+</div>
+
+<footer>Made for Alex · Snake OOP Academy · 10 weeks, 33 steps 🏗️</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ---------- copy buttons ---------- */
+document.querySelectorAll('.copybtn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var code = document.getElementById(btn.getAttribute('data-copy'));
+    var text = code.innerText;
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function () { btn.textContent = old; }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+  });
+});
+
+/* ---------- reveal answers ---------- */
+document.querySelectorAll('.reveal-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var a = btn.parentElement.querySelector('.reveal-a');
+    var show = a.hasAttribute('hidden');
+    if (show) { a.removeAttribute('hidden'); btn.textContent = 'Hide answer'; }
+    else { a.setAttribute('hidden', ''); btn.textContent = 'Show answer'; }
+  });
+});
+
+/* ---------- step progress (saved in this browser) ---------- */
+(function () {
+  var KEY = 'oopStepV1';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  var boxes = document.querySelectorAll('input[data-step]');
+  var fill = document.getElementById('progressFill');
+  var text = document.getElementById('progressText');
+  function paint() {
+    var n = 0;
+    boxes.forEach(function (b) {
+      var on = !!done[b.getAttribute('data-step')];
+      b.checked = on;
+      n += on ? 1 : 0;
+      b.closest('.chunk').classList.toggle('done-card', on);
+    });
+    fill.style.width = (n / boxes.length * 100) + '%';
+    text.textContent = n + ' / ' + boxes.length + ' steps';
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () {
+      done[b.getAttribute('data-step')] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      paint();
+    });
+  });
+  paint();
+})();
+
+/* ---------- graduation checklist (saved in this browser) ---------- */
+(function () {
+  var KEY = 'oopFinishV1';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('input[data-finish]').forEach(function (b) {
+    b.checked = !!done[b.getAttribute('data-finish')];
+    b.addEventListener('change', function () {
+      done[b.getAttribute('data-finish')] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
