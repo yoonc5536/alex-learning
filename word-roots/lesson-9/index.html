@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 9 — Root medi | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #1d4ed8, #60a5fa); color: #fff;
+         padding: 36px 20px 28px; text-align: center; }
+  header.hero h1 { margin: 6px 0 4px; font-size: 2rem; }
+  header.hero p { margin: 4px 0; opacity: .95; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px 22px 60px; }
+  .progress { background: #fff; border: 1px solid #bfdbfe; border-radius: 14px;
+         padding: 14px 18px; margin: -24px auto 24px; max-width: 1150px;
+         box-shadow: 0 4px 14px rgba(37,99,235,.10); position: relative; }
+  .bar { height: 12px; background: #dbeafe; border-radius: 999px; overflow: hidden; margin-top: 8px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#60a5fa,#2563eb);
+         border-radius: 999px; transition: width .4s ease; }
+  .progress small { color: #2563eb; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  nav.toc a { background: #fff; border: 1px solid #bfdbfe; color: #1d4ed8; text-decoration: none;
+         padding: 8px 14px; border-radius: 999px; font-size: .9rem; font-weight: 600; }
+  nav.toc a:hover { background: #eff6ff; }
+  section.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px;
+         padding: 24px; margin: 0 0 26px; box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  section.card h2 { margin: 0 0 4px; font-size: 1.35rem; color: #1e40af; }
+  section.card > p.lead { margin: 0 0 16px; color: #64748b; }
+  .roots { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .root { border: 2px solid #bfdbfe; border-radius: 14px; padding: 14px 12px; text-align: center;
+         background: #f8fbff; position: relative; }
+  .root .r { font-size: 1.5rem; font-weight: 800; color: #2563eb; }
+  .root .m { font-size: .92rem; color: #475569; margin-top: 4px; min-height: 2.6em; }
+  .root .ex { font-size: .8rem; color: #94a3b8; margin-top: 6px; }
+  .chk { margin-top: 10px; border: 1px solid #cbd5e1; background: #fff; color: #475569;
+         border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; cursor: pointer; }
+  .chk.done { background: #2563eb; border-color: #2563eb; color: #fff; }
+  .formula { background: #eff6ff; border: 2px dashed #60a5fa; border-radius: 14px;
+         padding: 18px; text-align: center; margin: 0 0 16px; }
+  .formula .f { font-size: 1.5rem; font-weight: 900; color: #1e40af; letter-spacing: .02em; }
+  .formula .eg { margin-top: 10px; font-size: 1rem; color: #1e3a8a; }
+  .formula code { background: #dbeafe; padding: 2px 8px; border-radius: 6px; font-size: .92em; }
+  .rules { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .rule { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 16px; }
+  .rule h3 { margin: 0 0 6px; font-size: 1.02rem; color: #1e40af; }
+  .rule p { margin: 0; font-size: .92rem; color: #1e40af; }
+  .rule code { background: #dbeafe; padding: 1px 7px; border-radius: 6px; font-size: .88em; }
+  .words { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .word { border: 2px solid #e2e8f0; border-radius: 14px; padding: 16px; background: #fff; }
+  .word h3 { margin: 0; font-size: 1.25rem; color: #0f172a; }
+  .word .pos { font-size: .78rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; }
+  .word .def { margin: 8px 0; font-size: .95rem; }
+  .word .sent { font-size: .88rem; color: #64748b; font-style: italic; }
+  .parts { display: none; margin: 8px 0; background: #fefce8; border: 1px dashed #eab308;
+         border-radius: 10px; padding: 8px 12px; font-size: .9rem; }
+  .parts.show { display: block; }
+  .parts b { color: #854d0e; }
+  .mini { border: none; background: #eef2ff; color: #1d4ed8; border-radius: 8px;
+         padding: 6px 12px; font-size: .82rem; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  .mini:hover { background: #dbeafe; }
+  .act { border-top: 1px dashed #e2e8f0; padding-top: 18px; margin-top: 18px; }
+  .act:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .act h3 { margin: 0 0 4px; color: #1e40af; }
+  .act p.inst { margin: 0 0 12px; color: #64748b; font-size: .93rem; }
+  .match-cols { display: grid; gap: 10px; }
+  @media (min-width: 640px){ .match-cols { grid-template-columns: 1fr 1fr; } }
+  .mword, .mmean { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;
+         cursor: pointer; background: #fff; font-size: .95rem; transition: all .15s; }
+  .mword.sel { border-color: #2563eb; background: #eff6ff; }
+  .mmean.sel { border-color: #2563eb; background: #eff6ff; }
+  .mword.ok, .mmean.ok { border-color: #2563eb; background: #dbeafe; color: #1e40af;
+         cursor: default; font-weight: 700; }
+  .mword.bad, .mmean.bad { border-color: #ef4444; background: #fef2f2; }
+  .q { margin: 0 0 16px; }
+  .q p { margin: 0 0 8px; font-weight: 600; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 8px 16px;
+         cursor: pointer; font-size: .93rem; font-weight: 600; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; opacity: .85; }
+  .sent-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 12px 16px; margin: 0 0 10px; font-size: .97rem; line-height: 2; }
+  .blank { display: inline-block; min-width: 120px; border-bottom: 3px solid #94a3b8;
+         text-align: center; font-weight: 800; color: #2563eb; cursor: pointer; padding: 0 8px; }
+  .blank.filled { border-bottom-color: #2563eb; }
+  .blank.right { color: #14532d; } .blank.wrong { color: #b91c1c; border-bottom-color: #ef4444; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chip { border: 2px solid #93c5fd; background: #eff6ff; color: #1e40af; border-radius: 999px;
+         padding: 8px 18px; font-weight: 700; cursor: pointer; font-size: .95rem; }
+  .chip.sel { background: #2563eb; color: #fff; border-color: #2563eb; }
+  .chip.used { opacity: .35; }
+  .bigbtn { display: inline-block; background: #2563eb; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #1d4ed8; }
+  .ghostbtn { display: inline-block; background: #fff; color: #475569; border: 2px solid #cbd5e1;
+         border-radius: 12px; padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; }
+  .teaser { background: linear-gradient(135deg,#eff6ff,#dbeafe); border: 2px solid #60a5fa;
+         border-radius: 14px; padding: 18px; }
+  .teaser h3 { margin: 0 0 6px; color: #1e40af; }
+  .tipbox { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 14px; padding: 18px; margin-top: 16px; }
+  .tipbox h3 { margin: 0 0 8px; color: #92400e; }
+  .tipbox p { margin: 0; font-size: .93rem; color: #92400e; }
+  .quizcta { text-align: center; background: linear-gradient(135deg,#1d4ed8,#2563eb); color: #fff;
+         border-radius: 18px; padding: 30px 20px; }
+  .quizcta h2 { color: #fff !important; margin: 0 0 8px !important; }
+  .quizcta p { opacity: .92; margin: 0 0 18px; }
+  .quizcta a { display: inline-block; background: #fff; color: #1e40af; font-weight: 800;
+         font-size: 1.1rem; text-decoration: none; border-radius: 12px; padding: 14px 34px; }
+  .quizcta a:hover { transform: translateY(-2px); }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 10px; }
+  .done-banner { display: none; background: #dbeafe; border: 2px solid #2563eb; color: #1e40af;
+         border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; margin-top: 12px; }
+  .done-banner.show { display: block; }
+  /* review flip cards */
+  .flip-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .flip { perspective: 900px; cursor: pointer; min-height: 150px; }
+  .flip .inner { position: relative; width: 100%; min-height: 170px;
+         transform-style: preserve-3d; transition: transform .5s; }
+  .flip.on .inner { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+         border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .face.front { background: #eff6ff; border: 2px solid #93c5fd; text-align: center; }
+  .face.front .w { font-size: 1.4rem; font-weight: 900; color: #1e40af; }
+  .face.front .t { font-size: .8rem; color: #60a5fa; margin-top: 6px; }
+  .face.back { background: #dbeafe; border: 2px solid #2563eb; transform: rotateY(180deg); }
+  .face.back .w { font-size: 1.1rem; font-weight: 800; color: #1e40af; }
+  .face.back .p { font-size: .85rem; color: #2563eb; margin: 4px 0; }
+  .face.back .d { font-size: .9rem; color: #1e3a8a; }
+  .flip { position: relative; }
+  .own { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin: 0 0 10px; background: #fff; }
+  .own h4 { margin: 0 0 2px; font-size: 1.05rem; color: #0f172a; }
+  .own .brk { font-size: .85rem; color: #60a5fa; }
+  .own .ans { display: none; margin-top: 8px; background: #eff6ff; border-radius: 8px; padding: 8px 12px; font-size: .93rem; color: #1e40af; }
+  .own .ans.show { display: block; }
+  .gazette { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-top: 16px; }
+  .gazette h4 { margin: 0 0 8px; font-size: 1.05rem; color: #1e40af; }
+  .gazette .art { display: none; font-size: .97rem; }
+  .gazette .art.show { display: block; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.4rem">⚖️</div>
+  <h1>Lesson 9 — Root medi</h1>
+  <p>Half, middle, halfway between — words that stand right <b>in the middle</b> of things.</p>
+  <p style="font-size:.9rem; opacity:.85">Word Roots Beginning &middot; one lesson a day</p>
+</header>
+
+<div class="wrap">
+  <div class="progress">
+    <div><strong id="pct">0%</strong> <small id="ptext">Tap &ldquo;Got it&rdquo; on each card as you learn it.</small></div>
+    <div class="bar"><div id="pfill"></div></div>
+  </div>
+
+  <nav class="toc">
+    <a href="#review8">0. Lesson 8 Review</a>
+    <a href="#roots">1. Meet the Root &amp; Suffixes</a>
+    <a href="#words">2. Word Bank</a>
+    <a href="#practice">3. Practice</a>
+    <a href="#check">4. Quick Check</a>
+    <a href="#next">5. Next Lesson</a>
+    <a href="#quiz">6. Quiz</a>
+  </nav>
+
+  <!-- 0. REVIEW OF LESSON 8 -->
+  <section class="card" id="review8">
+    <h2>🔙 0. Review: Lesson 8 (loc + suffixes)</h2>
+    <p class="lead">Before the new lesson — warm up with Lesson 8! <b>Read the word, guess its meaning, then tap the card to check the answer.</b> Both the question and the answer are on each card.</p>
+    <div class="flip-grid" id="flipGrid"></div>
+    <p class="lead" style="margin:14px 0 10px;font-size:.95rem"><b>Lesson 8 root:</b> <code>loc</code> (place). Tap &ldquo;Got it&rdquo; under each card and each suffix when you remember it. Your review progress counts toward the bar above.</p>
+    <div class="roots" id="revSfx"></div>
+  </section>
+
+  <!-- 1. ROOT + SUFFIXES -->
+  <section class="card" id="roots">
+    <h2>⚖️ 1. Meet the Root &amp; Suffixes</h2>
+    <p class="lead">A <b>root</b> is the middle of the word, and a <b>suffix</b> is added to the <b>end</b> of a root — and it changes the meaning of the word.</p>
+    <div class="formula">
+      <div class="f">ROOT + SUFFIX = NEW WORD</div>
+      <div class="eg"><code>medi</code> (half, middle, halfway between) + <code>-ate</code> (to make, to act) = <b>mediate</b></div>
+    </div>
+    <div class="roots" id="rootGrid"></div>
+    <p class="lead" style="margin-top:14px">Four examples straight from your book:</p>
+    <div class="rules">
+      <div class="rule"><h3><code>medi</code> + <code>-ate</code></h3><p>= <b>mediate</b> — to act or come between opposing sides to solve a problem.</p></div>
+      <div class="rule"><h3><code>medi</code> + <code>-um</code></h3><p>= <b>medium</b> — of a middle size, amount, or quality; neither large nor small.</p></div>
+      <div class="rule"><h3><code>medi</code> + <code>-an</code></h3><p>= <b>median</b> — something that is related to or in the middle.</p></div>
+      <div class="rule"><h3><code>medi</code> + <code>at</code> + <code>-or</code></h3><p>= <b>mediator</b> — one who acts between opposing sides to solve a problem.</p></div>
+    </div>
+  </section>
+
+  <!-- 2. WORD BANK -->
+  <section class="card" id="words">
+    <h2>📖 2. Lesson 9 Word Bank</h2>
+    <p class="lead">Every word below uses the root <code>medi</code>. Tap &ldquo;Show word parts&rdquo; to see the root + suffix inside.</p>
+    <div class="words" id="wordGrid"></div>
+  </section>
+
+  <!-- 3. PRACTICE -->
+  <section class="card" id="practice">
+    <h2>✏️ 3. Practice &mdash; just like the book</h2>
+    <p class="lead">Do each activity. They match Activities A&ndash;C in your book.</p>
+
+    <div class="act" id="actA">
+      <h3>Activity A &mdash; Match the word to its meaning</h3>
+      <p class="inst">Tap a word, then tap the meaning that matches it. (In the book you write the correct word for each definition!)</p>
+      <div class="match-cols">
+        <div id="mwords"></div>
+        <div id="mmeans"></div>
+      </div>
+      <p class="found" id="matchScore">Matched: 0 / 4 &nbsp; <button class="ghostbtn" style="padding:4px 14px;font-size:.8rem" onclick="resetMatch()">Reset</button></p>
+    </div>
+
+    <div class="act" id="actB">
+      <h3>Activity B &mdash; Match the word to the picture</h3>
+      <p class="inst">In the book you draw a line from each word to the picture that best illustrates it. Tap the word that matches each picture description.</p>
+      <div id="picQs"></div>
+    </div>
+
+    <div class="act" id="actC">
+      <h3>Activity C &mdash; An Article From the Gazette 📰</h3>
+      <p class="inst">Use each word in the box <b>only once</b> to complete the story. Tap a word, then tap a blank. Tap a filled blank to take the word back.</p>
+      <div class="bank" id="cbank"></div>
+      <div id="csents"></div>
+      <button class="bigbtn" onclick="checkC()">Check answers</button>
+      <button class="ghostbtn" onclick="resetC()">Reset</button>
+      <p class="found" id="cscore"></p>
+      <div class="gazette">
+        <h4>📰 Read the full Gazette article</h4>
+        <button class="mini" id="gzBtn">Reveal the article</button>
+        <div class="art" id="gzArt">
+          <p>&ldquo;The weedy <b>median</b> in our small town goes right down the middle of Main Street. Old Mrs. Ringo planted bright flowers and kept up the <b>medium</b>-sized bushes, trees, and ferns. When she was unable to do it anymore, three groups in town each thought they should take over. Our own Chu Ying spoke to the town council about the problem. The council voted to have the garden club two towns over <b>mediate</b> the issue.</p>
+          <p>Amazingly, the <b>mediator</b> solved the issue quickly. Everyone was pleased, even the flowers&mdash;but especially Chu, who is just nine years old!&rdquo;</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tipbox">
+      <h3>💡 Etymology tip: mediocre</h3>
+      <p>The word <b>mediocre</b> is from two roots: <b>medi</b> and <b>ocris</b> (stony mountain). It originally meant going only halfway up the mountain. The use of this word has evolved over time to mean something done half as well as is possible. This is an excellent example of word etymology.</p>
+    </div>
+  </section>
+
+  <!-- 4. QUICK CHECK -->
+  <section class="card" id="check">
+    <h2>✅ 4. Quick Check — Lesson 9</h2>
+    <p class="lead">Three questions on today&rsquo;s root and suffixes. Tap an answer to check yourself.</p>
+    <div id="checkQs"></div>
+  </section>
+
+  <!-- 5. NEXT LESSON -->
+  <section class="card" id="next">
+    <h2>🔭 5. Sneak Peek: Next Lesson</h2>
+    <div class="teaser">
+      <h3>👣 Lesson 10 — Root grad</h3>
+      <p style="margin:0 0 8px">Coming up: a brand-new root plus four new suffixes!</p>
+      <p style="margin:0;font-size:.95rem;color:#1e3a8a">Root: <code>grad</code> = &ldquo;step&rdquo; &middot; Suffixes: <code>u-al</code> &middot; <code>u-ate</code> &middot; <code>u-ation</code> &middot; <code>i-ent</code></p>
+    </div>
+  </section>
+
+  <!-- 6. QUIZ -->
+  <section class="quizcta" id="quiz">
+    <h2>🎯 Ready for the Lesson 9 Quiz?</h2>
+    <p>20 questions &mdash; use the root medi and its suffixes to figure out each meaning.</p>
+    <a href="quiz.html">Start the Quiz →</a>
+  </section>
+
+  <section class="card" style="text-align:center">
+    <h2>🏁 Finish Lesson 9</h2>
+    <p class="lead">Tap when you finished everything above &mdash; including the quiz!</p>
+    <button class="bigbtn" id="doneBtn" onclick="markDone()">Mark Lesson 9 Complete</button>
+    <div class="done-banner" id="doneBanner">✅ Lesson 9 complete! Middle mastered. See you in Lesson 10! ⚖️</div>
+  </section>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const REVIEW = [
+  {w:"locate", p:"loc (place) + -ate (to make, to act)", d:"To find where something is."},
+  {w:"local", p:"loc (place) + -al (like, related to)", d:"Like or related to a particular place."},
+  {w:"locale", p:"loc (place) + -ale (place where)", d:"A place or area where something special was, is, or happened."},
+  {w:"locally", p:"loc (place) + -al + -ly (two suffixes!)", d:"In the manner of being local — in a particular place or area."}
+];
+const REVIEWSFX = [
+  {r:"-al", m:"like, related to; an action or process", ex:"local"},
+  {r:"-ale", m:"place where", ex:"locale"},
+  {r:"-ate", m:"to make, to act; one who, that which", ex:"locate"},
+  {r:"-ly", m:"in the manner of", ex:"locally"}
+];
+const ROOTS = [
+  {r:"medi", m:"half, middle, halfway between", ex:"mediate", kind:"root"},
+  {r:"-an", m:"like, related to", ex:"median", kind:"suffix"},
+  {r:"-ate", m:"to make, to act; one who, that which", ex:"mediate", kind:"suffix"},
+  {r:"at-or", m:"one who, that which, condition, state, activity", ex:"mediator", kind:"suffix"},
+  {r:"-um", m:"of or belonging to", ex:"medium", kind:"suffix"}
+];
+const WORDS = [
+  {w:"mediate", parts:"<b>medi</b> (half, middle, halfway between) + <b>-ate</b> (to make, to act)",
+   def:"To act or come between opposing sides to solve a problem.",
+   sent:"The council asked the garden club to mediate the issue."},
+  {w:"medium", parts:"<b>medi</b> (half, middle, halfway between) + <b>-um</b> (of or belonging to)",
+   def:"Of a middle size, amount, or quality; neither large nor small.",
+   sent:"Mrs. Ringo kept up the medium-sized bushes in the median."},
+  {w:"median", parts:"<b>medi</b> (half, middle, halfway between) + <b>-an</b> (like, related to)",
+   def:"Something that is related to or in the middle.",
+   sent:"The weedy median goes right down the middle of Main Street."},
+  {w:"mediator", parts:"<b>medi</b> (half, middle, halfway between) + <b>at</b> + <b>-or</b> (one who)",
+   def:"One who acts between opposing sides to solve a problem.",
+   sent:"Amazingly, the mediator solved the issue quickly."}
+];
+
+/* ---------- progress store ---------- */
+const KEY = "wr9";
+function load(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ return {}; } }
+function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+let S = load();
+if(!S.checks) S.checks = {};
+
+function totalChecks(){ return ROOTS.length + WORDS.length + REVIEW.length + REVIEWSFX.length; }
+function updateBar(){
+  const n = Object.keys(S.checks).length, t = totalChecks();
+  const pct = Math.round(n/t*100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("ptext").textContent = n + " of " + t + " cards learned. Tap “Got it” on each card as you learn it.";
+  save(S);
+}
+function markDone(){
+  const btn = document.getElementById("doneBtn"), banner = document.getElementById("doneBanner");
+  if(S.done){
+    S.done = false; save(S);
+    banner.classList.remove("show");
+    btn.textContent = "Mark Lesson 9 Complete";
+  } else {
+    S.done = true; save(S);
+    banner.classList.add("show");
+    btn.textContent = "✅ Lesson 9 Complete! (tap again to undo)";
+  }
+}
+function gotItBtn(id){
+  const b = document.createElement("button");
+  b.className = "chk"; b.textContent = "Got it ✓";
+  if(S.checks[id]) b.classList.add("done");
+  b.onclick = (e)=>{ e.stopPropagation();
+    if(S.checks[id]){ delete S.checks[id]; b.classList.remove("done"); }
+    else { S.checks[id]=1; b.classList.add("done"); } updateBar(); };
+  return b;
+}
+
+/* ---------- review flip cards ---------- */
+const fg = document.getElementById("flipGrid");
+REVIEW.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "flip";
+  d.innerHTML = '<div class="inner">'+
+    '<div class="face front"><div class="w">'+o.w+'</div><div class="t">❓ What does it mean? Tap to check the answer.</div></div>'+
+    '<div class="face back"><div class="w">✅ '+o.w+'</div><div class="p">'+o.p+'</div><div class="d">'+o.d+'</div></div>'+
+    '</div>';
+  d.onclick = ()=> d.classList.toggle("on");
+  const wrap = document.createElement("div");
+  wrap.appendChild(d);
+  const row = document.createElement("div");
+  row.style.cssText = "text-align:center;margin-top:6px";
+  row.appendChild(gotItBtn("v"+i));
+  wrap.appendChild(row);
+  fg.appendChild(wrap);
+});
+
+/* ---------- review suffix cards (loc suffixes) ---------- */
+const sg = document.getElementById("revSfx");
+REVIEWSFX.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "root";
+  d.innerHTML = '<div class="r">'+o.r+'</div><div class="m">'+o.m+'</div>'+
+    '<div class="ex">suffix · as in “'+o.ex+'”</div>';
+  d.appendChild(gotItBtn("s"+i));
+  sg.appendChild(d);
+});
+
+/* ---------- root & suffix cards ---------- */
+const rg = document.getElementById("rootGrid");
+ROOTS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "root";
+  d.innerHTML = '<div class="r">'+o.r+'</div><div class="m">'+o.m+'</div>'+
+    '<div class="ex">'+o.kind+' · as in “'+o.ex+'”</div>';
+  d.appendChild(gotItBtn("r"+i));
+  rg.appendChild(d);
+});
+
+/* ---------- word cards ---------- */
+const wg = document.getElementById("wordGrid");
+WORDS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "word";
+  d.innerHTML = '<div class="pos">lesson word</div><h3>'+o.w+'</h3>'+
+    '<div class="def">'+o.def+'</div>'+
+    '<div class="parts">'+o.parts+'</div>'+
+    '<div class="sent">“'+o.sent+'”</div>'+
+    '<div style="margin-top:10px"><button class="mini">Show word parts</button></div>';
+  const parts = d.querySelector(".parts"), show = d.querySelector(".mini");
+  show.onclick = ()=>{ parts.classList.toggle("show"); show.textContent = parts.classList.contains("show")?"Hide word parts":"Show word parts"; };
+  d.querySelector("div[style]").appendChild(gotItBtn("w"+i));
+  wg.appendChild(d);
+});
+
+/* ---------- Activity A: matching ---------- */
+const PAIRS = [
+  {w:"mediate", m:"To act or come between opposing sides to solve a problem"},
+  {w:"mediator", m:"One who acts between opposing sides to solve a problem"},
+  {w:"medium", m:"Of a middle size, amount, or quality; neither large nor small"},
+  {w:"median", m:"Something that is related to or in the middle"}
+];
+const MEAN_ORDER = [2,0,3,1];
+let selW = null, matched = 0;
+const mwBox = document.getElementById("mwords"), mmBox = document.getElementById("mmeans");
+PAIRS.forEach((p,i)=>{
+  const d = document.createElement("div");
+  d.className = "mword"; d.textContent = p.w; d.dataset.i = i;
+  d.onclick = ()=>{ if(d.classList.contains("ok")) return;
+    mwBox.querySelectorAll(".mword").forEach(x=>x.classList.remove("sel"));
+    d.classList.add("sel"); selW = i; };
+  mwBox.appendChild(d);
+});
+MEAN_ORDER.forEach((pi)=>{
+  const p = PAIRS[pi];
+  const d = document.createElement("div");
+  d.className = "mmean"; d.textContent = p.m; d.dataset.i = pi;
+  d.onclick = ()=>{
+    if(d.classList.contains("ok") || selW===null) return;
+    const wEl = mwBox.querySelector('.mword[data-i="'+selW+'"]');
+    if(selW === pi){
+      wEl.classList.add("ok"); wEl.classList.remove("sel");
+      d.classList.add("ok"); matched++; selW = null;
+      setScore();
+    } else {
+      d.classList.add("bad"); wEl.classList.add("bad");
+      setTimeout(()=>{ d.classList.remove("bad"); wEl.classList.remove("bad"); }, 700);
+    }
+  };
+  mmBox.appendChild(d);
+});
+function setScore(){
+  document.getElementById("matchScore").childNodes[0].textContent = "Matched: "+matched+" / 4  ";
+}
+function resetMatch(){
+  matched = 0; selW = null;
+  document.querySelectorAll(".mword,.mmean").forEach(x=>x.classList.remove("ok","sel","bad"));
+  setScore();
+}
+
+/* ---------- Activity B: match word to picture ---------- */
+const PQS = [
+  {q:"1. Which word matches this picture: a road with a planted strip running down the middle? 🛣️",
+   a:"median", opts:["median","mediator","medium","mediate"]},
+  {q:"2. Which word matches this picture: a person standing between two others, helping them agree? 🤝",
+   a:"mediator", opts:["mediate","median","mediator","medium"]},
+  {q:"3. Which word matches this picture: three pairs of jeans with an arrow pointing at the middle-sized pair? 👖",
+   a:"medium", opts:["mediator","medium","median","mediate"]},
+  {q:"4. Which word matches this picture: two people shaking hands and making peace? 🕊️",
+   a:"mediate", opts:["medium","mediate","median","mediator"]}
+];
+const pqBox = document.getElementById("picQs");
+PQS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = "<p>"+o.q+"</p>";
+  const ow = document.createElement("div"); ow.className = "opts";
+  o.opts.forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.textContent = op;
+    b.onclick = ()=>{
+      if(b.textContent === o.a){ b.classList.add("right"); [...ow.children].forEach(x=>x.disabled=true); }
+      else { b.classList.add("wrong"); b.disabled = true; }
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); pqBox.appendChild(d);
+});
+
+/* ---------- Activity C: Gazette story ---------- */
+const CSENTS = [
+  {t:"The weedy ___ in our small town goes right down the middle of Main Street.", a:"median"},
+  {t:"Old Mrs. Ringo planted bright flowers and kept up the ___-sized bushes, trees, and ferns.", a:"medium"},
+  {t:"The council voted to have the garden club two towns over ___ the issue.", a:"mediate"},
+  {t:"Amazingly, the ___ solved the issue quickly.", a:"mediator"}
+];
+const CWORDS = ["mediate","medium","median","mediator"];
+let cSel = null;
+const cBank = document.getElementById("cbank"), cSents = document.getElementById("csents");
+CWORDS.forEach(w=>{
+  const c = document.createElement("span"); c.className = "chip"; c.textContent = w;
+  c.onclick = ()=>{
+    cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+    if(cSel === w){ cSel = null; } else { c.classList.add("sel"); cSel = w; }
+  };
+  cBank.appendChild(c);
+});
+let blankCount = 0;
+CSENTS.forEach((s)=>{
+  const d = document.createElement("div"); d.className = "sent-row";
+  let html = s.t, idx = 0;
+  html = html.replace(/___/g, ()=>{
+    const a = Array.isArray(s.a) ? s.a[idx] : s.a;
+    const h = '<span class="blank" data-a="'+a+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+    idx++; blankCount++; return h;
+  });
+  d.innerHTML = html;
+  cSents.appendChild(d);
+});
+cSents.addEventListener("click", (e)=>{
+  const b = e.target.closest(".blank"); if(!b) return;
+  if(b.dataset.w){
+    const w = b.dataset.w;
+    cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===w) x.classList.remove("used"); });
+    delete b.dataset.w; b.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    b.classList.remove("filled","right","wrong"); return;
+  }
+  if(!cSel) return;
+  b.dataset.w = cSel; b.textContent = cSel; b.classList.add("filled");
+  b.classList.remove("right","wrong");
+  cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===cSel) x.classList.add("used"); });
+  cSel = null; cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+});
+function checkC(){
+  let ok = 0;
+  cSents.querySelectorAll(".blank").forEach(b=>{
+    if(b.dataset.w === b.dataset.a){ b.classList.add("right"); b.classList.remove("wrong"); ok++; }
+    else { b.classList.add("wrong"); b.classList.remove("right"); }
+  });
+  document.getElementById("cscore").textContent = ok+" of "+blankCount+" correct."+(ok===blankCount?" The Gazette article is complete! 📰":" Keep trying — tap a filled blank to take a word back.");
+}
+function resetC(){
+  cSents.querySelectorAll(".blank").forEach(b=>{ delete b.dataset.w; b.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; b.classList.remove("filled","right","wrong"); });
+  cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("used","sel"));
+  cSel = null; document.getElementById("cscore").textContent = "";
+}
+
+/* ---------- Gazette article reveal ---------- */
+const gzArt = document.getElementById("gzArt"), gzBtn = document.getElementById("gzBtn");
+gzBtn.onclick = ()=>{ gzArt.classList.toggle("show"); gzBtn.textContent = gzArt.classList.contains("show")?"Hide the article":"Reveal the article"; };
+
+/* ---------- Quick Check ---------- */
+const CQS = [
+  {q:"1. What does the root “medi” mean?", a:"half, middle, halfway between",
+   opts:["place","half, middle, halfway between","step","to make, to act"]},
+  {q:"2. “mediator” = medi + at + or. What does “mediator” mean?", a:"one who acts between opposing sides to solve a problem",
+   opts:["something that is in the middle","one who acts between opposing sides to solve a problem","of a middle size","to act between opposing sides"]},
+  {q:"3. Which suffix means “of or belonging to”?", a:"-um",
+   opts:["-an","-ate","-um","at-or"]}
+];
+const cqBox = document.getElementById("checkQs");
+CQS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = "<p>"+o.q+"</p>";
+  const ow = document.createElement("div"); ow.className = "opts";
+  o.opts.forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.textContent = op;
+    b.onclick = ()=>{
+      if(b.textContent === o.a){ b.classList.add("right"); [...ow.children].forEach(x=>x.disabled=true); }
+      else { b.classList.add("wrong"); b.disabled = true; }
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); cqBox.appendChild(d);
+});
+
+/* ---------- init ---------- */
+updateBar();
+if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "✅ Lesson 9 Complete! (tap again to undo)"; }
+</script>
+</body>
+</html>
