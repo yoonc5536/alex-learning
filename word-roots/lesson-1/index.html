@@ -324,9 +324,16 @@ function updateBar(){
   save(S);
 }
 function markDone(){
-  S.done = true; save(S);
-  document.getElementById("doneBanner").classList.add("show");
-  document.getElementById("doneBtn").textContent = "✅ Lesson 1 Complete!";
+  const btn = document.getElementById("doneBtn"), banner = document.getElementById("doneBanner");
+  if(S.done){ /* tap again = undo */
+    S.done = false; save(S);
+    banner.classList.remove("show");
+    btn.textContent = "Mark Lesson 1 Complete";
+  } else {
+    S.done = true; save(S);
+    banner.classList.add("show");
+    btn.textContent = "✅ Lesson 1 Complete! (tap again to undo)";
+  }
 }
 
 /* ---------- root cards ---------- */
@@ -526,7 +533,7 @@ function resetD(){
 
 /* ---------- init ---------- */
 updateBar();
-if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "✅ Lesson 1 Complete!"; }
+if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "✅ Lesson 1 Complete! (tap again to undo)"; }
 </script>
 </body>
 </html>
