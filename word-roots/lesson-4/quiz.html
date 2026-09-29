@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 4 Quiz — uni-, bi-, tri-, cycle | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6fbff; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #0369a1, #38bdf8); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header.hero h1 { margin: 4px 0; font-size: 1.7rem; }
+  header.hero p { margin: 4px 0; opacity: .92; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 22px 20px 60px; }
+  .home { display: inline-block; margin-bottom: 12px; color: #0369a1; font-weight: 700; text-decoration: none; }
+  .home:hover { text-decoration: underline; }
+  .scorebar { background: #fff; border: 1px solid #bae6fd; border-radius: 14px; padding: 12px 18px;
+         margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
+         box-shadow: 0 2px 8px rgba(3,105,161,.08); }
+  .scorebar .best { font-size: .9rem; color: #0369a1; font-weight: 700; }
+  .qcard { background: #fff; border: 2px solid #bae6fd; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
+  .qcard .qn { font-size: .82rem; color: #0284c7; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+  .qcard .qq { font-size: 1.08rem; font-weight: 700; margin: 6px 0 14px; max-width: 75ch; }
+  .opts { display: grid; gap: 10px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 10px 16px;
+         cursor: pointer; font-size: .97rem; text-align: left; }
+  .opt:hover:not(:disabled) { border-color: #38bdf8; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  .opt:disabled { cursor: default; }
+  .exp { display: none; margin-top: 12px; background: #f0f9ff; border-left: 4px solid #0284c7;
+         padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .93rem; color: #075985; max-width: 80ch; }
+  .exp.show { display: block; }
+  .exp b { color: #0c4a6e; }
+  .final { display: none; text-align: center; background: linear-gradient(135deg,#0c4a6e,#0284c7);
+         color: #fff; border-radius: 18px; padding: 34px 20px; }
+  .final.show { display: block; }
+  .final h2 { margin: 0 0 8px; font-size: 1.8rem; }
+  .final .score { font-size: 3rem; font-weight: 900; margin: 8px 0; }
+  .final p { opacity: .92; }
+  .bigbtn { display: inline-block; background: #0284c7; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; margin: 6px; }
+  .final .bigbtn { background: #fff; color: #0c4a6e; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.2rem">🚲</div>
+  <h1>Lesson 4 Quiz — uni-, bi-, tri-, cycle</h1>
+  <p>20 questions &middot; tap an answer to get instant feedback &middot; questions and answers are shuffled</p>
+</header>
+
+<div class="wrap">
+  <a class="home" href="index.html">← Back to Lesson 4</a>
+  <div class="scorebar">
+    <div>Question <strong id="now">1</strong> of <strong id="of">20</strong></div>
+    <div class="best">🏆 Best score: <span id="best">—</span></div>
+  </div>
+  <div id="quiz"></div>
+  <div class="final" id="final">
+    <h2>🎉 Quiz Complete!</h2>
+    <div class="score"><span id="score">0</span> / 20</div>
+    <p id="verdict"></p>
+    <p style="font-size:.9rem">🏆 Best score on this device: <b id="best2">—</b></p>
+    <button class="bigbtn" onclick="location.reload()">🔁 Retry Quiz</button>
+    <a class="bigbtn" href="index.html" style="text-decoration:none">📖 Back to Lesson 4</a>
+    <a class="bigbtn" href="../lesson-5/" style="text-decoration:none">🤝 Next: Lesson 5</a>
+  </div>
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"What does the prefix “uni-” mean?", a:"one",
+   opts:["one","two","three","circle"],
+   e:"<b>uni-</b> = <b>one</b> — as in <b>uni- + cycle = unicycle</b>, a cycle with one wheel."},
+  {q:"What does the prefix “bi-” mean?", a:"two",
+   opts:["two","one","three","circle"],
+   e:"<b>bi-</b> = <b>two</b> — as in <b>bi- + cycle = bicycle</b>, a cycle with two wheels."},
+  {q:"What does the prefix “tri-” mean?", a:"three",
+   opts:["three","one","two","circle"],
+   e:"<b>tri-</b> = <b>three</b> — as in <b>tri- + cycle = tricycle</b>, a cycle with three wheels."},
+  {q:"What does the root “cycle” mean?", a:"circle",
+   opts:["circle","wheel","bike","again"],
+   e:"<b>cycle</b> = <b>circle</b>. It can also mean a constantly repeating series of events or processes."},
+  {q:"Which word names a bike with <b>one</b> wheel?", a:"unicycle",
+   opts:["unicycle","bicycle","tricycle","recycle"],
+   e:"<b>unicycle</b> = uni- (one) + cycle. One wheel!"},
+  {q:"Which word names a bike with <b>two</b> wheels?", a:"bicycle",
+   opts:["bicycle","unicycle","tricycle","cycle"],
+   e:"<b>bicycle</b> = bi- (two) + cycle. Two wheels!"},
+  {q:"Which word names a bike with <b>three</b> wheels?", a:"tricycle",
+   opts:["tricycle","unicycle","bicycle","recycle"],
+   e:"<b>tricycle</b> = tri- (three) + cycle. Three wheels!"},
+  {q:"In the book&rsquo;s word box, which TWO words were <b>not</b> used for the pictures?", a:"recycle and cycle",
+   opts:["recycle and cycle","unicycle and recycle","bicycle and cycle","tricycle and bicycle"],
+   e:"The box had <b>recycle</b> and <b>cycle</b> too, but they were <b>not used</b> for the pictures — the pictures only showed unicycle, bicycle, tricycle."},
+  {q:"Besides “circle”, the root “cycle” can also mean…", a:"a constantly repeating series of events or processes",
+   opts:["a constantly repeating series of events or processes","a broken circle","a straight path","to stop moving"],
+   e:"From the book: <b>cycle</b> can also mean <b>a constantly repeating series of events or processes</b> — like a life cycle."},
+  {q:"Frog life cycle: what happens AFTER the female frog lays eggs?", a:"The eggs hatch into tadpoles",
+   opts:["The eggs hatch into tadpoles","The tadpoles grow into frogs","The frog lays more eggs","The eggs turn into seeds"],
+   e:"Frog cycle from the book: male + female frog → eggs → <b>eggs hatch into tadpoles</b> → tadpoles grow into frogs."},
+  {q:"Frog life cycle: what do the tadpoles grow into?", a:"male and female frogs",
+   opts:["male and female frogs","more eggs","tomato plants","tadpoles forever"],
+   e:"The last step: <b>the tadpoles grow into male and female frogs</b> — and the cycle starts again!"},
+  {q:"Tomato life cycle: what is stage 1?", a:"seeds being planted",
+   opts:["seeds being planted","a sprouting seedling","a grown plant with fruit","a ripe tomato"],
+   e:"Stage 1: <b>seeds being planted</b>. Stage 2: sprouting. Stage 3: grown plant with fruit. Stage 4: ripe tomato."},
+  {q:"Tomato life cycle: what is stage 2?", a:"a sprouting seedling",
+   opts:["a sprouting seedling","seeds being planted","a ripe tomato","a grown plant with fruit"],
+   e:"Stage 2: <b>a sprouting seedling</b> pokes out of the soil."},
+  {q:"Tomato life cycle: what is stage 3?", a:"a grown plant with fruit",
+   opts:["a grown plant with fruit","seeds being planted","a ripe tomato","a sprouting seedling"],
+   e:"Stage 3: <b>a grown plant with fruit</b> — still green tomatoes."},
+  {q:"Tomato life cycle: what is stage 4?", a:"a ripe tomato",
+   opts:["a ripe tomato","seeds being planted","a sprouting seedling","a grown plant with fruit"],
+   e:"Stage 4: <b>a ripe tomato</b> — red and ready to eat!"},
+  {q:"Which prefix means “many”?", a:"poly-",
+   opts:["poly-","omni-","uni-","tri-"],
+   e:"<b>poly-</b> = many. <b>omni-</b> = all. From the book&rsquo;s counting tip."},
+  {q:"Which prefix means “all”?", a:"omni-",
+   opts:["omni-","poly-","bi-","deca-"],
+   e:"<b>omni-</b> = all. <b>poly-</b> = many."},
+  {q:"quadr-, penta-, hexa-, hepta-, oct-, novem-, deca- are prefixes for…", a:"the numbers 1–10",
+   opts:["the numbers 1–10","colors","animals","shapes"],
+   e:"From the book&rsquo;s tip: after uni-, bi-, tri- come <b>quadr-, penta-, hexa-, hepta-, oct-, novem-, deca-</b> — the numbers 1–10!"},
+  {q:"<b>uni-</b> + <b>cycle</b> = ? And what does it mean?", a:"unicycle — a cycle with one wheel",
+   opts:["unicycle — a cycle with one wheel","bicycle — a cycle with two wheels","recycle — to use again","cycle — a circle"],
+   e:"<b>uni- (one) + cycle = unicycle</b> — a cycle with one wheel."},
+  {q:"<b>bi-</b> + <b>cycle</b> = ? And what does it mean?", a:"bicycle — a cycle with two wheels",
+   opts:["bicycle — a cycle with two wheels","tricycle — a cycle with three wheels","unicycle — a cycle with one wheel","recycle — to use again"],
+   e:"<b>bi- (two) + cycle = bicycle</b> — a cycle with two wheels."}
+];
+
+const BEST_KEY = "wr4-quiz-best";
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+let score = 0, answered = 0;
+
+function renderBest(){
+  const b = localStorage.getItem(BEST_KEY);
+  document.getElementById("best").textContent = b ? b+" / 20" : "—";
+  document.getElementById("best2").textContent = b ? b+" / 20" : "—";
+}
+
+const box = document.getElementById("quiz");
+shuffle(QUESTIONS).forEach((q,i)=>{
+  const d = document.createElement("div");
+  d.className = "qcard";
+  d.innerHTML = '<div class="qn">Question '+(i+1)+'</div><div class="qq">'+q.q+'</div>';
+  const ow = document.createElement("div"); ow.className = "opts";
+  const exp = document.createElement("div"); exp.className = "exp"; exp.innerHTML = q.e;
+  shuffle(q.opts.slice()).forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.innerHTML = op;
+    b.onclick = ()=>{
+      [...ow.children].forEach(x=>{
+        x.disabled = true;
+        if(x.innerHTML === q.a) x.classList.add("right");
+      });
+      if(b.innerHTML === q.a){ score++; }
+      else { b.classList.add("wrong"); }
+      exp.classList.add("show");
+      answered++;
+      document.getElementById("now").textContent = Math.min(answered+1, 20);
+      if(answered === QUESTIONS.length) finish();
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); d.appendChild(exp);
+  box.appendChild(d);
+});
+
+function finish(){
+  const f = document.getElementById("final");
+  f.classList.add("show");
+  document.getElementById("score").textContent = score;
+  const v = document.getElementById("verdict");
+  if(score === 20) v.textContent = "Perfect! You are a true cycle master! 🌟";
+  else if(score >= 16) v.textContent = "Excellent work! Just a little review left. 💪";
+  else if(score >= 12) v.textContent = "Good effort! Review the lesson and try again. 📖";
+  else v.textContent = "Keep practicing — the lesson page is right there. You&rsquo;ve got this! 🌱";
+  const prev = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
+  if(score > prev) localStorage.setItem(BEST_KEY, String(score));
+  renderBest();
+  f.scrollIntoView({behavior:"smooth"});
+}
+renderBest();
+</script>
+</body>
+</html>
