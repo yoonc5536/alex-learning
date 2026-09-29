@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 6 Quiz — ab-, dis-, e-, inter- + rupt | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f3fcfb; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #0f766e, #2dd4bf); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header.hero h1 { margin: 4px 0; font-size: 1.7rem; }
+  header.hero p { margin: 4px 0; opacity: .92; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 22px 20px 60px; }
+  .home { display: inline-block; margin-bottom: 12px; color: #0f766e; font-weight: 700; text-decoration: none; }
+  .home:hover { text-decoration: underline; }
+  .scorebar { background: #fff; border: 1px solid #99f6e4; border-radius: 14px; padding: 12px 18px;
+         margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
+         box-shadow: 0 2px 8px rgba(15,118,110,.08); }
+  .scorebar .best { font-size: .9rem; color: #0f766e; font-weight: 700; }
+  .qcard { background: #fff; border: 2px solid #99f6e4; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
+  .qcard .qn { font-size: .82rem; color: #0d9488; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+  .qcard .qq { font-size: 1.08rem; font-weight: 700; margin: 6px 0 14px; max-width: 75ch; }
+  .opts { display: grid; gap: 10px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 10px 16px;
+         cursor: pointer; font-size: .97rem; text-align: left; }
+  .opt:hover:not(:disabled) { border-color: #2dd4bf; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  .opt:disabled { cursor: default; }
+  .exp { display: none; margin-top: 12px; background: #f0fdfa; border-left: 4px solid #0d9488;
+         padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .93rem; color: #0f766e; max-width: 80ch; }
+  .exp.show { display: block; }
+  .exp b { color: #134e4a; }
+  .final { display: none; text-align: center; background: linear-gradient(135deg,#134e4a,#0d9488);
+         color: #fff; border-radius: 18px; padding: 34px 20px; }
+  .final.show { display: block; }
+  .final h2 { margin: 0 0 8px; font-size: 1.8rem; }
+  .final .score { font-size: 3rem; font-weight: 900; margin: 8px 0; }
+  .final p { opacity: .92; }
+  .bigbtn { display: inline-block; background: #0d9488; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; margin: 6px; }
+  .final .bigbtn { background: #fff; color: #134e4a; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.2rem">💥</div>
+  <h1>Lesson 6 Quiz — ab-, dis-, e-, inter- + rupt</h1>
+  <p>20 questions &middot; tap an answer to get instant feedback &middot; questions and answers are shuffled</p>
+</header>
+
+<div class="wrap">
+  <a class="home" href="index.html">← Back to Lesson 6</a>
+  <div class="scorebar">
+    <div>Question <strong id="now">1</strong> of <strong id="of">20</strong></div>
+    <div class="best">🏆 Best score: <span id="best">—</span></div>
+  </div>
+  <div id="quiz"></div>
+  <div class="final" id="final">
+    <h2>🎉 Quiz Complete!</h2>
+    <div class="score"><span id="score">0</span> / 20</div>
+    <p id="verdict"></p>
+    <p style="font-size:.9rem">🏆 Best score on this device: <b id="best2">—</b></p>
+    <button class="bigbtn" onclick="location.reload()">🔁 Retry Quiz</button>
+    <a class="bigbtn" href="index.html" style="text-decoration:none">📖 Back to Lesson 6</a>
+    <a class="bigbtn" href="../lesson-7/" style="text-decoration:none">🟠 Next: Lesson 7</a>
+  </div>
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"What does the prefix “ab-” mean?", a:"away, from",
+   opts:["away, from","apart, opposite of","out, away, from","between, among"],
+   e:"<b>ab-</b> = <b>away, from</b> — as in <b>ab- + rupt = abrupt</b>, broken away without warning."},
+  {q:"What does the prefix “dis-” mean?", a:"apart, opposite of",
+   opts:["apart, opposite of","away, from","out, away, from","between, among"],
+   e:"<b>dis-</b> = <b>apart, opposite of</b> — as in <b>dis- + rupt = disrupt</b>."},
+  {q:"What does the prefix “e-” mean?", a:"out, away, from",
+   opts:["out, away, from","away, from","apart, opposite of","between, among"],
+   e:"<b>e-</b> = <b>out, away, from</b> — as in <b>e- + rupt = erupt</b>, to burst out!"},
+  {q:"What does the prefix “inter-” mean?", a:"between, among",
+   opts:["between, among","away, from","apart, opposite of","out, away, from"],
+   e:"<b>inter-</b> = <b>between, among</b> — as in <b>inter- + rupt = interrupt</b>."},
+  {q:"What does the root “rupt” mean?", a:"to break, burst",
+   opts:["to break, burst","to do","to place","to say, speak"],
+   e:"<b>rupt</b> = <b>to break, burst</b>. Every word in Lesson 6 is a prefix + rupt."},
+  {q:"<b>disrupt</b> = ?", a:"to break apart or into an activity causing confusion or disorder",
+   opts:["to break apart or into an activity causing confusion or disorder","to break out of or burst from; explode","to come between or break into an activity or conversation","broken away or from something without warning"],
+   e:"<b>dis- + rupt = disrupt</b> — to break apart or into an activity causing confusion or disorder."},
+  {q:"<b>interrupt</b> = ?", a:"to come between or break into an activity or conversation",
+   opts:["to come between or break into an activity or conversation","to break apart or into an activity causing confusion or disorder","to break out of or burst from; explode","broken away or from something without warning"],
+   e:"<b>inter- + rupt = interrupt</b> — to come between or break into an activity or conversation."},
+  {q:"<b>erupt</b> = ?", a:"to break out of or burst from; explode",
+   opts:["to break out of or burst from; explode","to break apart or into an activity causing confusion or disorder","to come between or break into an activity or conversation","broken away or from something without warning"],
+   e:"<b>e- + rupt = erupt</b> — to break out of or burst from; explode."},
+  {q:"<b>abrupt</b> = ?", a:"broken away or from something without warning",
+   opts:["broken away or from something without warning","to break apart or into an activity causing confusion or disorder","to break out of or burst from; explode","to come between or break into an activity or conversation"],
+   e:"<b>ab- + rupt = abrupt</b> — broken away or from something without warning."},
+  {q:"The volcano ___ and hot lava poured out.", a:"erupted",
+   opts:["erupted","abrupt","disrupted","interrupt"],
+   e:"A volcano bursts out = <b>erupted</b>. The volcano <b>erupted</b> and hot lava poured out."},
+  {q:"He screeched to an ___ stop just in front of the ball.", a:"abrupt",
+   opts:["abrupt","erupted","disrupted","interrupt"],
+   e:"A stop without warning = <b>abrupt</b>. He screeched to an <b>abrupt</b> stop."},
+  {q:"It's impolite to ___ other people's conversations.", a:"interrupt",
+   opts:["interrupt","disrupted","erupted","abrupt"],
+   e:"Breaking INTO a conversation = <b>interrupt</b>. It's impolite to <b>interrupt</b>."},
+  {q:"The three students ___ the class until the teacher came back.", a:"disrupted",
+   opts:["disrupted","interrupt","erupted","abrupt"],
+   e:"Breaking APART the class with confusion = <b>disrupted</b>."},
+  {q:"Sally's face ___ into a red rash.", a:"erupted",
+   opts:["erupted","abrupt","disrupted","interrupt"],
+   e:"The rash burst OUT = <b>erupted</b>. Sally's face <b>erupted</b> into a red rash."},
+  {q:"The pigs almost walked over the ___ cliff edge.", a:"abrupt",
+   opts:["abrupt","erupted","disrupted","interrupt"],
+   e:"A cliff edge that breaks away suddenly = <b>abrupt</b>."},
+  {q:"Which word is built from <b>dis-</b> + <b>rupt</b>?", a:"disrupt",
+   opts:["disrupt","erupt","interrupt","abrupt"],
+   e:"<b>dis- (apart) + rupt (to break) = disrupt</b>."},
+  {q:"Which word is built from <b>e-</b> + <b>rupt</b>?", a:"erupt",
+   opts:["erupt","disrupt","interrupt","abrupt"],
+   e:"<b>e- (out) + rupt (to burst) = erupt</b>."},
+  {q:"Which word is built from <b>inter-</b> + <b>rupt</b>?", a:"interrupt",
+   opts:["interrupt","disrupt","erupt","abrupt"],
+   e:"<b>inter- (between) + rupt (to break) = interrupt</b>."},
+  {q:"Which word is built from <b>ab-</b> + <b>rupt</b>?", a:"abrupt",
+   opts:["abrupt","disrupt","erupt","interrupt"],
+   e:"<b>ab- (away, from) + rupt (to break) = abrupt</b>."},
+  {q:"The policeman's crazy signals ___ the natural flow of traffic.", a:"disrupted",
+   opts:["disrupted","interrupt","erupted","abrupt"],
+   e:"Breaking APART the flow of traffic = <b>disrupted</b>."}
+];
+
+const BEST_KEY = "wr6-quiz-best";
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+let score = 0, answered = 0;
+
+function renderBest(){
+  const b = localStorage.getItem(BEST_KEY);
+  document.getElementById("best").textContent = b ? b+" / 20" : "—";
+  document.getElementById("best2").textContent = b ? b+" / 20" : "—";
+}
+
+const box = document.getElementById("quiz");
+shuffle(QUESTIONS).forEach((q,i)=>{
+  const d = document.createElement("div");
+  d.className = "qcard";
+  d.innerHTML = '<div class="qn">Question '+(i+1)+'</div><div class="qq">'+q.q+'</div>';
+  const ow = document.createElement("div"); ow.className = "opts";
+  const exp = document.createElement("div"); exp.className = "exp"; exp.innerHTML = q.e;
+  shuffle(q.opts.slice()).forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.innerHTML = op;
+    b.onclick = ()=>{
+      [...ow.children].forEach(x=>{
+        x.disabled = true;
+        if(x.innerHTML === q.a) x.classList.add("right");
+      });
+      if(b.innerHTML === q.a){ score++; }
+      else { b.classList.add("wrong"); }
+      exp.classList.add("show");
+      answered++;
+      document.getElementById("now").textContent = Math.min(answered+1, 20);
+      if(answered === QUESTIONS.length) finish();
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); d.appendChild(exp);
+  box.appendChild(d);
+});
+
+function finish(){
+  const f = document.getElementById("final");
+  f.classList.add("show");
+  document.getElementById("score").textContent = score;
+  const v = document.getElementById("verdict");
+  if(score === 20) v.textContent = "Perfect! You are a true rupt master! 🌟";
+  else if(score >= 16) v.textContent = "Excellent work! Just a little review left. 💪";
+  else if(score >= 12) v.textContent = "Good effort! Review the lesson and try again. 📖";
+  else v.textContent = "Keep practicing — the lesson page is right there. You&rsquo;ve got this! 🌱";
+  const prev = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
+  if(score > prev) localStorage.setItem(BEST_KEY, String(score));
+  renderBest();
+  f.scrollIntoView({behavior:"smooth"});
+}
+renderBest();
+</script>
+</body>
+</html>
