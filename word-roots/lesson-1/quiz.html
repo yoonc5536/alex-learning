@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 1 Quiz | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #166534, #22c55e); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 18px 60px; }
+  .hud { background: #fff; border: 1px solid #d9e6d4; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 760px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(22,101,52,.08); font-weight: 700; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #16a34a; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #bbf7d0; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; }
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #14532d; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #15803d; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2.2rem">🎯</div>
+  <h1>Lesson 1 Quiz</h1>
+  <p>Use the roots you learned to guess each meaning &middot; 20 questions</p>
+</header>
+
+<div class="wrap">
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
+  </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 1</a>
+  </div>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QS = [
+ {q:"Which word means “a tool that helps you see things far away, like the moon”?",
+  o:["telescope","microscope","periscope","thermometer"], a:0,
+  why:"<b>tele</b> (from afar) + <b>scope</b> (look at) = a tool for looking at things far away."},
+ {q:"Which word means “a tool that helps you see tiny things up close”?",
+  o:["telescope","microscope","periscope","acrobat"], a:1,
+  why:"<b>micro</b> (small) + <b>scope</b> (look at) = a tool for looking at small things."},
+ {q:"Which word means “a tube on a submarine that lets sailors look around above the water”?",
+  o:["microscope","telescope","astronaut","periscope"], a:3,
+  why:"<b>peri</b> (around) + <b>scope</b> (look at) = a tool for looking around."},
+ {q:"Which word means “a person who walks on a high wire”?",
+  o:["astronaut","acrobat","thermometer","periscope"], a:1,
+  why:"<b>acro</b> (height, top) + <b>bat</b> (to walk, to go, to step) = one who walks high up."},
+ {q:"Which word means “a star sailor who travels in space”?",
+  o:["acrobat","thermometer","geography","astronaut"], a:3,
+  why:"<b>astro</b> (star, heavens) + <b>naut</b> (sailor, ship) = a sailor of the stars."},
+ {q:"Which word means “a tool that measures heat”?",
+  o:["telescope","thermometer","microscope","geography"], a:1,
+  why:"<b>thermo</b> (heat) + <b>meter</b> (measure) = a measurer of heat."},
+ {q:"Which word means “writing about the earth”?",
+  o:["thermometer","astronaut","geography","microscope"], a:2,
+  why:"<b>geo</b> (earth, ground) + <b>graphy</b> (write) = writing about the earth."},
+ {q:"hydro (water) + phob (fear of) + -ia (condition) — which word means “fear of water”?",
+  o:["telescope","hydrophobia","thermometer","acrobat"], a:1,
+  why:"Root + root + suffix: <b>hydro</b> + <b>phob</b> + <b>-ia</b> = hydrophobia, fear of water."},
+ {q:"What does “telescope” mean?",
+  o:["A tool for seeing tiny things","A tube on a submarine","A tool for looking at things far away","A person who walks on wires"], a:2,
+  why:"<b>tele</b> (from afar) + <b>scope</b> (look at)."},
+ {q:"What does “astronaut” mean?",
+  o:["A person who walks on a high wire","Writing about the earth","A tool that measures heat","A star sailor — a person who travels in space"], a:3,
+  why:"<b>astro</b> (star, heavens) + <b>naut</b> (sailor, ship)."},
+ {q:"What does “thermometer” mean?",
+  o:["A tool that measures heat","A tool for looking far away","A person who walks on a high wire","Fear of water"], a:0,
+  why:"<b>thermo</b> (heat) + <b>meter</b> (measure)."},
+ {q:"What does “geography” mean?",
+  o:["A star sailor","A tool that measures heat","A tube on a submarine","Writing about the earth — the study of lands and places"], a:3,
+  why:"<b>geo</b> (earth, ground) + <b>graphy</b> (write)."},
+ {q:"What does the prefix “peri-” mean?",
+  o:["small","around, surrounding","to walk","heat"], a:1,
+  why:"<b>peri-</b> = around, surrounding — as in periscope."},
+ {q:"What does the root “scope” mean?",
+  o:["small","heat","look at, view, examine","to walk, to go, to step"], a:2,
+  why:"<b>scope</b> = look at, view, examine — as in microscope, telescope, periscope."},
+ {q:"What does the root “tele” mean?",
+  o:["small","star, heavens","heat","distance, from afar"], a:3,
+  why:"<b>tele</b> = distance, from afar — as in telescope, telephone."},
+ {q:"What does the root “micro” mean?",
+  o:["small","heat","around, surrounding","to walk, to go, to step"], a:0,
+  why:"<b>micro</b> = small — as in microscope."},
+ {q:"What does the root “astro” mean?",
+  o:["earth, ground","heat","small","star, heavens"], a:3,
+  why:"<b>astro</b> = star, heavens — as in astronaut."},
+ {q:"What does the root “geo” mean?",
+  o:["star, heavens","earth, ground","heat","small"], a:1,
+  why:"<b>geo</b> = earth, ground — as in geography."},
+ {q:"The book says some words add an “e” or “y” at the end, like “telephone” and “euphony”. Why?",
+  o:["To make the meaning the opposite","To complete the word — it does not change the meaning","To make the word plural","To show the word is a root"], a:1,
+  why:"The added letter just completes the word; the meaning stays the same."},
+ {q:"Which root from this lesson can stand alone as its own word?",
+  o:["scope","peri-","meter","astro"], a:2,
+  why:"<b>meter</b> means “measure” — and it can be a word all by itself!"}
+];
+
+const KEY = "wr1-quiz-best";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
+  });
+}
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true word-root master! 🏆"
+    : score>=16 ? "Excellent! The roots are really growing on you! 🌱"
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  restart();
+})();
+</script>
+</body>
+</html>
