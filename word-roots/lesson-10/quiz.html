@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 10 Quiz | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #be123c, #fb7185); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
+  .hud { background: #fff; border: 1px solid #fecdd3; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(225,29,72,.10); font-weight: 700; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #e11d48; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #fda4af; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #fda4af; background: #fff1f2; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; }
+  .why { display: none; margin-top: 14px; background: #fff1f2; border-left: 5px solid #e11d48;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #be123c; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #e11d48; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #be123c; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #e11d48; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2.2rem">🎯</div>
+  <h1>Lesson 10 Quiz</h1>
+  <p>Use the root grad and its suffixes to figure out each meaning &middot; 20 questions</p>
+</header>
+
+<div class="wrap">
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
+  </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 10</a>
+    <a href="../lesson-11/" class="bigbtn" style="margin-left:8px;text-decoration:none">Next: Lesson 11 →</a>
+  </div>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QS = [
+ {q:"What does the root “grad” mean?",
+  o:["step","half, middle","hear","not"], a:0,
+  why:"<b>grad</b> = step — every word in this lesson is about steps."},
+ {q:"What does the suffix “u-al” mean?",
+  o:["one who, that which","to make, to act","like, related to; an action or process","an action or process"], a:2,
+  why:"<b>u-al</b> = like, related to; an action or process — as in gradual."},
+ {q:"What does the suffix “u-ate” mean?",
+  o:["an action or process","to make, to act; one who, that which","like, related to","of or belonging to"], a:1,
+  why:"<b>u-ate</b> = to make, to act; one who, that which — as in graduate."},
+ {q:"What does the suffix “u-ation” mean?",
+  o:["like, related to","one who, that which","an action or process","to make, to act"], a:2,
+  why:"<b>u-ation</b> = an action or process — as in graduation."},
+ {q:"What does the suffix “i-ent” mean?",
+  o:["one who, that which; like, related to","an action or process","to make, to act","half, middle"], a:0,
+  why:"<b>i-ent</b> = one who, that which; like, related to — as in gradient."},
+ {q:"“grad” + “u” + “al” = “gradual”. What does “gradual” mean?",
+  o:["one who has finished each grade","related to small steps of change in something","an action when steps of study are finished","a big sudden change"], a:1,
+  why:"<b>grad</b> (step) + <b>u</b> + <b>al</b> (like, related to) = gradual — related to small steps of change in something."},
+ {q:"“grad” + “i” + “ent” = “gradient”. What does “gradient” mean?",
+  o:["related to steps of change in something, like color (rainbow), temperature, or a road going higher or lower","one who has finished each grade or step","an action or activity when study steps are finished","related to small steps of change"], a:0,
+  why:"<b>grad</b> (step) + <b>i</b> + <b>ent</b> (like, related to) = gradient — steps of change in something."},
+ {q:"“grad” + “u” + “ate” = “graduate”. What does “graduate” mean?",
+  o:["an action or activity at the end of high school or college","related to small steps of change","one who has finished each grade or step in high school, college, or other program of study","steps of change in a rainbow"], a:2,
+  why:"<b>grad</b> (step) + <b>u</b> + <b>ate</b> (one who, that which) = graduate."},
+ {q:"“grad” + “u” + “ation” = “graduation”. What does “graduation” mean?",
+  o:["related to small steps of change in something","one who has finished each grade","an action or activity that happens when steps of study are successfully finished, such as high school or college","a change in color from white to black"], a:2,
+  why:"<b>grad</b> (step) + <b>u</b> + <b>ation</b> (an action or process) = graduation."},
+ {q:"Which word means “related to small steps of change in something”?",
+  o:["gradient","graduate","gradual","graduation"], a:2,
+  why:"<b>gradual</b> = grad (step) + u + al (like, related to) — related to small steps of change."},
+ {q:"Which word means “related to steps of change in something, such as a change in color (rainbow), temperature, or when a road goes higher or lower”?",
+  o:["graduation","graduate","gradual","gradient"], a:3,
+  why:"<b>gradient</b> = grad (step) + i + ent (like, related to) — steps of change in something."},
+ {q:"Which word means “one who has finished each grade or step in high school, college, or other program of study”?",
+  o:["graduate","gradual","gradient","graduation"], a:0,
+  why:"<b>graduate</b> = grad (step) + u + ate (one who, that which) — one who finished the steps."},
+ {q:"Which word means “an action or activity that happens when steps of study are successfully finished, such as high school or college”?",
+  o:["gradient","graduation","graduate","gradual"], a:1,
+  why:"<b>graduation</b> = grad (step) + u + ation (an action or process) — the activity when study steps are done."},
+ {q:"Katrina's ___ was attended by her entire family.",
+  o:["graduation","gradient","graduate","gradual"], a:0,
+  why:"Katrina's <b>graduation</b> was attended by her entire family."},
+ {q:"The speaker at the ceremony was a college ___.",
+  o:["graduation","gradual","gradient","graduate"], a:3,
+  why:"The speaker at the ceremony was a college <b>graduate</b> — one who finished the steps of study."},
+ {q:"There was a ___ decline in grandpa's health.",
+  o:["graduate","gradual","graduation","gradient"], a:1,
+  why:"There was a <b>gradual</b> decline in grandpa's health — a small-steps change."},
+ {q:"The ___ colors of a rainbow can be seen after a rain.",
+  o:["gradual","graduation","graduate","gradient"], a:3,
+  why:"The <b>gradient</b> colors of a rainbow can be seen after a rain."},
+ {q:"The book's tip says: “A ___ in color is when two or more colors blend together.”",
+  o:["gradual","graduate","gradient","graduation"], a:2,
+  why:"The book's tip: a <b>gradient</b> in color is when two or more colors blend together."},
+ {q:"In the rainbow experiment, what do you place inside the water-filled jar?",
+  o:["colored pencils","a small mirror","crayons","a flashlight"], a:1,
+  why:"The book says: place a <b>small mirror</b> inside the water-filled jar, tilted slightly upward."},
+ {q:"In the rainbow experiment, what kind of room do you need?",
+  o:["a bright, sunny room","a very dark room with white walls","a room with colored walls","a room full of water"], a:1,
+  why:"The book says to do it in a <b>very dark room with white walls</b>, shining a flashlight onto the mirror."}
+];
+
+const KEY = "wr10-quiz-best";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
+  });
+}
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true suffix master! 🏆"
+    : score>=16 ? "Excellent! The steps of grad are really sticking! 🪜"
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  restart();
+})();
+</script>
+</body>
+</html>
