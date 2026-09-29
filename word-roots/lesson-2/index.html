@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 2 — Prefixes | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff;
+         padding: 36px 20px 28px; text-align: center; }
+  header.hero h1 { margin: 6px 0 4px; font-size: 2rem; }
+  header.hero p { margin: 4px 0; opacity: .95; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px 22px 60px; }
+  .progress { background: #fff; border: 1px solid #ddd6fe; border-radius: 14px;
+         padding: 14px 18px; margin: -24px auto 24px; max-width: 1150px;
+         box-shadow: 0 4px 14px rgba(124,58,237,.10); position: relative; }
+  .bar { height: 12px; background: #ede9fe; border-radius: 999px; overflow: hidden; margin-top: 8px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#a78bfa,#7c3aed);
+         border-radius: 999px; transition: width .4s ease; }
+  .progress small { color: #6d5bd0; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  nav.toc a { background: #fff; border: 1px solid #ddd6fe; color: #6d28d9; text-decoration: none;
+         padding: 8px 14px; border-radius: 999px; font-size: .9rem; font-weight: 600; }
+  nav.toc a:hover { background: #f5f3ff; }
+  section.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px;
+         padding: 24px; margin: 0 0 26px; box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  section.card h2 { margin: 0 0 4px; font-size: 1.35rem; color: #5b21b6; }
+  section.card > p.lead { margin: 0 0 16px; color: #64748b; }
+  .roots { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .root { border: 2px solid #ddd6fe; border-radius: 14px; padding: 14px 12px; text-align: center;
+         background: #fbfaff; position: relative; }
+  .root .r { font-size: 1.5rem; font-weight: 800; color: #7c3aed; }
+  .root .m { font-size: .92rem; color: #475569; margin-top: 4px; min-height: 2.6em; }
+  .root .ex { font-size: .8rem; color: #94a3b8; margin-top: 6px; }
+  .chk { margin-top: 10px; border: 1px solid #cbd5e1; background: #fff; color: #475569;
+         border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; cursor: pointer; }
+  .chk.done { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+  .formula { background: #f5f3ff; border: 2px dashed #a78bfa; border-radius: 14px;
+         padding: 18px; text-align: center; margin: 0 0 16px; }
+  .formula .f { font-size: 1.5rem; font-weight: 900; color: #5b21b6; letter-spacing: .02em; }
+  .formula .eg { margin-top: 10px; font-size: 1rem; color: #4c1d95; }
+  .formula code { background: #ede9fe; padding: 2px 8px; border-radius: 6px; font-size: .92em; }
+  .rules { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .rules { grid-template-columns: 1fr 1fr 1fr; } }
+  .rule { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 16px; }
+  .rule h3 { margin: 0 0 6px; font-size: 1.02rem; color: #5b21b6; }
+  .rule p { margin: 0; font-size: .92rem; color: #6b21a8; }
+  .rule code { background: #ede9fe; padding: 1px 7px; border-radius: 6px; font-size: .88em; }
+  .words { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .words { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px){ .words { grid-template-columns: 1fr 1fr 1fr; } }
+  .word { border: 2px solid #e2e8f0; border-radius: 14px; padding: 16px; background: #fff; }
+  .word h3 { margin: 0; font-size: 1.25rem; color: #0f172a; }
+  .word .pos { font-size: .78rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; }
+  .word .def { margin: 8px 0; font-size: .95rem; }
+  .word .sent { font-size: .88rem; color: #64748b; font-style: italic; }
+  .parts { display: none; margin: 8px 0; background: #fefce8; border: 1px dashed #eab308;
+         border-radius: 10px; padding: 8px 12px; font-size: .9rem; }
+  .parts.show { display: block; }
+  .parts b { color: #854d0e; }
+  .mini { border: none; background: #eef2ff; color: #3730a3; border-radius: 8px;
+         padding: 6px 12px; font-size: .82rem; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  .mini:hover { background: #e0e7ff; }
+  .act { border-top: 1px dashed #e2e8f0; padding-top: 18px; margin-top: 18px; }
+  .act:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .act h3 { margin: 0 0 4px; color: #5b21b6; }
+  .act p.inst { margin: 0 0 12px; color: #64748b; font-size: .93rem; }
+  .match-cols { display: grid; gap: 10px; }
+  @media (min-width: 640px){ .match-cols { grid-template-columns: 1fr 1fr; } }
+  .mword, .mmean { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;
+         cursor: pointer; background: #fff; font-size: .95rem; transition: all .15s; }
+  .mword.sel { border-color: #7c3aed; background: #f5f3ff; }
+  .mmean.sel { border-color: #7c3aed; background: #f5f3ff; }
+  .mword.ok, .mmean.ok { border-color: #7c3aed; background: #ede9fe; color: #5b21b6;
+         cursor: default; font-weight: 700; }
+  .mword.bad, .mmean.bad { border-color: #ef4444; background: #fef2f2; }
+  .q { margin: 0 0 16px; }
+  .q p { margin: 0 0 8px; font-weight: 600; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 8px 16px;
+         cursor: pointer; font-size: .93rem; font-weight: 600; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; opacity: .85; }
+  .sent-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 12px 16px; margin: 0 0 10px; font-size: .97rem; line-height: 2; }
+  .blank { display: inline-block; min-width: 120px; border-bottom: 3px solid #94a3b8;
+         text-align: center; font-weight: 800; color: #7c3aed; cursor: pointer; padding: 0 8px; }
+  .blank.filled { border-bottom-color: #7c3aed; }
+  .blank.right { color: #14532d; } .blank.wrong { color: #b91c1c; border-bottom-color: #ef4444; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chip { border: 2px solid #c4b5fd; background: #f5f3ff; color: #5b21b6; border-radius: 999px;
+         padding: 8px 18px; font-weight: 700; cursor: pointer; font-size: .95rem; }
+  .chip.sel { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .chip.used { opacity: .35; }
+  .bigbtn { display: inline-block; background: #7c3aed; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #6d28d9; }
+  .ghostbtn { display: inline-block; background: #fff; color: #475569; border: 2px solid #cbd5e1;
+         border-radius: 12px; padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; }
+  .teaser { background: linear-gradient(135deg,#fefce8,#fef9c3); border: 2px solid #eab308;
+         border-radius: 14px; padding: 18px; }
+  .teaser h3 { margin: 0 0 6px; color: #854d0e; }
+  .tipbox { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 14px; padding: 18px; margin-top: 16px; }
+  .tipbox h3 { margin: 0 0 8px; color: #92400e; }
+  .tipbox .nots { display: grid; gap: 8px; }
+  @media (min-width: 560px){ .tipbox .nots { grid-template-columns: 1fr 1fr 1fr; } }
+  .tipbox .not { background: #fff; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+  .tipbox .not b { color: #92400e; }
+  .quizcta { text-align: center; background: linear-gradient(135deg,#5b21b6,#7c3aed); color: #fff;
+         border-radius: 18px; padding: 30px 20px; }
+  .quizcta h2 { color: #fff !important; margin: 0 0 8px !important; }
+  .quizcta p { opacity: .92; margin: 0 0 18px; }
+  .quizcta a { display: inline-block; background: #fff; color: #5b21b6; font-weight: 800;
+         font-size: 1.1rem; text-decoration: none; border-radius: 12px; padding: 14px 34px; }
+  .quizcta a:hover { transform: translateY(-2px); }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 10px; }
+  .done-banner { display: none; background: #ede9fe; border: 2px solid #7c3aed; color: #5b21b6;
+         border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; margin-top: 12px; }
+  .done-banner.show { display: block; }
+  /* review flip cards */
+  .flip-grid { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .flip-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px){ .flip-grid { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+  .flip { perspective: 900px; cursor: pointer; min-height: 150px; }
+  .flip .inner { position: relative; width: 100%; min-height: 150px;
+         transform-style: preserve-3d; transition: transform .5s; }
+  .flip.on .inner { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+         border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .face.front { background: #f5f3ff; border: 2px solid #c4b5fd; text-align: center; }
+  .face.front .w { font-size: 1.4rem; font-weight: 900; color: #5b21b6; }
+  .face.front .t { font-size: .8rem; color: #8b7bd8; margin-top: 6px; }
+  .face.back { background: #ede9fe; border: 2px solid #7c3aed; transform: rotateY(180deg); }
+  .face.back .w { font-size: 1.1rem; font-weight: 800; color: #5b21b6; }
+  .face.back .p { font-size: .85rem; color: #6d5bd0; margin: 4px 0; }
+  .face.back .d { font-size: .9rem; color: #3b3663; }
+  .flip { position: relative; }
+  .flip .inner { min-height: 170px; }
+  .own { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin: 0 0 10px; background: #fff; }
+  .own h4 { margin: 0 0 2px; font-size: 1.05rem; color: #0f172a; }
+  .own .brk { font-size: .85rem; color: #8b7bd8; }
+  .own .ans { display: none; margin-top: 8px; background: #f5f3ff; border-radius: 8px; padding: 8px 12px; font-size: .93rem; color: #4c1d95; }
+  .own .ans.show { display: block; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.4rem">🧲</div>
+  <h1>Lesson 2 — Prefixes</h1>
+  <p>When letters are added to the <b>front</b> of a root, they&rsquo;re called a <b>prefix</b>.</p>
+  <p style="font-size:.9rem; opacity:.85">Word Roots Beginning &middot; one lesson a day</p>
+</header>
+
+<div class="wrap">
+  <div class="progress">
+    <div><strong id="pct">0%</strong> <small id="ptext">Tap &ldquo;Got it&rdquo; on each card as you learn it.</small></div>
+    <div class="bar"><div id="pfill"></div></div>
+  </div>
+
+  <nav class="toc">
+    <a href="#review1">0. Lesson 1 Review</a>
+    <a href="#prefixes">1. Meet the Prefixes</a>
+    <a href="#words">2. Word Bank</a>
+    <a href="#practice">3. Practice</a>
+    <a href="#check">4. Quick Check</a>
+    <a href="#next">5. Next Lesson</a>
+    <a href="#quiz">6. Quiz</a>
+  </nav>
+
+  <!-- 0. REVIEW OF LESSON 1 -->
+  <section class="card" id="review1">
+    <h2>🔙 0. Review: Lesson 1 Roots</h2>
+    <p class="lead">Before the new prefixes — warm up with Lesson 1! <b>Read the word, guess its meaning, then tap the card to check the answer.</b> Both the question and the answer are on each card.</p>
+    <div class="flip-grid" id="flipGrid"></div>
+    <p class="lead" style="margin:14px 0 0;font-size:.88rem">Tap &ldquo;Got it&rdquo; under each card when you remember it. Your review progress counts toward the bar above.</p>
+  </section>
+
+  <!-- 1. PREFIXES -->
+  <section class="card" id="prefixes">
+    <h2>🧲 1. Meet the Prefixes</h2>
+    <p class="lead">A <b>prefix</b> is added to the <b>front</b> of a root — and it <b>changes the meaning</b> of the word. There are hundreds of prefixes! Let&rsquo;s begin with three of the most common.</p>
+    <div class="formula">
+      <div class="f">PREFIX- + ROOT = NEW WORD</div>
+      <div class="eg"><code>uni-</code> (one) + <code>corn</code> (horn) = <b>unicorn</b><br/>
+      <span style="font-size:.9rem">Now fill in the blank: A <b>unicorn</b> has just a single horn! 🦄</span></div>
+    </div>
+    <div class="roots" id="rootGrid"></div>
+    <p class="lead" style="margin-top:14px">Three examples straight from your book:</p>
+    <div class="rules">
+      <div class="rule"><h3><code>dis-</code> + <code>approve</code></h3><p>= <b>disapprove</b> — the opposite of approve, or <i>not</i> approve.</p></div>
+      <div class="rule"><h3><code>re-</code> + <code>fry</code></h3><p>= <b>refry</b> — to fry <i>again</i>.</p></div>
+      <div class="rule"><h3><code>un-</code> + <code>hurt</code></h3><p>= <b>unhurt</b> — <i>not</i> hurt.</p></div>
+    </div>
+  </section>
+
+  <!-- 2. WORD BANK -->
+  <section class="card" id="words">
+    <h2>📖 2. Lesson 2 Word Bank</h2>
+    <p class="lead">Every word below uses one of this lesson&rsquo;s prefixes. Tap &ldquo;Show word parts&rdquo; to see the prefix + root inside.</p>
+    <div class="words" id="wordGrid"></div>
+  </section>
+
+  <!-- 3. PRACTICE -->
+  <section class="card" id="practice">
+    <h2>✏️ 3. Practice &mdash; just like the book</h2>
+    <p class="lead">Do each activity. They match Activities A&ndash;C in your book.</p>
+
+    <div class="act" id="actA">
+      <h3>Activity A &mdash; Match the word to its meaning</h3>
+      <p class="inst">Tap a word, then tap the meaning that matches it. (In the book you draw a line to the picture!)</p>
+      <div class="match-cols">
+        <div id="mwords"></div>
+        <div id="mmeans"></div>
+      </div>
+      <p class="found" id="matchScore">Matched: 0 / 6 &nbsp; <button class="ghostbtn" style="padding:4px 14px;font-size:.8rem" onclick="resetMatch()">Reset</button></p>
+    </div>
+
+    <div class="act" id="actB">
+      <h3>Activity B &mdash; In your own words</h3>
+      <p class="inst">The book asks you to write what each word means in your own words. Think first, then tap &ldquo;Reveal&rdquo; to compare with a suggested answer.</p>
+      <div id="ownBox"></div>
+    </div>
+
+    <div class="act" id="actC">
+      <h3>Activity C &mdash; The Snake That Chose the Paint 🐍</h3>
+      <p class="inst">Use each word in the box <b>only once</b> to complete the story. Tap a word, then tap a blank. Tap a filled blank to take the word back.</p>
+      <div class="bank" id="cbank"></div>
+      <div id="csents"></div>
+      <button class="bigbtn" onclick="checkC()">Check answers</button>
+      <button class="ghostbtn" onclick="resetC()">Reset</button>
+      <p class="found" id="cscore"></p>
+    </div>
+
+    <div class="tipbox">
+      <h3>💡 Tip: Six prefixes that mean NOT</h3>
+      <p style="margin:0 0 10px;font-size:.93rem;color:#92400e">There are at least <b>six</b> prefixes that mean NOT. Each prefix only goes with certain words — <i>unfed</i> can&rsquo;t be <i>irfed</i>! Most of the time, if it sounds right to you, it&rsquo;s correct, but check unfamiliar words in the dictionary.</p>
+      <div class="nots">
+        <div class="not"><b>un-</b> as in <i>unfed</i></div>
+        <div class="not"><b>im-</b> as in <i>impolite</i></div>
+        <div class="not"><b>il-</b> as in <i>illegal</i></div>
+        <div class="not"><b>a-</b> as in <i>amoral</i></div>
+        <div class="not"><b>in-</b> as in <i>inability</i></div>
+        <div class="not"><b>ir-</b> as in <i>irrational</i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. QUICK CHECK -->
+  <section class="card" id="check">
+    <h2>✅ 4. Quick Check — Lesson 2</h2>
+    <p class="lead">Three questions on today&rsquo;s prefixes. Tap an answer to check yourself.</p>
+    <div id="checkQs"></div>
+  </section>
+
+  <!-- 5. NEXT LESSON -->
+  <section class="card" id="next">
+    <h2>🔭 5. Sneak Peek: Next Lesson</h2>
+    <div class="teaser">
+      <h3>🔚 Lesson 3 — Suffixes</h3>
+      <p style="margin:0 0 8px">Now that you understand what a <b>prefix</b> is, learning about the <b>other end</b> of the word is easy! When letters are added to the <b>end</b> of a root, they&rsquo;re called a <b>suffix</b>.</p>
+      <p style="margin:0;font-size:.95rem;color:#854d0e">Coming up: <b>act</b> (to do) + <b>-ive</b> (tending to) = <b>active</b> &middot; <b>dent</b> (tooth) + <b>-ist</b> (one who) = <b>dentist</b> &middot; <b>ego</b> (I, self) + <b>-ism</b> (state of being) = <b>egoism</b></p>
+    </div>
+  </section>
+
+  <!-- 6. QUIZ -->
+  <section class="quizcta" id="quiz">
+    <h2>🎯 Ready for the Lesson 2 Quiz?</h2>
+    <p>20 questions &mdash; use the prefixes to figure out each meaning.</p>
+    <a href="quiz.html">Start the Quiz →</a>
+  </section>
+
+  <section class="card" style="text-align:center">
+    <h2>🏁 Finish Lesson 2</h2>
+    <p class="lead">Tap when you finished everything above &mdash; including the quiz!</p>
+    <button class="bigbtn" id="doneBtn" onclick="markDone()">Mark Lesson 2 Complete</button>
+    <div class="done-banner" id="doneBanner">✅ Lesson 2 complete! Prefix power unlocked. See you in Lesson 3! 🧲</div>
+  </section>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const REVIEW = [
+  {w:"periscope", p:"peri- (around) + scope (look at)", d:"A tube on a submarine that sticks up so sailors can look around above the water."},
+  {w:"microscope", p:"micro (small) + scope (look at)", d:"A tool that helps you look closely at very small things."},
+  {w:"telescope", p:"tele (from afar) + scope (look at)", d:"A tool that helps you see things far away, like the moon."},
+  {w:"acrobat", p:"acro (height, top) + bat (to walk, to go, to step)", d:"A person who walks on a high wire."},
+  {w:"astronaut", p:"astro (star, heavens) + naut (sailor, ship)", d:"A star sailor — a person who travels in space."},
+  {w:"thermometer", p:"thermo (heat) + meter (measure)", d:"A tool that measures heat."},
+  {w:"geography", p:"geo (earth, ground) + graphy (write)", d:"Writing about the earth — the study of lands and places."},
+  {w:"hydrophobia", p:"hydro (water) + phob (fear of) + -ia (condition)", d:"Fear of water. (Bonus word!)"}
+];
+const ROOTS = [
+  {r:"dis-", m:"apart, opposite of", ex:"disappear", pre:true},
+  {r:"re-", m:"again, back", ex:"recycle", pre:true},
+  {r:"un-", m:"not", ex:"unhappy", pre:true}
+];
+const WORDS = [
+  {w:"disappear", parts:"<b>dis-</b> (apart, opposite of) + <b>appear</b>",
+   def:"Not there anymore; gone. (the book's own example!)",
+   sent:"The magician made the rabbit disappear."},
+  {w:"recycle", parts:"<b>re-</b> (again) + <b>cycle</b>",
+   def:"To use something again instead of throwing it away.",
+   sent:"We recycle paper, glass, and plastic every week."},
+  {w:"disagree", parts:"<b>dis-</b> (opposite of) + <b>agree</b>",
+   def:"To not agree; to have a different opinion.",
+   sent:"They disagree about which color to paint the shed."},
+  {w:"unhappy", parts:"<b>un-</b> (not) + <b>happy</b>",
+   def:"Not happy; sad.",
+   sent:"The baby was unhappy and started to cry."},
+  {w:"repaint", parts:"<b>re-</b> (again) + <b>paint</b>",
+   def:"To paint again; to give something a fresh coat of paint.",
+   sent:"They decided to repaint the old tool shed."},
+  {w:"unlock", parts:"<b>un-</b> (not) + <b>lock</b>",
+   def:"To open a lock; to make something not locked.",
+   sent:"She used the key to unlock the front door."}
+];
+
+/* ---------- progress store ---------- */
+const KEY = "wr2";
+function load(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ return {}; } }
+function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+let S = load();
+if(!S.checks) S.checks = {};
+
+function totalChecks(){ return ROOTS.length + WORDS.length + REVIEW.length; }
+function updateBar(){
+  const n = Object.keys(S.checks).length, t = totalChecks();
+  const pct = Math.round(n/t*100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("ptext").textContent = n + " of " + t + " cards learned. Tap “Got it” on each card as you learn it.";
+  save(S);
+}
+function markDone(){
+  const btn = document.getElementById("doneBtn"), banner = document.getElementById("doneBanner");
+  if(S.done){
+    S.done = false; save(S);
+    banner.classList.remove("show");
+    btn.textContent = "Mark Lesson 2 Complete";
+  } else {
+    S.done = true; save(S);
+    banner.classList.add("show");
+    btn.textContent = "✅ Lesson 2 Complete! (tap again to undo)";
+  }
+}
+function gotItBtn(id){
+  const b = document.createElement("button");
+  b.className = "chk"; b.textContent = "Got it ✓";
+  if(S.checks[id]) b.classList.add("done");
+  b.onclick = (e)=>{ e.stopPropagation();
+    if(S.checks[id]){ delete S.checks[id]; b.classList.remove("done"); }
+    else { S.checks[id]=1; b.classList.add("done"); } updateBar(); };
+  return b;
+}
+
+/* ---------- review flip cards ---------- */
+const fg = document.getElementById("flipGrid");
+REVIEW.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "flip";
+  d.innerHTML = '<div class="inner">'+
+    '<div class="face front"><div class="w">'+o.w+'</div><div class="t">❓ What does it mean? Tap to check the answer.</div></div>'+
+    '<div class="face back"><div class="w">✅ '+o.w+'</div><div class="p">'+o.p+'</div><div class="d">'+o.d+'</div></div>'+
+    '</div>';
+  d.onclick = ()=> d.classList.toggle("on");
+  const wrap = document.createElement("div");
+  wrap.appendChild(d);
+  const row = document.createElement("div");
+  row.style.cssText = "text-align:center;margin-top:6px";
+  row.appendChild(gotItBtn("v"+i));
+  wrap.appendChild(row);
+  fg.appendChild(wrap);
+});
+
+/* ---------- prefix cards ---------- */
+const rg = document.getElementById("rootGrid");
+ROOTS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "root";
+  d.innerHTML = '<div class="r">'+o.r+'</div><div class="m">'+o.m+'</div>'+
+    '<div class="ex">prefix · as in “'+o.ex+'”</div>';
+  d.appendChild(gotItBtn("r"+i));
+  rg.appendChild(d);
+});
+
+/* ---------- word cards ---------- */
+const wg = document.getElementById("wordGrid");
+WORDS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "word";
+  d.innerHTML = '<div class="pos">lesson word</div><h3>'+o.w+'</h3>'+
+    '<div class="def">'+o.def+'</div>'+
+    '<div class="parts">'+o.parts+'</div>'+
+    '<div class="sent">“'+o.sent+'”</div>'+
+    '<div style="margin-top:10px"><button class="mini">Show word parts</button></div>';
+  const parts = d.querySelector(".parts"), show = d.querySelector(".mini");
+  show.onclick = ()=>{ parts.classList.toggle("show"); show.textContent = parts.classList.contains("show")?"Hide word parts":"Show word parts"; };
+  d.querySelector("div[style]").appendChild(gotItBtn("w"+i));
+  wg.appendChild(d);
+});
+
+/* ---------- Activity A: matching ---------- */
+const PAIRS = [
+  {w:"disappear", m:"Not there anymore; gone (like a magic trick)"},
+  {w:"recycle", m:"Use something again instead of throwing it away"},
+  {w:"disagree", m:"Not agree — have a different opinion"},
+  {w:"unhappy", m:"Not happy; sad"},
+  {w:"repaint", m:"Paint again with a fresh coat"},
+  {w:"unlock", m:"Open a lock with a key"}
+];
+const MEAN_ORDER = [3,0,5,1,4,2];
+let selW = null, matched = 0;
+const mwBox = document.getElementById("mwords"), mmBox = document.getElementById("mmeans");
+PAIRS.forEach((p,i)=>{
+  const d = document.createElement("div");
+  d.className = "mword"; d.textContent = p.w; d.dataset.i = i;
+  d.onclick = ()=>{ if(d.classList.contains("ok")) return;
+    mwBox.querySelectorAll(".mword").forEach(x=>x.classList.remove("sel"));
+    d.classList.add("sel"); selW = i; };
+  mwBox.appendChild(d);
+});
+MEAN_ORDER.forEach((pi)=>{
+  const p = PAIRS[pi];
+  const d = document.createElement("div");
+  d.className = "mmean"; d.textContent = p.m; d.dataset.i = pi;
+  d.onclick = ()=>{
+    if(d.classList.contains("ok") || selW===null) return;
+    const wEl = mwBox.querySelector('.mword[data-i="'+selW+'"]');
+    if(selW === pi){
+      wEl.classList.add("ok"); wEl.classList.remove("sel");
+      d.classList.add("ok"); matched++; selW = null;
+      setScore();
+    } else {
+      d.classList.add("bad"); wEl.classList.add("bad");
+      setTimeout(()=>{ d.classList.remove("bad"); wEl.classList.remove("bad"); }, 700);
+    }
+  };
+  mmBox.appendChild(d);
+});
+function setScore(){
+  document.getElementById("matchScore").childNodes[0].textContent = "Matched: "+matched+" / 6  ";
+}
+function resetMatch(){
+  matched = 0; selW = null;
+  document.querySelectorAll(".mword,.mmean").forEach(x=>x.classList.remove("ok","sel","bad"));
+  setScore();
+}
+
+/* ---------- Activity B: in your own words ---------- */
+const OWNS = [
+  {w:"disappear", brk:"dis- (opposite of) + appear", ans:"Suggested: “not there anymore; gone.” (This is the book's own example answer!)"},
+  {w:"recycle", brk:"re- (again) + cycle", ans:"Suggested: “to use something again.”"},
+  {w:"disagree", brk:"dis- (opposite of) + agree", ans:"Suggested: “to not agree.”"},
+  {w:"unhappy", brk:"un- (not) + happy", ans:"Suggested: “not happy.”"},
+  {w:"repaint", brk:"re- (again) + paint", ans:"Suggested: “to paint again.”"},
+  {w:"unlock", brk:"un- (not) + lock", ans:"Suggested: “to open a lock; not locked anymore.”"}
+];
+const ob = document.getElementById("ownBox");
+OWNS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "own";
+  d.innerHTML = '<h4>'+o.w+'</h4><div class="brk">'+o.brk+'</div>'+
+    '<div class="ans">'+o.ans+'</div>'+
+    '<div style="margin-top:8px"><button class="mini">Reveal suggested meaning</button></div>';
+  const ans = d.querySelector(".ans"), btn = d.querySelector(".mini");
+  btn.onclick = ()=>{ ans.classList.toggle("show"); btn.textContent = ans.classList.contains("show")?"Hide":"Reveal suggested meaning"; };
+  ob.appendChild(d);
+});
+
+/* ---------- Activity C: story ---------- */
+const CSENTS = [
+  {t:"John's grandfather had a garage full of stuff he planned to ___ or use up.", a:"recycle"},
+  {t:"They decided to ___ the tool shed.", a:"repaint"},
+  {t:"They found the key to ___ the shed door and walked inside.", a:"unlock"},
+  {t:"They continued to ___ on what color to paint the shed and were very ___.", a:["disagree","unhappy"]},
+  {t:"Grandfather saw a large green snake ___ behind a can. Then he watched it ___, wrapped around the can of purple paint.", a:["disappear","reappear"]}
+];
+const CWORDS = ["disappear","recycle","disagree","unhappy","repaint","unlock","reappear"];
+let cSel = null;
+const cBank = document.getElementById("cbank"), cSents = document.getElementById("csents");
+CWORDS.forEach(w=>{
+  const c = document.createElement("span"); c.className = "chip"; c.textContent = w;
+  c.onclick = ()=>{
+    cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+    if(cSel === w){ cSel = null; } else { c.classList.add("sel"); cSel = w; }
+  };
+  cBank.appendChild(c);
+});
+let blankCount = 0;
+CSENTS.forEach((s)=>{
+  const d = document.createElement("div"); d.className = "sent-row";
+  let html = s.t, idx = 0;
+  html = html.replace(/___/g, ()=>{
+    const a = Array.isArray(s.a) ? s.a[idx] : s.a;
+    const h = '<span class="blank" data-a="'+a+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+    idx++; blankCount++; return h;
+  });
+  d.innerHTML = html;
+  cSents.appendChild(d);
+});
+cSents.addEventListener("click", (e)=>{
+  const b = e.target.closest(".blank"); if(!b) return;
+  if(b.dataset.w){
+    const w = b.dataset.w;
+    cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===w) x.classList.remove("used"); });
+    delete b.dataset.w; b.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    b.classList.remove("filled","right","wrong"); return;
+  }
+  if(!cSel) return;
+  b.dataset.w = cSel; b.textContent = cSel; b.classList.add("filled");
+  b.classList.remove("right","wrong");
+  cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===cSel) x.classList.add("used"); });
+  cSel = null; cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+});
+function checkC(){
+  let ok = 0;
+  cSents.querySelectorAll(".blank").forEach(b=>{
+    if(b.dataset.w === b.dataset.a){ b.classList.add("right"); b.classList.remove("wrong"); ok++; }
+    else { b.classList.add("wrong"); b.classList.remove("right"); }
+  });
+  document.getElementById("cscore").textContent = ok+" of "+blankCount+" correct."+(ok===blankCount?" The whole story is complete! 🐍🎨":" Keep trying — tap a filled blank to take a word back.");
+}
+function resetC(){
+  cSents.querySelectorAll(".blank").forEach(b=>{ delete b.dataset.w; b.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; b.classList.remove("filled","right","wrong"); });
+  cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("used","sel"));
+  cSel = null; document.getElementById("cscore").textContent = "";
+}
+
+/* ---------- Quick Check ---------- */
+const CQS = [
+  {q:"1. What does the prefix “dis-” mean?", a:"apart, opposite of",
+   opts:["apart, opposite of","again, back","not"]},
+  {q:"2. What does “repaint” mean?", a:"to paint again",
+   opts:["to paint again","to not paint","to paint the opposite"]},
+  {q:"3. Which prefix means NOT in the word “unhappy”?", a:"un-",
+   opts:["un-","re-","dis-"]}
+];
+const cqBox = document.getElementById("checkQs");
+CQS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = "<p>"+o.q+"</p>";
+  const ow = document.createElement("div"); ow.className = "opts";
+  o.opts.forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.textContent = op;
+    b.onclick = ()=>{
+      if(b.textContent === o.a){ b.classList.add("right"); [...ow.children].forEach(x=>x.disabled=true); }
+      else { b.classList.add("wrong"); b.disabled = true; }
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); cqBox.appendChild(d);
+});
+
+/* ---------- init ---------- */
+updateBar();
+if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "✅ Lesson 2 Complete! (tap again to undo)"; }
+</script>
+</body>
+</html>
