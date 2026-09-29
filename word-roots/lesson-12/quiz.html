@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 12 Quiz | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f0f9ff; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #0369a1, #38bdf8); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
+  .hud { background: #fff; border: 1px solid #bae6fd; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(2,132,199,.10); font-weight: 700; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #0284c7; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #7dd3fc; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #7dd3fc; background: #f0f9ff; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; }
+  .why { display: none; margin-top: 14px; background: #f0f9ff; border-left: 5px solid #0284c7;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #075985; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #0284c7; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #0369a1; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #0284c7; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2.2rem">📢</div>
+  <h1>Lesson 12 Quiz</h1>
+  <p>Use the prefixes, root, and suffixes you learned to figure out each meaning &middot; 20 questions</p>
+</header>
+
+<div class="wrap">
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
+  </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 12</a>
+    <a href="../lesson-13/" class="bigbtn" style="margin-left:8px;text-decoration:none">Next: Lesson 13 →</a>
+  </div>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QS = [
+ {q:"What does the root “dict” mean?",
+  o:["say, speak","hear","to carry, bear, produce","to do"], a:0,
+  why:"<b>dict</b> = say, speak — the root inside every Lesson 12 word. 🗣️"},
+ {q:"What does the prefix “e-” mean?",
+  o:["before","out, away, from","again, back","not"], a:1,
+  why:"<b>e-</b> = out, away, from — as in <b>e-</b> + dict = edict."},
+ {q:"What does the prefix “pre-” mean?",
+  o:["after","out, away, from","before; in front of","one"], a:2,
+  why:"<b>pre-</b> = before; in front of — as in <b>pre-</b> + dict = predict."},
+ {q:"What does the suffix “-ary” mean?",
+  o:["that which; someone or something that belongs to; of, related to; one who","to make, to act","an action or process","again, back"], a:0,
+  why:"<b>-ary</b> = that which; someone or something that belongs to; of, related to; one who — the end of dict-ion-<b>ary</b>."},
+ {q:"What does the suffix “-ate” mean?",
+  o:["an action or process","out, away, from","to make, to act; one who, that which","not"], a:2,
+  why:"<b>-ate</b> = to make, to act; one who, that which — the end of dict-<b>ate</b>."},
+ {q:"What does the suffix “-ion” mean?",
+  o:["before","say, speak","an action or process; state, quality, act","one who"], a:2,
+  why:"<b>-ion</b> = an action or process; state, quality, act — the end of dict-<b>ion</b> and predict-<b>ion</b>."},
+ {q:"“pre-” + “dict” = “predict”. What does “predict” mean?",
+  o:["to say that a thing will happen before it actually does","to make a public statement","to speak with authority","to look up words"], a:0,
+  why:"<b>pre-</b> (before) + <b>dict</b> (say) = to say before it happens — <b>predict</b>."},
+ {q:"“pre-” + “dict” + “-ion” = “prediction”. What is a “prediction”?",
+  o:["the manner of speaking","a statement of what someone thinks will happen before it actually does","an official's public statement","a book of word meanings"], a:1,
+  why:"<b>pre</b> + <b>dict</b> + <b>ion</b> = the act of saying what will happen before it actually does."},
+ {q:"“dict” + “-ion” = “diction”. What does “diction” mean?",
+  o:["an official statement","to speak with authority","the process or manner in which one speaks","a book of words"], a:2,
+  why:"<b>dict</b> + <b>ion</b> = the action of speaking — <b>diction</b> is how one speaks."},
+ {q:"“e-” + “dict” = “edict”. What is an “edict”?",
+  o:["a weather forecast","a public statement from an official (usually government related)","a reference book","a manner of speaking"], a:1,
+  why:"<b>e-</b> (out) + <b>dict</b> (say) = a saying put out by an official — an <b>edict</b>."},
+ {q:"“dict” + “-ion” + “-ary” = “dictionary”. What is a “dictionary”?",
+  o:["an alphabetical list of words with information about them","an official's statement","the manner of speaking","a guess about tomorrow"], a:0,
+  why:"<b>dict</b> + <b>ion</b> + <b>ary</b> = that which holds the sayings — a <b>dictionary</b>."},
+ {q:"“dict” + “-ate” = “dictate”. What does “dictate” mean?",
+  o:["to look up a word","to guess the future","to speak as one in complete authority, making rules and decisions for others to follow","to speak clearly"], a:2,
+  why:"<b>dict</b> (say) + <b>ate</b> (to act) = to act by speaking with complete authority — <b>dictate</b>."},
+ {q:"Which word is built as e + dict?",
+  o:["diction","edict","dictate","predict"], a:1,
+  why:"<b>e</b> + <b>dict</b> = <b>edict</b> — a public statement from an official."},
+ {q:"Which word is built as pre + dict + ion?",
+  o:["predict","diction","prediction","dictionary"], a:2,
+  why:"<b>pre</b> + <b>dict</b> + <b>ion</b> = <b>prediction</b>."},
+ {q:"Which word is built as dict + ion + ary?",
+  o:["diction","prediction","dictionary","dictate"], a:2,
+  why:"<b>dict</b> + <b>ion</b> + <b>ary</b> = <b>dictionary</b>."},
+ {q:"Which word is built as dict + ate?",
+  o:["edict","dictate","predict","diction"], a:1,
+  why:"<b>dict</b> + <b>ate</b> = <b>dictate</b> — to speak as one in complete authority."},
+ {q:"Which word is built as pre + dict?",
+  o:["predict","edict","dictate","diction"], a:0,
+  why:"<b>pre</b> + <b>dict</b> = <b>predict</b> — to say that a thing will happen before it actually does."},
+ {q:"Which word is built as dict + ion?",
+  o:["edict","predict","diction","dictate"], a:2,
+  why:"<b>dict</b> + <b>ion</b> = <b>diction</b> — the process or manner in which one speaks."},
+ {q:"Scientists ___ that global warming will change our planet.",
+  o:["predict","diction","edict","dictate"], a:0,
+  why:"Scientists <b>predict</b> — they say what will happen before it actually does."},
+ {q:"The teacher told Lana to look the word up in the ___.",
+  o:["prediction","dictionary","edict","diction"], a:1,
+  why:"Look the word up in the <b>dictionary</b> — the reference book with an alphabetical list of words."}
+];
+
+const KEY = "wr12-quiz-best";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
+  });
+}
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true say-and-speak master! 🏆"
+    : score>=16 ? "Excellent! The dict words are really sticking! 📢"
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  restart();
+})();
+</script>
+</body>
+</html>
