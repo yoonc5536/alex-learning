@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 11 — Root audi | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f8f6fd; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #4c1d95, #8b5cf6); color: #fff;
+         padding: 36px 20px 28px; text-align: center; }
+  header.hero h1 { margin: 6px 0 4px; font-size: 2rem; }
+  header.hero p { margin: 4px 0; opacity: .95; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px 22px 60px; }
+  .progress { background: #fff; border: 1px solid #ddd6fe; border-radius: 14px;
+         padding: 14px 18px; margin: -24px auto 24px; max-width: 1150px;
+         box-shadow: 0 4px 14px rgba(76,29,149,.10); position: relative; }
+  .bar { height: 12px; background: #ede9fe; border-radius: 999px; overflow: hidden; margin-top: 8px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#8b5cf6,#6d28d9);
+         border-radius: 999px; transition: width .4s ease; }
+  .progress small { color: #6d28d9; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  nav.toc a { background: #fff; border: 1px solid #ddd6fe; color: #6d28d9; text-decoration: none;
+         padding: 8px 14px; border-radius: 999px; font-size: .9rem; font-weight: 600; }
+  nav.toc a:hover { background: #f5f3ff; }
+  section.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px;
+         padding: 24px; margin: 0 0 26px; box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  section.card h2 { margin: 0 0 4px; font-size: 1.35rem; color: #4c1d95; }
+  section.card > p.lead { margin: 0 0 16px; color: #64748b; }
+  .roots { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .root { border: 2px solid #ddd6fe; border-radius: 14px; padding: 14px 12px; text-align: center;
+         background: #fbfaff; position: relative; }
+  .root.main { border-color: #6d28d9; background: #f5f3ff; box-shadow: 0 2px 8px rgba(109,40,217,.15); }
+  .root .r { font-size: 1.5rem; font-weight: 800; color: #6d28d9; }
+  .root .m { font-size: .92rem; color: #475569; margin-top: 4px; min-height: 2.6em; }
+  .root .ex { font-size: .8rem; color: #94a3b8; margin-top: 6px; }
+  .chk { margin-top: 10px; border: 1px solid #cbd5e1; background: #fff; color: #475569;
+         border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; cursor: pointer; }
+  .chk.done { background: #6d28d9; border-color: #6d28d9; color: #fff; }
+  .formula { background: #f5f3ff; border: 2px dashed #8b5cf6; border-radius: 14px;
+         padding: 18px; text-align: center; margin: 0 0 16px; }
+  .formula .f { font-size: 1.5rem; font-weight: 900; color: #4c1d95; letter-spacing: .02em; }
+  .formula .eg { margin-top: 10px; font-size: 1rem; color: #4c1d95; }
+  .formula code { background: #ede9fe; padding: 2px 8px; border-radius: 6px; font-size: .92em; }
+  .rules { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .rules { grid-template-columns: 1fr 1fr 1fr; } }
+  .rule { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 16px; }
+  .rule h3 { margin: 0 0 6px; font-size: 1.02rem; color: #4c1d95; }
+  .rule p { margin: 0; font-size: .92rem; color: #5b21b6; }
+  .rule code { background: #ede9fe; padding: 1px 7px; border-radius: 6px; font-size: .88em; }
+  .words { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .words { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px){ .words { grid-template-columns: 1fr 1fr 1fr; } }
+  .word { border: 2px solid #e2e8f0; border-radius: 14px; padding: 16px; background: #fff; }
+  .word h3 { margin: 0; font-size: 1.25rem; color: #0f172a; }
+  .word .pos { font-size: .78rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; }
+  .word .def { margin: 8px 0; font-size: .95rem; }
+  .word .sent { font-size: .88rem; color: #64748b; font-style: italic; }
+  .parts { display: none; margin: 8px 0; background: #fefce8; border: 1px dashed #eab308;
+         border-radius: 10px; padding: 8px 12px; font-size: .9rem; }
+  .parts.show { display: block; }
+  .parts b { color: #854d0e; }
+  .mini { border: none; background: #eef2ff; color: #4c1d95; border-radius: 8px;
+         padding: 6px 12px; font-size: .82rem; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  .mini:hover { background: #ede9fe; }
+  .act { border-top: 1px dashed #e2e8f0; padding-top: 18px; margin-top: 18px; }
+  .act:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .act h3 { margin: 0 0 4px; color: #4c1d95; }
+  .act p.inst { margin: 0 0 12px; color: #64748b; font-size: .93rem; }
+  .match-cols { display: grid; gap: 10px; }
+  @media (min-width: 640px){ .match-cols { grid-template-columns: 1fr 1fr; } }
+  .mword, .mmean { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;
+         cursor: pointer; background: #fff; font-size: .95rem; transition: all .15s; }
+  .mword.sel { border-color: #6d28d9; background: #f5f3ff; }
+  .mmean.sel { border-color: #6d28d9; background: #f5f3ff; }
+  .mword.ok, .mmean.ok { border-color: #6d28d9; background: #ede9fe; color: #4c1d95;
+         cursor: default; font-weight: 700; }
+  .mword.bad, .mmean.bad { border-color: #ef4444; background: #fef2f2; }
+  .q { margin: 0 0 16px; }
+  .q p { margin: 0 0 8px; font-weight: 600; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 8px 16px;
+         cursor: pointer; font-size: .93rem; font-weight: 600; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; opacity: .85; }
+  .sent-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 12px 16px; margin: 0 0 10px; font-size: .97rem; line-height: 2; }
+  .blank { display: inline-block; min-width: 120px; border-bottom: 3px solid #94a3b8;
+         text-align: center; font-weight: 800; color: #6d28d9; cursor: pointer; padding: 0 8px; }
+  .blank.filled { border-bottom-color: #6d28d9; }
+  .blank.right { color: #14532d; } .blank.wrong { color: #b91c1c; border-bottom-color: #ef4444; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chip { border: 2px solid #a78bfa; background: #f5f3ff; color: #4c1d95; border-radius: 999px;
+         padding: 8px 18px; font-weight: 700; cursor: pointer; font-size: .95rem; }
+  .chip.sel { background: #6d28d9; color: #fff; border-color: #6d28d9; }
+  .chip.used { opacity: .35; }
+  .bigbtn { display: inline-block; background: #6d28d9; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #5b21b6; }
+  .ghostbtn { display: inline-block; background: #fff; color: #475569; border: 2px solid #cbd5e1;
+         border-radius: 12px; padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; }
+  .teaser { background: linear-gradient(135deg,#fefce8,#fef9c3); border: 2px solid #eab308;
+         border-radius: 14px; padding: 18px; }
+  .teaser h3 { margin: 0 0 6px; color: #854d0e; }
+  .tipbox { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 14px; padding: 18px; margin-top: 16px; }
+  .tipbox h3 { margin: 0 0 8px; color: #92400e; }
+  .quizcta { text-align: center; background: linear-gradient(135deg,#4c1d95,#8b5cf6); color: #fff;
+         border-radius: 18px; padding: 30px 20px; }
+  .quizcta h2 { color: #fff !important; margin: 0 0 8px !important; }
+  .quizcta p { opacity: .92; margin: 0 0 18px; }
+  .quizcta a { display: inline-block; background: #fff; color: #4c1d95; font-weight: 800;
+         font-size: 1.1rem; text-decoration: none; border-radius: 12px; padding: 14px 34px; }
+  .quizcta a:hover { transform: translateY(-2px); }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 10px; }
+  .done-banner { display: none; background: #ede9fe; border: 2px solid #6d28d9; color: #4c1d95;
+         border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; margin-top: 12px; }
+  .done-banner.show { display: block; }
+  /* review flip cards */
+  .flip-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .flip { perspective: 900px; cursor: pointer; min-height: 150px; position: relative; }
+  .flip .inner { position: relative; width: 100%; min-height: 170px;
+         transform-style: preserve-3d; transition: transform .5s; }
+  .flip.on .inner { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+         border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .face.front { background: #f5f3ff; border: 2px solid #a78bfa; text-align: center; }
+  .face.front .w { font-size: 1.4rem; font-weight: 900; color: #4c1d95; }
+  .face.front .t { font-size: .8rem; color: #9a82d8; margin-top: 6px; }
+  .face.back { background: #ede9fe; border: 2px solid #6d28d9; transform: rotateY(180deg); }
+  .face.back .w { font-size: 1.1rem; font-weight: 800; color: #4c1d95; }
+  .face.back .p { font-size: .85rem; color: #6d28d9; margin: 4px 0; }
+  .face.back .d { font-size: .9rem; color: #3b3663; }
+  .own { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin: 0 0 10px; background: #fff; }
+  .own h4 { margin: 0 0 2px; font-size: 1.05rem; color: #0f172a; }
+  .own .brk { font-size: .85rem; color: #9a82d8; }
+  .own .ans { display: none; margin-top: 8px; background: #f5f3ff; border-radius: 8px; padding: 8px 12px; font-size: .93rem; color: #4c1d95; }
+  .own .ans.show { display: block; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.4rem">👂</div>
+  <h1>Lesson 11 — Root <i>audi</i> (hear)</h1>
+  <p>When letters are added to the <b>end</b> of a root, they&rsquo;re called a <b>suffix</b>.</p>
+  <p style="font-size:.9rem; opacity:.85">Word Roots Beginning &middot; one lesson a day</p>
+</header>
+
+<div class="wrap">
+  <div class="progress">
+    <div><strong id="pct">0%</strong> <small id="ptext">Tap &ldquo;Got it&rdquo; on each card as you learn it.</small></div>
+    <div class="bar"><div id="pfill"></div></div>
+  </div>
+
+  <nav class="toc">
+    <a href="#review10">0. Lesson 10 Review</a>
+    <a href="#roots">1. Meet the Root &amp; Suffixes</a>
+    <a href="#words">2. Word Bank</a>
+    <a href="#practice">3. Practice</a>
+    <a href="#check">4. Quick Check</a>
+    <a href="#next">5. Next Lesson</a>
+    <a href="#quiz">6. Quiz</a>
+  </nav>
+
+  <!-- 0. REVIEW OF LESSON 10 -->
+  <section class="card" id="review10">
+    <h2>🔙 0. Review: Lesson 10 Roots</h2>
+    <p class="lead">Before the new words — warm up with Lesson 10! <b>Read the word, guess its meaning, then tap the card to check the answer.</b> Both the question and the answer are on each card.</p>
+    <div class="flip-grid" id="flipGrid"></div>
+    <p class="lead" style="margin:14px 0 0;font-size:.88rem">Tap &ldquo;Got it&rdquo; under each card when you remember it. Your review progress counts toward the bar above.</p>
+  </section>
+
+  <!-- 1. ROOT + SUFFIXES -->
+  <section class="card" id="roots">
+    <h2>👂 1. Meet the Root &amp; Suffixes</h2>
+    <p class="lead">A <b>suffix</b> is added to the <b>end</b> of a root — and it <b>changes the meaning</b> of the word. Today&rsquo;s root is <b><i>audi</i></b>, which means <b>hear</b>. Your book gives it seven different suffixes!</p>
+    <div class="formula">
+      <div class="f">ROOT + SUFFIX = NEW WORD</div>
+      <div class="eg"><code>audi</code> (hear) + <code>-ology</code> (study of, science) = <b>audiology</b></div>
+    </div>
+    <div class="roots" id="rootGrid"></div>
+    <p class="lead" style="margin-top:14px">Three examples straight from your book:</p>
+    <div class="rules">
+      <div class="rule"><h3><code>audi</code> + <code>t</code> + <code>orium</code></h3><p>= <b>auditorium</b> — a place where lectures, concerts, and other events are held.</p></div>
+      <div class="rule"><h3><code>audi</code> + <code>ence</code></h3><p>= <b>audience</b> — a group of people listening to a performance.</p></div>
+      <div class="rule"><h3><code>audi</code> + <code>olog</code> + <code>ist</code></h3><p>= <b>audiologist</b> — one who is trained to treat hearing and ear problems.</p></div>
+    </div>
+  </section>
+
+  <!-- 2. WORD BANK -->
+  <section class="card" id="words">
+    <h2>📖 2. Lesson 11 Word Bank</h2>
+    <p class="lead">Every word below uses this lesson&rsquo;s root <b><i>audi</i></b>. Tap &ldquo;Show word parts&rdquo; to see the root + suffixes inside.</p>
+    <div class="words" id="wordGrid"></div>
+  </section>
+
+  <!-- 3. PRACTICE -->
+  <section class="card" id="practice">
+    <h2>✏️ 3. Practice &mdash; just like the book</h2>
+    <p class="lead">Do each activity. They match Activities A&ndash;C in your book.</p>
+
+    <div class="act" id="actA">
+      <h3>Activity A &mdash; Match the word to its meaning</h3>
+      <p class="inst">Tap a word, then tap the meaning that matches it. (In the book you draw a line to the picture!)</p>
+      <div class="match-cols">
+        <div id="mwords"></div>
+        <div id="mmeans"></div>
+      </div>
+      <p class="found" id="matchScore">Matched: 0 / 6 &nbsp; <button class="ghostbtn" style="padding:4px 14px;font-size:.8rem" onclick="resetMatch()">Reset</button></p>
+    </div>
+
+    <div class="act" id="actB">
+      <h3>Activity B &mdash; In your own words</h3>
+      <p class="inst">The book asks you to write what each word means in your own words. Think first, then tap &ldquo;Reveal&rdquo; to compare with a suggested answer.</p>
+      <div id="ownBox"></div>
+    </div>
+
+    <div class="act" id="actC">
+      <h3>Activity C &mdash; &ldquo;What? What Did You Say?&rdquo;</h3>
+      <p class="inst">Use each word in the box <b>only once</b> to complete the story. Tap a word, then tap a blank. Tap a filled blank to take the word back. (Careful: one word from the box is NOT used!)</p>
+      <div class="bank" id="cbank"></div>
+      <div id="csents"></div>
+      <button class="bigbtn" onclick="checkC()">Check answers</button>
+      <button class="ghostbtn" onclick="resetC()">Reset</button>
+      <p class="found" id="cscore"></p>
+    </div>
+
+    <div class="tipbox">
+      <h3>💡 Tip: Building with <i>-olog</i> and <i>-ist</i></h3>
+      <p style="margin:0 0 10px;font-size:.93rem;color:#92400e">Watch how the parts stack up! <b><i>audi</i> + <i>-ology</i> = audiology</b> (the scientific study of hearing). Add <b><i>-ist</i></b> — one who — and the person who knows that study is an <b>audiologist</b>: <i>audi</i> + <i>olog</i> + <i>ist</i>. Also notice that some words need a <b>t</b> before the suffix: <i>audi</i> + <b>t</b> + <i>orium</i> = auditorium, <i>audi</i> + <b>t</b> + <i>ory</i> = auditory.</p>
+    </div>
+  </section>
+
+  <!-- 4. QUICK CHECK -->
+  <section class="card" id="check">
+    <h2>✅ 4. Quick Check — Lesson 11</h2>
+    <p class="lead">Three questions on today&rsquo;s root and suffixes. Tap an answer to check yourself.</p>
+    <div id="checkQs"></div>
+  </section>
+
+  <!-- 5. NEXT LESSON -->
+  <section class="card" id="next">
+    <h2>🔭 5. Sneak Peek: Next Lesson</h2>
+    <div class="teaser">
+      <h3>🗣️ Lesson 12 — Root <i>dict</i></h3>
+      <p style="margin:0 0 8px">A new root is on the way: <b><i>dict</i></b> means <b>say, speak</b>. It pairs up with the prefixes <b>e-</b> and <b>pre-</b>, and the suffixes <b>-ary</b>, <b>-ate</b>, and <b>-ion</b>.</p>
+      <p style="margin:0;font-size:.95rem;color:#854d0e">New pieces are coming — get ready to take words apart and hear what they really say!</p>
+    </div>
+  </section>
+
+  <!-- 6. QUIZ -->
+  <section class="quizcta" id="quiz">
+    <h2>🎯 Ready for the Lesson 11 Quiz?</h2>
+    <p>20 questions &mdash; use the root <i>audi</i> and the suffixes to figure out each meaning.</p>
+    <a href="quiz.html">Start the Quiz →</a>
+  </section>
+
+  <section class="card" style="text-align:center">
+    <h2>🏁 Finish Lesson 11</h2>
+    <p class="lead">Tap when you finished everything above &mdash; including the quiz!</p>
+    <button class="bigbtn" id="doneBtn" onclick="markDone()">Mark Lesson 11 Complete</button>
+    <div class="done-banner" id="doneBanner">✅ Lesson 11 complete! You are an official audi master. 👂</div>
+  </section>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const REVIEW = [
+  {w:"gradual", p:"grad (step) + u-al (like, related to)", d:"Related to small steps of change in something."},
+  {w:"gradient", p:"grad (step) + i-ent (like, related to)", d:"Related to steps of change in something, such as a change in color (rainbow), temperature, or a road going higher or lower."},
+  {w:"graduate", p:"grad (step) + u-ate (to make, to act; one who, that which)", d:"One who has finished each grade or step in high school, college, or other program of study."},
+  {w:"graduation", p:"grad (step) + u-ation (an action or process)", d:"An action or activity that happens when steps of study are successfully finished, such as high school or college."}
+];
+const ROOTS = [
+  {r:"audi", m:"hear", ex:"audience", kind:"root"},
+  {r:"-ence", m:"state, quality, act", ex:"audience", kind:"suffix"},
+  {r:"-ist", m:"one who", ex:"audiologist", kind:"suffix"},
+  {r:"-olog", m:"study of, science", ex:"audiologist", kind:"suffix"},
+  {r:"-ology", m:"study of, science", ex:"audiology", kind:"suffix"},
+  {r:"t-orium", m:"place where", ex:"auditorium", kind:"suffix"},
+  {r:"t-ory", m:"like, relating to", ex:"auditory", kind:"suffix"},
+  {r:"-tion", m:"state, quality, act", ex:"audition", kind:"suffix"}
+];
+const WORDS = [
+  {w:"auditorium", parts:"<b>audi</b> (hear) + <b>t</b> + <b>orium</b> (place where)",
+   def:"A place where lectures, concerts, and other events are held.",
+   sent:"The whole school filled the auditorium for the spring concert."},
+  {w:"audiology", parts:"<b>audi</b> (hear) + <b>ology</b> (study of, science)",
+   def:"The scientific study of hearing.",
+   sent:"He studies audiology to learn how our ears work."},
+  {w:"audition", parts:"<b>audi</b> (hear) + <b>tion</b> (state, quality, act)",
+   def:"A brief act of singing or performing another skill when seeking a role in a movie or play.",
+   sent:"She sang her favorite song at the audition for the school play."},
+  {w:"audiologist", parts:"<b>audi</b> (hear) + <b>olog</b> (study of, science) + <b>ist</b> (one who)",
+   def:"One who is trained to treat hearing and ear problems.",
+   sent:"An audiologist can test your hearing at the clinic."},
+  {w:"audience", parts:"<b>audi</b> (hear) + <b>ence</b> (state, quality, act)",
+   def:"A group of people listening to a performance.",
+   sent:"The audience clapped loudly after the performance."},
+  {w:"auditory", parts:"<b>audi</b> (hear) + <b>t</b> + <b>ory</b> (like, relating to)",
+   def:"Of or relating to the process of hearing.",
+   sent:"Owls have excellent auditory senses for hunting in the dark."}
+];
+
+/* ---------- progress store ---------- */
+const KEY = "wr11";
+function load(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ return {}; } }
+function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+let S = load();
+if(!S.checks) S.checks = {};
+
+function totalChecks(){ return ROOTS.length + WORDS.length + REVIEW.length; }
+function updateBar(){
+  const n = Object.keys(S.checks).length, t = totalChecks();
+  const pct = Math.round(n/t*100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("ptext").textContent = n + " of " + t + " cards learned. Tap “Got it” on each card as you learn it.";
+  save(S);
+}
+function markDone(){
+  const btn = document.getElementById("doneBtn"), banner = document.getElementById("doneBanner");
+  if(S.done){
+    S.done = false; save(S);
+    banner.classList.remove("show");
+    btn.textContent = "Mark Lesson 11 Complete";
+  } else {
+    S.done = true; save(S);
+    banner.classList.add("show");
+    btn.textContent = "✅ Lesson 11 Complete! (tap again to undo)";
+  }
+}
+function gotItBtn(id){
+  const b = document.createElement("button");
+  b.className = "chk"; b.textContent = "Got it ✓";
+  if(S.checks[id]) b.classList.add("done");
+  b.onclick = (e)=>{ e.stopPropagation();
+    if(S.checks[id]){ delete S.checks[id]; b.classList.remove("done"); }
+    else { S.checks[id]=1; b.classList.add("done"); } updateBar(); };
+  return b;
+}
+
+/* ---------- review flip cards ---------- */
+const fg = document.getElementById("flipGrid");
+REVIEW.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "flip";
+  d.innerHTML = '<div class="inner">'+
+    '<div class="face front"><div class="w">'+o.w+'</div><div class="t">❓ What does it mean? Tap to check the answer.</div></div>'+
+    '<div class="face back"><div class="w">✅ '+o.w+'</div><div class="p">'+o.p+'</div><div class="d">'+o.d+'</div></div>'+
+    '</div>';
+  d.onclick = ()=> d.classList.toggle("on");
+  const wrap = document.createElement("div");
+  wrap.appendChild(d);
+  const row = document.createElement("div");
+  row.style.cssText = "text-align:center;margin-top:6px";
+  row.appendChild(gotItBtn("v"+i));
+  wrap.appendChild(row);
+  fg.appendChild(wrap);
+});
+
+/* ---------- root + suffix cards ---------- */
+const rg = document.getElementById("rootGrid");
+ROOTS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "root" + (o.kind==="root" ? " main" : "");
+  d.innerHTML = '<div class="r">'+o.r+'</div><div class="m">'+o.m+'</div>'+
+    '<div class="ex">'+o.kind+' · as in “'+o.ex+'”</div>';
+  d.appendChild(gotItBtn("r"+i));
+  rg.appendChild(d);
+});
+
+/* ---------- word cards ---------- */
+const wg = document.getElementById("wordGrid");
+WORDS.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "word";
+  d.innerHTML = '<div class="pos">lesson word</div><h3>'+o.w+'</h3>'+
+    '<div class="def">'+o.def+'</div>'+
+    '<div class="parts">'+o.parts+'</div>'+
+    '<div class="sent">“'+o.sent+'”</div>'+
+    '<div style="margin-top:10px"><button class="mini">Show word parts</button></div>';
+  const parts = d.querySelector(".parts"), show = d.querySelector(".mini");
+  show.onclick = ()=>{ parts.classList.toggle("show"); show.textContent = parts.classList.contains("show")?"Hide word parts":"Show word parts"; };
+  d.querySelector("div[style]").appendChild(gotItBtn("w"+i));
+  wg.appendChild(d);
+});
+
+/* ---------- Activity A: matching ---------- */
+const PAIRS = [
+  {w:"auditorium", m:"A place where lectures, concerts, and other events are held"},
+  {w:"audiology", m:"The scientific study of hearing"},
+  {w:"audition", m:"A brief act of singing or performing to get a role in a movie or play"},
+  {w:"audiologist", m:"One who is trained to treat hearing and ear problems"},
+  {w:"audience", m:"A group of people listening to a performance"},
+  {w:"auditory", m:"Of or relating to the process of hearing"}
+];
+const MEAN_ORDER = [3,0,5,1,4,2];
+let selW = null, matched = 0;
+const mwBox = document.getElementById("mwords"), mmBox = document.getElementById("mmeans");
+PAIRS.forEach((p,i)=>{
+  const d = document.createElement("div");
+  d.className = "mword"; d.textContent = p.w; d.dataset.i = i;
+  d.onclick = ()=>{ if(d.classList.contains("ok")) return;
+    mwBox.querySelectorAll(".mword").forEach(x=>x.classList.remove("sel"));
+    d.classList.add("sel"); selW = i; };
+  mwBox.appendChild(d);
+});
+MEAN_ORDER.forEach((pi)=>{
+  const p = PAIRS[pi];
+  const d = document.createElement("div");
+  d.className = "mmean"; d.textContent = p.m; d.dataset.i = pi;
+  d.onclick = ()=>{
+    if(d.classList.contains("ok") || selW===null) return;
+    const wEl = mwBox.querySelector('.mword[data-i="'+selW+'"]');
+    if(selW === pi){
+      wEl.classList.add("ok"); wEl.classList.remove("sel");
+      d.classList.add("ok"); matched++; selW = null;
+      setScore();
+    } else {
+      d.classList.add("bad"); wEl.classList.add("bad");
+      setTimeout(()=>{ d.classList.remove("bad"); wEl.classList.remove("bad"); }, 700);
+    }
+  };
+  mmBox.appendChild(d);
+});
+function setScore(){
+  document.getElementById("matchScore").childNodes[0].textContent = "Matched: "+matched+" / 6  ";
+}
+function resetMatch(){
+  matched = 0; selW = null;
+  document.querySelectorAll(".mword,.mmean").forEach(x=>x.classList.remove("ok","sel","bad"));
+  setScore();
+}
+
+/* ---------- Activity B: in your own words ---------- */
+const OWNS = [
+  {w:"auditorium", brk:"audi (hear) + t + orium (place where)", ans:"Suggested: “a place where lectures, concerts, and other events are held.”"},
+  {w:"audiology", brk:"audi (hear) + ology (study of, science)", ans:"Suggested: “the scientific study of hearing.”"},
+  {w:"audition", brk:"audi (hear) + tion (state, quality, act)", ans:"Suggested: “a brief act of singing or performing to get a role.”"},
+  {w:"audiologist", brk:"audi (hear) + olog (study of, science) + ist (one who)", ans:"Suggested: “one who is trained to treat hearing and ear problems.”"},
+  {w:"audience", brk:"audi (hear) + ence (state, quality, act)", ans:"Suggested: “a group of people listening to a performance.”"},
+  {w:"auditory", brk:"audi (hear) + t + ory (like, relating to)", ans:"Suggested: “of or relating to the process of hearing.”"}
+];
+const ob = document.getElementById("ownBox");
+OWNS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "own";
+  d.innerHTML = '<h4>'+o.w+'</h4><div class="brk">'+o.brk+'</div>'+
+    '<div class="ans">'+o.ans+'</div>'+
+    '<div style="margin-top:8px"><button class="mini">Reveal suggested meaning</button></div>';
+  const ans = d.querySelector(".ans"), btn = d.querySelector(".mini");
+  btn.onclick = ()=>{ ans.classList.toggle("show"); btn.textContent = ans.classList.contains("show")?"Hide":"Reveal suggested meaning"; };
+  ob.appendChild(d);
+});
+
+/* ---------- Activity C: story "What? What Did You Say?" ---------- */
+const CSENTS = [
+  {t:"People studying ___ are concerned about the noise in our lives—and in our ears.", a:"audiology"},
+  {t:"Recently, students at our school gathered in the school ___ to learn about noises. Suddenly, we were hearing chainsaws, snowmobiles, and even car horns.", a:"auditorium"},
+  {t:"The speaker, an ___, told us that all those sounds were over 100 decibels in sound measurement.", a:"audiologist"},
+  {t:"Even sounds coming through ear buds to an ___ of one person can be over 100 decibels! The safest level for our ears is under 85 decibels.", a:"audience"},
+  {t:"Hearing high ___ levels can cause permanent damage to our ears.", a:"auditory"}
+];
+const CWORDS = ["audition","audience","auditory","audiologist","auditorium","audiology"];
+let cSel = null;
+const cBank = document.getElementById("cbank"), cSents = document.getElementById("csents");
+CWORDS.forEach(w=>{
+  const c = document.createElement("span"); c.className = "chip"; c.textContent = w;
+  c.onclick = ()=>{
+    cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+    if(cSel === w){ cSel = null; } else { c.classList.add("sel"); cSel = w; }
+  };
+  cBank.appendChild(c);
+});
+let blankCount = 0;
+CSENTS.forEach((s)=>{
+  const d = document.createElement("div"); d.className = "sent-row";
+  let html = s.t, idx = 0;
+  html = html.replace(/___/g, ()=>{
+    const a = Array.isArray(s.a) ? s.a[idx] : s.a;
+    const h = '<span class="blank" data-a="'+a+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+    idx++; blankCount++; return h;
+  });
+  d.innerHTML = html;
+  cSents.appendChild(d);
+});
+cSents.addEventListener("click", (e)=>{
+  const b = e.target.closest(".blank"); if(!b) return;
+  if(b.dataset.w){
+    const w = b.dataset.w;
+    cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===w) x.classList.remove("used"); });
+    delete b.dataset.w; b.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    b.classList.remove("filled","right","wrong"); return;
+  }
+  if(!cSel) return;
+  b.dataset.w = cSel; b.textContent = cSel; b.classList.add("filled");
+  b.classList.remove("right","wrong");
+  cBank.querySelectorAll(".chip").forEach(x=>{ if(x.textContent===cSel) x.classList.add("used"); });
+  cSel = null; cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+});
+function checkC(){
+  let ok = 0;
+  cSents.querySelectorAll(".blank").forEach(b=>{
+    if(b.dataset.w === b.dataset.a){ b.classList.add("right"); b.classList.remove("wrong"); ok++; }
+    else { b.classList.add("wrong"); b.classList.remove("right"); }
+  });
+  document.getElementById("cscore").textContent = ok+" of "+blankCount+" correct."+(ok===blankCount?" The whole story is complete! 👂🔊":" Keep trying — tap a filled blank to take a word back.");
+}
+function resetC(){
+  cSents.querySelectorAll(".blank").forEach(b=>{ delete b.dataset.w; b.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; b.classList.remove("filled","right","wrong"); });
+  cBank.querySelectorAll(".chip").forEach(x=>x.classList.remove("used","sel"));
+  cSel = null; document.getElementById("cscore").textContent = "";
+}
+
+/* ---------- Quick Check ---------- */
+const CQS = [
+  {q:"1. What does the root “audi” mean?", a:"hear",
+   opts:["see","hear","speak","write"]},
+  {q:"2. Which suffix means “place where”?", a:"t-orium",
+   opts:["-ist","-ence","t-orium","-tion"]},
+  {q:"3. “audiologist” = audi + olog + ist. What does it mean?", a:"One who is trained to treat hearing and ear problems",
+   opts:["A place where concerts are held","The scientific study of hearing","One who is trained to treat hearing and ear problems","A brief act of singing to get a role"]}
+];
+const cqBox = document.getElementById("checkQs");
+CQS.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = "<p>"+o.q+"</p>";
+  const ow = document.createElement("div"); ow.className = "opts";
+  o.opts.forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.textContent = op;
+    b.onclick = ()=>{
+      if(b.textContent === o.a){ b.classList.add("right"); [...ow.children].forEach(x=>x.disabled=true); }
+      else { b.classList.add("wrong"); b.disabled = true; }
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); cqBox.appendChild(d);
+});
+
+/* ---------- init ---------- */
+updateBar();
+if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "✅ Lesson 11 Complete! (tap again to undo)"; }
+</script>
+</body>
+</html>
