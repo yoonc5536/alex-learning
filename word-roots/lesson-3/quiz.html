@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 3 Quiz — Suffixes | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #fffdf5; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #b45309, #f59e0b); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header.hero h1 { margin: 4px 0; font-size: 1.7rem; }
+  header.hero p { margin: 4px 0; opacity: .92; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 22px 20px 60px; }
+  .home { display: inline-block; margin-bottom: 12px; color: #b45309; font-weight: 700; text-decoration: none; }
+  .home:hover { text-decoration: underline; }
+  .scorebar { background: #fff; border: 1px solid #fde68a; border-radius: 14px; padding: 12px 18px;
+         margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
+         box-shadow: 0 2px 8px rgba(180,83,9,.08); }
+  .scorebar .best { font-size: .9rem; color: #b45309; font-weight: 700; }
+  .qcard { background: #fff; border: 2px solid #fde68a; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
+  .qcard .qn { font-size: .82rem; color: #b45309; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+  .qcard .qq { font-size: 1.08rem; font-weight: 700; margin: 6px 0 14px; max-width: 75ch; }
+  .opts { display: grid; gap: 10px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 10px 16px;
+         cursor: pointer; font-size: .97rem; text-align: left; }
+  .opt:hover:not(:disabled) { border-color: #fbbf24; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  .opt:disabled { cursor: default; }
+  .exp { display: none; margin-top: 12px; background: #fffbeb; border-left: 4px solid #f59e0b;
+         padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .93rem; color: #78350f; max-width: 80ch; }
+  .exp.show { display: block; }
+  .exp b { color: #92400e; }
+  .final { display: none; text-align: center; background: linear-gradient(135deg,#92400e,#d97706);
+         color: #fff; border-radius: 18px; padding: 34px 20px; }
+  .final.show { display: block; }
+  .final h2 { margin: 0 0 8px; font-size: 1.8rem; }
+  .final .score { font-size: 3rem; font-weight: 900; margin: 8px 0; }
+  .final p { opacity: .92; }
+  .bigbtn { display: inline-block; background: #d97706; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; margin: 6px; }
+  .final .bigbtn { background: #fff; color: #92400e; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.2rem">🧩</div>
+  <h1>Lesson 3 Quiz — Suffixes</h1>
+  <p>20 questions &middot; tap an answer to get instant feedback &middot; questions and answers are shuffled</p>
+</header>
+
+<div class="wrap">
+  <a class="home" href="index.html">← Back to Lesson 3</a>
+  <div class="scorebar">
+    <div>Question <strong id="now">1</strong> of <strong id="of">20</strong></div>
+    <div class="best">🏆 Best score: <span id="best">—</span></div>
+  </div>
+  <div id="quiz"></div>
+  <div class="final" id="final">
+    <h2>🎉 Quiz Complete!</h2>
+    <div class="score"><span id="score">0</span> / 20</div>
+    <p id="verdict"></p>
+    <p style="font-size:.9rem">🏆 Best score on this device: <b id="best2">—</b></p>
+    <button class="bigbtn" onclick="location.reload()">🔁 Retry Quiz</button>
+    <a class="bigbtn" href="index.html" style="text-decoration:none">📖 Back to Lesson 3</a>
+    <a class="bigbtn" href="../lesson-4/" style="text-decoration:none">🚲 Next: Lesson 4</a>
+  </div>
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"What does the suffix “-ive” mean?", a:"tending to",
+   opts:["tending to","one who (works with or uses)","a state of being, a quality or act","able to be"],
+   e:"<b>-ive</b> means <b>tending to</b> — as in <b>act + -ive → active</b>, being in physical motion; doing."},
+  {q:"What does the suffix “-ist” mean?", a:"one who (works with or uses)",
+   opts:["one who (works with or uses)","tending to","a state of being","in the manner of"],
+   e:"<b>-ist</b> means <b>one who (works with or uses)</b> — as in <b>dent + -ist → dentist</b>."},
+  {q:"What does the suffix “-ism” mean?", a:"a state of being, a quality or act",
+   opts:["a state of being, a quality or act","one who (works with or uses)","able to be","state of motion"],
+   e:"<b>-ism</b> means <b>a state of being, a quality or act</b> — as in <b>ego + -ism → egoism</b>."},
+  {q:"<b>act</b> (to do) + <b>-ive</b> (tending to) = ?", a:"active — being in physical motion; doing",
+   opts:["active — being in physical motion; doing","actor — one who acts","active — a state of being still","activate — full of acting"],
+   e:"<b>act + -ive = active</b> — being in physical motion; doing."},
+  {q:"<b>dent</b> (tooth) + <b>-ist</b> (one who) = ?", a:"dentist — one who works with or treats teeth",
+   opts:["dentist — one who works with or treats teeth","dental — full of teeth","denture — a state of teeth","dentry — tending to teeth"],
+   e:"<b>dent + -ist = dentist</b> — one who works with or treats teeth."},
+  {q:"<b>ego</b> (I, self) + <b>-ism</b> (state of being) = ?", a:"egoism — state of being excessively self-interested",
+   opts:["egoism — state of being excessively self-interested","egoist — one who shares","egoism — tending to be kind","egotist — full of others"],
+   e:"<b>ego + -ism = egoism</b> — state of being excessively self-interested."},
+  {q:"<b>capt</b> (take, hold) + <b>-ive</b> (tending to) = <b>captive</b>. What does it mean?", a:"A person who is taken and held — a prisoner",
+   opts:["A person who is taken and held — a prisoner","One who works with drugs","A state of being in the center","One who takes photographs"],
+   e:"<b>captive</b> = <b>capt + -ive</b> — a person who is taken and held (a prisoner). The suffix -ive is the clue!"},
+  {q:"<b>pharmac</b> (drug) + <b>-ist</b> (one who) = <b>pharmacist</b>. What does it mean?", a:"One who works with drugs",
+   opts:["One who works with drugs","A state of being in the center","A person who is taken and held","Tending to be active"],
+   e:"<b>pharmacist</b> = <b>pharmac + -ist</b> — one who works with drugs (medicines)."},
+  {q:"<b>centr</b> (center) + <b>-ism</b> (state of being) = <b>centrism</b>. What does it mean?", a:"A state of being in the center — a belief in the middle",
+   opts:["A state of being in the center — a belief in the middle","One who works with teeth","Tending to be taken and held","A person in the center"],
+   e:"<b>centrism</b> = <b>centr + -ism</b> — a state of being in the center (a belief in the middle)."},
+  {q:"Which suffix means “one who (works with or uses)”?", a:"-ist",
+   opts:["-ist","-ive","-ism","-or"],
+   e:"<b>-ist</b> = one who (works with or uses): dent<b>ist</b>, journal<b>ist</b>, pharmaci<b>st</b>."},
+  {q:"Which of these words is a PERSON?", a:"journalist",
+   opts:["journalist","journalism","optimism","modernism"],
+   e:"The <b>-ist</b> word is the person: <b>journalist</b>. The -ism words (journalism, optimism, modernism) are beliefs or states of being."},
+  {q:"Which of these words is a BELIEF or STATE OF BEING?", a:"optimism",
+   opts:["optimism","optimist","journalist","hypnotist"],
+   e:"The <b>-ism</b> word is the belief/state: <b>optimism</b>. The -ist words are people."},
+  {q:"In your book, which example word is a PERSON?", a:"terrorist",
+   opts:["terrorist","terrorism","egoism","idealism"],
+   e:"The book uses <b>terrorist</b> as its example person and <b>egoism</b> as its example belief."},
+  {q:"In your book, which example word is a BELIEF?", a:"egoism",
+   opts:["egoism","terrorist","journalist","plagiarist"],
+   e:"The book uses <b>terrorist</b> as its example person and <b>egoism</b> as its example belief."},
+  {q:"What does the suffix “-ly” mean?", a:"in the manner of",
+   opts:["in the manner of","able to be","state of being","full of"],
+   e:"<b>-ly</b> = in the manner of — that&rsquo;s why “quiet<b>ly</b>” means “in a quiet manner.”"},
+  {q:"What does the suffix “-ness” mean?", a:"state of being",
+   opts:["state of being","one who","tending to","in the manner of"],
+   e:"<b>-ness</b> = state of being — that&rsquo;s why “vivid<b>ness</b>” means “the state of being vivid.”"},
+  {q:"The students worked ___ on the project.", a:"quietly",
+   opts:["quietly","teachable","rupture","actor"],
+   e:"“quiet<b>ly</b>” = in the manner of being quiet — they worked <b>quietly</b>."},
+  {q:"The dog was very ___ and learned quickly.", a:"teachable",
+   opts:["teachable","rupture","vividness","sensible"],
+   e:"“teach<b>able</b>” = able to be taught — the dog was <b>teachable</b> and learned quickly."},
+  {q:"A ___ in the water pipe flooded the entire house.", a:"rupture",
+   opts:["rupture","actor","plentiful","quietly"],
+   e:"“rupt<b>ure</b>” = a breaking (-ure = state, quality, act) — a <b>rupture</b> in the pipe flooded the house."},
+  {q:"Carlotta is always ___ when choosing what to eat.", a:"sensible",
+   opts:["sensible","rupture","actor","plentiful"],
+   e:"“sens<b>ible</b>” = able to be sensible — Carlotta is <b>sensible</b> when choosing food."}
+];
+
+const BEST_KEY = "wr3-quiz-best";
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+let score = 0, answered = 0;
+
+function renderBest(){
+  const b = localStorage.getItem(BEST_KEY);
+  document.getElementById("best").textContent = b ? b+" / 20" : "—";
+  document.getElementById("best2").textContent = b ? b+" / 20" : "—";
+}
+
+const box = document.getElementById("quiz");
+shuffle(QUESTIONS).forEach((q,i)=>{
+  const d = document.createElement("div");
+  d.className = "qcard";
+  d.innerHTML = '<div class="qn">Question '+(i+1)+'</div><div class="qq">'+q.q+'</div>';
+  const ow = document.createElement("div"); ow.className = "opts";
+  const exp = document.createElement("div"); exp.className = "exp"; exp.innerHTML = q.e;
+  shuffle(q.opts.slice()).forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.innerHTML = op;
+    b.onclick = ()=>{
+      [...ow.children].forEach(x=>{
+        x.disabled = true;
+        if(x.innerHTML === q.a) x.classList.add("right");
+      });
+      if(b.innerHTML === q.a){ score++; }
+      else { b.classList.add("wrong"); }
+      exp.classList.add("show");
+      answered++;
+      document.getElementById("now").textContent = Math.min(answered+1, 20);
+      if(answered === QUESTIONS.length) finish();
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); d.appendChild(exp);
+  box.appendChild(d);
+});
+
+function finish(){
+  const f = document.getElementById("final");
+  f.classList.add("show");
+  document.getElementById("score").textContent = score;
+  const v = document.getElementById("verdict");
+  if(score === 20) v.textContent = "Perfect! You are a true suffix master! 🌟";
+  else if(score >= 16) v.textContent = "Excellent work! Just a little review left. 💪";
+  else if(score >= 12) v.textContent = "Good effort! Review the lesson and try again. 📖";
+  else v.textContent = "Keep practicing — the lesson page is right there. You&rsquo;ve got this! 🌱";
+  const prev = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
+  if(score > prev) localStorage.setItem(BEST_KEY, String(score));
+  renderBest();
+  f.scrollIntoView({behavior:"smooth"});
+}
+renderBest();
+</script>
+</body>
+</html>
