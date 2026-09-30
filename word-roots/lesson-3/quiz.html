@@ -3,192 +3,187 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lesson 3 Quiz — Suffixes | Word Roots Beginning</title>
+<title>Lesson 3 Quiz | Word Roots Beginning</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         margin: 0; background: #fffdf5; color: #1e293b; line-height: 1.6; }
-  header.hero { background: linear-gradient(135deg, #b45309, #f59e0b); color: #fff;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
          padding: 30px 20px; text-align: center; }
-  header.hero h1 { margin: 4px 0; font-size: 1.7rem; }
-  header.hero p { margin: 4px 0; opacity: .92; }
-  .wrap { max-width: 1150px; margin: 0 auto; padding: 22px 20px 60px; }
-  .home { display: inline-block; margin-bottom: 12px; color: #b45309; font-weight: 700; text-decoration: none; }
-  .home:hover { text-decoration: underline; }
-  .scorebar { background: #fff; border: 1px solid #fde68a; border-radius: 14px; padding: 12px 18px;
-         margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
-         box-shadow: 0 2px 8px rgba(180,83,9,.08); }
-  .scorebar .best { font-size: .9rem; color: #b45309; font-weight: 700; }
-  .qcard { background: #fff; border: 2px solid #fde68a; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
-  .qcard .qn { font-size: .82rem; color: #b45309; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
-  .qcard .qq { font-size: 1.08rem; font-weight: 700; margin: 6px 0 14px; max-width: 75ch; }
-  .opts { display: grid; gap: 10px; }
-  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 10px 16px;
-         cursor: pointer; font-size: .97rem; text-align: left; }
-  .opt:hover:not(:disabled) { border-color: #fbbf24; }
-  .opt.right { border-color: #16a34a; background: #dcfce7; }
-  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #16a34a; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #86efac; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
   .opt:disabled { cursor: default; }
-  .exp { display: none; margin-top: 12px; background: #fffbeb; border-left: 4px solid #f59e0b;
-         padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .93rem; color: #78350f; max-width: 80ch; }
-  .exp.show { display: block; }
-  .exp b { color: #92400e; }
-  .final { display: none; text-align: center; background: linear-gradient(135deg,#92400e,#d97706);
-         color: #fff; border-radius: 18px; padding: 34px 20px; }
-  .final.show { display: block; }
-  .final h2 { margin: 0 0 8px; font-size: 1.8rem; }
-  .final .score { font-size: 3rem; font-weight: 900; margin: 8px 0; }
-  .final p { opacity: .92; }
-  .bigbtn { display: inline-block; background: #d97706; color: #fff; border: none; border-radius: 12px;
-         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; margin: 6px; }
-  .final .bigbtn { background: #fff; color: #92400e; }
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #166534; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #15803d; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
   footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
-  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 16px; }
 </style>
 </head>
 <body>
-
-<header class="hero">
-  <div style="font-size:2.2rem">🧩</div>
-  <h1>Lesson 3 Quiz — Suffixes</h1>
-  <p>20 questions &middot; tap an answer to get instant feedback &middot; questions and answers are shuffled</p>
+<header>
+  <div style="font-size:2.2rem">🎯</div>
+  <h1>Lesson 3 Quiz</h1>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
-  <a class="home" href="index.html">← Back to Lesson 3</a>
-  <div class="scorebar">
-    <div>Question <strong id="now">1</strong> of <strong id="of">20</strong></div>
-    <div class="best">🏆 Best score: <span id="best">—</span></div>
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+      <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
-  <div id="quiz"></div>
-  <div class="final" id="final">
-    <h2>🎉 Quiz Complete!</h2>
-    <div class="score"><span id="score">0</span> / 20</div>
-    <p id="verdict"></p>
-    <p style="font-size:.9rem">🏆 Best score on this device: <b id="best2">—</b></p>
-    <button class="bigbtn" onclick="location.reload()">🔁 Retry Quiz</button>
-    <a class="bigbtn" href="index.html" style="text-decoration:none">📖 Back to Lesson 3</a>
-    <a class="bigbtn" href="../lesson-4/" style="text-decoration:none">🚲 Next: Lesson 4</a>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
   </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 3</a>
+  </div>
+
   <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
 </div>
 
 <script>
-const QUESTIONS = [
-  {q:"What does the suffix “-ive” mean?", a:"tending to",
-   opts:["tending to","one who (works with or uses)","a state of being, a quality or act","able to be"],
-   e:"<b>-ive</b> means <b>tending to</b> — as in <b>act + -ive → active</b>, being in physical motion; doing."},
-  {q:"What does the suffix “-ist” mean?", a:"one who (works with or uses)",
-   opts:["one who (works with or uses)","tending to","a state of being","in the manner of"],
-   e:"<b>-ist</b> means <b>one who (works with or uses)</b> — as in <b>dent + -ist → dentist</b>."},
-  {q:"What does the suffix “-ism” mean?", a:"a state of being, a quality or act",
-   opts:["a state of being, a quality or act","one who (works with or uses)","able to be","state of motion"],
-   e:"<b>-ism</b> means <b>a state of being, a quality or act</b> — as in <b>ego + -ism → egoism</b>."},
-  {q:"<b>act</b> (to do) + <b>-ive</b> (tending to) = ?", a:"active — being in physical motion; doing",
-   opts:["active — being in physical motion; doing","actor — one who acts","active — a state of being still","activate — full of acting"],
-   e:"<b>act + -ive = active</b> — being in physical motion; doing."},
-  {q:"<b>dent</b> (tooth) + <b>-ist</b> (one who) = ?", a:"dentist — one who works with or treats teeth",
-   opts:["dentist — one who works with or treats teeth","dental — full of teeth","denture — a state of teeth","dentry — tending to teeth"],
-   e:"<b>dent + -ist = dentist</b> — one who works with or treats teeth."},
-  {q:"<b>ego</b> (I, self) + <b>-ism</b> (state of being) = ?", a:"egoism — state of being excessively self-interested",
-   opts:["egoism — state of being excessively self-interested","egoist — one who shares","egoism — tending to be kind","egotist — full of others"],
-   e:"<b>ego + -ism = egoism</b> — state of being excessively self-interested."},
-  {q:"<b>capt</b> (take, hold) + <b>-ive</b> (tending to) = <b>captive</b>. What does it mean?", a:"A person who is taken and held — a prisoner",
-   opts:["A person who is taken and held — a prisoner","One who works with drugs","A state of being in the center","One who takes photographs"],
-   e:"<b>captive</b> = <b>capt + -ive</b> — a person who is taken and held (a prisoner). The suffix -ive is the clue!"},
-  {q:"<b>pharmac</b> (drug) + <b>-ist</b> (one who) = <b>pharmacist</b>. What does it mean?", a:"One who works with drugs",
-   opts:["One who works with drugs","A state of being in the center","A person who is taken and held","Tending to be active"],
-   e:"<b>pharmacist</b> = <b>pharmac + -ist</b> — one who works with drugs (medicines)."},
-  {q:"<b>centr</b> (center) + <b>-ism</b> (state of being) = <b>centrism</b>. What does it mean?", a:"A state of being in the center — a belief in the middle",
-   opts:["A state of being in the center — a belief in the middle","One who works with teeth","Tending to be taken and held","A person in the center"],
-   e:"<b>centrism</b> = <b>centr + -ism</b> — a state of being in the center (a belief in the middle)."},
-  {q:"Which suffix means “one who (works with or uses)”?", a:"-ist",
-   opts:["-ist","-ive","-ism","-or"],
-   e:"<b>-ist</b> = one who (works with or uses): dent<b>ist</b>, journal<b>ist</b>, pharmaci<b>st</b>."},
-  {q:"Which of these words is a PERSON?", a:"journalist",
-   opts:["journalist","journalism","optimism","modernism"],
-   e:"The <b>-ist</b> word is the person: <b>journalist</b>. The -ism words (journalism, optimism, modernism) are beliefs or states of being."},
-  {q:"Which of these words is a BELIEF or STATE OF BEING?", a:"optimism",
-   opts:["optimism","optimist","journalist","hypnotist"],
-   e:"The <b>-ism</b> word is the belief/state: <b>optimism</b>. The -ist words are people."},
-  {q:"In your book, which example word is a PERSON?", a:"terrorist",
-   opts:["terrorist","terrorism","egoism","idealism"],
-   e:"The book uses <b>terrorist</b> as its example person and <b>egoism</b> as its example belief."},
-  {q:"In your book, which example word is a BELIEF?", a:"egoism",
-   opts:["egoism","terrorist","journalist","plagiarist"],
-   e:"The book uses <b>terrorist</b> as its example person and <b>egoism</b> as its example belief."},
-  {q:"What does the suffix “-ly” mean?", a:"in the manner of",
-   opts:["in the manner of","able to be","state of being","full of"],
-   e:"<b>-ly</b> = in the manner of — that&rsquo;s why “quiet<b>ly</b>” means “in a quiet manner.”"},
-  {q:"What does the suffix “-ness” mean?", a:"state of being",
-   opts:["state of being","one who","tending to","in the manner of"],
-   e:"<b>-ness</b> = state of being — that&rsquo;s why “vivid<b>ness</b>” means “the state of being vivid.”"},
-  {q:"The students worked ___ on the project.", a:"quietly",
-   opts:["quietly","teachable","rupture","actor"],
-   e:"“quiet<b>ly</b>” = in the manner of being quiet — they worked <b>quietly</b>."},
-  {q:"The dog was very ___ and learned quickly.", a:"teachable",
-   opts:["teachable","rupture","vividness","sensible"],
-   e:"“teach<b>able</b>” = able to be taught — the dog was <b>teachable</b> and learned quickly."},
-  {q:"A ___ in the water pipe flooded the entire house.", a:"rupture",
-   opts:["rupture","actor","plentiful","quietly"],
-   e:"“rupt<b>ure</b>” = a breaking (-ure = state, quality, act) — a <b>rupture</b> in the pipe flooded the house."},
-  {q:"Carlotta is always ___ when choosing what to eat.", a:"sensible",
-   opts:["sensible","rupture","actor","plentiful"],
-   e:"“sens<b>ible</b>” = able to be sensible — Carlotta is <b>sensible</b> when choosing food."}
-];
 
-const BEST_KEY = "wr3-quiz-best";
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-let score = 0, answered = 0;
+const QS = [{"q": "She is very ___ and always invents new games to play.", "o": ["creative", "boring", "lazy", "shy"], "a": 0, "why": "-ive means 'tending to' - someone who tends to create and invent new games is creative."}, {"q": "The ___ painted a beautiful picture of the sunset.", "o": ["artist", "doctor", "teacher", "chef"], "a": 0, "why": "-ist means 'one who' - the person who painted the picture is the one who makes art, an artist."}, {"q": "The ___ studied the water to find out why the fish were sick.", "o": ["scientist", "artist", "pilot", "baker"], "a": 0, "why": "-ist means 'one who' - the person studying the water to learn why is a scientist."}, {"q": "The maple tree is ___ to this forest; it has grown here for centuries.", "o": ["native", "new", "foreign", "rare"], "a": 0, "why": "-ive with nat- (born) means 'belonging by birth' - a tree that has grown here for centuries belongs here, so it is native."}, {"q": "The ___ took photos of the Statue of Liberty.", "o": ["tourist", "statue", "pigeon", "ferry"], "a": 0, "why": "-ist means 'one who' - the person traveling and taking photos for fun is a tourist."}, {"q": "A blue whale is a ___ animal, longer than a school bus.", "o": ["massive", "tiny", "light", "fast"], "a": 0, "why": "-ive means 'tending to' - an animal longer than a school bus tends to have huge mass, so it is massive."}, {"q": "That bike is too ___; it costs more than my whole allowance for a year.", "o": ["expensive", "cheap", "broken", "old"], "a": 0, "why": "-ive means 'tending to' and pend means 'pay' - a bike that makes you pay out a year's allowance is expensive."}, {"q": "The ___ played a beautiful song at the concert.", "o": ["pianist", "singer", "drummer", "dancer"], "a": 0, "why": "-ist means 'one who' - the person who played the piano song is a pianist."}, {"q": "The classroom looked ___ with balloons and streamers for the party.", "o": ["festive", "gloomy", "quiet", "empty"], "a": 0, "why": "-ive means 'tending to' - balloons and streamers tend toward celebration, so the room looked festive."}, {"q": "My ___ parrot chatters all morning without stopping.", "o": ["talkative", "quiet", "sleepy", "shy"], "a": 0, "why": "-ative means 'tending to' - a parrot that tends to talk all morning is talkative."}, {"q": "The ___ mixed two liquids and watched them change color.", "o": ["chemist", "baker", "farmer", "pilot"], "a": 0, "why": "-ist means 'one who' - the person mixing chemicals to study them is a chemist."}, {"q": "The ___ arranged red roses for the wedding.", "o": ["florist", "baker", "mechanic", "librarian"], "a": 0, "why": "-ist means 'one who' and flor means 'flower' - the person arranging roses works with flowers, so she is a florist."}, {"q": "Wear a helmet to be ___ while you ride your bike.", "o": ["protective", "fancy", "heavy", "colorful"], "a": 0, "why": "-ive means 'tending to' - a helmet tends to protect your head, so wearing one keeps you protective."}, {"q": "She is very ___ and always wants to win the race.", "o": ["competitive", "lazy", "kind", "calm"], "a": 0, "why": "-itive means 'tending to' - someone who tends to compete and wants to win is competitive."}, {"q": "His science fair project was so ___ that the judges gave him first prize.", "o": ["impressive", "boring", "messy", "small"], "a": 0, "why": "-ive means 'tending to' - a project that tends to impress the judges into giving first prize is impressive."}, {"q": "The ___ played a solo that made the crowd cheer.", "o": ["guitarist", "singer", "drummer", "pianist"], "a": 0, "why": "-ist means 'one who' - the person playing the guitar solo is a guitarist."}, {"q": "___ brings many visitors to our town every summer.", "o": ["tourism", "farming", "fishing", "mining"], "a": 0, "why": "-ism means 'act of' - the act of touring brings visitors to town, and that business is tourism."}, {"q": "The ___ sat down with the big instrument between her knees and began to play.", "o": ["cellist", "violinist", "pianist", "drummer"], "a": 0, "why": "-ist means 'one who' - the person playing the big cello between her knees is a cellist."}, {"q": "The firefighter's ___ saved three people from the burning house.", "o": ["heroism", "fear", "luck", "speed"], "a": 0, "why": "-ism means 'act of' - brave acts that saved three people are acts of a hero, which is heroism."}, {"q": "Even after losing the game, his ___ made him sure the team would win next time.", "o": ["optimism", "anger", "fear", "sadness"], "a": 0, "why": "-ism means 'belief' and optim means 'best' - believing the best will happen next time is optimism."}];
+const KEY = "wr3-quiz-best";
+const ROOTW = "-ive, -ist, -ism";
+const EMOJI = "\ud83e\udde9";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
-function renderBest(){
-  const b = localStorage.getItem(BEST_KEY);
-  document.getElementById("best").textContent = b ? b+" / 20" : "—";
-  document.getElementById("best2").textContent = b ? b+" / 20" : "—";
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
 }
-
-const box = document.getElementById("quiz");
-shuffle(QUESTIONS).forEach((q,i)=>{
-  const d = document.createElement("div");
-  d.className = "qcard";
-  d.innerHTML = '<div class="qn">Question '+(i+1)+'</div><div class="qq">'+q.q+'</div>';
-  const ow = document.createElement("div"); ow.className = "opts";
-  const exp = document.createElement("div"); exp.className = "exp"; exp.innerHTML = q.e;
-  shuffle(q.opts.slice()).forEach(op=>{
-    const b = document.createElement("button"); b.className = "opt"; b.innerHTML = op;
-    b.onclick = ()=>{
-      [...ow.children].forEach(x=>{
-        x.disabled = true;
-        if(x.innerHTML === q.a) x.classList.add("right");
-      });
-      if(b.innerHTML === q.a){ score++; }
-      else { b.classList.add("wrong"); }
-      exp.classList.add("show");
-      answered++;
-      document.getElementById("now").textContent = Math.min(answered+1, 20);
-      if(answered === QUESTIONS.length) finish();
-    };
-    ow.appendChild(b);
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
   });
-  d.appendChild(ow); d.appendChild(exp);
-  box.appendChild(d);
-});
-
-function finish(){
-  const f = document.getElementById("final");
-  f.classList.add("show");
-  document.getElementById("score").textContent = score;
-  const v = document.getElementById("verdict");
-  if(score === 20) v.textContent = "Perfect! You are a true suffix master! 🌟";
-  else if(score >= 16) v.textContent = "Excellent work! Just a little review left. 💪";
-  else if(score >= 12) v.textContent = "Good effort! Review the lesson and try again. 📖";
-  else v.textContent = "Keep practicing — the lesson page is right there. You&rsquo;ve got this! 🌱";
-  const prev = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
-  if(score > prev) localStorage.setItem(BEST_KEY, String(score));
-  renderBest();
-  f.scrollIntoView({behavior:"smooth"});
 }
-renderBest();
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
+  restart();
+})();
+
 </script>
 </body>
 </html>
