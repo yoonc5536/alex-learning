@@ -15,7 +15,8 @@
   .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
   .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
          margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
-         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; }
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
   .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
   .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
          display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
@@ -49,23 +50,25 @@
          border: 1px solid #e2e8f0; }
   .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
   .hidden { display: none; }
-  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
   footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
 <header>
   <div style="font-size:2.2rem">🎯</div>
   <h1>Lesson 13 Quiz</h1>
-  <p>Use the prefixes, root, and suffixes to figure out each meaning &middot; 20 questions</p>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
   <div class="hud">
     <span>Score: <span id="score">0</span> / 20</span>
     <span>Best: <span id="best">–</span></span>
-    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
       <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
   <div class="dots" id="dots"></div>
 
@@ -94,70 +97,11 @@
 </div>
 
 <script>
-const QS = [
- {q:"What does the root “fer” mean?",
-  o:["to say, speak","through, across, beyond","to carry, bear, produce","like, relating to"], a:2,
-  why:"<b>fer</b> = to carry, bear, produce — it carries all six words in this lesson."},
- {q:"What does the prefix “con-” mean?",
-  o:["with, together","not","back, again","through, across, beyond"], a:0,
-  why:"<b>con-</b> = with, together — as in confer: talk WITH another person to produce a decision."},
- {q:"What does the prefix “in-” mean?",
-  o:["with, together","in, into; not","able to be","back, again"], a:1,
-  why:"<b>in-</b> = in, into; not — in infertile it means NOT."},
- {q:"What does the prefix “re-” mean?",
-  o:["not","with, together","through, across, beyond","back, again"], a:3,
-  why:"<b>re-</b> = back, again — as in reference: a source to back up or produce facts."},
- {q:"What does the prefix “trans-” mean?",
-  o:["through, across, beyond","with, together","in, into","to carry, bear, produce"], a:0,
-  why:"<b>trans-</b> = through, across, beyond — as in transfer: carry ACROSS."},
- {q:"What does the suffix “-able” mean?",
-  o:["state, quality, act","able to be","like, relating to","to carry, bear, produce"], a:1,
-  why:"<b>-able</b> = able to be — transferable = ABLE TO BE carried across."},
- {q:"What does the suffix “-ence” mean?",
-  o:["like, relating to","able to be","back, again","state, quality, act"], a:3,
-  why:"<b>-ence</b> = state, quality, act — as in reference."},
- {q:"What does the suffix “t-ile” mean?",
-  o:["like, relating to","with, together","in, into; not","state, quality, act"], a:0,
-  why:"<b>t-ile</b> = like, relating to — fertile = RELATING TO being able to produce."},
- {q:"“con-” + “fer” = “confer”. What does “confer” mean?",
-  o:["to carry across from one place to another","to talk with another person or persons in order to produce a decision","a source to back up or produce authoritative facts","relating to not able to produce crops or offspring"], a:1,
-  why:"<b>con-</b> (with, together) + <b>fer</b> (to carry, bear, produce) = talk together to produce a decision."},
- {q:"“trans-” + “fer” = “transfer”. What does “transfer” mean?",
-  o:["a source to back up or produce authoritative facts","to talk with another person","to carry across from one place to another","relating to being able to produce crops"], a:2,
-  why:"<b>trans-</b> (across) + <b>fer</b> (to carry) = carry across from one place to another."},
- {q:"“fer” + “t-ile” = “fertile”. What does “fertile” mean?",
-  o:["relating to not able to produce crops or offspring","a source to back up facts","relating to being able to produce crops or offspring","able to be carried across"], a:2,
-  why:"<b>fer</b> (to carry, bear, produce) + <b>t-ile</b> (like, relating to) = relating to being able to produce."},
- {q:"“re-” + “fer” + “-ence” = “reference”. What does “reference” mean?",
-  o:["a source to back up or produce authoritative facts","to carry across from one place to another","to talk together to make a decision","able to be carried across"], a:0,
-  why:"<b>re-</b> (back, again) + <b>fer</b> (to carry, bear, produce) + <b>-ence</b> (state, quality, act) = a source to back up or produce authoritative facts."},
- {q:"“in-” + “fer” + “t-ile” = “infertile”. What does “infertile” mean?",
-  o:["relating to being able to produce crops or offspring","able to be carried across from one place to another","to talk together to make a decision","relating to NOT able to produce crops or offspring"], a:3,
-  why:"<b>in-</b> (not) + <b>fer</b> (to carry, bear, produce) + <b>t-ile</b> (like, relating to) = relating to NOT being able to produce."},
- {q:"“trans-” + “fer” + “-able” = “transferable”. What does “transferable” mean?",
-  o:["able to be carried across from one place to another","to carry across right this minute","a source to back up or produce facts","relating to not able to produce crops"], a:0,
-  why:"<b>trans-</b> (across) + <b>fer</b> (to carry) + <b>-able</b> (able to be) = able to be carried across."},
- {q:"The airline ticket was not ___ to another individual.",
-  o:["fertile","transferable","confer","reference"], a:1,
-  why:"The ticket was not <b>transferable</b> — it could not be carried across to another person."},
- {q:"The prisoner wanted to ___ with his lawyer before pleading guilty.",
-  o:["transfer","reference","confer","infertile"], a:2,
-  why:"He wanted to <b>confer</b> — talk with his lawyer to produce a decision."},
- {q:"Our library has an entire floor of ___ materials.",
-  o:["reference","fertile","transfer","infertile"], a:0,
-  why:"A <b>reference</b> floor — sources to back up or produce authoritative facts."},
- {q:"The garden soil was dry and ___.",
-  o:["fertile","infertile","transferable","confer"], a:1,
-  why:"Dry soil that cannot produce crops is <b>infertile</b>."},
- {q:"Let’s ___ these files to the new cabinets.",
-  o:["confer","transfer","fertile","reference"], a:1,
-  why:"Carry the files across to the new cabinets = <b>transfer</b>."},
- {q:"We were surprised that the old mare was still ___.",
-  o:["infertile","transferable","fertile","confer"], a:2,
-  why:"Still able to produce offspring = <b>fertile</b>."}
-];
 
+const QS = [{"q": "The neighbors will ___ to help us move the heavy boxes on Saturday.", "o": ["offer", "differ", "suffer", "infer"], "a": 0, "why": "<b>of-</b> means <i>toward</i>. To <b>offer</b> is to carry something <i>toward</i> someone — the neighbors carry their help toward us."}, {"q": "I ___ juice over soda because it is less sweet.", "o": ["prefer", "defer", "proffer", "refer"], "a": 0, "why": "<b>pre-</b> means <i>before</i>. To <b>prefer</b> juice is to carry it <i>before</i> soda in your heart — you put it first."}, {"q": "The teacher will ___ us to a fun website about volcanoes.", "o": ["refer", "defer", "infer", "proffer"], "a": 0, "why": "<b>re-</b> means <i>back</i>. To <b>refer</b> is to carry someone <i>back</i> to a source — the teacher sends us back to the website."}, {"q": "Twins may look alike, but their personalities often ___.", "o": ["differ", "suffer", "offer", "prefer"], "a": 0, "why": "<b>dis-</b> means <i>apart</i>. To <b>differ</b> is to carry <i>apart</i> — their personalities stand apart from each other."}, {"q": "The lost puppy will ___ in the cold if no one takes it inside.", "o": ["suffer", "differ", "offer", "defer"], "a": 0, "why": "<b>sub-</b> means <i>under</i>. To <b>suffer</b> is to bear something heavy <i>under</i> which you cannot escape — the puppy bears the cold."}, {"q": "Can you spot the ___ between these two pictures?", "o": ["difference", "suffering", "inference", "preference"], "a": 0, "why": "It comes from <b>differ</b> (to carry <i>apart</i>) + <b>-ence</b> (a state). The <b>difference</b> is the state of standing apart."}, {"q": "The wet ground and dark clouds helped us ___ that it had rained.", "o": ["infer", "refer", "defer", "proffer"], "a": 0, "why": "<b>in-</b> means <i>in</i>. To <b>infer</b> is to carry <i>in</i> clues — the wet ground and clouds — and figure out what happened."}, {"q": "We had to ___ our picnic because of the thunderstorm.", "o": ["defer", "prefer", "refer", "infer"], "a": 0, "why": "<b>de-</b> means <i>away</i>. To <b>defer</b> the picnic is to carry it <i>away</i> to another day."}, {"q": "The museum is ___ free tours every Sunday morning.", "o": ["offering", "suffering", "differing", "inferring"], "a": 0, "why": "It comes from <b>offer</b> + <b>-ing</b> (an act). The museum is in the act of carrying its tours <i>toward</i> visitors."}, {"q": "Her ___ seat is by the window, where she can see the clouds.", "o": ["preferred", "deferred", "referred", "suffered"], "a": 0, "why": "<b>pre-</b> means <i>before</i>. Her <b>preferred</b> seat is the one she carries <i>before</i> all others — her favorite."}, {"q": "The ___ blew the whistle when the player touched the ball with his hands.", "o": ["referee", "sufferer", "offering", "infer"], "a": 0, "why": "It comes from <b>refer</b> + <b>-ee</b> (one who is __ed). Players <b>refer</b> disputes <i>back</i> to the <b>referee</b>, who decides."}, {"q": "The vet worked quickly to ease the injured bird's ___.", "o": ["suffering", "offering", "difference", "deference"], "a": 0, "why": "It comes from <b>suffer</b> + <b>-ing</b> (an act). The bird's <b>suffering</b> is the pain it bears."}, {"q": "From the muddy footprints, my ___ was that the dog had been in the kitchen.", "o": ["inference", "preference", "difference", "deference"], "a": 0, "why": "<b>in-</b> means <i>in</i>. An <b>inference</b> is what you figure out after carrying clues <i>in</i> — the footprints carried the answer in."}, {"q": "Mom got a ___ from our dentist to see a tooth specialist.", "o": ["referral", "deferral", "offering", "suffering"], "a": 0, "why": "It comes from <b>refer</b> + <b>-al</b> (an act). A <b>referral</b> is the act of carrying you <i>back</i> (<b>re-</b>) to another doctor."}, {"q": "My ___ for reading is adventure books, not scary ones.", "o": ["preference", "difference", "indifference", "suffering"], "a": 0, "why": "It comes from <b>prefer</b> + <b>-ence</b> (a state). A <b>preference</b> is the state of carrying one thing <i>before</i> (<b>pre-</b>) another."}, {"q": "It is ___ to wear a helmet than to risk getting hurt.", "o": ["preferable", "sufferable", "deferrable", "inferable"], "a": 0, "why": "<b>-able</b> means <i>able to be</i>. The helmet is <b>preferable</b> because safety can be carried <i>before</i> (<b>pre-</b>) the risk."}, {"q": "Out of ___, the children let the elderly man board the bus first.", "o": ["deference", "indifference", "difference", "suffering"], "a": 0, "why": "<b>de-</b> means <i>away</i>. <b>Deference</b> is carrying your own wishes <i>away</i> so someone else can go first."}, {"q": "The ___ of a bad cold should drink lots of water and rest.", "o": ["sufferer", "referee", "offeror", "deferrer"], "a": 0, "why": "<b>-er</b> means <i>one who</i>. A <b>sufferer</b> is one who bears (<b>sub-</b> + <b>fer</b>) the pain of the cold."}, {"q": "The kind stranger would ___ his umbrella to anyone caught in the rain.", "o": ["proffer", "defer", "infer", "differ"], "a": 0, "why": "<b>pro-</b> means <i>forth</i>. To <b>proffer</b> is to carry something <i>forth</i> — the stranger carries his umbrella forth to share."}, {"q": "His ___ to the game was clear; he did not even look up from his book.", "o": ["indifference", "difference", "preference", "deference"], "a": 0, "why": "<b>in-</b> means <i>not</i>. <b>Indifference</b> is <i>not</i> seeing any <b>difference</b> worth caring about — he feels no pull toward the game."}];
 const KEY = "wr13-quiz-best";
+const ROOTW = "fer";
+const EMOJI = "\ud83c\udf92";
 let order, idx, score, answered;
 function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
@@ -182,7 +126,7 @@ function render(){
   const opts = document.getElementById("opts"); opts.innerHTML = "";
   const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
   const next = document.getElementById("nextBtn"); next.disabled = true;
-  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
   const oidx = shuffle(q.o.map((_,i)=>i));
   oidx.forEach((oi)=>{
     const b = document.createElement("button");
@@ -196,7 +140,7 @@ function render(){
       if(!ok) b.classList.add("wrong"); else score++;
       answered.push(ok);
       document.getElementById("score").textContent = score;
-      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
       why.classList.add("show");
       next.disabled = false;
       renderDots();
@@ -217,12 +161,12 @@ function finish(){
   const nb = (b===null || score > b) ? score : b;
   localStorage.setItem(KEY, JSON.stringify(nb));
   document.getElementById("fbest").textContent = nb + " / 20";
-  const msg = score===20 ? "Perfect! You are a true carry-master! 🏆"
-    : score>=16 ? "Excellent! The fer words are really sticking! 🚚"
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
     : score>=12 ? "Good job! Review the ones you missed and try again."
-    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
   document.getElementById("fmsg").textContent = msg;
-  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function restart(){
@@ -236,9 +180,10 @@ function restart(){
 }
 (function init(){
   const b = best();
-  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
   restart();
 })();
+
 </script>
 </body>
 </html>
