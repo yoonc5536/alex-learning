@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 18 — Prefixes, Roots, and Suffixes | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
+         padding: 36px 20px 28px; text-align: center; }
+  header.hero h1 { margin: 6px 0 4px; font-size: 2rem; }
+  header.hero p { margin: 4px 0; opacity: .95; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px 22px 60px; }
+  .progress { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px;
+         padding: 14px 18px; margin: -24px auto 24px; max-width: 1150px;
+         box-shadow: 0 4px 14px rgba(22,163,74,.10); position: relative; }
+  .bar { height: 12px; background: #dcfce7; border-radius: 999px; overflow: hidden; margin-top: 8px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg,#4ade80,#15803d);
+         border-radius: 999px; transition: width .4s ease; }
+  .progress small { color: #15803d; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  nav.toc a { background: #fff; border: 1px solid #bbf7d0; color: #166534; text-decoration: none;
+         padding: 8px 14px; border-radius: 999px; font-size: .9rem; font-weight: 600; }
+  nav.toc a:hover { background: #f0fdf4; }
+  nav.toc a.home { background: #166534; border-color: #166534; color: #fff; }
+  nav.toc a.home:hover { background: #15803d; }
+  section.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px;
+         padding: 24px; margin: 0 0 26px; box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  section.card h2 { margin: 0 0 4px; font-size: 1.35rem; color: #166534; }
+  section.card > p.lead { margin: 0 0 16px; color: #64748b; }
+  .roots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .root { border: 2px solid #bbf7d0; border-radius: 14px; padding: 14px 12px; text-align: center;
+         background: #f7fef9; position: relative; }
+  .root .r { font-size: 1.5rem; font-weight: 800; color: #16a34a; }
+  .root .m { font-size: .92rem; color: #475569; margin-top: 4px; min-height: 2.6em; }
+  .root .ex { font-size: .8rem; color: #94a3b8; margin-top: 6px; }
+  .root.hero-root { border-color: #16a34a; background: #f0fdf4; }
+  .chk { margin-top: 10px; border: 1px solid #cbd5e1; background: #fff; color: #475569;
+         border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; cursor: pointer; }
+  .chk.done { background: #16a34a; border-color: #16a34a; color: #fff; }
+  .formula { background: #f0fdf4; border: 2px dashed #4ade80; border-radius: 14px;
+         padding: 18px; text-align: center; margin: 0 0 16px; }
+  .formula .f { font-size: 1.5rem; font-weight: 900; color: #166534; letter-spacing: .02em; }
+  .formula .eg { margin-top: 10px; font-size: 1rem; color: #14532d; }
+  .formula code { background: #dcfce7; padding: 2px 8px; border-radius: 6px; font-size: .92em; }
+  .rules { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .rules { grid-template-columns: 1fr 1fr 1fr; } }
+  .rule { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 16px; }
+  .rule h3 { margin: 0 0 6px; font-size: 1.02rem; color: #166534; }
+  .rule p { margin: 0; font-size: .92rem; color: #14532d; }
+  .rule code { background: #dcfce7; padding: 1px 7px; border-radius: 6px; font-size: .88em; }
+  .words { display: grid; gap: 12px; }
+  @media (min-width: 640px){ .words { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px){ .words { grid-template-columns: 1fr 1fr 1fr; } }
+  .word { border: 2px solid #e2e8f0; border-radius: 14px; padding: 16px; background: #fff; }
+  .word h3 { margin: 0; font-size: 1.25rem; color: #0f172a; }
+  .word .pos { font-size: .78rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; }
+  .word .def { margin: 8px 0; font-size: .95rem; }
+  .word .sent { font-size: .88rem; color: #64748b; font-style: italic; }
+  .parts { display: none; margin: 8px 0; background: #fefce8; border: 1px dashed #eab308;
+         border-radius: 10px; padding: 8px 12px; font-size: .9rem; }
+  .parts.show { display: block; }
+  .parts b { color: #854d0e; }
+  .mini { border: none; background: #dcfce7; color: #166534; border-radius: 8px;
+         padding: 6px 12px; font-size: .82rem; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  .mini:hover { background: #bbf7d0; }
+  .act { border-top: 1px dashed #e2e8f0; padding-top: 18px; margin-top: 18px; }
+  .act:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .act h3 { margin: 0 0 4px; color: #166534; }
+  .act p.inst { margin: 0 0 12px; color: #64748b; font-size: .93rem; }
+  .match-cols { display: grid; gap: 10px; }
+  @media (min-width: 640px){ .match-cols { grid-template-columns: 1fr 1fr; } }
+  .mword, .mmean { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;
+         cursor: pointer; background: #fff; font-size: .95rem; transition: all .15s; }
+  .mword.sel { border-color: #16a34a; background: #f0fdf4; }
+  .mmean.sel { border-color: #16a34a; background: #f0fdf4; }
+  .mword.ok, .mmean.ok { border-color: #16a34a; background: #dcfce7; color: #166534;
+         cursor: default; font-weight: 700; }
+  .mword.bad, .mmean.bad { border-color: #ef4444; background: #fef2f2; }
+  .q { margin: 0 0 16px; }
+  .q p { margin: 0 0 8px; font-weight: 600; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 8px 16px;
+         cursor: pointer; font-size: .93rem; font-weight: 600; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; opacity: .85; }
+  .sent-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 12px 16px; margin: 0 0 10px; font-size: .97rem; line-height: 2; }
+  .blank { display: inline-block; min-width: 120px; border-bottom: 3px solid #94a3b8;
+         text-align: center; font-weight: 800; color: #16a34a; cursor: pointer; padding: 0 8px; }
+  .blank.filled { border-bottom-color: #16a34a; }
+  .blank.right { color: #14532d; } .blank.wrong { color: #b91c1c; border-bottom-color: #ef4444; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chip { border: 2px solid #86efac; background: #f0fdf4; color: #166534; border-radius: 999px;
+         padding: 8px 18px; font-weight: 700; cursor: pointer; font-size: .95rem; }
+  .chip.sel { background: #16a34a; color: #fff; border-color: #16a34a; }
+  .chip.used { opacity: .35; }
+  .bigbtn { display: inline-block; background: #16a34a; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #15803d; }
+  .ghostbtn { display: inline-block; background: #fff; color: #475569; border: 2px solid #cbd5e1;
+         border-radius: 12px; padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; }
+  .teaser { background: linear-gradient(135deg,#fefce8,#fef9c3); border: 2px solid #eab308;
+         border-radius: 14px; padding: 18px; }
+  .teaser h3 { margin: 0 0 6px; color: #854d0e; }
+  .teaser a.go { display: inline-block; background: #16a34a; color: #fff; font-weight: 800;
+         text-decoration: none; border-radius: 12px; padding: 12px 28px; margin-top: 10px; }
+  .teaser a.go:hover { background: #15803d; }
+  .tipbox { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 14px; padding: 18px; margin-top: 16px; }
+  .tipbox h3 { margin: 0 0 8px; color: #92400e; }
+  .tipbox .nots { display: grid; gap: 8px; }
+  @media (min-width: 560px){ .tipbox .nots { grid-template-columns: 1fr 1fr 1fr; } }
+  .tipbox .not { background: #fff; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+  .tipbox .not b { color: #92400e; }
+  .quizcta { text-align: center; background: linear-gradient(135deg,#166534,#16a34a); color: #fff;
+         border-radius: 18px; padding: 30px 20px; }
+  .quizcta h2 { color: #fff !important; margin: 0 0 8px !important; }
+  .quizcta p { opacity: .92; margin: 0 0 18px; }
+  .quizcta a { display: inline-block; background: #fff; color: #166534; font-weight: 800;
+         font-size: 1.1rem; text-decoration: none; border-radius: 12px; padding: 14px 34px; }
+  .quizcta a:hover { transform: translateY(-2px); }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 10px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
+  .done-banner { display: none; background: #dcfce7; border: 2px solid #16a34a; color: #166534;
+         border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; margin-top: 12px; }
+  .done-banner.show { display: block; }
+  .flip-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .flip { perspective: 900px; cursor: pointer; min-height: 150px; position: relative; }
+  .flip .inner { position: relative; width: 100%; min-height: 170px;
+         transform-style: preserve-3d; transition: transform .5s; }
+  .flip.on .inner { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+         border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .face.front { background: #f0fdf4; border: 2px solid #86efac; text-align: center; }
+  .face.front .w { font-size: 1.4rem; font-weight: 900; color: #166534; }
+  .face.front .t { font-size: .8rem; color: #65a30d; margin-top: 6px; }
+  .face.back { background: #dcfce7; border: 2px solid #16a34a; transform: rotateY(180deg); }
+  .face.back .w { font-size: 1.1rem; font-weight: 800; color: #166534; }
+  .face.back .p { font-size: .85rem; color: #15803d; margin: 4px 0; }
+  .face.back .d { font-size: .9rem; color: #14532d; }
+  .own { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin: 0 0 10px; background: #fff; }
+  .own h4 { margin: 0 0 2px; font-size: 1.05rem; color: #0f172a; }
+  .own .brk { font-size: .85rem; color: #65a30d; }
+  .own .ans { display: none; margin-top: 8px; background: #f0fdf4; border-radius: 8px; padding: 8px 12px; font-size: .93rem; color: #14532d; }
+  .own .ans.show { display: block; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div style="font-size:2.4rem">🖐️</div>
+  <h1>Lesson 18 — Prefixes, Roots, and Suffixes</h1>
+  <p>The roots <b>sens, sent</b> mean <b>to feel, to perceive</b> — and they feel six brand-new words into shape.</p>
+  <p style="font-size:.9rem; opacity:.85">Word Roots Beginning &middot; one lesson a day</p>
+</header>
+
+<div class="wrap">
+  <div class="progress">
+    <div><strong id="pct">0%</strong> <small id="ptext">Tap &ldquo;Got it&rdquo; on each card as you learn it.</small></div>
+    <div class="bar"><div id="pfill"></div></div>
+  </div>
+
+  <nav class="toc">
+    <a class="home" href="../index.html">🏠 Word Roots Home</a>
+    <a href="#review">0. Lesson 17 Review</a>
+    <a href="#pieces">1. Prefixes, Root &amp; Suffixes</a>
+    <a href="#words">2. Word Bank</a>
+    <a href="#practice">3. Practice</a>
+    <a href="#check">4. Quick Check</a>
+    <a href="#next">5. To Be Continued</a>
+    <a href="#quiz">6. Quiz</a>
+  </nav>
+
+  <section class="card" id="review">
+    <h2>🔙 0. Review: Lesson 17 Words (scrib, scribe, script = write, written)</h2>
+    <p class="lead">Warm up with the 6 <b>scrib, scribe, script</b> words from Lesson 17! <b>Read the word, guess its meaning, then tap the card to check the answer.</b> Each card shows the word parts and the meaning.</p>
+    <div class="flip-grid" id="flipGrid"></div>
+    <p class="lead" style="margin:14px 0 0;font-size:.88rem">Tap &ldquo;Got it&rdquo; under each card when you remember it. Your review progress counts toward the bar above.</p>
+  </section>
+
+  <section class="card" id="pieces">
+    <h2>🖐️ 1. Meet the Prefixes &amp; Roots</h2>
+    <p class="lead">This lesson mixes <b>3 prefixes</b>, <b>1 root</b>, and <b>3 suffixes</b> — all on the same team. The star of the show is <b>sens, sent</b> (to feel, to perceive).</p>
+    <div class="formula">
+      <div class="f">PREFIX + ROOT + SUFFIX = NEW WORD</div>
+      <div class="eg"><code>dis-</code> (apart, opposite of) + <code>sent</code> (to feel, to perceive) = <b>dissent</b><br/><span style='font-size:.9rem'>Feeling <i>apart</i> from the crowd! 🖐️</span></div>
+    </div>
+    <div class="roots" id="rootGrid"></div>
+    <p class="lead" style="margin-top:14px">Three examples straight from your book:</p>
+    <div class="rules">
+      <div class="rule"><h3><code>con-</code> + <code>sent</code></h3><p>= <b>consent</b> — feeling <i>with</i> someone: giving permission.</p></div><div class="rule"><h3><code>in-</code> + <code>sens</code> + <code>it-ive</code></h3><p>= <b>insensitive</b> — tending to <i>not</i> feel others' feelings.</p></div><div class="rule"><h3><code>sens</code> + <code>-ation</code></h3><p>= <b>sensation</b> — the process of feeling something through the senses.</p></div>
+    </div>
+    <div class="tipbox">
+      <h3>💡 Tip: in- means “not” here</h3>
+      <p style="margin:0 0 10px;font-size:.93rem;color:#92400e">In <b>insensitive</b>, <b>in-</b> means <i>not</i> — not feeling. Watch out: <b>in-</b> can also mean “in, into” in other lessons!</p>
+      <div class="nots">
+        <div class="not"><b>dis-</b> = apart, opposite of, as in <i>dissent</i></div><div class="not"><b>con-</b> = with, together, as in <i>consent</i></div><div class="not"><b>it-ive</b> = tending to, as in <i>sensitive</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="words">
+    <h2>📖 2. Lesson 18 Word Bank</h2>
+    <p class="lead">Every word below is built with the root <b>sens, sent</b> (to feel, to perceive). Tap &ldquo;Show word parts&rdquo; to see the prefix + root + suffix inside each word.</p>
+    <div class="words" id="wordGrid"></div>
+  </section>
+
+  <section class="card" id="practice">
+    <h2>✏️ 3. Practice &mdash; just like the book</h2>
+    <p class="lead">Do each activity. They match Activities A&ndash;D in your book (pages 58–61).</p>
+
+    <div class="act" id="actA">
+      <h3>Activity A &mdash; Match the word to its definition</h3>
+      <p class="inst">Tap a word, then tap the definition that matches it. (In the book you circle the roots first — the word parts are hiding in the Word Bank above!)</p>
+      <div class="match-cols">
+        <div id="mwords"></div>
+        <div id="mmeans"></div>
+      </div>
+      <p class="found" id="matchScore">Matched: 0 / 6 &nbsp; <button class="ghostbtn" style="padding:4px 14px;font-size:.8rem" onclick="resetMatch()">Reset</button></p>
+    </div>
+
+    <div class="act" id="actB">
+      <h3>Activity B &mdash; Complete the sentences</h3>
+      <p class="inst">Tap a word chip, then tap a blank. Tap a filled blank to take the word back.</p>
+      <div class="bank" id="bbank"></div>
+      <div id="bsents"></div>
+      <button class="bigbtn" id="bcheck">Check answers</button>
+      <button class="ghostbtn" id="breset">Reset</button>
+      <p class="found" id="bscore"></p>
+    </div>
+
+    <div class="act" id="actC">
+      <h3>Activity C &mdash; More sentences</h3>
+      <p class="inst">Choose the best word from the box to complete each sentence. Same word box, new sentences!</p>
+      <div class="bank" id="cbank"></div>
+      <div id="csents"></div>
+      <button class="bigbtn" id="ccheck">Check answers</button>
+      <button class="ghostbtn" id="creset">Reset</button>
+      <p class="found" id="cscore"></p>
+    </div>
+
+    <div class="act" id="actD">
+      <h3>Activity D &mdash; Write your own sentences</h3>
+      <p class="inst">The book gives you blank lines and says: write a complete sentence for each word. Think of your own sentence first, then tap “Reveal example” to compare with a sample.</p>
+      <div id="ownBox"></div>
+    </div>
+  </section>
+
+  <section class="card" id="check">
+    <h2>✅ 4. Quick Check &mdash; Lesson 18</h2>
+    <p class="lead">Three questions on today&rsquo;s pieces. Tap an answer to check yourself.</p>
+    <div id="checkQs"></div>
+  </section>
+
+  <section class="card" id="next">
+    <h2>🔭 5. To Be Continued</h2><div class="teaser"><h3>🔭 Next: Lesson 19 — tract (to draw or pull, drag, draw out)</h3><p style="margin:0;color:#854d0e">Next you'll pull six new words with the root <b>tract</b> (to draw or pull, drag, draw out): <b>tractor, subtract, attract, attraction, extract, traction</b>. What does a tractor do? 🧲</p><a class="go" href="../lesson-19/index.html">Go to Lesson 19 →</a></div>
+  </section>
+
+  <section class="quizcta" id="quiz">
+    <h2>🎯 Ready for the Lesson 18 Quiz?</h2>
+    <p>20 questions &mdash; use the word parts to figure out each meaning.</p>
+    <a href="quiz.html">Start the Quiz →</a>
+  </section>
+
+  <section class="card" style="text-align:center">
+    <h2>🏁 Finish Lesson 18</h2>
+    <p class="lead">Tap when you finished everything above &mdash; including the quiz!</p>
+    <button class="bigbtn" id="doneBtn" onclick="markDone()">Mark Lesson 18 Complete</button>
+    <div class="done-banner" id="doneBanner">✅ Lesson 18 complete! Feel-power unlocked. See you at Lesson 19! 🖐️</div>
+  </section>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
+</div>
+
+<script>
+
+/* ---------- data ---------- */
+const D = {"n": 18, "key": "wr18", "emoji": "🖐️", "title": "Lesson 18 — Prefixes, Roots, and Suffixes", "review": [{"w": "script", "p": "<b>script</b> (write, written)", "d": "The written version of something to be performed in a movie or play."}, {"w": "inscribe", "p": "<b>in-</b> (in, into) + <b>scribe</b> (write, written)", "d": "To write, print, or engrave words or letters into a surface (glass, stone, wood, or other material)."}, {"w": "describe", "p": "<b>de-</b> (from, away, down, apart) + <b>scribe</b> (write, written)", "d": "To create a picture in a person's mind from the use of words alone."}, {"w": "descriptive", "p": "<b>de-</b> (from, away, down, apart) + <b>script</b> (write, written) + <b>-ive</b> (tending to)", "d": "Tending to use words that tell about smell, sight, sound, texture, and taste to create a picture in a person's mind."}, {"w": "indescribable", "p": "<b>in-</b> (not) + <b>de-</b> (from, away, down, apart) + <b>scrib</b> (write, written) + <b>-able</b> (able to be)", "d": "Not able to be understood or pictured from words alone."}, {"w": "inscription", "p": "<b>in-</b> (in, into) + <b>script</b> (write, written) + <b>-ion</b> (an action or process; state, quality, act)", "d": "Words or letters written, printed, or engraved into a surface."}], "pieces": [{"r": "con-", "m": "with, together", "ex": "consent", "kind": "prefix", "hero": false}, {"r": "dis-", "m": "apart, opposite of", "ex": "dissent", "kind": "prefix", "hero": false}, {"r": "in-", "m": "in, into; not", "ex": "insensitive", "kind": "prefix", "hero": false}, {"r": "sens, sent", "m": "to feel, to perceive", "ex": "sensation", "kind": "root", "hero": true}, {"r": "-ation", "m": "an action or process", "ex": "sensation", "kind": "suffix", "hero": false}, {"r": "it-ive", "m": "tending to", "ex": "sensitive", "kind": "suffix", "hero": false}, {"r": "i-ment", "m": "that which; state, quality, act", "ex": "sentiment", "kind": "suffix", "hero": false}], "words": [{"w": "sensitive", "parts": "<b>sens</b> (to feel, to perceive) + <b>it-ive</b> (tending to)", "d": "Tending to feel emotions and physical things easily.", "s": "Pascal is highly sensitive to comments about his short stature."}, {"w": "consent", "parts": "<b>con-</b> (with, together) + <b>sent</b> (to feel, to perceive)", "d": "Feeling it is okay to do something; giving permission from one person to another.", "s": "Marla's parents gave her their consent to bring home the new puppy."}, {"w": "sentiment", "parts": "<b>sent</b> (to feel, to perceive) + <b>i-ment</b> (that which; state, quality, act)", "d": "That which is based on a feeling or emotion.", "s": "The students expressed much negative sentiment over the new dress code."}, {"w": "insensitive", "parts": "<b>in-</b> (not) + <b>sens</b> (to feel, to perceive) + <b>it-ive</b> (tending to)", "d": "Tending to not respond to other people's feelings or things that happen to or around oneself.", "s": "Selfish people tend to be insensitive to the needs of others."}, {"w": "dissent", "parts": "<b>dis-</b> (apart, opposite of) + <b>sent</b> (to feel, to perceive)", "d": "The act of disagreeing with the feelings of a large number of people.", "s": "The governor was concerned over the dissent among his people."}, {"w": "sensation", "parts": "<b>sens</b> (to feel, to perceive) + <b>-ation</b> (an action or process)", "d": "The process of feeling something physically through one's senses.", "s": "The medication caused a numbing sensation in Gina's arm."}], "actA": {"pairs": [{"w": "sensitive", "m": "Tending to feel emotions and physical things easily"}, {"w": "consent", "m": "Feeling it is okay to do something; giving permission from one person to another"}, {"w": "sentiment", "m": "That which is based on a feeling or emotion"}, {"w": "insensitive", "m": "Tending to not respond to other people's feelings or things that happen to or around oneself"}, {"w": "dissent", "m": "The act of disagreeing with the feelings of a large number of people"}, {"w": "sensation", "m": "The process of feeling something physically through one's senses"}], "mean_order": [5, 1, 2, 0, 4, 3]}, "actB": {"sents": [{"t": "Marla's parents gave her their ___ to bring home the new puppy.", "a": "consent"}, {"t": "The students expressed much negative ___ over the new dress code.", "a": "sentiment"}, {"t": "Pascal is highly ___ to comments about his short stature.", "a": "sensitive"}, {"t": "The medication caused a numbing ___ in Gina's arm.", "a": "sensation"}, {"t": "Selfish people tend to be ___ to the needs of others.", "a": "insensitive"}, {"t": "The governor was concerned over the ___ among his people.", "a": "dissent"}, {"t": "The author gave her ___ to make a film from her book.", "a": "consent"}, {"t": "During allergy season, my eyes become very dry and ___.", "a": "sensitive"}, {"t": "___ usually precedes a revolution.", "a": "dissent"}, {"t": "Marcus accused his boss of being too demanding and ___.", "a": "insensitive"}, {"t": "Being stung by a bee is not a pleasant ___.", "a": "sensation"}, {"t": "When Lorena saw her straight-A report card, her ___ was one of extreme jubilation.", "a": "sentiment"}]}, "actC": {"sents": [{"t": "When their pet hamster died, the ___ in the classroom was one of sadness.", "a": "sentiment"}, {"t": "Becky's skin is highly ___ to harsh detergents.", "a": "sensitive"}, {"t": "The judge gave his ___ to postpone the hearing.", "a": "consent"}, {"t": "When mom's foot fell asleep, she felt the ___ of pins and needles.", "a": "sensation"}, {"t": "There was much ___ among the people when their right to vote was revoked.", "a": "dissent"}, {"t": "Dad scolded my older brother for being so ___ when he hurt my feelings.", "a": "insensitive"}, {"t": "Grandpa's medications cause his skin to become very ___ to the sun.", "a": "sensitive"}, {"t": "Larry needed his parents' ___ to go on the field trip.", "a": "consent"}, {"t": "The main ___ throughout the election was one of intense anxiety.", "a": "sentiment"}, {"t": "I felt a tingling ___ up and down my left arm.", "a": "sensation"}, {"t": "Vanessa's cold hands were ___ to the warmth of the fire.", "a": "insensitive"}, {"t": "Only one member of Congress expressed ___ over the ruling.", "a": "dissent"}]}, "actD": {"owns": [{"w": "consent", "brk": "con- (with, together) + sent (to feel, to perceive)", "ans": "Example: “She gave her consent for the school trip.”"}, {"w": "sentiment", "brk": "sent (to feel, to perceive) + i-ment (that which; state, quality, act)", "ans": "Example: “The general sentiment was one of hope.”"}, {"w": "sensitive", "brk": "sens (to feel, to perceive) + it-ive (tending to)", "ans": "Example: “He is sensitive to loud noises.”"}, {"w": "sensation", "brk": "sens (to feel, to perceive) + -ation (an action or process)", "ans": "Example: “A warm sensation spread through her hands.”"}, {"w": "insensitive", "brk": "in- (not) + sens + it-ive (tending to)", "ans": "Example: “That joke was insensitive and rude.”"}, {"w": "dissent", "brk": "dis- (apart, opposite of) + sent (to feel, to perceive)", "ans": "Example: “One judge wrote a strong dissent.”"}]}, "quick": [{"q": "1. What do the roots “sens, sent” mean?", "a": "to feel, to perceive", "opts": ["to feel, to perceive", "to bend", "to build"]}, {"q": "2. “dis-” + “sent” = “dissent”. What does “dissent” mean?", "a": "the act of disagreeing with the feelings of a large number of people", "opts": ["the act of disagreeing with the feelings of a large number of people", "feeling it is okay to do something", "tending to feel things easily"]}, {"q": "3. “in-” + “sens” + “it-ive” = “insensitive”. What does “in-” mean here?", "a": "not", "opts": ["not", "in, into", "with, together"]}], "wordlist": ["sensitive", "consent", "sentiment", "insensitive", "dissent", "sensation"]};
+
+/* ---------- progress store ---------- */
+const KEY = D.key;
+function load(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ return {}; } }
+function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+let S = load();
+if(!S.checks) S.checks = {};
+function totalChecks(){ return D.pieces.length + D.words.length + D.review.length; }
+function updateBar(){
+  const n = Object.keys(S.checks).length, t = totalChecks();
+  const pct = Math.round(n/t*100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("ptext").textContent = n + " of " + t + " cards learned. Tap \u201cGot it\u201d on each card as you learn it.";
+  save(S);
+}
+function markDone(){
+  const btn = document.getElementById("doneBtn"), banner = document.getElementById("doneBanner");
+  if(S.done){ S.done = false; save(S); banner.classList.remove("show");
+    btn.textContent = "Mark Lesson " + D.n + " Complete"; }
+  else { S.done = true; save(S); banner.classList.add("show");
+    btn.textContent = "\u2705 Lesson " + D.n + " Complete! (tap again to undo)"; }
+}
+function gotItBtn(id){
+  const b = document.createElement("button");
+  b.className = "chk"; b.textContent = "Got it \u2713";
+  if(S.checks[id]) b.classList.add("done");
+  b.onclick = (e)=>{ e.stopPropagation();
+    if(S.checks[id]){ delete S.checks[id]; b.classList.remove("done"); }
+    else { S.checks[id]=1; b.classList.add("done"); } updateBar(); };
+  return b;
+}
+
+/* ---------- review flip cards ---------- */
+const fg = document.getElementById("flipGrid");
+D.review.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "flip";
+  d.innerHTML = '<div class="inner">'+
+    '<div class="face front"><div class="w">'+o.w+'</div><div class="t">\u2753 What does it mean? Tap to check the answer.</div></div>'+
+    '<div class="face back"><div class="w">\u2705 '+o.w+'</div><div class="p">'+o.p+'</div><div class="d">'+o.d+'</div></div>'+
+    '</div>';
+  d.onclick = ()=> d.classList.toggle("on");
+  const wrap = document.createElement("div");
+  wrap.appendChild(d);
+  const row = document.createElement("div");
+  row.style.cssText = "text-align:center;margin-top:6px";
+  row.appendChild(gotItBtn("v"+i));
+  wrap.appendChild(row);
+  fg.appendChild(wrap);
+});
+
+/* ---------- prefix / root / suffix cards ---------- */
+const rg = document.getElementById("rootGrid");
+D.pieces.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "root" + (o.hero ? " hero-root" : "");
+  d.innerHTML = '<div class="r">'+o.r+'</div><div class="m">'+o.m+'</div>'+
+    '<div class="ex">'+o.kind+' \u00b7 as in \u201c'+o.ex+'\u201d</div>';
+  d.appendChild(gotItBtn("r"+i));
+  rg.appendChild(d);
+});
+
+/* ---------- word cards ---------- */
+const wg = document.getElementById("wordGrid");
+D.words.forEach((o,i)=>{
+  const d = document.createElement("div");
+  d.className = "word";
+  d.innerHTML = '<div class="pos">lesson word</div><h3>'+o.w+'</h3>'+
+    '<div class="def">'+o.d+'</div>'+
+    '<div class="parts">'+o.parts+'</div>'+
+    '<div class="sent">\u201c'+o.s+'\u201d</div>'+
+    '<div style="margin-top:10px"><button class="mini">Show word parts</button></div>';
+  const parts = d.querySelector(".parts"), show = d.querySelector(".mini");
+  show.onclick = ()=>{ parts.classList.toggle("show"); show.textContent = parts.classList.contains("show")?"Hide word parts":"Show word parts"; };
+  d.querySelector("div[style]").appendChild(gotItBtn("w"+i));
+  wg.appendChild(d);
+});
+
+/* ---------- Activity A: matching ---------- */
+const PAIRS = D.actA.pairs;
+const MEAN_ORDER = D.actA.mean_order;
+let selW = null, matched = 0;
+const mwBox = document.getElementById("mwords"), mmBox = document.getElementById("mmeans");
+PAIRS.forEach((p,i)=>{
+  const d = document.createElement("div");
+  d.className = "mword"; d.textContent = p.w; d.dataset.i = i;
+  d.onclick = ()=>{ if(d.classList.contains("ok")) return;
+    mwBox.querySelectorAll(".mword").forEach(x=>x.classList.remove("sel"));
+    d.classList.add("sel"); selW = i; };
+  mwBox.appendChild(d);
+});
+MEAN_ORDER.forEach((pi)=>{
+  const p = PAIRS[pi];
+  const d = document.createElement("div");
+  d.className = "mmean"; d.textContent = p.m; d.dataset.i = pi;
+  d.onclick = ()=>{
+    if(d.classList.contains("ok") || selW===null) return;
+    const wEl = mwBox.querySelector('.mword[data-i="'+selW+'"]');
+    if(selW === pi){
+      wEl.classList.add("ok"); wEl.classList.remove("sel");
+      d.classList.add("ok"); matched++; selW = null;
+      setScore();
+    } else {
+      d.classList.add("bad"); wEl.classList.add("bad");
+      setTimeout(()=>{ d.classList.remove("bad"); wEl.classList.remove("bad"); }, 700);
+    }
+  };
+  mmBox.appendChild(d);
+});
+function setScore(){
+  document.getElementById("matchScore").childNodes[0].textContent = "Matched: "+matched+" / "+PAIRS.length+"  ";
+}
+function resetMatch(){
+  matched = 0; selW = null;
+  document.querySelectorAll(".mword,.mmean").forEach(x=>x.classList.remove("ok","sel","bad"));
+  setScore();
+}
+
+/* ---------- Activities B & C: sentence fill-ins with word-bank chips ---------- */
+function buildFillIn(prefix, sents, words){
+  const bank = document.getElementById(prefix+"bank"), box = document.getElementById(prefix+"sents");
+  let sel = null;
+  words.forEach((w)=>{
+    const c = document.createElement("span"); c.className = "chip"; c.textContent = w;
+    c.onclick = ()=>{
+      bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+      if(sel === w){ sel = null; } else { c.classList.add("sel"); sel = w; }
+    };
+    bank.appendChild(c);
+  });
+  let count = 0;
+  sents.forEach((s)=>{
+    const d = document.createElement("div"); d.className = "sent-row";
+    d.innerHTML = s.t.replace(/___/g, ()=>{
+      count++;
+      return '<span class="blank" data-a="'+s.a+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+    });
+    box.appendChild(d);
+  });
+  box.addEventListener("click", (e)=>{
+    const b = e.target.closest(".blank"); if(!b) return;
+    if(b.dataset.w){
+      delete b.dataset.w; b.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      b.classList.remove("filled","right","wrong"); return;
+    }
+    if(!sel) return;
+    b.dataset.w = sel; b.textContent = sel; b.classList.add("filled");
+    b.classList.remove("right","wrong");
+    sel = null; bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+  });
+  document.getElementById(prefix+"check").onclick = ()=>{
+    let ok = 0;
+    box.querySelectorAll(".blank").forEach((b)=>{
+      if(b.dataset.w === b.dataset.a){ b.classList.add("right"); b.classList.remove("wrong"); ok++; }
+      else { b.classList.add("wrong"); b.classList.remove("right"); }
+    });
+    document.getElementById(prefix+"score").textContent = ok+" of "+count+" correct."+
+      (ok===count ? " Perfect \u2014 every word found its home! \ud83c\udf31" : " Keep trying \u2014 tap a filled blank to take a word back and try again.");
+  };
+  document.getElementById(prefix+"reset").onclick = ()=>{
+    box.querySelectorAll(".blank").forEach((b)=>{ delete b.dataset.w; b.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; b.classList.remove("filled","right","wrong"); });
+    bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+    sel = null; document.getElementById(prefix+"score").textContent = "";
+  };
+}
+buildFillIn("b", D.actB.sents, D.wordlist);
+buildFillIn("c", D.actC.sents, D.wordlist);
+
+/* ---------- Activity D: write your own sentences ---------- */
+const ob = document.getElementById("ownBox");
+D.actD.owns.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "own";
+  d.innerHTML = '<h4>'+o.w+'</h4><div class="brk">'+o.brk+'</div>'+
+    '<div class="ans">'+o.ans+'</div>'+
+    '<div style="margin-top:8px"><button class="mini">Reveal example sentence</button></div>';
+  const ans = d.querySelector(".ans"), btn = d.querySelector(".mini");
+  btn.onclick = ()=>{ ans.classList.toggle("show"); btn.textContent = ans.classList.contains("show")?"Hide":"Reveal example sentence"; };
+  ob.appendChild(d);
+});
+
+/* ---------- Quick Check ---------- */
+const cqBox = document.getElementById("checkQs");
+D.quick.forEach((o)=>{
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = "<p>"+o.q+"</p>";
+  const ow = document.createElement("div"); ow.className = "opts";
+  o.opts.forEach(op=>{
+    const b = document.createElement("button"); b.className = "opt"; b.textContent = op;
+    b.onclick = ()=>{
+      if(b.textContent === o.a){ b.classList.add("right"); [...ow.children].forEach(x=>x.disabled=true); }
+      else { b.classList.add("wrong"); b.disabled = true; }
+    };
+    ow.appendChild(b);
+  });
+  d.appendChild(ow); cqBox.appendChild(d);
+});
+
+/* ---------- init ---------- */
+updateBar();
+if(S.done){ document.getElementById("doneBanner").classList.add("show"); document.getElementById("doneBtn").textContent = "\u2705 Lesson " + D.n + " Complete! (tap again to undo)"; }
+
+</script>
+</body>
+</html>
