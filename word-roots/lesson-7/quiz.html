@@ -7,21 +7,22 @@
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         margin: 0; background: #fbf8f3; color: #1e293b; line-height: 1.6; }
-  header { background: linear-gradient(135deg, #c2410c, #fb923c); color: #fff;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
          padding: 30px 20px; text-align: center; }
   header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
   header p { margin: 0; opacity: .92; }
   .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
-  .hud { background: #fff; border: 1px solid #fed7aa; border-radius: 14px; padding: 12px 18px;
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
          margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
-         align-items: center; box-shadow: 0 4px 14px rgba(234,88,12,.10); font-weight: 700; }
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
   .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
   .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
          display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
-  .dot.right { background: #ea580c; color: #fff; }
+  .dot.right { background: #16a34a; color: #fff; }
   .dot.wrong { background: #ef4444; color: #fff; }
-  .dot.now { outline: 3px solid #fdba74; }
+  .dot.now { outline: 3px solid #86efac; }
   .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
          box-shadow: 0 2px 10px rgba(30,41,59,.06); }
   .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
@@ -30,42 +31,44 @@
   .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
          border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
          cursor: pointer; transition: all .15s; }
-  .opt:hover:not(:disabled) { border-color: #fdba74; background: #fff7ed; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
   .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
   .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
   .opt:disabled { cursor: default; }
-  .why { display: none; margin-top: 14px; background: #fff7ed; border-left: 5px solid #ea580c;
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
          border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
   .why.show { display: block; }
-  .why b { color: #9a3412; }
+  .why b { color: #166534; }
   .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
-  .bigbtn { background: #ea580c; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
          font-size: 1rem; font-weight: 800; cursor: pointer; }
-  .bigbtn:hover { background: #c2410c; }
+  .bigbtn:hover { background: #15803d; }
   .bigbtn:disabled { background: #cbd5e1; cursor: default; }
   .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
          padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
   .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
          border: 1px solid #e2e8f0; }
-  .final .score { font-size: 3.4rem; font-weight: 900; color: #ea580c; margin: 8px 0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
   .hidden { display: none; }
-  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
   footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
 <header>
   <div style="font-size:2.2rem">🎯</div>
   <h1>Lesson 7 Quiz</h1>
-  <p>Use the prefixes + <i>pose</i> to figure out each meaning &middot; 20 questions</p>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
   <div class="hud">
     <span>Score: <span id="score">0</span> / 20</span>
     <span>Best: <span id="best">–</span></span>
-    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
       <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
   <div class="dots" id="dots"></div>
 
@@ -88,77 +91,17 @@
     <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
     <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
     <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 7</a>
-    <a href="../lesson-8/" class="bigbtn" style="margin-left:8px;text-decoration:none">Next: Lesson 8 →</a>
   </div>
 
   <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
 </div>
 
 <script>
-const QS = [
- {q:"What does the prefix “com-” mean?",
-  o:["with, together","out, from, away","to, toward, against","for, before, forward"], a:0,
-  why:"<b>com-</b> = with, together — as in <b>com</b>+<b>pose</b> = <b>compose</b> (to put together)."},
- {q:"What does the prefix “dis-” mean?",
-  o:["in, into; not","apart, opposite of","with, together","for, before, forward"], a:1,
-  why:"<b>dis-</b> = apart, opposite of — as in <b>dis</b>+<b>pose</b> = <b>dispose</b> (to place apart)."},
- {q:"What does the prefix “ex-” mean?",
-  o:["with, together","in, into; not","out, from, away","to, toward, against"], a:2,
-  why:"<b>ex-</b> = out, from, away — as in <b>ex</b>+<b>pose</b> = <b>expose</b> (to put out in the open)."},
- {q:"What does the prefix “im-” mean in this lesson?",
-  o:["to, toward, against","in, into; not","with, together","apart, opposite of"], a:1,
-  why:"<b>im-</b> = in, into; not — as in <b>im</b>+<b>pose</b> = <b>impose</b> (to place a burden <i>on</i> someone)."},
- {q:"What does the prefix “op-” mean?",
-  o:["for, before, forward","out, from, away","to, toward, against","in, into; not"], a:2,
-  why:"<b>op-</b> = to, toward, against — as in <b>op</b>+<b>pose</b> = <b>oppose</b> (to place opposite of)."},
- {q:"What does the prefix “pro-” mean?",
-  o:["out, from, away","with, together","for, before, forward","to, toward, against"], a:2,
-  why:"<b>pro-</b> = for, before, forward — as in <b>pro</b>+<b>pose</b> = <b>propose</b> (to put forward)."},
- {q:"What does the root “pose” mean?",
-  o:["to break, burst","to place, to put","to look at","to go, to step"], a:1,
-  why:"<b>pose</b> = to place, to put — it is the root in all six lesson words."},
- {q:"“ex-” + “pose” = “expose”. What does “expose” mean?",
-  o:["to place a burden on someone","to put together a song","to put out in the open; to reveal or make known","to go against a plan"], a:2,
-  why:"<b>ex-</b> (out) + <b>pose</b> (to put) = to put <i>out</i> in the open; to reveal or make known."},
- {q:"“op-” + “pose” = “oppose”. What does “oppose” mean?",
-  o:["to place opposite of; to go against","to put forward as an offer","to place apart; to throw away","to put out in the open"], a:0,
-  why:"<b>op-</b> (against) + <b>pose</b> (to place) = to place opposite of; to go against."},
- {q:"“com-” + “pose” = “compose”. What does “compose” mean?",
-  o:["to throw away something","to put forward an offer","to put together, as in creating a musical or literary work","to place a punishment on someone"], a:2,
-  why:"<b>com-</b> (together) + <b>pose</b> (to put) = to put together — like a composer putting notes together."},
- {q:"“pro-” + “pose” = “propose”. What does “propose” mean?",
-  o:["to put forward as an offer for consideration","to place a burden on someone","to put together a song","to go against a plan"], a:0,
-  why:"<b>pro-</b> (forward) + <b>pose</b> (to put) = to put <i>forward</i> as an offer for consideration."},
- {q:"“dis-” + “pose” = “dispose”. What does “dispose” mean?",
-  o:["to reveal a secret","to place apart; to throw away or get rid of something","to make a toast","to place a tax on goods"], a:1,
-  why:"<b>dis-</b> (apart) + <b>pose</b> (to place) = to place apart; to throw away or get rid of something."},
- {q:"“im-” + “pose” = “impose”. What does “impose” mean?",
-  o:["to place a burden on someone; to legally place a punishment, fine, etc., on someone","to put together a poem","to put out in the open","to go against a plan"], a:0,
-  why:"<b>im-</b> (in, into) + <b>pose</b> (to place) = to place a burden <i>on</i> someone — like a tax or a fine."},
- {q:"Complete the sentence: “The government had to ___ a tax on all imported goods.”",
-  o:["expose","impose","oppose","compose"], a:1,
-  why:"The government <b>imposed</b> a tax — it placed a burden on imported goods."},
- {q:"Complete the sentence: “Their main concern was how to ___ of the toxic waste.”",
-  o:["dispose","propose","expose","compose"], a:0,
-  why:"They had to <b>dispose</b> of the waste — to throw it away, or place it apart safely."},
- {q:"Complete the sentence: “They didn't want to ___ their small boat to the dangers of the open sea.”",
-  o:["oppose","compose","expose","impose"], a:2,
-  why:"They didn't want to <b>expose</b> their boat — to put it out in the open sea's danger."},
- {q:"Complete the sentence: “The poet was hoping to ___ two new sonnets.”",
-  o:["impose","dispose","propose","compose"], a:3,
-  why:"The poet wanted to <b>compose</b> — to put together two new poems."},
- {q:"Complete the sentence: “The local residents were planning to ___ the closing of their hospital.”",
-  o:["propose","oppose","compose","dispose"], a:1,
-  why:"The residents planned to <b>oppose</b> the closing — to go against it."},
- {q:"Complete the sentence: “Everyone wanted to ___ a toast to the bride and groom.”",
-  o:["impose","propose","expose","oppose"], a:1,
-  why:"Everyone wanted to <b>propose</b> a toast — to put forward an offer of celebration. 🥂"},
- {q:"Which word parts build the word “dispose”?",
-  o:["dis- + pose","ex- + pose","com- + pose","pro- + pose"], a:0,
-  why:"<b>dis-</b> (apart) + <b>pose</b> (to place) = <b>dispose</b> — to place apart."}
-];
 
+const QS = [{"q": "The chess coach moved his knight to a better ___ on the board.", "o": ["position", "station", "shelf", "drawer"], "a": 0, "why": "<b>pos-</b> means <i>put, place</i>. A <b>position</b> is the place where something is <i>put</i> — the coach put the knight in a better place on the board."}, {"q": "Mom went to the bank to ___ her paycheck into her account.", "o": ["deposit", "borrow", "withdraw", "donate"], "a": 0, "why": "<b>de-</b> means <i>down</i> and <b>pos-</b> means <i>put</i>. To <b>deposit</b> is to <i>put down</i> money into an account — Mom puts her paycheck in the bank."}, {"q": "The doctor gave us ___ news: the test showed nothing wrong.", "o": ["positive", "puzzling", "gloomy", "doubtful"], "a": 0, "why": "<b>Positive</b> comes from <i>positus</i>, meaning <i>placed, settled</i>. The news was settled and sure — nothing wrong — so it was <b>positive</b> news."}, {"q": "The dancer's graceful ___ made her look tall on stage.", "o": ["posture", "postage", "passport", "parcel"], "a": 0, "why": "<b>pos-</b> means <i>put</i> and <b>-ture</b> marks <i>an act</i>. <b>Posture</b> is the act of <i>placing</i> your body — the dancer placed her body tall and straight."}, {"q": "Rain forced us to ___ the picnic until next Saturday.", "o": ["postpone", "cancel", "hurry", "forget"], "a": 0, "why": "<b>post-</b> means <i>after</i> and <b>pone</b> means <i>put</i>. To <b>postpone</b> is to <i>put</i> something <i>after</i> its planned time — the picnic moves to next Saturday."}, {"q": "We toss banana peels and leaves into the ___ bin to make rich soil.", "o": ["compost", "compote", "compass", "comet"], "a": 0, "why": "<b>com-</b> means <i>together</i> and <b>post</b> means <i>put</i>. <b>Compost</b> is plant waste <i>put together</i> to rot into rich soil — the bin holds peels and leaves becoming soil."}, {"q": "Fallen logs slowly ___ and turn back into soil on the forest floor.", "o": ["decompose", "assemble", "polish", "paint"], "a": 0, "why": "<b>de-</b> means <i>apart</i>. To <b>decompose</b> is to come <i>apart</i> from what was <i>put together</i> — the log breaks apart into soil."}, {"q": "The cat found a sunny corner for its afternoon ___.", "o": ["repose", "replay", "report", "rescue"], "a": 0, "why": "<b>re-</b> means <i>back</i> and <b>pose</b> means <i>put</i>. In <b>repose</b> you <i>put</i> your body <i>back</i> at ease — the cat rests in the sunny corner."}, {"q": "She could tell he was an ___ because he didn't know the secret handshake.", "o": ["imposter", "member", "expert", "leader"], "a": 0, "why": "<b>im-</b> means <i>upon</i> and <b>post</b> means <i>put</i>. An <b>imposter</b> <i>puts</i> a false identity <i>upon</i> himself — the man faked being a member but didn't know the handshake."}, {"q": "He's a ___, pretending to be rich by posing with other people's cars.", "o": ["poser", "thief", "tourist", "salesman"], "a": 0, "why": "<b>-er</b> means <i>one who</i>. A <b>poser</b> is one who <i>poses</i> — he puts on a show with other people's cars to impress."}, {"q": "The school's basement is a ___ for broken desks and old textbooks.", "o": ["repository", "museum", "office", "playground"], "a": 0, "why": "<b>re-</b> means <i>back</i>, <b>pos-</b> means <i>put</i>, and <b>-itory</b> means <i>a place for</i>. A <b>repository</b> is a place where things are <i>put back</i> for safekeeping — the basement stores the old desks."}, {"q": "The picture frame tilted during the party, so we ___ it straight on the wall.", "o": ["reposition", "painted", "dusted", "sold"], "a": 0, "why": "<b>re-</b> means <i>again</i>. To <b>reposition</b> is to <i>put</i> something <i>again</i> in its place — the frame is put back straight on the wall."}, {"q": "The scientist tested her ___ with an experiment.", "o": ["supposition", "tool", "machine", "recipe"], "a": 0, "why": "<b>sup-</b> means <i>under</i> and <b>pos-</b> means <i>put</i>. A <b>supposition</b> is an idea <i>put under</i> your thinking as a starting point — the scientist tests her starting idea with an experiment."}, {"q": "The rebels planned to ___ the king and take over the palace.", "o": ["depose", "crown", "praise", "visit"], "a": 0, "why": "<b>de-</b> means <i>down</i> and <b>pose</b> means <i>put</i>. To <b>depose</b> is to <i>put down</i> a ruler from power — the rebels wanted the king out so they could take over."}, {"q": "She never lost her ___, even when the toddler poured juice on her dress.", "o": ["composure", "dress", "purse", "shoes"], "a": 0, "why": "<b>com-</b> means <i>together</i>. <b>Composure</b> is keeping yourself <i>put together</i> — she stayed calm even with juice on her dress."}, {"q": "The art teacher had us ___ a photo of a desert with a photo of the ocean.", "o": ["juxtapose", "frame", "hang", "paint"], "a": 0, "why": "<b>juxta-</b> means <i>next to</i> and <b>pose</b> means <i>put</i>. To <b>juxtapose</b> is to <i>put</i> things <i>next to</i> each other — the desert and ocean photos sit side by side."}, {"q": "The cook had to fix the recipe where she ___ the numbers, swapping 2 cups and 3 cups by mistake.", "o": ["transpose", "doubled", "halved", "tasted"], "a": 0, "why": "<b>trans-</b> means <i>across</i> and <b>pose</b> means <i>put</i>. To <b>transpose</b> is to <i>put</i> things <i>across</i> from each other — the 2 and 3 swapped places."}, {"q": "The map app can ___ street names over the satellite photo.", "o": ["superimpose", "hide", "erase", "remove"], "a": 0, "why": "<b>super-</b> means <i>over</i>. To <b>superimpose</b> is to <i>put</i> something <i>over</i> another — the street names sit on top of the photo."}, {"q": "When the dogs started fighting, their owner ___ to pull them apart.", "o": ["interpose", "shouted", "watched", "waited"], "a": 0, "why": "<b>inter-</b> means <i>between</i> and <b>pose</b> means <i>put</i>. To <b>interpose</b> is to <i>put</i> yourself <i>between</i> — the owner steps in between the dogs to pull them apart."}, {"q": "Lack of sleep can ___ you to catch a cold.", "o": ["predispose", "depose", "repose", "suppose"], "a": 0, "why": "<b>pre-</b> means <i>before</i>. To <b>predispose</b> is to put (<b>pose</b>) you in a weak state <i>before</i> the cold even arrives."}];
 const KEY = "wr7-quiz-best";
+const ROOTW = "pose (with com-, dis-, ex-, im-, op-, pro-)";
+const EMOJI = "\ud83d\udfe0";
 let order, idx, score, answered;
 function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
@@ -183,7 +126,7 @@ function render(){
   const opts = document.getElementById("opts"); opts.innerHTML = "";
   const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
   const next = document.getElementById("nextBtn"); next.disabled = true;
-  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
   const oidx = shuffle(q.o.map((_,i)=>i));
   oidx.forEach((oi)=>{
     const b = document.createElement("button");
@@ -197,7 +140,7 @@ function render(){
       if(!ok) b.classList.add("wrong"); else score++;
       answered.push(ok);
       document.getElementById("score").textContent = score;
-      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
       why.classList.add("show");
       next.disabled = false;
       renderDots();
@@ -218,12 +161,12 @@ function finish(){
   const nb = (b===null || score > b) ? score : b;
   localStorage.setItem(KEY, JSON.stringify(nb));
   document.getElementById("fbest").textContent = nb + " / 20";
-  const msg = score===20 ? "Perfect! You are a true prefix master! 🏆"
-    : score>=16 ? "Excellent! The prefixes are really sticking! 📦"
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
     : score>=12 ? "Good job! Review the ones you missed and try again."
-    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
   document.getElementById("fmsg").textContent = msg;
-  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function restart(){
@@ -237,9 +180,10 @@ function restart(){
 }
 (function init(){
   const b = best();
-  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
   restart();
 })();
+
 </script>
 </body>
 </html>
