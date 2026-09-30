@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 23 Quiz | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
+         padding: 30px 20px; text-align: center; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #16a34a; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #86efac; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .opt:disabled { cursor: default; }
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #166534; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #15803d; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2.2rem">🎯</div>
+  <h1>Lesson 23 Quiz</h1>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
+</header>
+
+<div class="wrap">
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+      <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
+  </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 23</a>
+  </div>
+
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
+</div>
+
+<script>
+
+const QS = [{"q": "She will ___ dinner at six o’clock.", "o": ["serve", "deserve", "conserve", "observe"], "a": 0, "why": "To <b>serve</b> is the plain verb — to <i>serve</i> dinner, to help, to protect."}, {"q": "The ___ at the restaurant was very slow.", "o": ["service", "disservice", "reservation", "observation"], "a": 0, "why": "<b>Service</b> is the <i>act</i> of serving — how the restaurant serves you."}, {"q": "The ___ brought us more water.", "o": ["server", "deserve", "conserve", "observe"], "a": 0, "why": "<b>-er</b> means <i>one who</i>. A <b>server</b> is one who <i>serves</i> your table."}, {"q": "You ___ a treat for helping your sister.", "o": ["deserve", "serve", "conserve", "observe"], "a": 0, "why": "To <b>deserve</b> is to have <i>earned</i> something through <i>service</i> — you’re worthy of it."}, {"q": "The ___ winner received a gold medal.", "o": ["deserving", "observant", "reserved", "conservative"], "a": 0, "why": "A <b>deserving</b> winner is one worthy of the prize — having earned it."}, {"q": "The ___ punishment upset everyone.", "o": ["undeserved", "unreserved", "observant", "reserved"], "a": 0, "why": "<b>un-</b> means <i>not</i>. An <b>undeserved</b> punishment is <i>not</i> earned."}, {"q": "We must ___ water during the drought.", "o": ["conserve", "serve", "deserve", "observe"], "a": 0, "why": "<b>con-</b> means <i>together</i>. To <b>conserve</b> is to <i>protect together</i> — everyone saving water."}, {"q": "She studies piano at the ___ downtown.", "o": ["conservatory", "reservation", "observation", "service"], "a": 0, "why": "<b>-atory</b> marks a <i>place</i>. A music <b>conservatory</b> is a place that <i>preserves</i> musical art."}, {"q": "Dad gave a ___ guess of about ten people.", "o": ["conservative", "observant", "reserved", "deserving"], "a": 0, "why": "A <b>conservative</b> guess tends to <i>keep things safe</i> — cautious, not risky."}, {"q": "I made a ___ for dinner at six.", "o": ["reservation", "observation", "service", "disservice"], "a": 0, "why": "A <b>reservation</b> <i>keeps back</i> (<b>re-</b>) a table for you — saves it."}, {"q": "The sign said the front table was ___.", "o": ["reserved", "undeserved", "observant", "conservative"], "a": 0, "why": "A <b>reserved</b> table is one <i>kept back</i> — saved for someone."}, {"q": "This bread has no ___ in it — it’s all natural.", "o": ["preservative", "conservative", "observant", "serviceable"], "a": 0, "why": "<b>-ative</b> means <i>tending to</i>. A <b>preservative</b> tends to <i>protect before</i> (<b>pre-</b>) food spoils."}, {"q": "___ the birds at the feeder and count them.", "o": ["observe", "serve", "deserve", "conserve"], "a": 0, "why": "To <b>observe</b> is to <i>keep</i> your eyes <i>toward</i> (<b>ob-</b>) something — to watch carefully."}, {"q": "The ___ took notes on the stars all night.", "o": ["observer", "deserve", "conserve", "serve"], "a": 0, "why": "<b>-er</b> means <i>one who</i>. An <b>observer</b> is one who <i>keeps watch</i>."}, {"q": "The scientist wrote down her ___ in a notebook.", "o": ["observation", "reservation", "service", "disservice"], "a": 0, "why": "<b>Observation</b> is the <i>act</i> of <i>keeping watch</i> — what the scientist saw."}, {"q": "The ___ child noticed the tiny bird in the bush.", "o": ["observant", "reserved", "conservative", "deserving"], "a": 0, "why": "<b>-ant</b> here means <i>like, tending to</i>. An <b>observant</b> child tends to <i>keep watch</i> and notice things."}, {"q": "You do yourself a ___ by skipping practice.", "o": ["disservice", "service", "reservation", "observation"], "a": 0, "why": "<b>dis-</b> means <i>apart, opposite of</i>. A <b>disservice</b> is the <i>opposite</i> of good service — it harms you."}, {"q": "The ___ gas station was cheaper than the full-service one.", "o": ["self-service", "disservice", "service", "server"], "a": 0, "why": "<b>Self-service</b> means you <i>serve yourself</i> — you pump your own gas."}, {"q": "The old bike is still ___ after ten years.", "o": ["serviceable", "observant", "reserved", "conservative"], "a": 0, "why": "<b>-able</b> means <i>able to</i>. A <b>serviceable</b> bike is still able to <i>serve</i> you well."}, {"q": "The funny details ___ the main idea of the story.", "o": ["subserve", "deserve", "conserve", "observe"], "a": 0, "why": "<b>sub-</b> means <i>under</i>. Details <b>subserve</b> the story by <i>serving under</i> the main idea — supporting it."}];
+const KEY = "wr23-quiz-best";
+const ROOTW = "serv, serve";
+const EMOJI = "\ud83d\udee1\ufe0f";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
+  });
+}
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
+  restart();
+})();
+
+</script>
+</body>
+</html>
