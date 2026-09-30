@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Review A — Show What You Know | Word Roots Beginning</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header.hero { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff;
+         padding: 36px 20px 28px; text-align: center; }
+  header.hero h1 { margin: 6px 0 4px; font-size: 2rem; }
+  header.hero p { margin: 4px 0; opacity: .95; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px 22px 60px; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  nav.toc a { background: #fff; border: 1px solid #ddd6fe; color: #6d28d9; text-decoration: none;
+         padding: 8px 14px; border-radius: 999px; font-size: .9rem; font-weight: 600; }
+  nav.toc a:hover { background: #f5f3ff; }
+  nav.toc a.home { background: #6d28d9; border-color: #6d28d9; color: #fff; }
+  section.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px;
+         padding: 24px; margin: 0 0 26px; box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  section.card h2 { margin: 0 0 4px; font-size: 1.35rem; color: #6d28d9; }
+  section.card > p.lead { margin: 0 0 16px; color: #64748b; }
+  .mini { border: none; background: #ede9fe; color: #6d28d9; border-radius: 8px;
+         padding: 6px 12px; font-size: .82rem; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  .mini:hover { background: #ddd6fe; }
+  .bigbtn { display: inline-block; background: #7c3aed; color: #fff; border: none; border-radius: 12px;
+         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #6d28d9; }
+  .ghostbtn { display: inline-block; background: #fff; color: #475569; border: 2px solid #cbd5e1;
+         border-radius: 12px; padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; }
+  .match-cols { display: grid; gap: 10px; }
+  @media (min-width: 640px){ .match-cols { grid-template-columns: 1fr 1fr; } }
+  .mword, .mmean { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;
+         cursor: pointer; background: #fff; font-size: .95rem; transition: all .15s; }
+  .mword.sel { border-color: #7c3aed; background: #f5f3ff; }
+  .mmean.sel { border-color: #7c3aed; background: #f5f3ff; }
+  .mword.ok, .mmean.ok { border-color: #7c3aed; background: #ede9fe; color: #5b21b6;
+         cursor: default; font-weight: 700; }
+  .mword.bad, .mmean.bad { border-color: #ef4444; background: #fef2f2; }
+  .mmean .num { display: inline-block; background: #ede9fe; color: #6d28d9; font-weight: 800;
+         border-radius: 8px; padding: 1px 9px; margin-right: 8px; font-size: .85rem; }
+  .sent-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 12px 16px; margin: 0 0 10px; font-size: .97rem; line-height: 2; }
+  .blank { display: inline-block; min-width: 120px; border-bottom: 3px solid #94a3b8;
+         text-align: center; font-weight: 800; color: #7c3aed; cursor: pointer; padding: 0 8px; }
+  .blank.filled { border-bottom-color: #7c3aed; }
+  .blank.right { color: #14532d; } .blank.wrong { color: #b91c1c; border-bottom-color: #ef4444; }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chip { border: 2px solid #c4b5fd; background: #f5f3ff; color: #6d28d9; border-radius: 999px;
+         padding: 8px 18px; font-weight: 700; cursor: pointer; font-size: .95rem; }
+  .chip.sel { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .spell-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #f8fafc;
+         border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 16px; margin: 0 0 10px; }
+  .spell-row .n { font-weight: 800; color: #94a3b8; width: 28px; }
+  .sp { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 8px 16px;
+         cursor: pointer; font-size: 1rem; font-weight: 600; }
+  .sp.sel { border-color: #7c3aed; background: #f5f3ff; }
+  .sp.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .sp.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .build-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #f8fafc;
+         border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 16px; margin: 0 0 10px; font-size: 1.05rem; }
+  .build-row .n { font-weight: 800; color: #94a3b8; width: 28px; }
+  .pick { border: 2px solid #c4b5fd; background: #fff; border-radius: 10px; padding: 8px 14px;
+         cursor: pointer; font-size: 1rem; font-weight: 700; color: #6d28d9; }
+  .pick.sel { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .pick.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .pick.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .newword { font-weight: 900; font-size: 1.15rem; color: #5b21b6; min-width: 150px; }
+  .newword.ok { color: #16a34a; } .newword.bad { color: #b91c1c; }
+  .wrow { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 14px 16px; margin: 0 0 12px; }
+  .wrow h4 { margin: 0 0 6px; font-size: 1.1rem; color: #5b21b6; }
+  .wrow textarea { width: 100%; min-height: 64px; border: 2px solid #e2e8f0; border-radius: 10px;
+         padding: 10px 12px; font-size: .95rem; font-family: inherit; resize: vertical; }
+  .wrow textarea:focus { outline: none; border-color: #a78bfa; }
+  .sample { display: none; margin-top: 8px; background: #f5f3ff; border-radius: 8px; padding: 8px 12px;
+         font-size: .93rem; color: #5b21b6; }
+  .sample.show { display: block; }
+  .prow { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+         padding: 14px 16px; margin: 0 0 12px; }
+  .prow .wp { font-size: 1.25rem; font-weight: 800; letter-spacing: .02em; }
+  .part { cursor: pointer; border-radius: 8px; padding: 2px 6px; border: 2px solid transparent; }
+  .part.mk-p { border-bottom: 4px solid #3b82f6; }
+  .part.mk-r { border: 3px solid #ef4444; border-radius: 999px; }
+  .part.mk-s { border-bottom: 4px solid #16a34a; }
+  .part.ok { background: #dcfce7; } .part.bad { background: #fecaca; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: .9rem; color: #64748b; margin: 0 0 12px; }
+  .reveal { display: none; margin-top: 10px; background: #f5f3ff; border-radius: 8px; padding: 8px 12px;
+         font-size: .93rem; color: #5b21b6; }
+  .reveal.show { display: block; }
+  .found { margin-top: 10px; font-weight: 700; color: #6d28d9; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 10px; }
+  footer a { color: #7c3aed; font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div style="font-size:2.4rem">🔢</div>
+  <h1>Review A — Show What You Know</h1>
+  <p>Show What You Know &middot; book pages 28–31 &middot; covers Lessons 1–11 prefixes</p>
+  <p style="font-size:.9rem; opacity:.85">Word Roots Beginning</p>
+</header>
+<div class="wrap">
+  <nav class="toc">
+    <a class="home" href="../index.html">🏠 Word Roots Home</a>
+    <a href="#part1">1. Prefix meanings</a><a href="#part2">2. Build words</a><a href="#part3">3. Your own words</a>
+  </nav>
+
+  <section class="card" id="part1">
+    <h2>🔢 Part 1 — Match each prefix to its meaning</h2>
+    <p class="lead">Write the number of the correct meaning for each prefix. Tap a prefix, then tap the meaning with the right number. (The book shows <b>ab- → 10</b> and <b>bi- → 12</b> as examples.)</p>
+    <div class="match-cols"><div id="awords"><div class="mword" data-i="10"><b>ab-</b> <span style="color:#94a3b8">(abrupt)</span></div><div class="mword" data-i="12"><b>bi-</b> <span style="color:#94a3b8">(bicycle)</span></div><div class="mword" data-i="14"><b>counter-</b> <span style="color:#94a3b8">(counteract)</span></div><div class="mword" data-i="1"><b>dis-</b> <span style="color:#94a3b8">(disrupt)</span></div><div class="mword" data-i="11"><b>e-</b> <span style="color:#94a3b8">(erupt)</span></div><div class="mword" data-i="3"><b>ex-</b> <span style="color:#94a3b8">(expose)</span></div><div class="mword" data-i="9"><b>im-</b> <span style="color:#94a3b8">(impose)</span></div><div class="mword" data-i="13"><b>inter-</b> <span style="color:#94a3b8">(interrupt)</span></div><div class="mword" data-i="5"><b>op-</b> <span style="color:#94a3b8">(oppose)</span></div><div class="mword" data-i="7"><b>peri-</b> <span style="color:#94a3b8">(periscope)</span></div><div class="mword" data-i="2"><b>re-</b> <span style="color:#94a3b8">(repaint)</span></div><div class="mword" data-i="6"><b>trans-</b> <span style="color:#94a3b8">(transact)</span></div><div class="mword" data-i="15"><b>tri-</b> <span style="color:#94a3b8">(tricycle)</span></div><div class="mword" data-i="4"><b>un-</b> <span style="color:#94a3b8">(unhappy)</span></div><div class="mword" data-i="8"><b>uni-</b> <span style="color:#94a3b8">(unicorn)</span></div></div><div id="ameans"><div class="mmean" data-i="10"><span class="num">10</span>away, from</div><div class="mmean" data-i="12"><span class="num">12</span>two</div><div class="mmean" data-i="14"><span class="num">14</span>against, opposite</div><div class="mmean" data-i="1"><span class="num">1</span>apart, opposite of</div><div class="mmean" data-i="11"><span class="num">11</span>out, away, from</div><div class="mmean" data-i="3"><span class="num">3</span>out, away, from</div><div class="mmean" data-i="9"><span class="num">9</span>in, into; not</div><div class="mmean" data-i="13"><span class="num">13</span>between, among</div><div class="mmean" data-i="5"><span class="num">5</span>to, toward, against</div><div class="mmean" data-i="7"><span class="num">7</span>around, surrounding</div><div class="mmean" data-i="2"><span class="num">2</span>back, again</div><div class="mmean" data-i="6"><span class="num">6</span>through, across, beyond</div><div class="mmean" data-i="15"><span class="num">15</span>three</div><div class="mmean" data-i="4"><span class="num">4</span>not</div><div class="mmean" data-i="8"><span class="num">8</span>one</div></div></div>
+    <p class="found" id="ascore">Matched: 0 / 15 &nbsp; <button class="ghostbtn" style="padding:4px 14px;font-size:.8rem" id="areset">Reset</button></p>
+  </section>
+  <section class="card" id="part2">
+    <h2>🧩 Part 2 — Build the new word</h2>
+    <p class="lead">Only one of the prefixes is correct for each root. Tap the prefix you think is correct — the new word appears. Then tap “Check all”.</p>
+    <div id="abuild"><div class="build-row" data-ans="recycle"><span class="n">1.</span><button class="pick">re-</button><button class="pick">ab-</button><button class="pick">un-</button><span style="color:#94a3b8">+ cycle →</span><span class="newword" id="nw0"></span></div><div class="build-row" data-ans="unlock"><span class="n">2.</span><button class="pick">un-</button><button class="pick">ex-</button><button class="pick">pre-</button><span style="color:#94a3b8">+ lock →</span><span class="newword" id="nw1"></span></div><div class="build-row" data-ans="unicorn"><span class="n">3.</span><button class="pick">uni-</button><button class="pick">com-</button><button class="pick">bi-</button><span style="color:#94a3b8">+ corn →</span><span class="newword" id="nw2"></span></div><div class="build-row" data-ans="disagree"><span class="n">4.</span><button class="pick">ab-</button><button class="pick">dis-</button><button class="pick">un-</button><span style="color:#94a3b8">+ agree →</span><span class="newword" id="nw3"></span></div><div class="build-row" data-ans="disappear"><span class="n">5.</span><button class="pick">pre-</button><button class="pick">dis-</button><button class="pick">ab-</button><span style="color:#94a3b8">+ appear →</span><span class="newword" id="nw4"></span></div><div class="build-row" data-ans="interact"><span class="n">6.</span><button class="pick">ab-</button><button class="pick">inter-</button><button class="pick">bi-</button><span style="color:#94a3b8">+ act →</span><span class="newword" id="nw5"></span></div><div class="build-row" data-ans="propose"><span class="n">7.</span><button class="pick">bi-</button><button class="pick">pro-</button><button class="pick">e-</button><span style="color:#94a3b8">+ pose →</span><span class="newword" id="nw6"></span></div><div class="build-row" data-ans="unhappy"><span class="n">8.</span><button class="pick">un-</button><button class="pick">bi-</button><button class="pick">trans-</button><span style="color:#94a3b8">+ happy →</span><span class="newword" id="nw7"></span></div><div class="build-row" data-ans="repaint"><span class="n">9.</span><button class="pick">re-</button><button class="pick">bi-</button><button class="pick">un-</button><span style="color:#94a3b8">+ paint →</span><span class="newword" id="nw8"></span></div><div class="build-row" data-ans="tricycle"><span class="n">10.</span><button class="pick">trans-</button><button class="pick">tri-</button><button class="pick">e-</button><span style="color:#94a3b8">+ cycle →</span><span class="newword" id="nw9"></span></div><div class="build-row" data-ans="counteract"><span class="n">11.</span><button class="pick">bi-</button><button class="pick">counter-</button><button class="pick">un-</button><span style="color:#94a3b8">+ act →</span><span class="newword" id="nw10"></span></div><div class="build-row" data-ans="erupt"><span class="n">12.</span><button class="pick">e-</button><button class="pick">un-</button><button class="pick">tri-</button><span style="color:#94a3b8">+ rupt →</span><span class="newword" id="nw11"></span></div><div class="build-row" data-ans="dispose"><span class="n">13.</span><button class="pick">ab-</button><button class="pick">pre-</button><button class="pick">dis-</button><span style="color:#94a3b8">+ pose →</span><span class="newword" id="nw12"></span></div><div class="build-row" data-ans="react"><span class="n">14.</span><button class="pick">uni-</button><button class="pick">peri-</button><button class="pick">re-</button><span style="color:#94a3b8">+ act →</span><span class="newword" id="nw13"></span></div></div>
+    <button class="bigbtn" id="acheck">Check all</button>
+    <button class="ghostbtn" id="areset2">Reset</button>
+    <p class="found" id="ascore2"></p>
+  </section>
+  <section class="card" id="part3">
+    <h2>✏️ Part 3 — Words and meanings in your own words</h2>
+    <p class="lead">Write each word from Part 2 and its meaning in your own words (the book gives you blank lines). Tap “Reveal” to compare with a suggested meaning.</p>
+    <div class="wrow"><h4>1. recycle</h4><div class="reveal" id="a3r0">Suggested meaning: <b>to use something again</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r0').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>2. unlock</h4><div class="reveal" id="a3r1">Suggested meaning: <b>to open a lock</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r1').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>3. unicorn</h4><div class="reveal" id="a3r2">Suggested meaning: <b>a mythical horse with one horn</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r2').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>4. disagree</h4><div class="reveal" id="a3r3">Suggested meaning: <b>to not agree</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r3').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>5. disappear</h4><div class="reveal" id="a3r4">Suggested meaning: <b>to go away; to vanish</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r4').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>6. interact</h4><div class="reveal" id="a3r5">Suggested meaning: <b>to do things or talk with others</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r5').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>7. propose</h4><div class="reveal" id="a3r6">Suggested meaning: <b>to put forward as an offer</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r6').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>8. unhappy</h4><div class="reveal" id="a3r7">Suggested meaning: <b>not happy</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r7').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>9. repaint</h4><div class="reveal" id="a3r8">Suggested meaning: <b>to paint again</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r8').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>10. tricycle</h4><div class="reveal" id="a3r9">Suggested meaning: <b>a vehicle with three wheels</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r9').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>11. counteract</h4><div class="reveal" id="a3r10">Suggested meaning: <b>to act against something</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r10').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>12. erupt</h4><div class="reveal" id="a3r11">Suggested meaning: <b>to burst out</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r11').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>13. dispose</h4><div class="reveal" id="a3r12">Suggested meaning: <b>to throw away; to get rid of</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r12').classList.toggle('show')">Reveal suggested meaning</button></div></div><div class="wrow"><h4>14. react</h4><div class="reveal" id="a3r13">Suggested meaning: <b>to act back; to respond</b><br/><span style="font-size:.85rem;color:#94a3b8">Your own words can be different — any reasonably correct wording is acceptable!</span></div><div style="margin-top:8px"><button class="mini" onclick="document.getElementById('a3r13').classList.toggle('show')">Reveal suggested meaning</button></div></div>
+  </section>
+  <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
+</div>
+<script>
+
+/* generic tap-to-match: words (data-i) x meanings (data-i) */
+function tapMatch(wbox, mbox, scoreId, total){
+  let selW = null, matched = 0;
+  const wb = document.getElementById(wbox), mb = document.getElementById(mbox);
+  wb.querySelectorAll(".mword").forEach(d=>{
+    d.onclick = ()=>{ if(d.classList.contains("ok")) return;
+      wb.querySelectorAll(".mword").forEach(x=>x.classList.remove("sel"));
+      d.classList.add("sel"); selW = d.dataset.i; };
+  });
+  mb.querySelectorAll(".mmean").forEach(d=>{
+    d.onclick = ()=>{
+      if(d.classList.contains("ok") || selW===null) return;
+      const wEl = wb.querySelector('.mword[data-i="'+selW+'"]');
+      if(selW === d.dataset.i){
+        wEl.classList.add("ok"); wEl.classList.remove("sel");
+        d.classList.add("ok"); matched++; selW = null;
+        document.getElementById(scoreId).childNodes[0].textContent = "Matched: "+matched+" / "+total+"  ";
+      } else {
+        d.classList.add("bad"); wEl.classList.add("bad");
+        setTimeout(()=>{ d.classList.remove("bad"); wEl.classList.remove("bad"); }, 700);
+      }
+    };
+  });
+  return { reset(){
+    matched = 0; selW = null;
+    wb.querySelectorAll(".mword").forEach(x=>x.classList.remove("ok","sel","bad"));
+    mb.querySelectorAll(".mmean").forEach(x=>x.classList.remove("ok","sel","bad"));
+    document.getElementById(scoreId).childNodes[0].textContent = "Matched: 0 / "+total+"  ";
+  }};
+}
+/* sentence fill-ins with word-bank chips */
+function buildFillIn(prefix, sents, words){
+  const bank = document.getElementById(prefix+"bank"), box = document.getElementById(prefix+"sents");
+  let sel = null;
+  words.forEach((w)=>{
+    const c = document.createElement("span"); c.className = "chip"; c.textContent = w;
+    c.onclick = ()=>{
+      bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+      if(sel === w){ sel = null; } else { c.classList.add("sel"); sel = w; }
+    };
+    bank.appendChild(c);
+  });
+  let count = 0;
+  sents.forEach((s)=>{
+    const d = document.createElement("div"); d.className = "sent-row";
+    d.innerHTML = s.t.replace(/___/g, ()=>{
+      count++;
+      return '<span class="blank" data-a="'+s.a+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+    });
+    box.appendChild(d);
+  });
+  box.addEventListener("click", (e)=>{
+    const b = e.target.closest(".blank"); if(!b) return;
+    if(b.dataset.w){
+      delete b.dataset.w; b.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      b.classList.remove("filled","right","wrong"); return;
+    }
+    if(!sel) return;
+    b.dataset.w = sel; b.textContent = sel; b.classList.add("filled");
+    b.classList.remove("right","wrong");
+    sel = null; bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+  });
+  document.getElementById(prefix+"check").onclick = ()=>{
+    let ok = 0;
+    box.querySelectorAll(".blank").forEach((b)=>{
+      if(b.dataset.w === b.dataset.a){ b.classList.add("right"); b.classList.remove("wrong"); ok++; }
+      else { b.classList.add("wrong"); b.classList.remove("right"); }
+    });
+    document.getElementById(prefix+"score").textContent = ok+" of "+count+" correct."+
+      (ok===count ? " Perfect \u2014 every word found its home! \ud83c\udf31" : " Keep trying \u2014 tap a filled blank to take a word back and try again.");
+  };
+  document.getElementById(prefix+"reset").onclick = ()=>{
+    box.querySelectorAll(".blank").forEach((b)=>{ delete b.dataset.w; b.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; b.classList.remove("filled","right","wrong"); });
+    bank.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+    sel = null; document.getElementById(prefix+"score").textContent = "";
+  };
+}
+/* spelling rows: pick one per row, then check */
+function buildSpell(rows, answers){
+  const box = document.getElementById("sents");
+  rows.forEach((opts,i)=>{
+    const d = document.createElement("div"); d.className = "spell-row";
+    d.innerHTML = '<span class="n">'+(i+1)+'.</span>';
+    opts.forEach(op=>{
+      const b = document.createElement("button"); b.className = "sp"; b.textContent = op;
+      b.onclick = ()=>{
+        d.querySelectorAll(".sp").forEach(x=>x.classList.remove("sel"));
+        b.classList.add("sel");
+      };
+      d.appendChild(b);
+    });
+    box.appendChild(d);
+  });
+  document.getElementById("scheck").onclick = ()=>{
+    let ok = 0;
+    box.querySelectorAll(".spell-row").forEach((d,i)=>{
+      const sel = d.querySelector(".sp.sel");
+      d.querySelectorAll(".sp").forEach(x=>x.classList.remove("right","wrong"));
+      if(sel && sel.textContent === answers[i]){ sel.classList.add("right"); ok++; }
+      else if(sel){ sel.classList.add("wrong"); }
+    });
+    document.getElementById("sscore").textContent = ok+" of "+rows.length+" correct."+
+      (ok===rows.length ? " Perfect spelling, word champion! \u2b50" : " Look again at the red ones and try again.");
+  };
+  document.getElementById("sreset").onclick = ()=>{
+    box.querySelectorAll(".sp").forEach(x=>x.classList.remove("sel","right","wrong"));
+    document.getElementById("sscore").textContent = "";
+  };
+}
+
+
+const am = tapMatch("awords","ameans","ascore",15);
+document.getElementById("areset").onclick = ()=> am.reset();
+const A2 = [[["re-", "ab-", "un-"], "cycle", "recycle"], [["un-", "ex-", "pre-"], "lock", "unlock"], [["uni-", "com-", "bi-"], "corn", "unicorn"], [["ab-", "dis-", "un-"], "agree", "disagree"], [["pre-", "dis-", "ab-"], "appear", "disappear"], [["ab-", "inter-", "bi-"], "act", "interact"], [["bi-", "pro-", "e-"], "pose", "propose"], [["un-", "bi-", "trans-"], "happy", "unhappy"], [["re-", "bi-", "un-"], "paint", "repaint"], [["trans-", "tri-", "e-"], "cycle", "tricycle"], [["bi-", "counter-", "un-"], "act", "counteract"], [["e-", "un-", "tri-"], "rupt", "erupt"], [["ab-", "pre-", "dis-"], "pose", "dispose"], [["uni-", "peri-", "re-"], "act", "react"]];
+document.querySelectorAll("#abuild .build-row").forEach((row,i)=>{
+  const out = document.getElementById("nw"+i);
+  const root = A2[i][1];
+  row.querySelectorAll(".pick").forEach(btn=>{
+    btn.onclick = ()=>{
+      row.querySelectorAll(".pick").forEach(x=>x.classList.remove("sel"));
+      row.querySelectorAll(".pick").forEach(x=>x.classList.remove("right","wrong"));
+      out.classList.remove("ok","bad");
+      btn.classList.add("sel");
+      out.textContent = btn.textContent + root;
+    };
+  });
+});
+document.getElementById("acheck").onclick = ()=>{
+  let ok = 0;
+  document.querySelectorAll("#abuild .build-row").forEach((row,i)=>{
+    const sel = row.querySelector(".pick.sel");
+    const out = document.getElementById("nw"+i);
+    const ans = A2[i][2];
+    if(sel && out.textContent === ans){ sel.classList.add("right"); out.classList.add("ok"); ok++; }
+    else if(sel){ sel.classList.add("wrong"); out.classList.add("bad"); }
+  });
+  document.getElementById("ascore2").textContent = ok+" of 14 correct."+(ok===14?" Perfect word-building! 🏆":" Check the red ones and try again.");
+};
+document.getElementById("areset2").onclick = ()=>{
+  document.querySelectorAll("#abuild .pick").forEach(x=>x.classList.remove("sel","right","wrong"));
+  document.querySelectorAll("#abuild .newword").forEach(x=>{x.textContent="";x.classList.remove("ok","bad");});
+  document.getElementById("ascore2").textContent = "";
+};
+
+</script>
+</body>
+</html>
