@@ -7,21 +7,22 @@
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         margin: 0; background: #f2faf8; color: #1e293b; line-height: 1.6; }
-  header { background: linear-gradient(135deg, #0f766e, #2dd4bf); color: #fff;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
          padding: 30px 20px; text-align: center; }
   header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
   header p { margin: 0; opacity: .92; }
   .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
-  .hud { background: #fff; border: 1px solid #99f6e4; border-radius: 14px; padding: 12px 18px;
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
          margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
-         align-items: center; box-shadow: 0 4px 14px rgba(13,148,136,.10); font-weight: 700; }
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
   .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
   .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
          display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
-  .dot.right { background: #0d9488; color: #fff; }
+  .dot.right { background: #16a34a; color: #fff; }
   .dot.wrong { background: #ef4444; color: #fff; }
-  .dot.now { outline: 3px solid #5eead4; }
+  .dot.now { outline: 3px solid #86efac; }
   .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
          box-shadow: 0 2px 10px rgba(30,41,59,.06); }
   .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
@@ -30,42 +31,44 @@
   .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
          border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
          cursor: pointer; transition: all .15s; }
-  .opt:hover:not(:disabled) { border-color: #5eead4; background: #f0fdfa; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
   .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
   .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
   .opt:disabled { cursor: default; }
-  .why { display: none; margin-top: 14px; background: #f0fdfa; border-left: 5px solid #0d9488;
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
          border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
   .why.show { display: block; }
-  .why b { color: #0f766e; }
+  .why b { color: #166534; }
   .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
-  .bigbtn { background: #0d9488; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
          font-size: 1rem; font-weight: 800; cursor: pointer; }
-  .bigbtn:hover { background: #0b7c74; }
+  .bigbtn:hover { background: #15803d; }
   .bigbtn:disabled { background: #cbd5e1; cursor: default; }
   .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
          padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
   .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
          border: 1px solid #e2e8f0; }
-  .final .score { font-size: 3.4rem; font-weight: 900; color: #0d9488; margin: 8px 0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
   .hidden { display: none; }
-  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
   footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
 <header>
   <div style="font-size:2.2rem">🎯</div>
   <h1>Lesson 8 Quiz</h1>
-  <p>Use the root <b>loc</b> and the suffixes to figure out each meaning &middot; 20 questions</p>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
   <div class="hud">
     <span>Score: <span id="score">0</span> / 20</span>
     <span>Best: <span id="best">–</span></span>
-    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
       <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
   <div class="dots" id="dots"></div>
 
@@ -88,77 +91,17 @@
     <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
     <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
     <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 8</a>
-    <a href="../lesson-9/" class="bigbtn" style="margin-left:8px;text-decoration:none">Next: Lesson 9 →</a>
   </div>
 
   <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
 </div>
 
 <script>
-const QS = [
- {q:"What does the root \u201cloc\u201d mean?",
-  o:["place","to make, to act","in the manner of","like, related to"], a:0,
-  why:"<b>loc</b> = place — the root of every word in this lesson."},
- {q:"What does the suffix \u201c-ale\u201d mean?",
-  o:["to make, to act","like, related to","place where","in the manner of"], a:2,
-  why:"<b>-ale</b> = place where — loc + -ale = <b>locale</b>."},
- {q:"What does the suffix \u201c-ate\u201d mean?",
-  o:["place where","in the manner of","like, related to","to make, to act; one who, that which"], a:3,
-  why:"<b>-ate</b> = to make, to act; one who, that which — loc + -ate = <b>locate</b>."},
- {q:"What does the suffix \u201c-al\u201d mean?",
-  o:["like, related to; an action or process","place where","in the manner of","to make, to act"], a:0,
-  why:"<b>-al</b> = like, related to; an action or process — loc + -al = <b>local</b>."},
- {q:"What does the suffix \u201c-ly\u201d mean?",
-  o:["place where","to make, to act","in the manner of","like, related to"], a:2,
-  why:"<b>-ly</b> = in the manner of — loc + -al + -ly = <b>locally</b>."},
- {q:"\u201cloc\u201d + \u201c-ate\u201d = \u201clocate\u201d. What does \u201clocate\u201d mean?",
-  o:["like or related to a particular place","to find where something is","a place where something special happened","in the manner of being local"], a:1,
-  why:"<b>loc</b> (place) + <b>-ate</b> (to make, to act) = <b>locate</b> — to find where something is."},
- {q:"\u201cloc\u201d + \u201c-al\u201d = \u201clocal\u201d. What does \u201clocal\u201d mean?",
-  o:["to find where something is","in the manner of being local","like or related to a particular place","a place where something special happened"], a:2,
-  why:"<b>loc</b> (place) + <b>-al</b> (like, related to) = <b>local</b> — like or related to a particular place."},
- {q:"\u201cloc\u201d + \u201c-ale\u201d = \u201clocale\u201d. What does \u201clocale\u201d mean?",
-  o:["to find where something is","in the manner of being local","like or related to a particular place","a place or area where something special was, is, or happened"], a:3,
-  why:"<b>loc</b> (place) + <b>-ale</b> (place where) = <b>locale</b> — a place or area where something special was, is, or happened."},
- {q:"\u201cloc\u201d + \u201c-al\u201d + \u201c-ly\u201d = \u201clocally\u201d. What does \u201clocally\u201d mean?",
-  o:["to find where something is","a place where something special happened","in the manner of being local (in a particular place or area)","like or related to a particular place"], a:2,
-  why:"<b>loc</b> + <b>-al</b> + <b>-ly</b> (in the manner of) = <b>locally</b> — in the manner of being local."},
- {q:"Which Lesson 8 word has TWO suffixes?",
-  o:["locate","local","locale","locally"], a:3,
-  why:"<b>locally</b> = loc + <b>-al</b> + <b>-ly</b>. The book's footnote says: a word can have more than one suffix!"},
- {q:"\u201cA place or area where something special was, is, or happened\u201d is which word?",
-  o:["locale","locate","local","locally"], a:0,
-  why:"That's <b>locale</b> — the <b>-ale</b> suffix means \u201cplace where.\u201d"},
- {q:"\u201cTo find where something is\u201d is which word?",
-  o:["locale","local","locate","locally"], a:2,
-  why:"That's <b>locate</b> — loc + <b>-ate</b> (to make, to act)."},
- {q:"\u201cLike or related to a particular place\u201d is which word?",
-  o:["local","locate","locale","locally"], a:0,
-  why:"That's <b>local</b> — loc + <b>-al</b> (like, related to)."},
- {q:"\u201cIn the manner of being local\u201d is which word?",
-  o:["locate","local","locally","locale"], a:2,
-  why:"That's <b>locally</b> — loc + -al + <b>-ly</b> (in the manner of)."},
- {q:"Activity B: Circle each item that would help you locate a place. Which item should NOT be circled?",
-  o:["globe","compass","microscope","country map"], a:2,
-  why:"A <b>microscope</b> looks at tiny things — it won't help you <b>locate</b> a place. Globe, compass, and country map all help."},
- {q:"Activity B: Which item should NOT be circled?",
-  o:["drill","eyes / glasses","local signs","map / signs"], a:0,
-  why:"A <b>drill</b> makes holes — it won't help you <b>locate</b> a place."},
- {q:"In \u201cAn Animal Tour of India\u201d: \u201c\u2026and, in various ___, 60% of the world's tigers.\u201d",
-  o:["locate","local","locally","locales"], a:3,
-  why:"The tigers live in various <b>locales</b> — places where something special is. <b>-ale</b> = place where."},
- {q:"In the story: \u201cIf we keep our eyes open, we might ___ a mongoose hiding in the brush.\u201d",
-  o:["locally","locate","local","locales"], a:1,
-  why:"They might <b>locate</b> the mongoose — find where it is. loc + <b>-ate</b> (to make, to act)."},
- {q:"In the story: \u201cMany of the ___ people in town keep them as pets to keep away cobras!\u201d",
-  o:["locate","local","locale","locally"], a:1,
-  why:"The <b>local</b> people — people related to that particular place. loc + <b>-al</b> (like, related to)."},
- {q:"In the story: \u201cWe won't see cobras here ___.\u201d",
-  o:["locally","locate","local","locale"], a:0,
-  why:"<b>Locally</b> — in the manner of being local, in this particular place. loc + -al + <b>-ly</b>."}
-];
 
+const QS = [{"q": "The company will ___ its office to a bigger building downtown.", "o": ["relocate", "paint", "sell", "clean"], "a": 0, "why": "<b>re-</b> means <i>again</i> and <b>loc</b> means <i>place</i>. To <b>relocate</b> is to be <i>placed</i> in a new <i>place</i> — the office moves to the bigger building."}, {"q": "He fell off his bike and ___ his shoulder.", "o": ["dislocate", "rested", "warmed", "tickled"], "a": 0, "why": "<b>dis-</b> means <i>out of</i> and <b>loc</b> means <i>place</i>. To <b>dislocate</b> is to force a bone <i>out of</i> its <i>place</i> — his shoulder popped out of its socket."}, {"q": "The teacher will ___ ten minutes for each student to present.", "o": ["allocate", "count", "guess", "borrow"], "a": 0, "why": "<b>al-</b> means <i>to</i> and <b>loc</b> means <i>place</i>. To <b>allocate</b> is to <i>place</i> a share <i>to</i> each purpose — ten minutes are set aside per student."}, {"q": "The ___ pulled twenty freight cars up the mountain.", "o": ["locomotive", "caboose", "conductor", "station"], "a": 0, "why": "<b>loco-</b> means <i>place</i> and <b>motive</b> means <i>moving</i>. A <b>locomotive</b> is the engine that moves from <i>place</i> to <i>place</i> — it pulls the freight cars."}, {"q": "Crawling was the baby's first ___, letting her move from room to room.", "o": ["locomotion", "word", "tooth", "toy"], "a": 0, "why": "<b>loco-</b> means <i>place</i> and <b>motion</b> means <i>movement</i>. <b>Locomotion</b> is <i>movement</i> from <i>place</i> to <i>place</i> — crawling moves the baby room to room."}, {"q": "The treasure map showed the ___ of the hidden gold.", "o": ["location", "price", "owner", "age"], "a": 0, "why": "<b>loc</b> means <i>place</i>. A <b>location</b> is simply a <i>place</i> — the map shows where the gold is."}, {"q": "The ___ of the library took a whole month of packing.", "o": ["relocation", "painting", "cleaning", "opening"], "a": 0, "why": "<b>re-</b> means <i>again</i>. <b>Relocation</b> is the act of being <i>placed again</i> somewhere new — the library's move took a month of packing."}, {"q": "The ___ of pizza slices was fair: two for each kid.", "o": ["allocation", "baking", "eating", "smelling"], "a": 0, "why": "To <b>allocate</b> is to <i>place</i> a share <i>to</i> each person; <b>allocation</b> is that act — two slices placed to each kid."}, {"q": "The X-ray showed a ___ of his finger joint.", "o": ["dislocation", "bruise", "cut", "rash"], "a": 0, "why": "<b>dis-</b> means <i>out of</i> and <b>loc</b> means <i>place</i>. A <b>dislocation</b> is the state of being <i>out of place</i> — the X-ray shows the joint out of its socket."}, {"q": "This bird is rare in our ___, but common farther south.", "o": ["locality", "family", "class", "team"], "a": 0, "why": "<b>loc</b> means <i>place</i>. A <b>locality</b> is your surrounding <i>place</i> — the bird is rare in this area."}, {"q": "She wore a sling for her ___ elbow.", "o": ["dislocated", "sleepy", "hungry", "itchy"], "a": 0, "why": "<b>dis-</b> means <i>out of</i>. A <b>dislocated</b> elbow is <i>out of</i> its <i>place</i> — that's why she needs the sling."}, {"q": "The ___ school now sits on the other side of town.", "o": ["relocated", "painted", "burned", "closed"], "a": 0, "why": "<b>re-</b> means <i>again</i>. The <b>relocated</b> school was <i>placed again</i> in a new spot — it now sits across town."}, {"q": "The storm caused ___ flooding on just two streets.", "o": ["localized", "happy", "tasty", "musical"], "a": 0, "why": "To <b>localize</b> is to keep something to one <i>place</i> (<b>loc</b>). <b>Localized</b> flooding stayed in one place — just two streets."}, {"q": "Each camper got an ___ bunk in the cabin.", "o": ["allocated", "hungry", "sleepy", "funny"], "a": 0, "why": "<b>Allocated</b> means <i>placed to</i> each person — each camper was assigned a bunk as their place."}, {"q": "We had to ___ the chores after two helpers got sick.", "o": ["reallocate", "celebrate", "photograph", "frame"], "a": 0, "why": "<b>re-</b> means <i>again</i>. To <b>reallocate</b> is to <i>place</i> shares <i>to</i> people <i>again</i> — the chores were reassigned after helpers got sick."}, {"q": "Doctors try to ___ the pain to find its cause.", "o": ["localize", "ignore", "hide", "guess"], "a": 0, "why": "<b>-ize</b> means <i>to make</i>. To <b>localize</b> is to make something limited to one <i>place</i> — the doctors narrow the pain down to find its cause."}, {"q": "The ___ of seats put the tall kids in the back row.", "o": ["reallocation", "painting", "cleaning", "counting"], "a": 0, "why": "<b>Reallocation</b> is the act of <i>placing</i> shares <i>again</i> — the seats were reassigned, tall kids to the back."}, {"q": "The store's ___ advantage is being next to the school.", "o": ["locational", "musical", "athletic", "magical"], "a": 0, "why": "<b>loc</b> means <i>place</i>. A <b>locational</b> advantage relates to <i>place</i> — the store wins by being next to the school."}, {"q": "The classrooms are ___, so they can be shifted to any spot on campus.", "o": ["relocatable", "colorful", "noisy", "crowded"], "a": 0, "why": "<b>-able</b> means <i>able to be</i>. <b>Relocatable</b> classrooms are able to be <i>placed again</i> anywhere on campus."}, {"q": "___ the piano took four strong movers.", "o": ["relocating", "painting", "tuning", "selling"], "a": 0, "why": "<b>Relocating</b> is the act of <i>placing again</i> somewhere new — moving the piano needed four movers."}];
 const KEY = "wr8-quiz-best";
+const ROOTW = "loc";
+const EMOJI = "\ud83d\uddfa\ufe0f";
 let order, idx, score, answered;
 function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
@@ -183,7 +126,7 @@ function render(){
   const opts = document.getElementById("opts"); opts.innerHTML = "";
   const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
   const next = document.getElementById("nextBtn"); next.disabled = true;
-  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
   const oidx = shuffle(q.o.map((_,i)=>i));
   oidx.forEach((oi)=>{
     const b = document.createElement("button");
@@ -197,7 +140,7 @@ function render(){
       if(!ok) b.classList.add("wrong"); else score++;
       answered.push(ok);
       document.getElementById("score").textContent = score;
-      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
       why.classList.add("show");
       next.disabled = false;
       renderDots();
@@ -218,12 +161,12 @@ function finish(){
   const nb = (b===null || score > b) ? score : b;
   localStorage.setItem(KEY, JSON.stringify(nb));
   document.getElementById("fbest").textContent = nb + " / 20";
-  const msg = score===20 ? "Perfect! You are a true suffix master! 🏆"
-    : score>=16 ? "Excellent! The root loc is really sticking! 📍"
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
     : score>=12 ? "Good job! Review the ones you missed and try again."
-    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
   document.getElementById("fmsg").textContent = msg;
-  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function restart(){
@@ -237,9 +180,10 @@ function restart(){
 }
 (function init(){
   const b = best();
-  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
   restart();
 })();
+
 </script>
 </body>
 </html>
