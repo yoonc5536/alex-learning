@@ -7,21 +7,22 @@
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         margin: 0; background: #f8f6fd; color: #1e293b; line-height: 1.6; }
-  header { background: linear-gradient(135deg, #4c1d95, #8b5cf6); color: #fff;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
          padding: 30px 20px; text-align: center; }
   header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
   header p { margin: 0; opacity: .92; }
   .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
-  .hud { background: #fff; border: 1px solid #ddd6fe; border-radius: 14px; padding: 12px 18px;
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
          margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
-         align-items: center; box-shadow: 0 4px 14px rgba(76,29,149,.10); font-weight: 700; }
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
   .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
   .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
          display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
-  .dot.right { background: #6d28d9; color: #fff; }
+  .dot.right { background: #16a34a; color: #fff; }
   .dot.wrong { background: #ef4444; color: #fff; }
-  .dot.now { outline: 3px solid #a78bfa; }
+  .dot.now { outline: 3px solid #86efac; }
   .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
          box-shadow: 0 2px 10px rgba(30,41,59,.06); }
   .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
@@ -30,42 +31,44 @@
   .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
          border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
          cursor: pointer; transition: all .15s; }
-  .opt:hover:not(:disabled) { border-color: #a78bfa; background: #f5f3ff; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
   .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
   .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
   .opt:disabled { cursor: default; }
-  .why { display: none; margin-top: 14px; background: #f5f3ff; border-left: 5px solid #6d28d9;
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
          border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
   .why.show { display: block; }
-  .why b { color: #4c1d95; }
+  .why b { color: #166534; }
   .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
-  .bigbtn { background: #6d28d9; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
          font-size: 1rem; font-weight: 800; cursor: pointer; }
-  .bigbtn:hover { background: #5b21b6; }
+  .bigbtn:hover { background: #15803d; }
   .bigbtn:disabled { background: #cbd5e1; cursor: default; }
   .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
          padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
   .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
          border: 1px solid #e2e8f0; }
-  .final .score { font-size: 3.4rem; font-weight: 900; color: #6d28d9; margin: 8px 0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
   .hidden { display: none; }
-  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
   footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
+  footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
 <header>
   <div style="font-size:2.2rem">🎯</div>
   <h1>Lesson 11 Quiz</h1>
-  <p>Use the root <i>audi</i> and the suffixes you learned to figure out each meaning &middot; 20 questions</p>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
   <div class="hud">
     <span>Score: <span id="score">0</span> / 20</span>
     <span>Best: <span id="best">–</span></span>
-    <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
       <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
   <div class="dots" id="dots"></div>
 
@@ -88,77 +91,17 @@
     <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
     <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
     <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 11</a>
-    <a href="../lesson-12/" class="bigbtn" style="margin-left:8px;text-decoration:none">Next: Lesson 12 →</a>
   </div>
 
   <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
 </div>
 
 <script>
-const QS = [
- {q:"What does the root “audi” mean?",
-  o:["see","hear","step","walk"], a:1,
-  why:"<b>audi</b> = hear — every word in Lesson 11 is about hearing."},
- {q:"Which suffix means “one who”?",
-  o:["-ence","-ist","-tion","t-ory"], a:1,
-  why:"<b>-ist</b> = one who — as in <b>audiologist</b>, one who treats hearing problems."},
- {q:"What does the suffix “-ology” mean?",
-  o:["place where","one who","study of, science","state, quality, act"], a:2,
-  why:"<b>-ology</b> = study of, science — as in <b>audiology</b>, the scientific study of hearing."},
- {q:"Which suffix means “place where”?",
-  o:["-ist","t-orium","-ence","t-ory"], a:1,
-  why:"<b>t-orium</b> = place where — as in <b>auditorium</b>, a place where concerts and lectures are held."},
- {q:"What does the suffix “t-ory” mean?",
-  o:["one who","like, relating to","place where","study of, science"], a:1,
-  why:"<b>t-ory</b> = like, relating to — as in <b>auditory</b>, relating to the process of hearing."},
- {q:"What does the suffix “-ence” mean?",
-  o:["state, quality, act","one who","place where","like, relating to"], a:0,
-  why:"<b>-ence</b> = state, quality, act — as in <b>audience</b>."},
- {q:"“auditorium” = audi + t + orium. What does “auditorium” mean?",
-  o:["A place where lectures, concerts, and other events are held","One who treats hearing problems","A brief act of performing to get a role","The scientific study of hearing"], a:0,
-  why:"<b>audi</b> (hear) + <b>t</b> + <b>orium</b> (place where) = a place where listening events are held."},
- {q:"“audiology” = audi + ology. What does “audiology” mean?",
-  o:["A group of people listening","The scientific study of hearing","Relating to the process of hearing","An act of singing to get a role"], a:1,
-  why:"<b>audi</b> (hear) + <b>ology</b> (study of, science) = the scientific study of hearing."},
- {q:"“audition” = audi + tion. What does “audition” mean?",
-  o:["A place where concerts are held","One who treats ear problems","A brief act of singing or performing another skill when seeking a role in a movie or play","Relating to the process of hearing"], a:2,
-  why:"<b>audi</b> (hear) + <b>tion</b> (state, quality, act) = a brief act of performing to get a role."},
- {q:"“audiologist” = audi + olog + ist. What does “audiologist” mean?",
-  o:["A place where lectures are held","The scientific study of hearing","A group of people listening","One who is trained to treat hearing and ear problems"], a:3,
-  why:"<b>audi</b> (hear) + <b>olog</b> (study of, science) + <b>ist</b> (one who) = one who treats hearing problems."},
- {q:"“audience” = audi + ence. What does “audience” mean?",
-  o:["A group of people listening to a performance","A place where concerts are held","The scientific study of hearing","A brief act of performing to get a role"], a:0,
-  why:"<b>audi</b> (hear) + <b>ence</b> (state, quality, act) = a group of people listening."},
- {q:"“auditory” = audi + t + ory. What does “auditory” mean?",
-  o:["A place where concerts are held","One who treats ear problems","The scientific study of hearing","Of or relating to the process of hearing"], a:3,
-  why:"<b>audi</b> (hear) + <b>t</b> + <b>ory</b> (like, relating to) = relating to hearing."},
- {q:"In the story “What? What Did You Say?”, students gathered in the school ___ to learn about noises.",
-  o:["audience","auditorium","audiology","auditory"], a:1,
-  why:"The students gathered in the school <b>auditorium</b> — a place where the whole school can listen."},
- {q:"In the story, the speaker was an ___ who said the sounds were over 100 decibels.",
-  o:["auditorium","audition","audience","audiologist"], a:3,
-  why:"The speaker was an <b>audiologist</b> — one who is trained to treat hearing and ear problems."},
- {q:"In the story, “People studying ___ are concerned about the noise in our lives—and in our ears.”",
-  o:["audition","audiology","audience","auditorium"], a:1,
-  why:"People studying <b>audiology</b> — the scientific study of hearing — care about noise."},
- {q:"In the story, “Even sounds coming through ear buds to an ___ of one person can be over 100 decibels!”",
-  o:["audience","auditorium","audition","auditory"], a:0,
-  why:"An <b>audience</b> of one person — one listener — can still hear sounds over 100 decibels."},
- {q:"In the story, “Hearing high ___ levels can cause permanent damage to our ears.”",
-  o:["auditorium","audience","auditory","audiologist"], a:2,
-  why:"High <b>auditory</b> levels — sound levels relating to hearing — can damage your ears."},
- {q:"The book's choice box for the story had 6 words. Which word was NOT used in the story?",
-  o:["audiology","auditorium","audition","audience"], a:2,
-  why:"<b>audition</b> was in the choice box but not used — the story needed 5 words, and this one didn't fit."},
- {q:"Which word is built as audi + olog + ist?",
-  o:["audiology","auditorium","audience","audiologist"], a:3,
-  why:"<b>audiologist</b> = <b>audi</b> (hear) + <b>olog</b> (study of, science) + <b>ist</b> (one who)."},
- {q:"What is the book's formula for building new words with suffixes?",
-  o:["SUFFIX + ROOT = NEW WORD","ROOT + SUFFIX = NEW WORD","ROOT - SUFFIX = NEW WORD","SUFFIX - ROOT = NEW WORD"], a:1,
-  why:"The book's formula is <b>ROOT + SUFFIX = NEW WORD</b> — as in audi + ology = audiology."}
-];
 
+const QS = [{"q": "The video's ___ was too quiet, so we turned up the volume.", "o": ["audio", "picture", "colors", "title"], "a": 0, "why": "<b>audi</b> means <i>to hear</i>. The <b>audio</b> is the part you <i>hear</i> — it was too quiet, so they raised the volume."}, {"q": "Her whisper was barely ___ over the loud music.", "o": ["audible", "visible", "tasty", "soft"], "a": 0, "why": "<b>-ible</b> means <i>able to be</i>. <b>Audible</b> means able to be <i>heard</i> — the whisper could barely be heard over the music."}, {"q": "On the long drive, we listened to an ___ instead of reading.", "o": ["audiobook", "pillow", "lunch", "nap"], "a": 0, "why": "<b>Audio</b> means <i>heard</i>. An <b>audiobook</b> is a book you <i>hear</i> — you listen instead of reading."}, {"q": "The speaker's words were ___ from the back of the noisy gym.", "o": ["inaudible", "clear", "loud", "funny"], "a": 0, "why": "<b>in-</b> means <i>not</i>. <b>Inaudible</b> means <i>not</i> able to be <i>heard</i> — the noisy gym drowned out the words."}, {"q": "The company hired experts to ___ its money records.", "o": ["audit", "hide", "burn", "spend"], "a": 0, "why": "An <b>audit</b> comes from <i>auditus</i>, a formal <i>hearing</i>. To <b>audit</b> is to give the money records a careful hearing — experts check every dollar."}, {"q": "The ___ found a mistake in the school's lunch money count.", "o": ["auditor", "chef", "pilot", "actor"], "a": 0, "why": "<b>-or</b> means <i>one who</i>. An <b>auditor</b> is one who gives accounts a formal <i>hearing</i> — this one heard something wrong in the lunch money count."}, {"q": "The classroom's ___ cart holds a projector and speakers.", "o": ["audiovisual", "musical", "noisy", "silent"], "a": 0, "why": "<b>Audio</b> is what you <i>hear</i> and <b>visual</b> is what you see. <b>Audiovisual</b> gear covers both — the projector shows, the speakers sound."}, {"q": "She laughed ___ at the joke, and the whole room heard her.", "o": ["audibly", "quietly", "silently", "secretly"], "a": 0, "why": "<b>Audibly</b> comes from <b>audible</b> (able to be <i>heard</i>). She laughed in a way the whole room could <i>hear</i>."}, {"q": "The ___ owns six pairs of headphones and a huge speaker system.", "o": ["audiophile", "chef", "athlete", "pilot"], "a": 0, "why": "<b>-phile</b> means <i>lover</i>. An <b>audiophile</b> is a <i>lover</i> of <i>heard</i> sound — six headphones prove it."}, {"q": "The charity's books were ___ last year, and every dollar was accounted for.", "o": ["audited", "lost", "burned", "hidden"], "a": 0, "why": "To <b>audit</b> is to give records a formal <i>hearing</i>. The <b>audited</b> books were carefully heard and checked — every dollar accounted for."}, {"q": "___ a big company means giving its money records a formal hearing.", "o": ["auditing", "praising", "painting", "feeding"], "a": 0, "why": "An <b>audit</b> is a formal <i>hearing</i> of accounts. <b>Auditing</b> a company means <i>hearing</i> out its money records."}, {"q": "The ___ in the old hall was so poor that we missed half the play.", "o": ["audibility", "smell", "taste", "color"], "a": 0, "why": "<b>-ity</b> marks a <i>quality</i>. <b>Audibility</b> is the quality of being <i>heard</i> — poor hearing quality made them miss the play."}, {"q": "He muttered ___ under his breath so the teacher wouldn't hear.", "o": ["inaudibly", "loudly", "clearly", "proudly"], "a": 0, "why": "<b>in-</b> means <i>not</i>. He spoke <b>inaudibly</b> — <i>not</i> in a way to be <i>heard</i> — so the teacher wouldn't hear."}, {"q": "In an audit, the auditor asks the questions and the ___ answers them.", "o": ["auditee", "chef", "pilot", "actor"], "a": 0, "why": "<b>-ee</b> means <i>one who is</i> acted upon. The <b>auditee</b> is the one who <i>is heard</i> — the auditor asks, the auditee answers."}, {"q": "They had to ___ the votes when the first count looked wrong.", "o": ["reaudit", "celebrate", "ignore", "hide"], "a": 0, "why": "<b>re-</b> means <i>again</i>. To <b>reaudit</b> is to give the votes a formal <i>hearing again</i> — a second careful check."}, {"q": "The nurse showed Mom the ___ chart of my hearing test results.", "o": ["audiogram", "menu", "map", "ticket"], "a": 0, "why": "<b>-gram</b> means <i>something written</i>. An <b>audiogram</b> is the <i>written</i> record of what you <i>hear</i> — the nurse's hearing chart."}, {"q": "The ___ beeped at different pitches during my hearing test.", "o": ["audiometer", "stethoscope", "ruler", "scale"], "a": 0, "why": "<b>-meter</b> means <i>measurer</i>. An <b>audiometer</b> <i>measures</i> <i>hearing</i> — it beeps at pitches to test your ears."}, {"q": "An ___ learner remembers best by listening, not by reading.", "o": ["audile", "visual", "sleepy", "hungry"], "a": 0, "why": "<b>audi</b> means <i>to hear</i> and <b>-ile</b> means <i>relating to</i>. An <b>audile</b> learner relates to <i>hearing</i> — listening works best."}, {"q": "The dog whistle makes a ___ sound that humans cannot hear.", "o": ["subaudible", "loud", "pretty", "funny"], "a": 0, "why": "<b>sub-</b> means <i>under</i>. <b>Subaudible</b> is <i>under</i> what is <i>audible</i> — below human hearing, like the dog whistle."}, {"q": "Grandpa played an old ___ of his favorite radio show.", "o": ["audiotape", "photograph", "letter", "map"], "a": 0, "why": "<b>Audio</b> means <i>heard</i>. An <b>audiotape</b> holds <i>heard</i> sound on tape — Grandpa played the old recording."}];
 const KEY = "wr11-quiz-best";
+const ROOTW = "audi";
+const EMOJI = "\ud83d\udc42";
 let order, idx, score, answered;
 function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
@@ -183,7 +126,7 @@ function render(){
   const opts = document.getElementById("opts"); opts.innerHTML = "";
   const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
   const next = document.getElementById("nextBtn"); next.disabled = true;
-  next.textContent = (idx === order.length-1) ? "See my score →" : "Next →";
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
   const oidx = shuffle(q.o.map((_,i)=>i));
   oidx.forEach((oi)=>{
     const b = document.createElement("button");
@@ -197,7 +140,7 @@ function render(){
       if(!ok) b.classList.add("wrong"); else score++;
       answered.push(ok);
       document.getElementById("score").textContent = score;
-      why.innerHTML = (ok ? "✅ Correct! " : "❌ Not quite. ") + q.why;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
       why.classList.add("show");
       next.disabled = false;
       renderDots();
@@ -218,12 +161,12 @@ function finish(){
   const nb = (b===null || score > b) ? score : b;
   localStorage.setItem(KEY, JSON.stringify(nb));
   document.getElementById("fbest").textContent = nb + " / 20";
-  const msg = score===20 ? "Perfect! You are a true audi master! 🏆"
-    : score>=16 ? "Excellent! The root and suffixes are really sticking! 👂"
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
     : score>=12 ? "Good job! Review the ones you missed and try again."
-    : "Good start! Go back to the lesson, then try again — you've got this! 💪";
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
   document.getElementById("fmsg").textContent = msg;
-  document.getElementById("femoji").textContent = score===20 ? "🏆" : score>=12 ? "🌟" : "🌱";
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function restart(){
@@ -237,9 +180,10 @@ function restart(){
 }
 (function init(){
   const b = best();
-  document.getElementById("best").textContent = b===null ? "–" : b + " / 20";
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
   restart();
 })();
+
 </script>
 </body>
 </html>
