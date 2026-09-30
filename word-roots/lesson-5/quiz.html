@@ -3,192 +3,187 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lesson 5 Quiz — counter-, inter-, re-, trans- + act | Word Roots Beginning</title>
+<title>Lesson 5 Quiz | Word Roots Beginning</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         margin: 0; background: #fff7f8; color: #1e293b; line-height: 1.6; }
-  header.hero { background: linear-gradient(135deg, #9f1239, #fb7185); color: #fff;
+         margin: 0; background: #f6f9f4; color: #1e293b; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #15803d, #4ade80); color: #fff;
          padding: 30px 20px; text-align: center; }
-  header.hero h1 { margin: 4px 0; font-size: 1.7rem; }
-  header.hero p { margin: 4px 0; opacity: .92; }
-  .wrap { max-width: 1150px; margin: 0 auto; padding: 22px 20px 60px; }
-  .home { display: inline-block; margin-bottom: 12px; color: #9f1239; font-weight: 700; text-decoration: none; }
-  .home:hover { text-decoration: underline; }
-  .scorebar { background: #fff; border: 1px solid #fecdd3; border-radius: 14px; padding: 12px 18px;
-         margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
-         box-shadow: 0 2px 8px rgba(159,18,57,.08); }
-  .scorebar .best { font-size: .9rem; color: #9f1239; font-weight: 700; }
-  .qcard { background: #fff; border: 2px solid #fecdd3; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
-  .qcard .qn { font-size: .82rem; color: #e11d48; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
-  .qcard .qq { font-size: 1.08rem; font-weight: 700; margin: 6px 0 14px; max-width: 75ch; }
-  .opts { display: grid; gap: 10px; }
-  .opt { border: 2px solid #e2e8f0; background: #fff; border-radius: 10px; padding: 10px 16px;
-         cursor: pointer; font-size: .97rem; text-align: left; }
-  .opt:hover:not(:disabled) { border-color: #fb7185; }
-  .opt.right { border-color: #16a34a; background: #dcfce7; }
-  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  header h1 { margin: 6px 0 4px; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .92; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 22px 60px; }
+  .hud { background: #fff; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px 18px;
+         margin: -24px auto 20px; max-width: 1000px; display: flex; justify-content: space-between;
+         align-items: center; box-shadow: 0 4px 14px rgba(22,163,74,.10); font-weight: 700; flex-wrap: wrap; gap: 8px; }
+  .hud .links { display: flex; gap: 8px; }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 20px; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; font-size: .7rem;
+         display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 700; }
+  .dot.right { background: #16a34a; color: #fff; }
+  .dot.wrong { background: #ef4444; color: #fff; }
+  .dot.now { outline: 3px solid #86efac; }
+  .qcard { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px;
+         box-shadow: 0 2px 10px rgba(30,41,59,.06); }
+  .qcard .qn { font-size: .85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .05em; }
+  .qcard h2 { margin: 6px 0 18px; font-size: 1.3rem; }
+  .opt { display: block; width: 100%; text-align: left; border: 2px solid #e2e8f0; background: #fff;
+         border-radius: 12px; padding: 13px 16px; margin: 0 0 10px; font-size: 1rem; font-weight: 600;
+         cursor: pointer; transition: all .15s; }
+  .opt:hover:not(:disabled) { border-color: #86efac; background: #f0fdf4; }
+  .opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
   .opt:disabled { cursor: default; }
-  .exp { display: none; margin-top: 12px; background: #fff1f2; border-left: 4px solid #e11d48;
-         padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: .93rem; color: #9f1239; max-width: 80ch; }
-  .exp.show { display: block; }
-  .exp b { color: #881337; }
-  .final { display: none; text-align: center; background: linear-gradient(135deg,#881337,#e11d48);
-         color: #fff; border-radius: 18px; padding: 34px 20px; }
-  .final.show { display: block; }
-  .final h2 { margin: 0 0 8px; font-size: 1.8rem; }
-  .final .score { font-size: 3rem; font-weight: 900; margin: 8px 0; }
-  .final p { opacity: .92; }
-  .bigbtn { display: inline-block; background: #e11d48; color: #fff; border: none; border-radius: 12px;
-         padding: 12px 26px; font-size: 1.02rem; font-weight: 800; cursor: pointer; margin: 6px; }
-  .final .bigbtn { background: #fff; color: #881337; }
+  .why { display: none; margin-top: 14px; background: #f0fdf4; border-left: 5px solid #16a34a;
+         border-radius: 0 12px 12px 0; padding: 12px 16px; font-size: .94rem; }
+  .why.show { display: block; }
+  .why b { color: #166534; }
+  .navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+  .bigbtn { background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 12px 28px;
+         font-size: 1rem; font-weight: 800; cursor: pointer; }
+  .bigbtn:hover { background: #15803d; }
+  .bigbtn:disabled { background: #cbd5e1; cursor: default; }
+  .ghostbtn { background: #fff; color: #475569; border: 2px solid #cbd5e1; border-radius: 12px;
+         padding: 10px 22px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .final { text-align: center; background: #fff; border-radius: 18px; padding: 36px 24px;
+         border: 1px solid #e2e8f0; }
+  .final .score { font-size: 3.4rem; font-weight: 900; color: #16a34a; margin: 8px 0; }
+  .hidden { display: none; }
+  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 24px; }
   footer a { color: #16a34a; font-weight: 700; text-decoration: none; }
-  footer { text-align: center; color: #94a3b8; font-size: .82rem; margin-top: 16px; }
 </style>
 </head>
 <body>
-
-<header class="hero">
-  <div style="font-size:2.2rem">🤝</div>
-  <h1>Lesson 5 Quiz — counter-, inter-, re-, trans- + act</h1>
-  <p>20 questions &middot; tap an answer to get instant feedback &middot; questions and answers are shuffled</p>
+<header>
+  <div style="font-size:2.2rem">🎯</div>
+  <h1>Lesson 5 Quiz</h1>
+  <p>Guess each meaning from the word parts &middot; 20 questions</p>
 </header>
 
 <div class="wrap">
-  <a class="home" href="index.html">← Back to Lesson 5</a>
-  <div class="scorebar">
-    <div>Question <strong id="now">1</strong> of <strong id="of">20</strong></div>
-    <div class="best">🏆 Best score: <span id="best">—</span></div>
+  <div class="hud">
+    <span>Score: <span id="score">0</span> / 20</span>
+    <span>Best: <span id="best">–</span></span>
+    <span class="links">
+      <a href="index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">← Lesson</a>
+      <a href="../index.html" class="ghostbtn" style="padding:6px 14px;font-size:.82rem">🏠 Home</a>
+    </span>
   </div>
-  <div id="quiz"></div>
-  <div class="final" id="final">
-    <h2>🎉 Quiz Complete!</h2>
-    <div class="score"><span id="score">0</span> / 20</div>
-    <p id="verdict"></p>
-    <p style="font-size:.9rem">🏆 Best score on this device: <b id="best2">—</b></p>
-    <button class="bigbtn" onclick="location.reload()">🔁 Retry Quiz</button>
-    <a class="bigbtn" href="index.html" style="text-decoration:none">📖 Back to Lesson 5</a>
-    <a class="bigbtn" href="../lesson-6/" style="text-decoration:none">💥 Next: Lesson 6</a>
+  <div class="dots" id="dots"></div>
+
+  <div class="qcard" id="qcard">
+    <div class="qn" id="qn"></div>
+    <h2 id="qq"></h2>
+    <div id="opts"></div>
+    <div class="why" id="why"></div>
+    <div class="navrow">
+      <span></span>
+      <button class="bigbtn" id="nextBtn" disabled>Next →</button>
+    </div>
   </div>
+
+  <div class="final hidden" id="final">
+    <div style="font-size:3rem" id="femoji">🌟</div>
+    <h2 style="margin:6px 0">Quiz finished!</h2>
+    <div class="score"><span id="fscore">0</span> / 20</div>
+    <p id="fmsg" style="color:#64748b"></p>
+    <p style="color:#94a3b8;font-size:.9rem">Best score: <b id="fbest">–</b></p>
+    <button class="bigbtn" onclick="restart()">Try Again (shuffled)</button>
+    <a href="index.html" class="ghostbtn" style="margin-left:8px">Back to Lesson 5</a>
+  </div>
+
   <footer>Based on <i>Word Roots Beginning</i> &copy; 2012 The Critical Thinking Co. &middot; Made for Alex 🌱<br/><a href="../index.html">🏠 Word Roots Home</a></footer>
 </div>
 
 <script>
-const QUESTIONS = [
-  {q:"What does the prefix “counter-” mean?", a:"against, opposite",
-   opts:["against, opposite","between, among","through, across, beyond","back, again"],
-   e:"<b>counter-</b> = <b>against, opposite</b> — as in <b>counter- + act = counteract</b>."},
-  {q:"What does the prefix “inter-” mean?", a:"between, among",
-   opts:["between, among","against, opposite","through, across, beyond","back, again"],
-   e:"<b>inter-</b> = <b>between, among</b> — as in <b>inter- + act = interact</b>."},
-  {q:"What does the prefix “re-” mean?", a:"back, again",
-   opts:["back, again","against, opposite","between, among","through, across, beyond"],
-   e:"<b>re-</b> = <b>back, again</b> — as in <b>re- + act = react</b>."},
-  {q:"What does the prefix “trans-” mean?", a:"through, across, beyond",
-   opts:["through, across, beyond","against, opposite","between, among","back, again"],
-   e:"<b>trans-</b> = <b>through, across, beyond</b> — as in <b>trans- + act = transact</b>."},
-  {q:"What does the root “act” mean?", a:"to do",
-   opts:["to do","to say","to break","to place"],
-   e:"<b>act</b> = <b>to do</b>. Every word in Lesson 5 is a prefix + act."},
-  {q:"<b>counteract</b> = ?", a:"to do or act against something",
-   opts:["to do or act against something","to do things or talk with others","to do business with people or companies","to respond by an action or feeling"],
-   e:"<b>counter- + act = counteract</b> — to do or act against something. The antidote counteracts the poison!"},
-  {q:"<b>react</b> = ?", a:"to respond to something (by an action or show of feelings)",
-   opts:["to respond to something (by an action or show of feelings)","to do or act against something","to do things or talk with others","to do business with people or companies"],
-   e:"<b>re- + act = react</b> — to respond to something (by an action or show of feelings)."},
-  {q:"<b>interact</b> = ?", a:"to do things or talk with others",
-   opts:["to do things or talk with others","to do or act against something","to do business with people or companies","to respond by an action or feeling"],
-   e:"<b>inter- + act = interact</b> — to do things or talk with others."},
-  {q:"<b>transact</b> = ?", a:"to do business with people or companies",
-   opts:["to do business with people or companies","to do things or talk with others","to do or act against something","to respond by an action or feeling"],
-   e:"<b>trans- + act = transact</b> — to do business with people or companies."},
-  {q:"She'll ___ the company business when she goes to work.", a:"transact",
-   opts:["transact","react","interact","counteract"],
-   e:"Doing business = <b>transact</b>. She'll <b>transact</b> the company business."},
-  {q:"He tried not to ___ and cry after they tricked him.", a:"react",
-   opts:["react","transact","interact","counteract"],
-   e:"Responding with feelings = <b>react</b>. He tried not to <b>react</b>."},
-  {q:"My parents enjoy it when they ___ with other people after work.", a:"interact",
-   opts:["interact","react","transact","counteract"],
-   e:"Doing things or talking with others = <b>interact</b>."},
-  {q:"The antidote will ___ the poison from a snake bite.", a:"counteract",
-   opts:["counteract","react","interact","transact"],
-   e:"Acting AGAINST the poison = <b>counteract</b>. The antidote will <b>counteract</b> the poison."},
-  {q:"Which word uses the prefix “inter-”?", a:"interact",
-   opts:["interact","counteract","react","transact"],
-   e:"<b>inter- + act = interact</b> — to do things or talk with others."},
-  {q:"Which word uses the prefix “trans-”?", a:"transact",
-   opts:["transact","interact","counteract","react"],
-   e:"<b>trans- + act = transact</b> — to do business with people or companies."},
-  {q:"Which prefix + <b>act</b> makes “to do or act against something”?", a:"counter-",
-   opts:["counter-","inter-","re-","trans-"],
-   e:"<b>counter-</b> (against, opposite) + act = <b>counteract</b> — to do or act against something."},
-  {q:"The book builds <b>react</b> from which prefix + root?", a:"re- + act",
-   opts:["re- + act","counter- + act","inter- + act","trans- + act"],
-   e:"<b>re- (back, again) + act (to do) = react</b> — to respond to something."},
-  {q:"Which of these words has the prefix “counter-”?", a:"counteract",
-   opts:["counteract","interact","react","transact"],
-   e:"Only <b>counteract</b> uses counter-. The others use inter-, re-, trans-."},
-  {q:"<b>interact</b> is built from…", a:"inter- (between, among) + act (to do)",
-   opts:["inter- (between, among) + act (to do)","inter- (against) + act (to say)","counter- (between) + act (to do)","trans- (between) + act (to do)"],
-   e:"<b>inter- (between, among) + act (to do) = interact</b> — to do things or talk with others."},
-  {q:"People who talk and do things with others are said to…", a:"interact",
-   opts:["interact","counteract","react","transact"],
-   e:"To do things or talk with others = <b>interact</b>."}
-];
 
-const BEST_KEY = "wr5-quiz-best";
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-let score = 0, answered = 0;
+const QS = [{"q": "The movie was full of car chases and ___.", "o": ["action", "sleeping", "talking", "waiting"], "a": 0, "why": "act means 'do' - car chases are exciting things being done, so the movie was full of action."}, {"q": "The school play has three ___.", "o": ["act", "popcorn", "tickets", "seats"], "a": 0, "why": "The root <b>act</b> means <i>to do</i>. A play's three <b>acts</b> are its three big parts — the things done on stage."}, {"q": "Her ___ in the movie was wonderful.", "o": ["acting", "lunch", "homework", "haircut"], "a": 0, "why": "<b>-ing</b> turns the verb into a noun. <b>Acting</b> is the doing — the performing — that actors do."}, {"q": "Soccer is my favorite after-school ___.", "o": ["activity", "homework", "chore", "nap"], "a": 0, "why": "act means 'do' - soccer is something you do after school for fun, so it is an activity."}, {"q": "The ___ played the brave knight in the play.", "o": ["actor", "director", "writer", "producer"], "a": 0, "why": "-or means 'one who' and act means 'do' - the one who does the performing as the knight is the actor."}, {"q": "The ___ won a prize for playing the queen.", "o": ["actress", "queen", "singer", "dancer"], "a": 0, "why": "-ress marks a female 'one who' acts - the woman who performed as the queen is the actress."}, {"q": "Press the green button to ___ the robot.", "o": ["activate", "break", "unplug", "hide"], "a": 0, "why": "-ate means 'make' - pressing the button makes the robot start doing things, which is to activate it."}, {"q": "Her ___ helped clean up the river.", "o": ["activism", "homework", "shopping", "cooking"], "a": 0, "why": "<b>-ism</b> marks a belief or practice. <b>Activism</b> is the practice of taking action for something you believe in."}, {"q": "His ___ to the surprise party was a huge smile.", "o": ["reaction", "invitation", "gift", "plan"], "a": 0, "why": "re- means 'back' and act means 'do' - the smile he did back when surprised was his reaction."}, {"q": "The receipt lists every ___ we made at the store.", "o": ["transaction", "bag", "coupon", "cart"], "a": 0, "why": "trans- means 'across' - money going across from buyer to seller is a transaction, which the receipt lists."}, {"q": "The ___ museum lets kids touch everything and try the experiments.", "o": ["interactive", "quiet", "closed", "empty"], "a": 0, "why": "inter- means 'between' and act means 'do' - doing things back and forth with the exhibits makes the museum interactive."}, {"q": "The volcano has been ___ for a hundred years.", "o": ["inactive", "tall", "loud", "dangerous"], "a": 0, "why": "in- means 'not' and act means 'do' - a volcano doing nothing for a hundred years is inactive."}, {"q": "You don't need to ___ - just say the line like a normal person.", "o": ["overact", "whisper", "rehearse", "memorize"], "a": 0, "why": "over- means 'too much' - acting way too dramatically instead of normally is to overact."}, {"q": "The villain's ___ made the whole class laugh.", "o": ["overacting", "kindness", "homework", "silence"], "a": 0, "why": "<b>over-</b> means <i>too much</i>. <b>Overacting</b> is doing the acting too much — so big it becomes funny."}, {"q": "The town will ___ a new rule about keeping dogs on leashes.", "o": ["enact", "break", "ignore", "forget"], "a": 0, "why": "en- means 'make' and act means 'do' - making the new rule into an official doing is to enact it."}, {"q": "The ___ of the new law took many months.", "o": ["enactment", "color", "weight", "smell"], "a": 0, "why": "<b>en-</b> means <i>put into</i>. An <b>enactment</b> puts a rule into action — then it is a real law."}, {"q": "The class will ___ the first Thanksgiving with costumes.", "o": ["reenact", "forget", "skip", "cancel"], "a": 0, "why": "re- means 'again' - acting out the Thanksgiving story again with costumes is to reenact it."}, {"q": "The nuclear ___ makes electricity for the city.", "o": ["reactor", "radiator", "microwave", "toaster"], "a": 0, "why": "<b>-or</b> means <i>that which</i>. In a <b>reactor</b>, atoms act back on each other — react — and release energy."}, {"q": "The young ___ spoke up to protect the town's trees.", "o": ["activist", "bystander", "visitor", "stranger"], "a": 0, "why": "-ist means 'one who' and act means 'do' - the one taking action to protect the trees is an activist."}, {"q": "The army planned a ___ against the surprise attack.", "o": ["counteraction", "picnic", "parade", "party"], "a": 0, "why": "<b>counter-</b> means <i>against</i>. A <b>counteraction</b> is an action taken <i>against</i> an attack."}];
+const KEY = "wr5-quiz-best";
+const ROOTW = "counter-, inter-, re-, trans-, act";
+const EMOJI = "\ud83e\udd1d";
+let order, idx, score, answered;
+function best(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
 
-function renderBest(){
-  const b = localStorage.getItem(BEST_KEY);
-  document.getElementById("best").textContent = b ? b+" / 20" : "—";
-  document.getElementById("best2").textContent = b ? b+" / 20" : "—";
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
 }
-
-const box = document.getElementById("quiz");
-shuffle(QUESTIONS).forEach((q,i)=>{
-  const d = document.createElement("div");
-  d.className = "qcard";
-  d.innerHTML = '<div class="qn">Question '+(i+1)+'</div><div class="qq">'+q.q+'</div>';
-  const ow = document.createElement("div"); ow.className = "opts";
-  const exp = document.createElement("div"); exp.className = "exp"; exp.innerHTML = q.e;
-  shuffle(q.opts.slice()).forEach(op=>{
-    const b = document.createElement("button"); b.className = "opt"; b.innerHTML = op;
-    b.onclick = ()=>{
-      [...ow.children].forEach(x=>{
-        x.disabled = true;
-        if(x.innerHTML === q.a) x.classList.add("right");
-      });
-      if(b.innerHTML === q.a){ score++; }
-      else { b.classList.add("wrong"); }
-      exp.classList.add("show");
-      answered++;
-      document.getElementById("now").textContent = Math.min(answered+1, 20);
-      if(answered === QUESTIONS.length) finish();
-    };
-    ow.appendChild(b);
+function renderDots(){
+  const d = document.getElementById("dots"); d.innerHTML = "";
+  order.forEach((q,i)=>{
+    const s = document.createElement("div"); s.className = "dot"; s.textContent = i+1;
+    if(i < answered.length) s.classList.add(answered[i] ? "right" : "wrong");
+    if(i === idx) s.classList.add("now");
+    d.appendChild(s);
   });
-  d.appendChild(ow); d.appendChild(exp);
-  box.appendChild(d);
-});
-
-function finish(){
-  const f = document.getElementById("final");
-  f.classList.add("show");
-  document.getElementById("score").textContent = score;
-  const v = document.getElementById("verdict");
-  if(score === 20) v.textContent = "Perfect! You are a true act-ion master! 🌟";
-  else if(score >= 16) v.textContent = "Excellent work! Just a little review left. 💪";
-  else if(score >= 12) v.textContent = "Good effort! Review the lesson and try again. 📖";
-  else v.textContent = "Keep practicing — the lesson page is right there. You&rsquo;ve got this! 🌱";
-  const prev = parseInt(localStorage.getItem(BEST_KEY) || "0", 10);
-  if(score > prev) localStorage.setItem(BEST_KEY, String(score));
-  renderBest();
-  f.scrollIntoView({behavior:"smooth"});
 }
-renderBest();
+function render(){
+  renderDots();
+  const q = QS[order[idx]];
+  document.getElementById("qn").textContent = "Question " + (idx+1) + " of 20";
+  document.getElementById("qq").textContent = q.q;
+  const opts = document.getElementById("opts"); opts.innerHTML = "";
+  const why = document.getElementById("why"); why.classList.remove("show"); why.innerHTML = "";
+  const next = document.getElementById("nextBtn"); next.disabled = true;
+  next.textContent = (idx === order.length-1) ? "See my score \u2192" : "Next \u2192";
+  const oidx = shuffle(q.o.map((_,i)=>i));
+  oidx.forEach((oi)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = q.o[oi];
+    b.onclick = ()=>{
+      const ok = (oi === q.a);
+      [...opts.children].forEach((x,k)=>{
+        x.disabled = true;
+        if(oidx[k] === q.a) x.classList.add("right");
+      });
+      if(!ok) b.classList.add("wrong"); else score++;
+      answered.push(ok);
+      document.getElementById("score").textContent = score;
+      why.innerHTML = (ok ? "\u2705 Correct! " : "\u274C Not quite. ") + q.why;
+      why.classList.add("show");
+      next.disabled = false;
+      renderDots();
+    };
+    opts.appendChild(b);
+  });
+}
+document.getElementById("nextBtn").onclick = ()=>{
+  if(idx < order.length-1){ idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+};
+function finish(){
+  document.getElementById("qcard").classList.add("hidden");
+  document.getElementById("dots").classList.add("hidden");
+  const f = document.getElementById("final"); f.classList.remove("hidden");
+  document.getElementById("fscore").textContent = score;
+  const b = best();
+  const nb = (b===null || score > b) ? score : b;
+  localStorage.setItem(KEY, JSON.stringify(nb));
+  document.getElementById("fbest").textContent = nb + " / 20";
+  const msg = score===20 ? "Perfect! You are a true word-root master! \U0001F3C6"
+    : score>=16 ? "Excellent! The "+ROOTW+" words are really sticking! "+EMOJI
+    : score>=12 ? "Good job! Review the ones you missed and try again."
+    : "Good start! Go back to the lesson, then try again \u2014 you've got this! \U0001F4AA";
+  document.getElementById("fmsg").textContent = msg;
+  document.getElementById("femoji").textContent = score===20 ? "\U0001F3C6" : score>=12 ? "\U0001F31F" : "\U0001F331";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+  order = shuffle(QS.map((_,i)=>i));
+  idx = 0; score = 0; answered = [];
+  document.getElementById("score").textContent = "0";
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("qcard").classList.remove("hidden");
+  document.getElementById("dots").classList.remove("hidden");
+  render();
+}
+(function init(){
+  const b = best();
+  document.getElementById("best").textContent = b===null ? "\u2013" : b + " / 20";
+  restart();
+})();
+
 </script>
 </body>
 </html>
