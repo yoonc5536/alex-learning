@@ -177,6 +177,21 @@
             color: var(--incorrect-color);
             border: 1px solid #f5c6cb;
         }
+        .option-item label.opt-correct {
+            background: #d4edda;
+            border-color: var(--correct-color);
+            color: #1e7e34;
+            font-weight: bold;
+        }
+        .option-item label.opt-wrong {
+            background: #f8d7da;
+            border-color: var(--incorrect-color);
+            color: #922b21;
+        }
+        .question-card.locked label { cursor: default; }
+        .question-card.locked label:hover { background: #f8f9fa; border-color: #dcdcdc; }
+        .question-card.locked label.opt-correct:hover { background: #d4edda; border-color: var(--correct-color); }
+        .question-card.locked label.opt-wrong:hover { background: #f8d7da; border-color: var(--incorrect-color); }
 
         .btn-container {
             text-align: center;
@@ -225,7 +240,7 @@
     <header>
         <span class="book-tag">&#x1F50D; Sherlock Holmes</span>
         <h1>The Greek Interpreter</h1>
-        <p class="subtitle">Reading Comprehension Quiz for Alex &mdash; 10 questions</p>
+        <p class="subtitle">Reading Comprehension Quiz for Alex &mdash; 10 questions<br><span style="font-size:0.85em">Pick an answer and you will see right away if it is correct!</span></p>
     </header>
     <div id="answer-counter">Answered: 0 / 10</div>
 
@@ -454,7 +469,34 @@
         }
         document.getElementById("answer-counter").textContent = `Answered: ${answered} / ${total}`;
     }
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateCounter));
+    function gradeQuestion(i) {
+        const qName = "q" + i;
+        const card = document.getElementById(qName + "-card");
+        if (card.classList.contains("locked")) return;
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        if (!selected) return;
+        const correct = correctAnswers[qName];
+        const feedbackEl = document.getElementById("f" + i);
+        card.querySelectorAll(".option-item label").forEach(lb => {
+            if (lb.querySelector("input").value === correct) lb.classList.add("opt-correct");
+        });
+        if (selected.value === correct) {
+            feedbackEl.textContent = "Correct! Great detective work, Alex!";
+            feedbackEl.className = "feedback correct";
+        } else {
+            const selLabel = selected.closest("label");
+            if (selLabel) selLabel.classList.add("opt-wrong");
+            feedbackEl.textContent = "Not quite. The correct answer is " + correct + ".";
+            feedbackEl.className = "feedback incorrect";
+        }
+        card.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+        card.classList.add("locked");
+        updateCounter();
+    }
+    document.querySelectorAll(".question-card").forEach((card, idx) => {
+        card.querySelectorAll('input[type="radio"]').forEach(r =>
+            r.addEventListener("change", () => gradeQuestion(idx + 1)));
+    });
 </script>
 
 </body>
