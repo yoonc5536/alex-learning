@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adventure of the Six Napoleons - Reading Quiz for Alex</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #2980b9;
+            --text-color: #333333;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --passage-bg: #f8f9fa;
+            --passage-border: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 0;
+        }
+
+        .questions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+        @media (max-width: 920px) {
+            .questions { grid-template-columns: 1fr; }
+        }
+        .question-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topnav a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+        .topnav a:hover { text-decoration: underline; }
+        .book-tag {
+            display: inline-block;
+            background: #eaf2f8;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            border: 1px solid #cfe0ee;
+        }
+        #answer-counter {
+            text-align: right;
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .question-title {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .passage-box {
+            background-color: var(--passage-bg);
+            border-left: 4px solid var(--passage-border);
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            font-style: italic;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95em;
+        }
+
+        .passage-box p {
+            margin: 8px 0;
+        }
+
+        .options {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border: 1px solid #dcdcdc;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        label:hover {
+            background: #e9ecef;
+            border-color: #b0b0b0;
+        }
+
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .feedback {
+            margin-top: 12px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: #d4edda;
+            color: var(--correct-color);
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: #f8d7da;
+            color: var(--incorrect-color);
+            border: 1px solid #f5c6cb;
+        }
+        .option-item label.opt-correct {
+            background: #d4edda;
+            border-color: var(--correct-color);
+            color: #1e7e34;
+            font-weight: bold;
+        }
+        .option-item label.opt-wrong {
+            background: #f8d7da;
+            border-color: var(--incorrect-color);
+            color: #922b21;
+        }
+        .question-card.locked label { cursor: default; }
+        .question-card.locked label:hover { background: #f8f9fa; border-color: #dcdcdc; }
+        .question-card.locked label.opt-correct:hover { background: #d4edda; border-color: var(--correct-color); }
+        .question-card.locked label.opt-wrong:hover { background: #f8d7da; border-color: var(--incorrect-color); }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #1b6aaa;
+        }
+
+        #score-board {
+            display: none;
+            text-align: center;
+            background: #e8f4f8;
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        #score-board h2 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+    
+        .hint-toggle {
+            align-self: flex-start;
+            background: none;
+            border: none;
+            color: #8a6d1b;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px 0;
+            margin-top: 6px;
+        }
+        .hint-toggle:hover { color: var(--accent-color); text-decoration: underline; }
+        .hint-box {
+            display: none;
+            background: #fef9e7;
+            border: 1px solid #f5d76e;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-top: 8px;
+            font-size: 0.88em;
+            color: #7d6608;
+        }
+        .hint-box.show { display: block; }
+        .feedback .expl { display: block; font-weight: normal; margin-top: 6px; font-size: 0.88em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="topnav">
+        <a href="../index.html">&larr; Reading</a>
+        <a href="../../index.html">&larr; Alex's Learning Hub</a>
+    </nav>
+    <header>
+        <span class="book-tag">&#x1F50D; Sherlock Holmes</span>
+        <h1>The Adventure of the Six Napoleons</h1>
+        <p class="subtitle">Reading Comprehension Quiz for Alex &mdash; 6 questions<br><span style="font-size:0.85em">Pick an answer and you will see right away if it is correct!</span></p>
+    </header>
+    <div id="answer-counter">Answered: 0 / 6</div>
+
+    <form id="quiz-form">
+        <div class="questions">
+        <div class="question-card" id="q1-card">
+            <div class="passage-box">
+                <p>&quot;Well, we know that the man we are after brought the bust to this yard for a reason,&quot; he said. &quot;It is an empty house, so he knew he would not be disturbed. But there is another empty building closer to Mr. Harker&#x27;s home. Our man must have carried the Napoleon here because of this street lamp. He wanted privacy, but he also wanted to see what he was doing.&quot; (p. 126)</p>
+            </div>
+            <div class="question-title">1. [Excerpt Detail] Why did the burglar carry the plaster bust to the garden of this specific empty house, rather than breaking it closer to Mr. Harker&#x27;s home?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q1" value="A"> A) He needed the light from the street lamp to examine what he was doing while keeping privacy in an empty garden.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="B"> B) He wanted to wake up the homeowner so they would witness him breaking the imperial statue.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="C"> C) The thick grass in this garden muffled the sound of the breaking plaster so no one could hear.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="D"> D) He was trying to hide inside the empty house&#x27;s basement from Inspector Lestrade.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-1" onclick="toggleHint(1)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-1"><b>&#x1F575; Sherlock's Hint:</b> Holmes pointed out two key things the burglar needed: an empty space and a light source.</div>
+            <div class="feedback" id="f1"></div>
+        </div>
+        <div class="question-card" id="q2-card">
+            <div class="passage-box">
+                <p>&quot;With the police closing in, he saw the batch of six Napoleons drying in the factory. He took one of the busts, carved a small hole in the soft plaster, and placed the pearl inside. Then he covered up his handiwork with more plaster.&quot; (p. 140)</p>
+            </div>
+            <div class="question-title">2. [Excerpt Detail] How did Beppo hide the stolen Black Pearl of the Borgias inside one of the plaster busts at Gelder &amp; Company?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q2" value="A"> A) He carved a small hole into the soft, wet plaster of a drying bust, inserted the pearl, and covered it with plaster.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="B"> B) He glued the pearl beneath the wooden pedestal after the plaster had completely dried and hardened.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="C"> C) He dropped the pearl into a large bucket of liquid plaster before pouring it into all six molds.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="D"> D) He locked the pearl inside a hollow iron base underneath the sculptor&#x27;s desk.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-2" onclick="toggleHint(2)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-2"><b>&#x1F575; Sherlock's Hint:</b> Notice the condition of the plaster busts while they were sitting in the drying room when Beppo ran into the factory.</div>
+            <div class="feedback" id="f2"></div>
+        </div>
+        <div class="question-card" id="q3-card">
+            <div class="passage-box">
+                <p>&quot;tell him that I believe we are dealing with a madman—one who is driven by anger at Napoleon. He will find that helpful for his article.&quot; ... &quot;That way, he would think that it was safe for him to seek out the last two busts.&quot; (p. 127, 143)</p>
+            </div>
+            <div class="question-title">3. [Excerpt Detail] Why did Sherlock Holmes instruct the reporter Mr. Harker to publish in the newspaper that a &#x27;madman&#x27; destroyed the busts?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q3" value="A"> A) To trick Beppo into believing the police had no idea about the pearl, making him feel safe to target the remaining busts.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="B"> B) Because Holmes genuinely believed the suspect suffered from mental instability and wanted to warn London residents.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="C"> C) To help Mr. Harker write a dramatic newspaper story so he could earn money to buy a new statue.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="D"> D) To confuse Inspector Lestrade and force Scotland Yard to drop their own investigation.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-3" onclick="toggleHint(3)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-3"><b>&#x1F575; Sherlock's Hint:</b> Holmes wanted the culprit to read the news article and assume his real motive was still a secret.</div>
+            <div class="feedback" id="f3"></div>
+        </div>
+        <div class="question-card" id="q4-card">
+            <div class="question-title">4. [Character Identification] Who was Pietro Venucci, the man found murdered on Mr. Harker&#x27;s front doorstep?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q4" value="A"> A) A dangerous Italian gang member and brother of the maid who stole the pearl, who was hunting Beppo down.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="B"> B) An art collector from Italy who sold the original batch of six busts to Gelder &amp; Company.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="C"> C) An undercover Scotland Yard detective sent by Inspector Lestrade to guard Mr. Harker&#x27;s house.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="D"> D) A master sculptor who was Beppo&#x27;s former partner at the plaster molding workshop.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-4" onclick="toggleHint(4)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-4"><b>&#x1F575; Sherlock's Hint:</b> Remember his connection to Lucretia Venucci (the maid at the Dacre Hotel) and why he was carrying Beppo&#x27;s photograph in his pocket.</div>
+            <div class="feedback" id="f4"></div>
+        </div>
+        <div class="question-card" id="q5-card">
+            <div class="passage-box">
+                <p>&quot;The trail was becoming warm. We now knew that Beppo had been arrested over a year ago... It seemed clear that Beppo was the one hunting down the Napoleons.&quot; (p. 130)</p>
+            </div>
+            <div class="question-title">5. [Vocabulary in Context] What is the meaning of the idiom &#x27;The trail was becoming warm&#x27; in the story?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q5" value="A"> A) The investigators were making rapid progress and getting closer to solving the mystery.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="B"> B) The hot summer weather in London was making the search very difficult for Dr. Watson.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="C"> C) The criminal was burning evidence along his escape route to throw off the police.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="D"> D) The footprints left in the garden soil were drying out due to the direct sunlight.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-5" onclick="toggleHint(5)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-5"><b>&#x1F575; Sherlock's Hint:</b> Think about the game where you say &#x27;getting warmer&#x27; as someone gets closer to finding a hidden object!</div>
+            <div class="feedback" id="f5"></div>
+        </div>
+        <div class="question-card" id="q6-card">
+            <div class="passage-box">
+                <p>&quot;Holmes paid Mr. Sandeford and thanked him... Next, he took the metal poker from the fireplace and struck the bust, breaking it into pieces. Holmes sifted through the pile of rubble, then picked up a single piece.&quot; (p. 138)</p>
+            </div>
+            <div class="question-title">6. [Plot Resolution] How did Sherlock Holmes finally obtain the sixth bust and recover the Black Pearl of the Borgias?</div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q6" value="A"> A) He bought it legally from Mr. Sandeford at Baker Street and broke it open using a fireplace poker.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="B"> B) He ambushed Beppo inside Mr. Sandeford&#x27;s house before Beppo had a chance to smash it.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="C"> C) He obtained a police search warrant to confiscate the bust directly from Gelder &amp; Company.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="D"> D) He found it abandoned in a dark alleyway after Beppo dropped it while running from Lestrade.</label></li>
+            </ul>
+            <button type="button" class="hint-toggle" id="hint-btn-6" onclick="toggleHint(6)">&#x1F4A1; Need a Hint?</button>
+            <div class="hint-box" id="hint-6"><b>&#x1F575; Sherlock's Hint:</b> Holmes sent a letter offering to buy the bust from its owner for a fair price.</div>
+            <div class="feedback" id="f6"></div>
+        </div>
+        </div>
+        <div class="btn-container">
+            <button type="button" onclick="checkQuiz()">Submit Quiz</button>
+        </div>
+    </form>
+
+    <div id="score-board">
+        <h2>Quiz Completed!</h2>
+        <p id="score-text" style="font-size: 1.3em; margin: 5px 0;"></p>
+        <p id="feedback-message"></p>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: "A",
+        q2: "A",
+        q3: "A",
+        q4: "A",
+        q5: "A",
+        q6: "A"
+    };
+    const explanations = {
+        q1: "Correct! Holmes deduced that the criminal chose this specific yard because it offered both privacy (being an empty house) and illumination from the street lamp so he could see what was inside the broken bust.",
+        q2: "Correct! While fleeing police, Beppo ran into Gelder &amp; Company, carved a hole in the soft plaster of a drying bust, hid the pearl inside, and smoothed it over with fresh plaster.",
+        q3: "Correct! Holmes deliberately leaked the &#x27;madman&#x27; theory to the press so Beppo would read it and assume no one suspected the pearl, luring him out to hunt the final two busts.",
+        q4: "Correct! Pietro Venucci was a member of a Italian gang and the brother of Lucretia Venucci (the hotel maid). He was tracking Beppo with his photograph to retrieve the stolen pearl or take revenge.",
+        q5: "Correct! &#x27;The trail is getting warm&#x27; is a classic detective idiom meaning that the clues are lining up and the investigator is getting very close to discovering the truth.",
+        q6: "Correct! Holmes tracked down the owner of the sixth bust, Mr. Sandeford, invited him to Baker Street, bought the bust legally, and smashed it open with a fireplace poker to extract the pearl."
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const total = 6;
+
+        for (let i = 1; i <= total; i++) {
+            const qName = "q" + i;
+            const selected = document.querySelector(`input[name="${qName}"]:checked`);
+            if (selected && selected.value === correctAnswers[qName]) score++;
+        }
+
+        const scoreBoard = document.getElementById("score-board");
+        const scoreText = document.getElementById("score-text");
+        const messageEl = document.getElementById("feedback-message");
+
+        scoreBoard.style.display = "block";
+        scoreText.textContent = `Alex scored ${score} out of ${total}!`;
+
+        if (score === total) {
+            messageEl.textContent = "Outstanding job, Alex! You're a top-notch detective like Sherlock Holmes!";
+        } else if (score >= Math.ceil(total * 2 / 3)) {
+            messageEl.textContent = "Great work! You have strong powers of observation!";
+        } else {
+            messageEl.textContent = "Good try! Review the passage sections above and try again to improve your score.";
+        }
+
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function toggleHint(i) {
+        document.getElementById("hint-" + i).classList.toggle("show");
+    }
+
+    function updateCounter() {
+        const total = 6;
+        let answered = 0;
+        for (let i = 1; i <= total; i++) {
+            if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+        }
+        document.getElementById("answer-counter").textContent = `Answered: ${answered} / ${total}`;
+    }
+
+    function gradeQuestion(i) {
+        const qName = "q" + i;
+        const card = document.getElementById(qName + "-card");
+        if (card.classList.contains("locked")) return;
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        if (!selected) return;
+        const correct = correctAnswers[qName];
+        const feedbackEl = document.getElementById("f" + i);
+        card.querySelectorAll(".option-item label").forEach(lb => {
+            if (lb.querySelector("input").value === correct) lb.classList.add("opt-correct");
+        });
+        const explHtml = `<span class="expl">${explanations[qName]}</span>`;
+        if (selected.value === correct) {
+            feedbackEl.innerHTML = "Correct! Great detective work, Alex!" + explHtml;
+            feedbackEl.className = "feedback correct";
+        } else {
+            const selLabel = selected.closest("label");
+            if (selLabel) selLabel.classList.add("opt-wrong");
+            feedbackEl.innerHTML = "Not quite. The correct answer is " + correct + "." + explHtml;
+            feedbackEl.className = "feedback incorrect";
+        }
+        card.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+        const hb = document.getElementById("hint-btn-" + i);
+        if (hb) hb.style.display = "none";
+        card.classList.add("locked");
+        updateCounter();
+    }
+    document.querySelectorAll(".question-card").forEach((card, idx) => {
+        card.querySelectorAll('input[type="radio"]').forEach(r =>
+            r.addEventListener("change", () => gradeQuestion(idx + 1)));
+    });
+</script>
+
+</body>
+</html>
