@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Field Trips &mdash; Alex's Learning Hub</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 40px 20px; background: #f4f7fb; color: #1e293b;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 1150px; }
+    .topnav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .topnav a { color: #2980b9; text-decoration: none; font-weight: bold; font-size: 0.95em; }
+    .topnav a:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; margin: 0 0 8px; text-align: center; }
+    .sub { color: #64748b; margin: 0 0 30px; text-align: center; font-size: 1.05rem; }
+    .trips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 820px) { .trips { grid-template-columns: 1fr; } }
+    .card {
+      position: relative; display: block; background: #fff; border-radius: 16px;
+      padding: 22px 24px; text-decoration: none; color: inherit;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.08);
+      border: 1px solid #e2e8f0; transition: transform .12s ease, box-shadow .12s ease;
+      overflow: hidden;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.12); }
+    .card .emoji { font-size: 2rem; }
+    .card h3 { margin: 8px 0 4px; font-size: 1.2rem; padding-right: 90px; }
+    .card p { margin: 0; color: #64748b; font-size: 0.95rem; }
+    .card .kicker { font-size: 0.8rem; color: #b9770e; font-weight: bold; text-transform: uppercase; letter-spacing: 0.04em; }
+    .card .stats { margin-top: 10px; font-size: 0.85rem; color: #94a3b8; }
+    .done-btn {
+      position: absolute; top: 18px; right: 18px;
+      border: 2px solid #cbd5e1; background: #fff; color: #64748b;
+      border-radius: 20px; padding: 5px 14px; font-size: 0.85rem; font-weight: bold;
+      cursor: pointer; transition: all .15s ease;
+    }
+    .done-btn:hover { border-color: #27ae60; color: #27ae60; }
+    .done-btn.done { background: #27ae60; border-color: #27ae60; color: #fff; }
+    .soon {
+      margin-top: 26px; text-align: center; color: #94a3b8; font-size: 0.95rem;
+      border: 2px dashed #cbd5e1; border-radius: 16px; padding: 22px;
+    }
+    footer { margin-top: 40px; color: #94a3b8; font-size: 0.85rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topnav">
+      <a href="../">&larr; Alex's Learning Hub</a>
+      <span></span>
+    </div>
+    <h1>&#x1F5FA;&#xFE0F; Field Trips</h1>
+    <p class="sub">Real places, real rocks, real science. Every trip becomes an interactive field guide here.</p>
+
+    <div class="trips">
+      <a class="card" href="rocktoberfest-2026/">
+        <button class="done-btn" onclick="event.preventDefault();this.classList.toggle('done');this.textContent=this.classList.contains('done')?'Done ✓':'Mark done';">Mark done</button>
+        <span class="emoji">&#x26CF;&#xFE0F;</span>
+        <div class="kicker">October 11, 2026 &middot; Mineral, Gem &amp; Fossil Show</div>
+        <h3>Rocktoberfest Field Guide</h3>
+        <p>8 star specimens, the mineral ID lab, a fossil time machine from 420 million years ago, and the famous dino-poop sign. Tap-to-reveal Think boxes, an interactive Mohs scale, a treasure tray, and a Rock Detective quiz with confetti.</p>
+        <div class="stats">40 photos &middot; 8 quiz questions &middot; English &middot; grades 4&ndash;6</div>
+      </a>
+    </div>
+
+    <div class="soon">&#x1F52D; More field trips coming soon &mdash; every visit becomes a guide like this one!</div>
+
+    <footer>Made for Alex &middot; Keep exploring! &#x1F680;</footer>
+  </div>
+</body>
+</html>
