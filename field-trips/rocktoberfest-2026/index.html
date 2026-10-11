@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex's Rocktoberfest Field Guide</title>
+<style>
+:root{
+  --bg:#0d1526; --bg2:#111c33; --panel:#16233d; --card:#1b2b4a;
+  --ink:#f4f7fd; --muted:#9fb0cc; --gold:#f5b942; --gold2:#ffd97a;
+  --teal:#4fd1c5; --purple:#b794f6; --green:#68d391; --red:#fc8181; --pink:#f687b3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.65;overflow-x:hidden}
+.wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+/* progress */
+.pbar{position:fixed;top:0;left:0;right:0;height:6px;z-index:200;background:#1b2b4a}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--teal),var(--purple))}
+/* nav */
+nav.top{position:sticky;top:6px;z-index:150;background:rgba(13,21,38,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid #24365c}
+nav.top .wrap{display:flex;gap:6px;align-items:center;padding:10px 24px;overflow-x:auto;white-space:nowrap}
+nav.top a{color:var(--muted);text-decoration:none;font-size:.88rem;padding:6px 12px;border-radius:999px}
+nav.top a:hover{background:#1b2b4a;color:var(--ink)}
+nav.top .home{color:var(--gold);font-weight:800}
+/* hero */
+.hero{position:relative;text-align:center;padding:84px 24px 60px;overflow:hidden;
+  background:radial-gradient(1000px 380px at 50% -80px,#2c3f6e 0%,var(--bg) 65%)}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 10px}
+.hero h1 .g{color:var(--gold)}
+.hero .tag{color:var(--muted);font-size:1.12rem;max-width:720px;margin:0 auto}
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.stat{background:var(--panel);border:1px solid #2c3f6e;border-radius:16px;padding:14px 22px;min-width:130px}
+.stat b{display:block;font-size:1.7rem;color:var(--gold)}
+.stat span{font-size:.85rem;color:var(--muted)}
+.float{position:absolute;font-size:2rem;opacity:.5;animation:float 7s ease-in-out infinite;pointer-events:none}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-26px) rotate(8deg)}}
+.cta{display:inline-block;margin-top:28px;background:linear-gradient(135deg,var(--gold),#e08e2b);color:#231600;
+  font-weight:800;font-size:1.1rem;padding:14px 34px;border-radius:999px;text-decoration:none;
+  box-shadow:0 6px 24px rgba(245,185,66,.35);transition:transform .15s}
+.cta:hover{transform:scale(1.05)}
+/* sections */
+section.block{padding:56px 0 8px}
+.kicker{color:var(--teal);font-weight:800;letter-spacing:2px;font-size:.85rem;text-transform:uppercase}
+h2.sec{font-size:2rem;margin:6px 0 8px}
+.sec-sub{color:var(--muted);max-width:860px;margin:0 0 26px;font-size:1.05rem}
+/* specimen cards */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.spec{background:var(--card);border:1px solid #2c3f6e;border-radius:18px;overflow:hidden;
+  transition:transform .15s, box-shadow .15s}
+.spec:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.spec .imgbox{position:relative;height:220px;overflow:hidden;background:#0a1120;cursor:pointer}
+.spec .imgbox img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.spec:hover .imgbox img{transform:scale(1.06)}
+.spec .noimg{height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,#1b2b4a,#2a2140)}
+.spec .body{padding:18px 20px}
+.spec h3{margin:0 0 4px;font-size:1.25rem}
+.spec h3 .star{color:var(--gold)}
+.spec .nick{color:var(--teal);font-weight:700;font-size:.95rem;margin-bottom:8px}
+.spec .facts{font-size:.96rem;color:#d7e0f2}
+.spec .facts b{color:var(--gold2)}
+.spec .curr{margin-top:10px;background:rgba(79,209,197,.08);border:1px dashed var(--teal);
+  border-radius:10px;padding:8px 12px;font-size:.9rem;color:#c9f2ee}
+.spec .row{display:flex;gap:10px;margin-top:12px}
+.btn{border:none;border-radius:999px;padding:9px 18px;font-size:.92rem;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;border:2px solid var(--purple);color:var(--purple)}
+.btn.gold{background:var(--gold);color:#231600}
+.btn.gold.added{background:var(--green);color:#0b2417}
+.wow{display:inline-block;background:linear-gradient(135deg,var(--pink),var(--purple));color:#1c0b1c;
+  font-size:.75rem;font-weight:800;border-radius:999px;padding:3px 10px;margin-left:8px;vertical-align:middle}
+/* think boxes */
+.think{background:#14213a;border:2px dashed var(--purple);border-radius:14px;padding:16px 20px;
+  margin:16px 0;cursor:pointer;transition:background .2s}
+.think:hover{background:#182747}
+.think .q{font-weight:800;color:var(--purple);font-size:1.05rem}
+.think .a{display:none;margin-top:10px;color:var(--ink)}
+.think.open .a{display:block;animation:pop .25s}
+.think .tap{font-size:.8rem;color:var(--muted);font-weight:400}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+/* property chips */
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
+.chip{background:var(--panel);border:1px solid #2c3f6e;border-radius:999px;padding:8px 16px;font-size:.92rem}
+.chip b{color:var(--gold)}
+/* quartz family */
+.fam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:18px 0}
+.fam{background:var(--card);border:1px solid #2c3f6e;border-radius:14px;overflow:hidden}
+.fam img{width:100%;height:150px;object-fit:cover;display:block;cursor:zoom-in}
+.fam p{margin:0;padding:10px 14px;font-size:.9rem}
+.fam p b{color:var(--gold2)}
+.trick{background:linear-gradient(135deg,#3a2b12,#241a08);border:1px solid var(--gold);
+  border-radius:14px;padding:18px 22px;margin:20px 0;text-align:center;font-size:1.1rem}
+.trick b{color:var(--gold)}
+/* mohs */
+.mohs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.moh{flex:1;min-width:90px;background:var(--panel);border:2px solid #2c3f6e;border-radius:12px;
+  padding:12px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.moh:hover{border-color:var(--gold)}
+.moh.sel{border-color:var(--gold);background:#2a2111;transform:scale(1.04)}
+.moh b{display:block;font-size:1.5rem;color:var(--gold)}
+.moh span{font-size:.8rem;color:var(--muted)}
+.moh-detail{background:var(--panel);border:1px solid #2c3f6e;border-radius:14px;padding:18px 22px;
+  margin:6px 0 20px;font-size:1rem;min-height:76px}
+/* mineral grid */
+.min-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.min{background:var(--card);border:1px solid #2c3f6e;border-radius:14px;overflow:hidden}
+.min img{width:100%;height:170px;object-fit:cover;display:block;cursor:zoom-in}
+.min .b{padding:12px 16px;font-size:.93rem}
+.min .b b{color:var(--gold2)}
+/* timeline */
+.timeline{display:flex;gap:14px;overflow-x:auto;padding:10px 4px 22px;scroll-snap-type:x mandatory}
+.tcard{flex:0 0 280px;scroll-snap-align:start;background:var(--card);border:1px solid #2c3f6e;
+  border-radius:16px;overflow:hidden}
+.tcard img{width:100%;height:170px;object-fit:cover;display:block;cursor:zoom-in}
+.tcard .b{padding:14px 16px}
+.tcard .age{color:var(--gold);font-weight:800;font-size:1.05rem}
+.tcard p{font-size:.92rem;margin:6px 0 0;color:#d7e0f2}
+/* concept cards */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:18px 0}
+.concept{background:var(--panel);border:1px solid #2c3f6e;border-radius:16px;padding:20px 22px}
+.concept h3{margin:0 0 8px;font-size:1.15rem;color:var(--teal)}
+.concept p{font-size:.95rem;margin:0;color:#d7e0f2}
+.concept .tagline{font-size:.82rem;color:var(--muted);margin-top:8px}
+/* quiz */
+.quiz-q{background:var(--panel);border:1px solid #2c3f6e;border-radius:14px;padding:20px 22px;margin:14px 0}
+.quiz-q h3{margin:0 0 4px;font-size:1.12rem}
+.quiz-q .qn{color:var(--gold);font-weight:800;margin-right:8px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:640px){.choices{grid-template-columns:1fr}}
+.choice{background:var(--card);border:2px solid #33436b;color:var(--ink);border-radius:10px;
+  padding:12px 14px;font-size:.98rem;cursor:pointer;text-align:left;font-family:inherit}
+.choice:not(:disabled):hover{border-color:var(--teal)}
+.choice:disabled{cursor:default}
+.choice.right{border-color:var(--green);background:rgba(104,211,145,.14)}
+.choice.wrong{border-color:var(--red);background:rgba(252,129,129,.12)}
+.fb{margin-top:12px;padding:12px 16px;border-radius:10px;display:none;font-size:.96rem}
+.fb.show{display:block;animation:pop .25s}
+.fb.good{background:rgba(104,211,145,.12);border:1px solid var(--green)}
+.fb.bad{background:rgba(252,129,129,.10);border:1px solid var(--red)}
+.scorebar{display:flex;align-items:center;gap:14px;margin:10px 0;font-size:1.1rem}
+.scorebar b{color:var(--gold);font-size:1.5rem}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:300}
+/* collection tray */
+.tray{position:fixed;bottom:0;left:0;right:0;z-index:180;background:rgba(17,28,51,.96);
+  border-top:2px solid var(--gold);backdrop-filter:blur(8px);transform:translateY(110%);transition:transform .3s}
+.tray.show{transform:none}
+.tray .wrap{display:flex;align-items:center;gap:12px;padding:10px 24px;overflow-x:auto}
+.tray .t{font-weight:800;color:var(--gold);white-space:nowrap}
+.tray .item{background:#1b2b4a;border:1px solid #2c3f6e;border-radius:999px;padding:6px 14px;
+  font-size:.88rem;white-space:nowrap;animation:pop .3s}
+.tray .x{cursor:pointer;color:var(--muted);margin-left:6px}
+/* lightbox */
+#lightbox{position:fixed;inset:0;background:rgba(4,8,16,.93);display:none;align-items:center;
+  justify-content:center;z-index:400;cursor:zoom-out;padding:24px}
+#lightbox.show{display:flex}
+#lightbox img{max-width:94vw;max-height:86vh;border-radius:12px}
+#lightbox .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#dbe3f4;
+  font-size:.95rem;padding:0 24px}
+.finale{background:linear-gradient(135deg,#1c2b4a,#2c1f4d);border:1px solid #4a4480;border-radius:20px;
+  padding:36px 28px;text-align:center;margin:60px 0 30px}
+.finale h2{margin:0 0 10px;font-size:1.8rem}
+.finale .big{font-size:3rem}
+footer{color:var(--muted);text-align:center;padding:26px 0 110px;font-size:.9rem}
+footer a{color:var(--teal)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="pbar"><i id="pfill"></i></div>
+
+<nav class="top"><div class="wrap">
+  <a class="home" href="../../">← Alex's Learning Hub</a>
+  <a href="#stars">⭐ Star Specimens</a>
+  <a href="#minerals">🔬 Mineral Lab</a>
+  <a href="#fossils">🦕 Fossils</a>
+  <a href="#quiz">🧪 Quiz</a>
+  <a href="#gallery">📸 Gallery</a>
+</div></nav>
+
+<header class="hero">
+  <span class="float" style="left:8%;top:20%">🪨</span>
+  <span class="float" style="right:10%;top:30%;animation-delay:1.5s">💎</span>
+  <span class="float" style="left:14%;bottom:16%;animation-delay:3s">🦕</span>
+  <span class="float" style="right:14%;bottom:24%;animation-delay:4.5s">🔦</span>
+  <div class="wrap">
+    <h1>⛏️ Alex's <span class="g">Rocktoberfest</span><br>Field Guide</h1>
+    <p class="tag">77 photos. 420 million years. One very funny sign about dinosaur poop.<br>
+    A treasure-hunt guide through the mineral, gem &amp; fossil show — October 11, 2026.</p>
+    <div class="stats">
+      <div class="stat"><b>8</b><span>star specimens</span></div>
+      <div class="stat"><b>12</b><span>curriculum minerals</span></div>
+      <div class="stat"><b>420M</b><span>years of fossils</span></div>
+      <div class="stat"><b>$3,500</b><span>priciest rock</span></div>
+    </div>
+    <a class="cta" href="#stars">Start the treasure hunt →</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= PART 1 : STAR SPECIMENS ================= -->
+<section class="block" id="stars">
+  <div class="kicker">Part 1</div>
+  <h2 class="sec">⭐ Star Specimens</h2>
+  <p class="sec-sub">These 8 got the most attention on our visit. Tap a card's photo to zoom, and hit <b>★ Collect</b> to add your favorites to your treasure tray at the bottom!</p>
+  <div class="spec-grid">
+
+    <div class="spec" data-name="Calcite">
+      <div class="imgbox"><img src="photos/09_orange_calcite.jpg" alt="Orange calcite" loading="lazy"></div>
+      <div class="body">
+        <h3><span class="star">★</span> Calcite <span class="wow">FIZZES!</span></h3>
+        <div class="nick">The mineral that fizzes like soda</div>
+        <div class="facts"><b>What:</b> Calcium carbonate — the stuff of limestone and marble.<br>
+        <b>Party trick:</b> Drop vinegar on it and it <b>fizzes</b>! It also breaks into slanted little boxes.<br>
+        <b>Hardness:</b> 3 — a copper penny can scratch it.</div>
+        <div class="curr">📚 Science class link: mineral ID tests — hardness, cleavage, and the acid test beat color every time.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Silicified Wood">
+      <div class="imgbox"><img src="photos/33_petrified_wood_1.jpg" alt="Petrified wood" loading="lazy"></div>
+      <div class="body">
+        <h3><span class="star">★</span> Silicified Wood <span class="wow">TREE → STONE</span></h3>
+        <div class="nick">A real tree that turned into rock</div>
+        <div class="facts"><b>What:</b> Wood turned to quartz, cell by cell, over millions of years.<br>
+        <b>How:</b> Buried fast (no rotting!) + silica-rich water = every ring and knot saved in stone.<br>
+        <b>Look:</b> You can still see the tree rings!</div>
+        <div class="curr">📚 Science class link: fossil formation — petrification. Fossils aren't just bones!</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Amber">
+      <div class="noimg">🟡</div>
+      <div class="body">
+        <h3><span class="star">★</span> Amber <span class="wow">BUG TRAP!</span></h3>
+        <div class="nick">Sticky tree sap turned to golden time capsule</div>
+        <div class="facts"><b>What:</b> Hardened tree resin. Not a true mineral — a <b>mineraloid</b> (no crystals inside).<br>
+        <b>Superpower:</b> Traps insects, then seals out air and water. A fly in amber is a 50-million-year-old snapshot!<br>
+        <b>We missed its photo</b> — find amber at the next show!</div>
+        <div class="curr">📚 Science class link: fossil preservation — how details survive millions of years.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Celestite">
+      <div class="noimg">🩵</div>
+      <div class="body">
+        <h3><span class="star">★</span> Celestite <span class="wow">SKY STONE</span></h3>
+        <div class="nick">Named after the sky itself</div>
+        <div class="facts"><b>What:</b> Strontium sulfate — soft, sky-blue crystals (hardness 3–3.5).<br>
+        <b>Name game:</b> From Latin <i>caelestis</i> = "heavenly." People saw the blue and thought of the sky!<br>
+        <b>Bonus:</b> Fireworks use strontium to make brilliant red sparks.</div>
+        <div class="curr">📚 Science class link: minerals are often named for a striking property. A name is a clue!</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Smoky Quartz">
+      <div class="imgbox"><img src="photos/73_smoky_quartz_epidote.jpg" alt="Smoky quartz" loading="lazy"></div>
+      <div class="body">
+        <h3><span class="star">★</span> Smoky Quartz <span class="wow">RADIOACTIVE TAN</span></h3>
+        <div class="nick">Quartz with a suntan from radiation</div>
+        <div class="facts"><b>What:</b> Quartz (SiO₂) turned smoky brown by natural radiation in the ground.<br>
+        <b>Cool:</b> The radiation knocks tiny defects into the crystal — that's the "smoke."<br>
+        <b>Same family:</b> Amethyst, clear quartz, agate — all quartz, different outfits!</div>
+        <div class="curr">📚 Science class link: one mineral, many colors — color alone can't ID a mineral.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Trilobite">
+      <div class="imgbox"><img src="photos/39_trilobite_morocco.jpg" alt="Trilobite" loading="lazy"></div>
+      <div class="body">
+        <h3><span class="star">★</span> Trilobite <span class="wow">TIME STAMP</span></h3>
+        <div class="nick">The fossil that tells time</div>
+        <div class="facts"><b>What:</b> Ancient sea animal with a hard shell, cousin of crabs. Ruled the seas ~300 million years — gone before dinosaurs.<br>
+        <b>Superpower:</b> <b>Index fossil!</b> Find one in a cliff → that rock is Paleozoic (250–540 million years old). No lab needed.<br>
+        <b>This one:</b> 380 million years old, from Morocco.</div>
+        <div class="curr">📚 Science class link: fossils as evidence; index fossils date rock layers.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Dinosaur Bone">
+      <div class="imgbox"><img src="photos/31_dino_bone_95.jpg" alt="Dinosaur bone" loading="lazy"></div>
+      <div class="body">
+        <h3><span class="star">★</span> Dinosaur Bone <span class="wow">$10 EACH!</span></h3>
+        <div class="nick">Bone shape, rock material</div>
+        <div class="facts"><b>What:</b> Real dino bone — but the bone stuff is gone. It's stone now.<br>
+        <b>How:</b> Mineral water filled every tiny hole in the buried bone and hardened. Shape = bone, material = rock.<br>
+        <b>Price:</b> Small pieces at the show: <b>$10 each</b>. This big Jurassic piece: $95.</div>
+        <div class="curr">📚 Science class link: fossil formation step by step — burial → permineralization → discovery.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+    <div class="spec" data-name="Uraninite">
+      <div class="noimg">☢️</div>
+      <div class="body">
+        <h3><span class="star">★</span> Uraninite <span class="wow">INVISIBLE ENERGY</span></h3>
+        <div class="nick">The mineral that glows with energy (for real)</div>
+        <div class="facts"><b>What:</b> A uranium mineral — dark, heavy, history-making. Scientists discovered <b>radioactivity</b> studying it.<br>
+        <b>Superpower:</b> Gives off invisible energy all by itself, forever. (It's also why some quartz turned smoky!)<br>
+        <b>Rule:</b> Look, don't touch unknown minerals — and never lick rocks! 😄</div>
+        <div class="curr">📚 Science class link: minerals have surprising properties — magnetism, fluorescence, radioactivity.</div>
+        <div class="row"><button class="btn gold collect">★ Collect</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= PART 2 : MINERAL LAB ================= -->
+<section class="block" id="minerals">
+  <div class="kicker">Part 2</div>
+  <h2 class="sec">🔬 The Mineral ID Lab</h2>
+  <p class="sec-sub">How do scientists tell minerals apart? Not just by looks! They run tests — like detectives with a toolkit.</p>
+
+  <div class="chips">
+    <span class="chip">🎨 <b>Color</b> — pretty but tricky!</span>
+    <span class="chip">✨ <b>Luster</b> — how light bounces off</span>
+    <span class="chip">💪 <b>Hardness</b> — the Mohs scale, 1–10</span>
+    <span class="chip">🖊️ <b>Streak</b> — color of its powder</span>
+    <span class="chip">🔷 <b>Crystal shape</b> — cubes? points?</span>
+    <span class="chip">🔨 <b>Cleavage</b> — how it breaks</span>
+  </div>
+
+  <h2 class="sec" style="font-size:1.5rem">🕵️ The Great Quartz Trick</h2>
+  <p class="sec-sub">Every rock below is the <b>same mineral</b> — quartz (SiO₂), hardness 7, glassy luster. Only the outfits differ!</p>
+  <div class="fam-grid">
+    <div class="fam"><img src="photos/64_herkimer_closeup.jpg" alt="Herkimer diamond" loading="lazy"><p><b>Herkimer "Diamond"</b> — super-clear quartz. (Not a real diamond — liar! 😄)</p></div>
+    <div class="fam"><img src="photos/15_amethyst_cathedral.jpg" alt="Amethyst" loading="lazy"><p><b>Amethyst</b> — purple quartz. Iron + radiation = purple.</p></div>
+    <div class="fam"><img src="photos/46_blue_agate.jpg" alt="Blue agate" loading="lazy"><p><b>Blue agate</b> — banded quartz. Layers grew one by one.</p></div>
+    <div class="fam"><img src="photos/52_grape_agate.jpg" alt="Grape agate" loading="lazy"><p><b>Grape agate</b> — bumpy balls of quartz. Looks like grapes!</p></div>
+  </div>
+  <div class="trick">🎩 <b>The trick:</b> if color were enough, this would be 4 different minerals.<br>It's ONE. That's why scientists test <b>hardness</b> instead!</div>
+
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: Amethyst is purple, smoky quartz is brown, agate is banded — all quartz. What ONE test proves it? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>The hardness test!</b> Every quartz scratches glass (hardness 7). Color changes; hardness doesn't. That's the detective's favorite clue.</div>
+  </div>
+
+  <h2 class="sec" style="font-size:1.5rem">💪 The Mohs Hardness Scale — tap each number!</h2>
+  <p class="sec-sub">Harder minerals scratch softer ones. Your fingernail is 2.5, a penny is 3.5, glass is 5.5. Tap a number to meet its mineral.</p>
+  <div class="mohs" id="mohs"></div>
+  <div class="moh-detail" id="mohDetail">👆 Tap a number above to explore the scale!</div>
+
+  <h2 class="sec" style="font-size:1.5rem">🌍 More curriculum minerals from the show</h2>
+  <div class="min-grid">
+    <div class="min"><img src="photos/11_green_calcite.jpg" alt="Green calcite" loading="lazy"><div class="b"><b>Green calcite</b> — $3. Same mineral as the orange one in Part 1! Fizzes in vinegar. Hardness 3.</div></div>
+    <div class="min"><img src="photos/54_halite_poland.jpg" alt="Halite" loading="lazy"><div class="b"><b>Halite</b> — rock salt! Grows in perfect cubes. (The guide says this one's safe — never taste unknown minerals!)</div></div>
+    <div class="min"><img src="photos/53_fluorite_namibia.jpg" alt="Fluorite" loading="lazy"><div class="b"><b>Fluorite</b> — breaks into smooth octahedrons. Many glow under UV — the word <i>fluorescence</i> comes from fluorite!</div></div>
+    <div class="min"><img src="photos/12_desert_rose.jpg" alt="Desert rose" loading="lazy"><div class="b"><b>Desert rose</b> — gypsum flowers! Gypsum is hardness 2: your fingernail scratches it. Drywall is made of gypsum.</div></div>
+    <div class="min"><img src="photos/28_azurite_malachite.jpg" alt="Azurite and malachite" loading="lazy"><div class="b"><b>Azurite &amp; Malachite</b> — copper minerals = ores. The metal in wires started as rocks like these!</div></div>
+    <div class="min"><img src="photos/02_sulphur_mexico.jpg" alt="Sulphur" loading="lazy"><div class="b"><b>Sulphur</b> — $15. A <i>native element</i>: just sulfur atoms, nothing else. Like gold and diamond (pure carbon)!</div></div>
+    <div class="min"><img src="photos/29_bismuth.jpg" alt="Bismuth" loading="lazy"><div class="b"><b>Bismuth</b> — lab-grown rainbow staircases! Crystals grow atom by atom, following strict geometry.</div></div>
+    <div class="min"><img src="photos/05_stone_display.jpg" alt="Ethiopian opal" loading="lazy"><div class="b"><b>Ethiopian opal</b> — a <i>mineraloid</i> like amber (no crystals). Rainbow flash from microscopic silica balls bending light!</div></div>
+    <div class="min"><img src="photos/57_vivianite_3000.jpg" alt="Vivianite" loading="lazy"><div class="b"><b>Vivianite</b> — $3,000!! From Bolivia. Some treasures cost more than a bike. 😲</div></div>
+    <div class="min"><img src="photos/59_garnet_quebec.jpg" alt="Garnet" loading="lazy"><div class="b"><b>Grossular garnet</b> — $3,500!!! From Quebec. The priciest rock we photographed. 🏆</div></div>
+  </div>
+
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: Two white minerals look identical. One fizzes in vinegar. Which one is calcite? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>The fizzy one!</b> The acid test beats eyes every time. That's why mineral ID kits include a little bottle of acid.</div>
+  </div>
+</section>
+
+<!-- ================= PART 3 : FOSSILS ================= -->
+<section class="block" id="fossils">
+  <div class="kicker">Part 3</div>
+  <h2 class="sec">🦕 Fossil Time Machine</h2>
+  <p class="sec-sub">A fossil is any trace of ancient life — a shell, a bone, a footprint, even poop! Most fossils only form if the animal is <b>buried quickly</b>. Scroll the timeline →</p>
+
+  <div class="timeline">
+    <div class="tcard"><img src="photos/37_armored_fish.jpg" alt="Armored fish" loading="lazy"><div class="b"><div class="age">420 mya</div><p><b>Armored fish</b> (Pennsylvania). Jawless fish swam ancient seas. "mya" = million years ago!</p></div></div>
+    <div class="tcard"><img src="photos/39_trilobite_morocco.jpg" alt="Trilobite" loading="lazy"><div class="b"><div class="age">380 mya</div><p><b>Trilobite</b> (Morocco). The index fossil — find one, and the rock is Paleozoic!</p></div></div>
+    <div class="tcard"><img src="photos/40_crinoids.jpg" alt="Crinoids" loading="lazy"><div class="b"><div class="age">323 mya</div><p><b>Crinoids</b> — "sea lilies." Animals that look like flowers!</p></div></div>
+    <div class="tcard"><img src="photos/41_megalodon_vertebrae.jpg" alt="Megalodon" loading="lazy"><div class="b"><div class="age">70 mya</div><p><b>Megalodon teeth</b> (Morocco). Giant sharks ruled while T. rex walked the land!</p></div></div>
+    <div class="tcard"><img src="photos/16_mosasaur_tooth.jpg" alt="Mosasaur tooth" loading="lazy"><div class="b"><div class="age">70 mya</div><p><b>Mosasaur tooth</b> — $10.95. A real sea-monster tooth for the price of two pizza slices! 🍕</p></div></div>
+    <div class="tcard"><img src="photos/25_stingray_1295.jpg" alt="Stingray fossil" loading="lazy"><div class="b"><div class="age">50 mya</div><p><b>Fossil stingray</b> (Wyoming) — $1,295. Buried in lake mud so fine, every detail survived.</p></div></div>
+    <div class="tcard"><img src="photos/26_knightia_89.jpg" alt="Knightia" loading="lazy"><div class="b"><div class="age">50 mya</div><p><b>Knightia</b> — a fossil fish, $89. Wyoming's state fossil!</p></div></div>
+    <div class="tcard"><img src="photos/71_dragonfly_fossils.jpg" alt="Dragonfly fossils" loading="lazy"><div class="b"><div class="age">50 mya</div><p><b>Fossil dragonflies</b> — wings frozen in stone. Still recognizable!</p></div></div>
+    <div class="tcard"><img src="photos/30_mammoth_skulls.jpg" alt="Mammoth skulls" loading="lazy"><div class="b"><div class="age">Ice Age</div><p><b>Mammoth &amp; bison skulls</b> — giants humans actually hunted. Practically yesterday!</p></div></div>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept"><h3>🪵 Petrification</h3><p>Buried wood or bone + mineral-rich water = minerals fill every tiny hole and harden. Shape stays, material becomes rock. That's how petrified wood and dino bone formed!</p><div class="tagline">📚 Fossil formation</div></div>
+    <div class="concept"><h3>🟡 Amber trap</h3><p>Sticky tree resin catches an insect, hardens, and seals out air and water. Result: a 50-million-year-old bug with every wing vein visible.</p><div class="tagline">📚 Fossil preservation</div></div>
+    <div class="concept"><h3>🌊 Rapid burial</h3><p>Wyoming's Green River lakes had fine mud and almost no oxygen — no scavengers, no decay. Dead fish became perfect fossils, down to the last fin ray.</p><div class="tagline">📚 Why some fossils are amazing</div></div>
+    <div class="concept"><h3>⏱️ Index fossils</h3><p>A species that lived briefly but spread worldwide = a time stamp. Trilobites = Paleozoic. Find one, date the whole cliff — no lab needed!</p><div class="tagline">📚 Relative dating of rock layers</div></div>
+    <div class="concept"><h3>💩 Trace fossils</h3><p>Footprints, burrows, nests, and <b>coprolite</b> (fossil poop!). They record what an animal <i>did</i> — what it ate, how fast it ran — not just what it looked like.</p><div class="tagline">📚 Behavior from fossils</div></div>
+    <div class="concept"><h3>🏔️ Fossils as evidence</h3><p>Sea fossils on a mountaintop? That mountain was once underwater! Fossils in rock layers prove life on Earth has changed over time.</p><div class="tagline">📚 NGSS 4-ESS1-1</div></div>
+  </div>
+
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: You find a trilobite while hiking. About how old is that rock? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>Paleozoic — about 250 to 540 million years old!</b> The trilobite is a time stamp. You just dated a cliff with your eyes.</div>
+  </div>
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: Why do scientists get EXCITED about fossil poop? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>Bones show the body; poop shows the dinner!</b> Coprolite reveals what dinosaurs ate — and rebuilds the whole ancient ecosystem. Never underestimate poop. 💩</div>
+  </div>
+
+  <div class="min-grid" style="margin-top:22px">
+    <div class="min"><img src="photos/23_fossil_shells.jpg" alt="Stingray and ammonite" loading="lazy"><div class="b"><b>Green River treasures</b> — a stingray fossil ($295) and a polished ammonite with zigzag sutures.</div></div>
+    <div class="min"><img src="photos/22_trilobites.jpg" alt="Trilobites tray" loading="lazy"><div class="b"><b>A tray of trilobites</b> — the Paleozoic's most famous index fossil.</div></div>
+    <div class="min"><img src="photos/24_trilobite_closeup.jpg" alt="Trilobite closeup" loading="lazy"><div class="b"><b>Trilobite close-up</b> — every segment sharp after 380 million years.</div></div>
+    <div class="min"><img src="photos/32_dino_poop.jpg" alt="Dino poop" loading="lazy"><div class="b"><b>"Ew! It's Dino Poop!"</b> — coprolite from Utah. Scientists LOVE this stuff.</div></div>
+    <div class="min"><img src="photos/34_petrified_wood_2.jpg" alt="Petrified wood" loading="lazy"><div class="b"><b>Petrified wood</b> — tree rings turned to stone, cell by cell.</div></div>
+    <div class="min"><img src="photos/18_penn_dixie_fossils.jpg" alt="Penn Dixie" loading="lazy"><div class="b"><b>Penn Dixie Fossil Park</b> (Hamburg, NY) — YOU can hunt 380-million-year-old trilobites there!</div></div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="block" id="gallery">
+  <div class="kicker">Bonus</div>
+  <h2 class="sec">📸 Best Shots Gallery</h2>
+  <p class="sec-sub">The most fun leftovers — tap any photo to zoom!</p>
+  <div class="min-grid">
+    <div class="min"><img src="photos/10_uv_display_glow.jpg" alt="UV glow" loading="lazy"><div class="b"><b>UV magic</b> — plain rocks explode into color. Even the yellow glass glows!</div></div>
+    <div class="min"><img src="photos/13_hyalite_opal_uv.jpg" alt="Hyalite opal" loading="lazy"><div class="b"><b>Hyalite opal</b> — bright green under UV light. Whoa.</div></div>
+    <div class="min"><img src="photos/08_franklin_fluorescent.jpg" alt="Franklin NJ" loading="lazy"><div class="b"><b>Franklin, NJ</b> — the "Fluorescent Mineral Capital of the World!"</div></div>
+    <div class="min"><img src="photos/42_tv_rock.jpg" alt="TV rock" loading="lazy"><div class="b"><b>TV rock</b> (ulexite), $3.95 — words appear ON the rock like a TV screen!</div></div>
+    <div class="min"><img src="photos/27_oco_geodes.jpg" alt="Oco geodes" loading="lazy"><div class="b"><b>Oco geodes</b> — 127–138 million years old. Older than T. rex's extinction!</div></div>
+    <div class="min"><img src="photos/07_children_limestone.jpg" alt="Free limestone" loading="lazy"><div class="b"><b>"CHILDREN TAKE A LIMESTONE"</b> — free rocks for kids. Best deal ever!</div></div>
+    <div class="min"><img src="photos/72_raffle_drum.jpg" alt="Raffle" loading="lazy"><div class="b"><b>The raffle drum</b> — round and round… fingers crossed! 🍀</div></div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="block" id="quiz">
+  <div class="kicker">Final challenge</div>
+  <h2 class="sec">🧪 Rock Detective Quiz</h2>
+  <p class="sec-sub">8 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
+  <div class="scorebar">Score: <b id="score">0</b> / 8 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
+  <div id="quizbox"></div>
+</section>
+
+<div class="finale">
+  <div class="big">🏆</div>
+  <h2>Your Turn, Rock Detective!</h2>
+  <p>The guide's last mission: <b>pick ONE favorite specimen to take home.</b><br>
+  Tell Dad your <b>Top 3</b> — and one cool fact about each.<br>
+  Bonus: which specimen would YOU put under the UV lamp first? 🔦</p>
+  <p style="color:var(--muted);font-size:.9rem">Your treasure tray: <b id="trayCount2" style="color:var(--gold)">0</b> specimens collected — scroll down to see them all!</p>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="tray" id="tray"><div class="wrap">
+  <span class="t">🎒 My Treasure Tray (<span id="trayCount">0</span>)</span>
+  <div id="trayItems" style="display:flex;gap:8px;overflow-x:auto"></div>
+</div></div>
+
+<div id="lightbox"><img id="lbimg" src="" alt=""><div class="cap" id="lbcap"></div></div>
+<canvas id="confetti"></canvas>
+
+<footer>
+  Rocktoberfest · Mineral, Gem &amp; Fossil Show · October 11, 2026<br>
+  Made for Alex's Learning Hub · <a href="../../">← Back to the Hub</a> · More field trips coming soon! 🗺️
+</footer>
+
+<script>
+// progress bar
+const pfill=document.getElementById('pfill');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  pfill.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+// lightbox
+const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lbimg'),lbcap=document.getElementById('lbcap');
+document.querySelectorAll('.min img,.fam img,.tcard img,.spec .imgbox').forEach(el=>{
+  el.addEventListener('click',e=>{
+    const img=el.tagName==='IMG'?el:el.querySelector('img');
+    if(!img)return;
+    lbimg.src=img.src;
+    const cap=el.closest('.min,.fam,.tcard,.spec');
+    lbcap.textContent=cap?cap.querySelector('.b,p,.body')?.textContent?.trim().slice(0,140)||'':'';
+    lb.classList.add('show');e.stopPropagation();
+  });
+});
+lb.addEventListener('click',()=>lb.classList.remove('show'));
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show')});
+
+// collection tray
+const tray=document.getElementById('tray'),trayItems=document.getElementById('trayItems');
+const trayCount=document.getElementById('trayCount'),trayCount2=document.getElementById('trayCount2');
+const collected=new Set();
+function renderTray(){
+  trayCount.textContent=collected.size;trayCount2.textContent=collected.size;
+  trayItems.innerHTML='';
+  collected.forEach(n=>{
+    const s=document.createElement('span');s.className='item';
+    s.innerHTML='⭐ '+n+' <span class="x" data-n="'+n+'">✕</span>';
+    trayItems.appendChild(s);
+  });
+  tray.classList.toggle('show',collected.size>0);
+}
+trayItems.addEventListener('click',e=>{
+  const x=e.target.closest('.x');if(!x)return;
+  collected.delete(x.dataset.n);renderTray();
+  document.querySelectorAll('.spec').forEach(sp=>{
+    if(sp.dataset.name===x.dataset.n){const b=sp.querySelector('.collect');b.classList.remove('added');b.textContent='★ Collect';}
+  });
+});
+document.querySelectorAll('.collect').forEach(b=>b.addEventListener('click',()=>{
+  const n=b.closest('.spec').dataset.name;
+  if(collected.has(n)){collected.delete(n);b.classList.remove('added');b.textContent='★ Collect';}
+  else{collected.add(n);b.classList.add('added');b.textContent='✓ Collected!';}
+  renderTray();
+}));
+
+// Mohs scale
+const MOHS=[
+ [1,'Talc','The softest! Baby powder is made of talc.'],
+ [2,'Gypsum','Your fingernail (2.5) scratches it. Desert roses are gypsum!'],
+ [3,'Calcite','A copper penny (3.5) scratches it. And it fizzes in vinegar!'],
+ [4,'Fluorite','Perfect cleavage — breaks into smooth octahedrons. Often glows under UV!'],
+ [5,'Apatite','Your teeth are made of apatite! A steel nail (5.5) scratches it.'],
+ [6,'Feldspar','A steel nail barely scratches it. Feldspar is in most rocks — and in glass!'],
+ [7,'Quartz','Scratches glass! Amethyst, agate, Herkimer "diamonds" — all quartz.'],
+ [8,'Topaz','Very hard — used in jewelry. Scratches quartz easily.'],
+ [9,'Corundum','Ruby and sapphire are corundum! Almost as hard as diamond.'],
+ [10,'Diamond','The hardest natural material. Pure carbon — like the lead in your pencil, but arranged perfectly!']];
+const mohBox=document.getElementById('mohs'),mohDetail=document.getElementById('mohDetail');
+MOHS.forEach(([n,name,desc])=>{
+  const d=document.createElement('div');d.className='moh';
+  d.innerHTML='<b>'+n+'</b><span>'+name+'</span>';
+  d.addEventListener('click',()=>{
+    mohBox.querySelectorAll('.moh').forEach(x=>x.classList.remove('sel'));
+    d.classList.add('sel');
+    mohDetail.innerHTML='<b style="color:var(--gold)">'+n+' — '+name+'</b><br>'+desc;
+  });
+  mohBox.appendChild(d);
+});
+
+// quiz
+const QUIZ=[
+ {q:'Celestite got its name from a Latin word meaning…',c:['fire and heat','sky / heaven','hard stone','deep sea'],a:1,
+  e:'"Caelestis" means heavenly — the sky-blue stone is named after the sky!'},
+ {q:'Which mineral glowed bright GREEN under the UV lamp?',c:['Hyalite Opal','Tiger\'s Eye','Desert Rose','Shiva Shell'],a:0,
+  e:'The Hyalite Opal from Spruce Pine, NC, lit up bright green!'},
+ {q:'The Oco geodes from Brazil are about how old?',c:['1,000 years','1 million years','127–138 million years','4 billion years'],a:2,
+  e:'127–138 million years — already ancient when T. rex walked the Earth!'},
+ {q:'What makes "TV rock" (ulexite) special?',c:['It plays videos','Words appear on top of it like a TV screen','It changes color in water','It floats'],a:1,
+  e:'Its fibers carry the image upward — a natural TV screen!'},
+ {q:'Coprolite is…',c:['a copper mineral','fossilized dinosaur poop','a kind of geode','a baby trilobite'],a:1,
+  e:'"Ew! It\'s Dino Poop!" — and scientists love it, because it shows what dinosaurs ate.'},
+ {q:'A Herkimer "Diamond" is actually…',c:['a real diamond','a super-clear quartz crystal','a piece of glass','frozen amber'],a:1,
+  e:'Extra-clear, naturally faceted quartz from New York — not a real diamond. Liar! 😄'},
+ {q:'How much was the mosasaur tooth?',c:['$1.95','$10.95','$109.50','$1,095'],a:1,
+  e:'$10.95 — a real sea-monster tooth for two pizza slices! 🍕'},
+ {q:'The Morocco trilobite lived…',c:['380 million years ago','38,000 years ago','3.8 billion years ago','3,800 years ago'],a:0,
+  e:'Middle Devonian, 380 million years ago — trilobites are Paleozoic time stamps!'}];
+let score=0,answered=0;
+const box=document.getElementById('quizbox'),scoreEl=document.getElementById('score'),qmsg=document.getElementById('qmsg');
+QUIZ.forEach((it,i)=>{
+  const d=document.createElement('div');d.className='quiz-q';
+  d.innerHTML='<h3><span class="qn">Q'+(i+1)+'</span>'+it.q+'</h3><div class="choices"></div><div class="fb"></div>';
+  const ch=d.querySelector('.choices'),fb=d.querySelector('.fb');
+  it.c.forEach((t,j)=>{
+    const b=document.createElement('button');b.className='choice';b.textContent=t;
+    b.addEventListener('click',()=>{
+      ch.querySelectorAll('.choice').forEach(x=>x.disabled=true);
+      answered++;
+      if(j===it.a){b.classList.add('right');fb.className='fb show good';fb.innerHTML='✅ '+it.e;score++;scoreEl.textContent=score;}
+      else{b.classList.add('wrong');ch.children[it.a].classList.add('right');fb.className='fb show bad';fb.innerHTML='❌ Nope! '+it.e;}
+      if(answered===QUIZ.length){
+        qmsg.textContent=score===8?'PERFECT! 🎉':score>=6?'Great job, Rock Detective! 🕵️':'Good exploring — read again and retry!';
+        if(score>=6)confetti();
+      }
+    });
+    ch.appendChild(b);
+  });
+  box.appendChild(d);
+});
+
+// confetti
+function confetti(){
+  const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
+  cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#f5b942','#4fd1c5','#b794f6','#68d391','#f687b3'];
+  const ps=Array.from({length:160},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,
+    w:6+Math.random()*6,h:8+Math.random()*8,c:cols[Math.random()*cols.length|0],
+    vy:2+Math.random()*3,vx:-1.5+Math.random()*3,r:Math.random()*Math.PI,vr:-.1+Math.random()*.2}));
+  let f=0;(function tick(){
+    ctx.clearRect(0,0,cv.width,cv.height);f++;
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});
+    if(f<260)requestAnimationFrame(tick);else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+</script>
+</body>
+</html>
