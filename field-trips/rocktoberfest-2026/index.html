@@ -76,6 +76,10 @@ h2.sec{font-size:2rem;margin:6px 0 8px}
   justify-content:center;font-size:3.4rem;transition:all .3s;flex:0 0 auto}
 .uv-result{font-size:1.08rem;flex:1;min-width:240px}
 .uv-result b{color:var(--gold2)}
+.gmeter{position:relative;height:26px;background:#0a1120;border:1px solid #2c3f6e;border-radius:999px;margin-top:18px}
+.gfill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--gold),var(--red));transition:width .3s}
+.gmarks{position:relative;height:24px;margin-top:6px;font-size:.75rem;color:var(--muted)}
+.gmarks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .spec .row{display:flex;gap:10px;margin-top:12px}
 .btn{border:none;border-radius:999px;padding:9px 18px;font-size:.92rem;font-weight:700;cursor:pointer}
 .btn.gold{background:var(--gold);color:#231600}
@@ -175,6 +179,7 @@ footer a{color:var(--teal)}
   <a href="#stars">⭐ Star Specimens</a>
   <a href="#minerals">🔬 Mineral Lab</a>
   <a href="#uvlab">🔦 UV Lab</a>
+  <a href="#radlab">☢️ Radiation Lab</a>
   <a href="#fossils">🦕 Fossils</a>
   <a href="#quiz">🧪 Quiz</a>
   <a href="#gallery">📸 Gallery</a>
@@ -314,7 +319,7 @@ footer a{color:var(--teal)}
         <b>Rule:</b> Look, don't touch unknown minerals — and never lick rocks! 😄<br>
         <b>Note:</b> This photo is from the web (we didn't catch uraninite on camera at the show).</div>
         <div class="credit">📷 Web photo: <a href="https://commons.wikimedia.org/wiki/File:Uraninite-3cm.jpg">책읽는달팽</a> via Wikimedia Commons (CC BY-SA 3.0) — not from Rocktoberfest.</div>
-        <div class="curr">📚 Science class link: minerals have surprising properties — magnetism, fluorescence, radioactivity.</div>
+        <div class="curr">📚 Science class link: minerals have surprising properties — magnetism, fluorescence, radioactivity. 🎙️ <b>Try the Geiger counter in the Radiation Lab below!</b></div>
         <div class="row"><button class="btn gold collect">★ Collect</button></div>
       </div>
     </div>
@@ -424,6 +429,50 @@ footer a{color:var(--teal)}
   <p class="sec-sub">📸 <b>See it for real:</b> scroll down to the gallery — the hyalite opal photo is glowing bright green, and the "SHORT / LONG" tags on the fluorescent display mean shortwave vs. longwave UV!</p>
 </section>
 
+<!-- ================= RADIATION LAB ================= -->
+<section class="block" id="radlab">
+  <div class="kicker">Bonus lab</div>
+  <h2 class="sec">☢️ The Radiation Lab</h2>
+  <p class="sec-sub">At the show, the dealer held a <b>Geiger counter</b> near the uraninite — <i>click-click-click!</i> — and it stayed silent near every other mineral. That noise is the sound of <b>radioactivity</b>. Here's what's happening.</p>
+
+  <div class="concept-grid">
+    <div class="concept"><h3>🔬 Wobbly atoms</h3><p>Every atom has a center called the <b>nucleus</b>. Most nuclei are stable and sit still. But uranium's nucleus is huge and crowded — like an overpacked suitcase — so pieces <b>break off and fly away</b>. Those flying pieces are called <b>radiation</b>.</p><div class="tagline">📚 Unstable nuclei decay</div></div>
+    <div class="concept"><h3>👂 The Geiger counter</h3><p>A Geiger counter is like a special microphone that <b>hears invisible particles</b>. Every <i>click</i> is one particle smacking into it. Faster clicks = more particles flying = more radioactive!</p><div class="tagline">📚 Detection: one click per particle</div></div>
+    <div class="concept"><h3>🍌 Everything glows a little</h3><p>Bananas are slightly radioactive (potassium)! So are granite countertops — and even <b>you</b>. This everyday background radiation is everywhere, all the time, and totally harmless in tiny amounts.</p><div class="tagline">📚 Background radiation</div></div>
+    <div class="concept"><h3>💎 Why only some minerals click</h3><p>Only minerals with wobbly-nucleus atoms — like <b>uranium</b> and thorium — throw particles. Marble and quartz have stable nuclei, so the counter stays silent. That's exactly what you saw at the booth!</p><div class="tagline">📚 Not all minerals are radioactive</div></div>
+  </div>
+
+  <h2 class="sec" style="font-size:1.5rem">🧪 Try it: the virtual Geiger counter!</h2>
+  <p class="sec-sub">Pick something, then press <b>▶ Start counting</b>. Turn your sound on! 🔊</p>
+  <div class="uvlab">
+    <div class="uv-minerals" id="gMinerals"></div>
+    <div class="uv-lights">
+      <button class="btn sel" id="gStart">▶ Start counting (6 sec)</button>
+      <button class="btn" id="gStop">⏹ Stop</button>
+    </div>
+    <div class="uv-stage">
+      <div class="uv-rock" id="gRock" style="border-radius:18px">🎙️</div>
+      <div class="uv-result" id="gResult">👆 Pick something, then start counting!</div>
+    </div>
+    <div class="gmeter"><div class="gfill" id="gFill"></div></div>
+    <div class="gmarks"><span style="left:2%">0</span><span style="left:31%">background</span><span style="left:48%">granite</span><span style="left:90%">☢️ uraninite</span></div>
+    <p class="sec-sub" style="font-size:.85rem;color:var(--muted);margin:10px 0 0">Simplified numbers to show the idea — real readings vary by specimen and detector.</p>
+  </div>
+
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: The counter clicks a little near a banana. Is the banana dangerous? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>Nope!</b> Those clicks are tiny. You'd have to eat about <b>10 million bananas at once</b> for a harmful dose. A little radioactivity is a normal part of nature — even your own body clicks!</div>
+  </div>
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: The counter screams near uraninite but stays silent near marble. Why? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>Different atoms inside!</b> Uraninite is full of wobbly uranium nuclei throwing off particles. Marble's atoms have stable nuclei — nothing flies out, so nothing clicks.</div>
+  </div>
+
+  <div class="trick" style="background:linear-gradient(135deg,#3a1414,#241008);border-color:var(--red)">⚠️ <b>Rock-hunting safety:</b> Never lick rocks (yes, really!). Wash your hands after handling minerals. Keep radioactive minerals in a sealed box or bag — don't carry them in your pocket all day, and definitely don't sleep with them under your pillow. A grown-up should be in charge of these.</div>
+
+  <p class="sec-sub">🔗 <b>Connected:</b> remember the Smoky Quartz card? Natural radiation exactly like this is what gave it its "suntan" — radiation knocked tiny defects into the crystal!</p>
+</section>
+
 <!-- ================= PART 3 : FOSSILS ================= -->
 <section class="block" id="fossils">
   <div class="kicker">Part 3</div>
@@ -490,8 +539,8 @@ footer a{color:var(--teal)}
 <section class="block" id="quiz">
   <div class="kicker">Final challenge</div>
   <h2 class="sec">🧪 Rock Detective Quiz</h2>
-  <p class="sec-sub">10 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
-  <div class="scorebar">Score: <b id="score">0</b> / 10 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
+  <p class="sec-sub">11 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
+  <div class="scorebar">Score: <b id="score">0</b> / 11 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
   <div id="quizbox"></div>
 </section>
 
@@ -610,7 +659,9 @@ const QUIZ=[
  {q:'A mineral glows while the UV lamp is on, but the glow stops the instant you switch it off. This is…',c:['fluorescence','phosphorescence','reflection','burning'],a:0,
   e:'Fluorescence stops when the light stops. If it kept glowing afterward, that would be phosphorescence!'},
  {q:'A red laser (650 nm) shines on a mineral. Why can it NEVER make the mineral glow blue?',c:['the glow must be lower-energy (redder) than the light','red lasers are too bright','minerals are afraid of red','blue glow needs water'],a:0,
-  e:'The "lazier light" rule: some energy is always lost, so the glow comes out redder than the light going in. Red is already the laziest visible light!'}];
+  e:'The "lazier light" rule: some energy is always lost, so the glow comes out redder than the light going in. Red is already the laziest visible light!'},
+ {q:'What makes a Geiger counter go click-click-click near uraninite?',c:['tiny invisible particles flying out of wobbly atoms','the mineral is magnetic','sound waves coming from the rock','the mineral is hot'],a:0,
+  e:'Each click is one particle smacking into the detector. Uranium atoms are wobbly and constantly throw off pieces — that\'s radioactivity!'}];
 let score=0,answered=0;
 const box=document.getElementById('quizbox'),scoreEl=document.getElementById('score'),qmsg=document.getElementById('qmsg');
 QUIZ.forEach((it,i)=>{
@@ -685,6 +736,62 @@ function uvRender(){
   const lightName={day:'daylight',lw:'the 365 nm flashlight',sw:'the 254 nm flashlight',l405:'the 405 nm violet laser',l532:'the 532 nm green laser'}[uvLight];
   res.innerHTML='Under '+lightName+', <b>'+m.name+'</b> looks like '+txt;
 }
+
+const GDATA={
+ marble:{name:'Marble',emoji:'⬜',cpm:25,note:'just background radiation — the air and ground themselves!'},
+ banana:{name:'Banana',emoji:'🍌',cpm:32,note:'a tiny bit from potassium — totally safe! You\'d need millions at once to matter.'},
+ granite:{name:'Granite',emoji:'🪨',cpm:150,note:'a little spicy — granite hides tiny bits of uranium and thorium inside.'},
+ uraninite:{name:'Uraninite',emoji:'☢️',cpm:12000,note:'OFF THE CHARTS! This is why the dealer\'s counter screamed.'}};
+let gSel=null,gTimer=null,gCount=0,gT0=0;
+const gMinBox=document.getElementById('gMinerals');
+Object.keys(GDATA).forEach(k=>{
+  const b=document.createElement('button');b.className='uv-min';b.textContent=GDATA[k].emoji+' '+GDATA[k].name;
+  b.addEventListener('click',()=>{
+    gSel=k;
+    gMinBox.querySelectorAll('.uv-min').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    document.getElementById('gRock').textContent=GDATA[k].emoji;
+    document.getElementById('gResult').innerHTML='<b>'+GDATA[k].name+'</b> selected. Press ▶ Start counting!';
+  });
+  gMinBox.appendChild(b);
+});
+let actx=null;
+function gclick(){
+  try{
+    if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==='suspended')actx.resume();
+    const t=actx.currentTime,o=actx.createOscillator(),g=actx.createGain();
+    o.type='square';o.frequency.value=1800+Math.random()*1200;
+    g.gain.setValueAtTime(0.18,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.035);
+    o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+0.045);
+  }catch(e){}
+}
+function gStopCount(){
+  if(gTimer){clearInterval(gTimer);gTimer=null;}
+  document.getElementById('gStart').classList.add('sel');
+}
+document.getElementById('gStart').addEventListener('click',()=>{
+  const res=document.getElementById('gResult');
+  if(!gSel){res.innerHTML='👆 Pick something first!';return;}
+  gStopCount();
+  document.getElementById('gStart').classList.remove('sel');
+  const m=GDATA[gSel];gCount=0;gT0=Date.now();
+  res.innerHTML='🎙️ Listening to <b>'+m.name+'</b>…';
+  const interval=Math.max(90,60000/Math.min(m.cpm,700));
+  gTimer=setInterval(()=>{
+    gclick();gCount++;
+    const el=(Date.now()-gT0)/1000;
+    const est=Math.round(m.cpm*(0.9+Math.random()*0.2));
+    res.innerHTML='🎙️ <b>'+m.name+'</b>: '+gCount+' clicks heard…<br>≈ <b>'+est.toLocaleString()+' CPM</b> (counts per minute) — '+m.note;
+    document.getElementById('gFill').style.width=Math.min(100,22*Math.log10(est))+'%';
+    if(el>=6){gStopCount();
+      res.innerHTML='✅ Done! <b>'+m.name+'</b> ≈ <b>'+est.toLocaleString()+' CPM</b>.<br>'+m.note;}
+  },interval);
+});
+document.getElementById('gStop').addEventListener('click',()=>{
+  gStopCount();
+  document.getElementById('gResult').innerHTML='⏹ Stopped.';
+});
 
 function confetti(){
   const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
