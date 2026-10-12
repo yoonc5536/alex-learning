@@ -61,6 +61,19 @@ h2.sec{font-size:2rem;margin:6px 0 8px}
   border-radius:10px;padding:8px 12px;font-size:.9rem;color:#c9f2ee}
 .credit{font-size:.78rem;color:var(--muted);margin-top:8px;line-height:1.5}
 .credit a{color:var(--teal)}
+.uvlab{background:var(--panel);border:1px solid #2c3f6e;border-radius:18px;padding:22px;margin:18px 0}
+.uv-minerals{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.uv-min{border:2px solid #33436b;background:var(--card);color:var(--ink);border-radius:999px;
+  padding:9px 18px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}
+.uv-min.sel{border-color:var(--gold);background:#2a2111}
+.uv-lights{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.uv-lights .btn{background:#1b2b4a;color:var(--ink);border:2px solid #33436b}
+.uv-lights .btn.sel{border-color:var(--teal);background:#0f2b33}
+.uv-stage{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.uv-rock{width:170px;height:170px;border-radius:50%;background:#8a8f9a;display:flex;align-items:center;
+  justify-content:center;font-size:3.4rem;transition:all .3s;flex:0 0 auto}
+.uv-result{font-size:1.08rem;flex:1;min-width:240px}
+.uv-result b{color:var(--gold2)}
 .spec .row{display:flex;gap:10px;margin-top:12px}
 .btn{border:none;border-radius:999px;padding:9px 18px;font-size:.92rem;font-weight:700;cursor:pointer}
 .btn.gold{background:var(--gold);color:#231600}
@@ -159,6 +172,7 @@ footer a{color:var(--teal)}
   <a class="home" href="../../">← Alex's Learning Hub</a>
   <a href="#stars">⭐ Star Specimens</a>
   <a href="#minerals">🔬 Mineral Lab</a>
+  <a href="#uvlab">🔦 UV Lab</a>
   <a href="#fossils">🦕 Fossils</a>
   <a href="#quiz">🧪 Quiz</a>
   <a href="#gallery">📸 Gallery</a>
@@ -319,6 +333,7 @@ footer a{color:var(--teal)}
     <span class="chip">🖊️ <b>Streak</b> — color of its powder</span>
     <span class="chip">🔷 <b>Crystal shape</b> — cubes? points?</span>
     <span class="chip">🔨 <b>Cleavage</b> — how it breaks</span>
+    <span class="chip">🔦 <b>Fluorescence</b> — the glow test</span>
   </div>
 
   <h2 class="sec" style="font-size:1.5rem">🕵️ The Great Quartz Trick</h2>
@@ -359,6 +374,48 @@ footer a{color:var(--teal)}
     <div class="q">🤔 THINK: Two white minerals look identical. One fizzes in vinegar. Which one is calcite? <span class="tap">(tap to reveal)</span></div>
     <div class="a"><b>The fizzy one!</b> The acid test beats eyes every time. That's why mineral ID kits include a little bottle of acid.</div>
   </div>
+</section>
+
+<!-- ================= UV LAB ================= -->
+<section class="block" id="uvlab">
+  <div class="kicker">Bonus lab</div>
+  <h2 class="sec">🔦 The UV Flashlight Lab</h2>
+  <p class="sec-sub">At the show, a dealer shined different flashlights on the same rock — and it glowed different colors! This isn't magic. It's a real mineral-ID test called the <b>fluorescence test</b>. Here's how it works.</p>
+
+  <div class="concept-grid">
+    <div class="concept"><h3>⚡ Trampoline electrons</h3><p>Inside every mineral, tiny particles called <b>electrons</b> sit on energy "steps," like kids sitting on stairs. Ultraviolet light is invisible — your eyes can't see it — but electrons feel it! It kicks them UP to a higher step. They can't stay up there, so they fall back down… and when they land, they spit the extra energy out as colored light you <b>can</b> see. That glow is called <b>fluorescence</b>.</p><div class="tagline">📚 Energy in → light out</div></div>
+    <div class="concept"><h3>🔦 Two flashlights, two energy levels</h3><p>A <b>365&nbsp;nm</b> flashlight (longwave UV) is a gentle toss — it wakes up many minerals. A <b>254&nbsp;nm</b> flashlight (shortwave UV) is a super-throw with more energy — it can wake up minerals the gentle one can't. Same rock, different flashlight, different glow!</p><div class="tagline">📚 Shorter wavelength = more energy</div></div>
+    <div class="concept"><h3>🎨 Why different colors?</h3><p>The glow color is decided by tiny "guest" atoms hiding inside the mineral — like <b>manganese</b>. Calcite with manganese guests glows red-pink. The same calcite without them? No glow at all! So the glow is a clue about what's hiding inside.</p><div class="tagline">📚 Impurities (activators) make the colors</div></div>
+    <div class="concept"><h3>🌟 Glow vs. afterglow</h3><p><b>Fluorescence</b> stops the instant the UV lamp turns off — like a glow stick going dark. <b>Phosphorescence</b> keeps glowing for a few seconds after, like the stars on a bedroom ceiling. Both are real ID clues!</p><div class="tagline">📚 Two kinds of "glow"</div></div>
+  </div>
+
+  <h2 class="sec" style="font-size:1.5rem">🧪 Try it: the virtual UV booth!</h2>
+  <p class="sec-sub">Pick a mineral, then pick a flashlight. What happens?</p>
+  <div class="uvlab">
+    <div class="uv-minerals" id="uvMinerals"></div>
+    <div class="uv-lights">
+      <button class="btn sel" data-light="day">☀️ Daylight</button>
+      <button class="btn" data-light="lw">🔦 365 nm (longwave)</button>
+      <button class="btn" data-light="sw">🔦 254 nm (shortwave)</button>
+    </div>
+    <div class="uv-stage">
+      <div class="uv-rock" id="uvRock">🪨</div>
+      <div class="uv-result" id="uvResult">👆 Pick a mineral and a flashlight!</div>
+    </div>
+  </div>
+
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: A rock glows green under the UV flashlight but looks plain gray in daylight. Is green the rock's "real" color? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>Nope!</b> The real color is what you see in daylight. The glow is <b>extra</b> light the rock makes — like a glow stick. Same rock, two light shows!</div>
+  </div>
+  <div class="think" onclick="this.classList.toggle('open')">
+    <div class="q">🤔 THINK: Two white rocks look identical in daylight. Under shortwave UV, one glows bright red and the other stays dark. What does the detective conclude? <span class="tap">(tap to reveal)</span></div>
+    <div class="a"><b>They're different inside!</b> One has glowing "guest" atoms (like manganese) and the other doesn't. Fluorescence reveals clues your eyes alone can't see.</div>
+  </div>
+
+  <div class="trick" style="background:linear-gradient(135deg,#3a1414,#241008);border-color:var(--red)">⚠️ <b>UV Safety Rules:</b> Never stare into a UV flashlight. Shortwave (254&nbsp;nm) can hurt eyes and skin — always wear UV safety glasses and bring a grown-up. Longwave (365&nbsp;nm) is gentler, but still: shine it at <b>rocks</b>, not faces!</div>
+
+  <p class="sec-sub">📸 <b>See it for real:</b> scroll down to the gallery — the hyalite opal photo is glowing bright green, and the "SHORT / LONG" tags on the fluorescent display mean shortwave vs. longwave UV!</p>
 </section>
 
 <!-- ================= PART 3 : FOSSILS ================= -->
@@ -427,8 +484,8 @@ footer a{color:var(--teal)}
 <section class="block" id="quiz">
   <div class="kicker">Final challenge</div>
   <h2 class="sec">🧪 Rock Detective Quiz</h2>
-  <p class="sec-sub">8 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
-  <div class="scorebar">Score: <b id="score">0</b> / 8 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
+  <p class="sec-sub">9 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
+  <div class="scorebar">Score: <b id="score">0</b> / 9 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
   <div id="quizbox"></div>
 </section>
 
@@ -543,7 +600,9 @@ const QUIZ=[
  {q:'How much was the mosasaur tooth?',c:['$1.95','$10.95','$109.50','$1,095'],a:1,
   e:'$10.95 — a real sea-monster tooth for two pizza slices! 🍕'},
  {q:'Trilobites are called "index fossils." That means…',c:['they tell time — find one and the rock is Paleozoic','they are the biggest fossils ever','they glow under UV light','they are a kind of dinosaur'],a:0,
-  e:'Trilobites lived ~520–250 million years ago. Find one, and you\'ve dated the whole cliff — no lab needed!'}];
+  e:'Trilobites lived ~520–250 million years ago. Find one, and you\'ve dated the whole cliff — no lab needed!'},
+ {q:'A mineral glows while the UV lamp is on, but the glow stops the instant you switch it off. This is…',c:['fluorescence','phosphorescence','reflection','burning'],a:0,
+  e:'Fluorescence stops when the light stops. If it kept glowing afterward, that would be phosphorescence!'}];
 let score=0,answered=0;
 const box=document.getElementById('quizbox'),scoreEl=document.getElementById('score'),qmsg=document.getElementById('qmsg');
 QUIZ.forEach((it,i)=>{
@@ -558,7 +617,7 @@ QUIZ.forEach((it,i)=>{
       if(j===it.a){b.classList.add('right');fb.className='fb show good';fb.innerHTML='✅ '+it.e;score++;scoreEl.textContent=score;}
       else{b.classList.add('wrong');ch.children[it.a].classList.add('right');fb.className='fb show bad';fb.innerHTML='❌ Nope! '+it.e;}
       if(answered===QUIZ.length){
-        qmsg.textContent=score===8?'PERFECT! 🎉':score>=6?'Great job, Rock Detective! 🕵️':'Good exploring — read again and retry!';
+        qmsg.textContent=score===QUIZ.length?'PERFECT! 🎉':score>=6?'Great job, Rock Detective! 🕵️':'Good exploring — read again and retry!';
         if(score>=6)confetti();
       }
     });
@@ -566,6 +625,42 @@ QUIZ.forEach((it,i)=>{
   });
   box.appendChild(d);
 });
+
+const UVDATA={
+ fluorite:{name:'Fluorite',emoji:'🔷',day:['#9fb3c8','a pale green-purple rock'],
+  lw:['#7b7bff','a BLUE-VIOLET glow!'],sw:['#5a5aff','a blue glow (a bit weaker)']},
+ calcite:{name:'Calcite',emoji:'🤍',day:['#c9c2b8','a plain white-pinkish rock'],
+  lw:['#ff9eb5','a soft PINK glow'],sw:['#ff2e63','a BRIGHT RED glow!']},
+ willemite:{name:'Willemite',emoji:'🪨',day:['#8a8f9a','a boring gray rock'],
+  lw:['#4dff88','a GREEN glow'],sw:['#22ff66','a BRIGHT GREEN glow!']},
+ hyalite:{name:'Hyalite Opal',emoji:'💧',day:['#cfd8dc','clear glassy blobs'],
+  lw:['#39ff88','a BRIGHT GREEN glow!'],sw:['#4dff88','a green glow']}};
+let uvMin=null,uvLight='day';
+const uvMinBox=document.getElementById('uvMinerals');
+Object.keys(UVDATA).forEach(k=>{
+  const b=document.createElement('button');b.className='uv-min';b.textContent=UVDATA[k].emoji+' '+UVDATA[k].name;
+  b.addEventListener('click',()=>{
+    uvMin=k;
+    uvMinBox.querySelectorAll('.uv-min').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');uvRender();
+  });
+  uvMinBox.appendChild(b);
+});
+document.querySelectorAll('.uv-lights .btn').forEach(b=>b.addEventListener('click',()=>{
+  uvLight=b.dataset.light;
+  document.querySelectorAll('.uv-lights .btn').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');uvRender();
+}));
+function uvRender(){
+  const rock=document.getElementById('uvRock'),res=document.getElementById('uvResult');
+  if(!uvMin){res.innerHTML='👆 Pick a mineral and a flashlight!';rock.textContent='🪨';rock.style.background='#8a8f9a';rock.style.boxShadow='none';return;}
+  const m=UVDATA[uvMin],d=m[uvLight],color=d[0],txt=d[1];
+  rock.textContent=m.emoji;
+  if(uvLight==='day'){rock.style.background=color;rock.style.boxShadow='none';}
+  else{rock.style.background='#101828';rock.style.boxShadow='0 0 60px 18px '+color+', inset 0 0 30px '+color;}
+  const lightName={day:'daylight',lw:'the 365 nm flashlight',sw:'the 254 nm flashlight'}[uvLight];
+  res.innerHTML='Under '+lightName+', <b>'+m.name+'</b> looks like '+txt;
+}
 
 function confetti(){
   const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
