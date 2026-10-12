@@ -69,6 +69,8 @@ h2.sec{font-size:2rem;margin:6px 0 8px}
 .uv-lights{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .uv-lights .btn{background:#1b2b4a;color:var(--ink);border:2px solid #33436b}
 .uv-lights .btn.sel{border-color:var(--teal);background:#0f2b33}
+.uv-lights .btn.laser{border-color:var(--purple)}
+.uv-lights .btn.laser.sel{border-color:var(--purple);background:#241a33}
 .uv-stage{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .uv-rock{width:170px;height:170px;border-radius:50%;background:#8a8f9a;display:flex;align-items:center;
   justify-content:center;font-size:3.4rem;transition:all .3s;flex:0 0 auto}
@@ -387,16 +389,20 @@ footer a{color:var(--teal)}
     <div class="concept"><h3>🔦 Two flashlights, two energy levels</h3><p>A <b>365&nbsp;nm</b> flashlight (longwave UV) is a gentle toss — it wakes up many minerals. A <b>254&nbsp;nm</b> flashlight (shortwave UV) is a super-throw with more energy — it can wake up minerals the gentle one can't. Same rock, different flashlight, different glow!</p><div class="tagline">📚 Shorter wavelength = more energy</div></div>
     <div class="concept"><h3>🎨 Why different colors?</h3><p>The glow color is decided by tiny "guest" atoms hiding inside the mineral — like <b>manganese</b>. Calcite with manganese guests glows red-pink. The same calcite without them? No glow at all! So the glow is a clue about what's hiding inside.</p><div class="tagline">📚 Impurities (activators) make the colors</div></div>
     <div class="concept"><h3>🌟 Glow vs. afterglow</h3><p><b>Fluorescence</b> stops the instant the UV lamp turns off — like a glow stick going dark. <b>Phosphorescence</b> keeps glowing for a few seconds after, like the stars on a bedroom ceiling. Both are real ID clues!</p><div class="tagline">📚 Two kinds of "glow"</div></div>
+    <div class="concept"><h3>🔬 Lasers: one color, super picky</h3><p>A flashlight throws a <b>mix</b> of energies, so many minerals find something they like. A laser throws <b>exactly one</b> color — one exact energy. If that energy doesn't match what the mineral's electrons want, <b>nothing happens</b>. Try the green laser on fluorite below: mostly just a green dot! Wrong key for the lock. 🔑</p><div class="tagline">📚 Monochromatic = one wavelength</div></div>
+    <div class="concept"><h3>📏 The "lazier light" rule</h3><p>The golden rule: the glow is <b>always</b> lower-energy — redder, "lazier" — than the light going in, because some energy is lost as heat on the way. So a <b>red laser can never make anything glow blue</b> — red is already the laziest visible light! Green lasers can make red glows. Violet lasers can make almost any color.</p><div class="tagline">📚 Stokes shift, kid-style</div></div>
   </div>
 
   <h2 class="sec" style="font-size:1.5rem">🧪 Try it: the virtual UV booth!</h2>
-  <p class="sec-sub">Pick a mineral, then pick a flashlight. What happens?</p>
+  <p class="sec-sub">Pick a mineral, then pick a light — flashlight or laser! What happens?</p>
   <div class="uvlab">
     <div class="uv-minerals" id="uvMinerals"></div>
     <div class="uv-lights">
       <button class="btn sel" data-light="day">☀️ Daylight</button>
       <button class="btn" data-light="lw">🔦 365 nm (longwave)</button>
       <button class="btn" data-light="sw">🔦 254 nm (shortwave)</button>
+      <button class="btn laser" data-light="l405">🟣 405 nm laser</button>
+      <button class="btn laser" data-light="l532">🟢 532 nm laser</button>
     </div>
     <div class="uv-stage">
       <div class="uv-rock" id="uvRock">🪨</div>
@@ -413,7 +419,7 @@ footer a{color:var(--teal)}
     <div class="a"><b>They're different inside!</b> One has glowing "guest" atoms (like manganese) and the other doesn't. Fluorescence reveals clues your eyes alone can't see.</div>
   </div>
 
-  <div class="trick" style="background:linear-gradient(135deg,#3a1414,#241008);border-color:var(--red)">⚠️ <b>UV Safety Rules:</b> Never stare into a UV flashlight. Shortwave (254&nbsp;nm) can hurt eyes and skin — always wear UV safety glasses and bring a grown-up. Longwave (365&nbsp;nm) is gentler, but still: shine it at <b>rocks</b>, not faces!</div>
+  <div class="trick" style="background:linear-gradient(135deg,#3a1414,#241008);border-color:var(--red)">⚠️ <b>UV Safety Rules:</b> Never stare into a UV flashlight. Shortwave (254&nbsp;nm) can hurt eyes and skin — always wear UV safety glasses and bring a grown-up. Longwave (365&nbsp;nm) is gentler, but still: shine it at <b>rocks</b>, not faces!<br>🚨 <b>Lasers are extra dangerous:</b> the beam is squeezed into one tiny dot — never point any laser at eyes, people, pets, or mirrors. Not even a "toy" pointer.</div>
 
   <p class="sec-sub">📸 <b>See it for real:</b> scroll down to the gallery — the hyalite opal photo is glowing bright green, and the "SHORT / LONG" tags on the fluorescent display mean shortwave vs. longwave UV!</p>
 </section>
@@ -484,8 +490,8 @@ footer a{color:var(--teal)}
 <section class="block" id="quiz">
   <div class="kicker">Final challenge</div>
   <h2 class="sec">🧪 Rock Detective Quiz</h2>
-  <p class="sec-sub">9 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
-  <div class="scorebar">Score: <b id="score">0</b> / 9 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
+  <p class="sec-sub">10 questions. Answer one at a time — each locks in when you choose. Get them all for a confetti shower! 🎉</p>
+  <div class="scorebar">Score: <b id="score">0</b> / 10 <span id="qmsg" style="color:var(--muted);font-size:.9rem"></span></div>
   <div id="quizbox"></div>
 </section>
 
@@ -602,7 +608,9 @@ const QUIZ=[
  {q:'Trilobites are called "index fossils." That means…',c:['they tell time — find one and the rock is Paleozoic','they are the biggest fossils ever','they glow under UV light','they are a kind of dinosaur'],a:0,
   e:'Trilobites lived ~520–250 million years ago. Find one, and you\'ve dated the whole cliff — no lab needed!'},
  {q:'A mineral glows while the UV lamp is on, but the glow stops the instant you switch it off. This is…',c:['fluorescence','phosphorescence','reflection','burning'],a:0,
-  e:'Fluorescence stops when the light stops. If it kept glowing afterward, that would be phosphorescence!'}];
+  e:'Fluorescence stops when the light stops. If it kept glowing afterward, that would be phosphorescence!'},
+ {q:'A red laser (650 nm) shines on a mineral. Why can it NEVER make the mineral glow blue?',c:['the glow must be lower-energy (redder) than the light','red lasers are too bright','minerals are afraid of red','blue glow needs water'],a:0,
+  e:'The "lazier light" rule: some energy is always lost, so the glow comes out redder than the light going in. Red is already the laziest visible light!'}];
 let score=0,answered=0;
 const box=document.getElementById('quizbox'),scoreEl=document.getElementById('score'),qmsg=document.getElementById('qmsg');
 QUIZ.forEach((it,i)=>{
@@ -627,14 +635,30 @@ QUIZ.forEach((it,i)=>{
 });
 
 const UVDATA={
- fluorite:{name:'Fluorite',emoji:'🔷',day:['#9fb3c8','a pale green-purple rock'],
-  lw:['#7b7bff','a BLUE-VIOLET glow!'],sw:['#5a5aff','a blue glow (a bit weaker)']},
- calcite:{name:'Calcite',emoji:'🤍',day:['#c9c2b8','a plain white-pinkish rock'],
-  lw:['#ff9eb5','a soft PINK glow'],sw:['#ff2e63','a BRIGHT RED glow!']},
- willemite:{name:'Willemite',emoji:'🪨',day:['#8a8f9a','a boring gray rock'],
-  lw:['#4dff88','a GREEN glow'],sw:['#22ff66','a BRIGHT GREEN glow!']},
- hyalite:{name:'Hyalite Opal',emoji:'💧',day:['#cfd8dc','clear glassy blobs'],
-  lw:['#39ff88','a BRIGHT GREEN glow!'],sw:['#4dff88','a green glow']}};
+ fluorite:{name:'Fluorite',emoji:'🔷',
+  day:['#9fb3c8','a pale green-purple rock'],
+  lw:['#7b7bff','a BLUE-VIOLET glow!'],
+  sw:['#5a5aff','a blue glow (a bit weaker)'],
+  l405:['#8a8aff','a BLUE-VIOLET glow! The violet laser is close enough to UV.'],
+  l532:['#39ff66','almost nothing — just a green dot where the beam hits. Wrong key for the lock! 🔑']},
+ calcite:{name:'Calcite',emoji:'🤍',
+  day:['#c9c2b8','a plain white-pinkish rock'],
+  lw:['#ff9eb5','a soft PINK glow'],
+  sw:['#ff2e63','a BRIGHT RED glow!'],
+  l405:['#ff6b8f','a PINK-RED glow!'],
+  l532:['#ff2e63','a dim RED glow — manganese likes green light too!']},
+ willemite:{name:'Willemite',emoji:'🪨',
+  day:['#8a8f9a','a boring gray rock'],
+  lw:['#4dff88','a GREEN glow'],
+  sw:['#22ff66','a BRIGHT GREEN glow!'],
+  l405:['#4dff88','a GREEN glow!'],
+  l532:['#39ff66','barely a whisper of green — mostly just the green dot.']},
+ hyalite:{name:'Hyalite Opal',emoji:'💧',
+  day:['#cfd8dc','clear glassy blobs'],
+  lw:['#39ff88','a BRIGHT GREEN glow!'],
+  sw:['#4dff88','a green glow'],
+  l405:['#39ff88','a GREEN glow!'],
+  l532:['#39ff66','nothing — the beam just bounces off as a green dot.']}};
 let uvMin=null,uvLight='day';
 const uvMinBox=document.getElementById('uvMinerals');
 Object.keys(UVDATA).forEach(k=>{
@@ -658,7 +682,7 @@ function uvRender(){
   rock.textContent=m.emoji;
   if(uvLight==='day'){rock.style.background=color;rock.style.boxShadow='none';}
   else{rock.style.background='#101828';rock.style.boxShadow='0 0 60px 18px '+color+', inset 0 0 30px '+color;}
-  const lightName={day:'daylight',lw:'the 365 nm flashlight',sw:'the 254 nm flashlight'}[uvLight];
+  const lightName={day:'daylight',lw:'the 365 nm flashlight',sw:'the 254 nm flashlight',l405:'the 405 nm violet laser',l532:'the 532 nm green laser'}[uvLight];
   res.innerHTML='Under '+lightName+', <b>'+m.name+'</b> looks like '+txt;
 }
 
