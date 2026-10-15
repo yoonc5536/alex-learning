@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program 5: Snake Traps — Alex's Algorithm Lab</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --ink:#e8eefc; --muted:#93a4c4;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1150px;margin:0 auto;padding:24px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#4a1d1d,#0f172a 70%);border:1px solid #7a3a3a;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+  header.hero h1{margin:0 0 6px;font-size:2rem}
+  header.hero p{margin:4px 0;color:var(--muted)}
+  .back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none;font-weight:600}
+  .back:hover{text-decoration:underline}
+  .progress{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid #2b3f66;border-radius:12px;padding:10px 16px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .progress .bar{height:10px;background:#24334f;border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+  section.card{background:var(--panel);border:1px solid #2b3f66;border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  section.card h2{margin-top:0;color:var(--accent)}
+  .done-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #33456b;color:var(--muted);font-size:.95rem}
+  .done-row input{width:20px;height:20px;accent-color:var(--good);cursor:pointer}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  button{background:var(--accent);border:none;color:#06283a;font-weight:700;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:1rem}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:#33456b;color:var(--ink)}
+  .msg{margin:8px 0;min-height:24px;font-weight:600}
+  .msg.good{color:var(--good)} .msg.bad{color:var(--bad)} .msg.info{color:var(--warn)}
+  .stat{background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px 16px;margin:10px 0;font-family:ui-monospace,Consolas,monospace;overflow-x:auto}
+  .snake-grid{display:grid;grid-template-columns:repeat(10,44px);grid-template-rows:repeat(8,44px);gap:2px;background:#0b1220;padding:8px;border-radius:10px;width:max-content;margin:12px 0}
+  .scell{background:#1b2740;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:background .15s}
+  .scell.head{background:#14532d}
+  .scell.body{background:#166534}
+  .scell.food{background:#3a1d12}
+  .scell.pick{background:#4a3a10}
+  .scell.no{background:#4a1010}
+  .scell.yes{background:#0f4a2a}
+  .dpad{display:grid;grid-template-columns:repeat(3,54px);grid-template-rows:repeat(2,54px);gap:4px;width:max-content}
+  .dpad button{padding:0;font-size:1.3rem}
+  .badge{display:inline-block;background:#1d3a5f;border:1px solid var(--accent);border-radius:8px;padding:4px 12px;font-weight:800;font-size:1.2rem}
+  .quiz-q{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:14px 16px;margin:12px 0}
+  .quiz-q p{margin:0 0 10px;font-weight:600}
+  .quiz-q label{display:block;background:#0b1220;border:1px solid #33456b;border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+  .quiz-q label:hover{border-color:var(--accent)}
+  .quiz-q.locked label{cursor:default}
+  .quiz-q label.correct{border-color:var(--good);background:#0c2b22}
+  .quiz-q label.wrong{border-color:var(--bad);background:#2b1215}
+  .fb{font-weight:700;margin-top:8px}
+  .fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+  .score{font-size:1.3rem;font-weight:800;text-align:center;padding:16px}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+  .res a{display:block;background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .res a:hover{border-color:var(--accent)}
+  .res a b{color:var(--accent)}
+  .bridge{background:linear-gradient(135deg,#123a2b,#0f172a 70%);border-color:#1f5c40}
+  .bridge h2{color:var(--good)}
+  code{background:#0b1220;border:1px solid #33456b;border-radius:5px;padding:1px 6px;font-size:.92em}
+  .log{font-size:.85rem;color:var(--muted);max-height:110px;overflow-y:auto}
+  .log div{padding:2px 0;border-bottom:1px dotted #24334f}
+  @media(max-width:640px){.snake-grid{grid-template-columns:repeat(10,30px);grid-template-rows:repeat(8,30px)}.scell{font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="https://yoonc5536.github.io/alex-learning/algorithms/">← Back to Algorithm Lab</a>
+
+<header class="hero">
+  <h1>💻 Program 5: Snake Traps 🪤</h1>
+  <p><b>Alex's</b> Algorithm Lab · Bonus: three traps every Snake programmer falls into</p>
+  <p>You know the four programs. Now dodge the three traps hiding inside the real code — with interactive proof.</p>
+</header>
+
+<div class="progress">
+  <span id="progLabel">Progress: 0 / 6 sections complete</span>
+  <div class="bar"><div id="progFill"></div></div>
+</div>
+
+<!-- 1. MISSION -->
+<section class="card" id="sec-mission">
+  <h2>1 · Your Mission</h2>
+  <p>Three things in Snake code that confuse <b>every</b> beginner:</p>
+  <ol>
+    <li>⌨️ <b>Keys don't move the snake</b> — they only change its <i>direction</i>.</li>
+    <li>🍎 <b>Food must never land on the body</b> — so the game re-picks until it finds a free cell.</li>
+    <li>🔄 <b>No U-turns</b> — reversing would crash into your own neck on the very next tick.</li>
+  </ol>
+  <p>Spring each trap below, then learn the one-line fix.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-mission" id="d-mission"><label for="d-mission">I know the three traps</label></div>
+</section>
+
+<!-- 2. KEYS -->
+<section class="card" id="sec-keys">
+  <h2>2 · Trap 1: Keys Don't Move the Snake ⌨️</h2>
+  <p>Press arrow keys (or the pad). Watch: the <b>direction badge</b> changes instantly — but the snake moves only when you press <b>Next tick</b>. Keys set the direction; the loop does the moving.</p>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <div>
+      <div class="snake-grid" id="kGrid"></div>
+      <div class="dpad">
+        <span></span><button data-k="up">⬆️</button><span></span>
+        <button data-k="left">⬅️</button><button data-k="down">⬇️</button><button data-k="right">➡️</button>
+      </div>
+    </div>
+    <div style="flex:1;min-width:240px">
+      <div class="controls">
+        <button id="kTick">⏭️ Next tick</button>
+        <button id="kReset" class="ghost">Reset</button>
+      </div>
+      <p>Direction: <span class="badge" id="kDir">➡️</span></p>
+      <div class="stat" id="kStat">ticks: 0</div>
+      <div class="msg info" id="kMsg">Mash keys between ticks — the snake won't care until the next tick!</div>
+      <div class="log" id="kLog"></div>
+    </div>
+  </div>
+  <div class="stat"># key press → only this runs:<br>direction = new_direction &nbsp;&nbsp;# no moving here!<br><br># tick → then this runs:<br>move_snake(direction) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# the loop moves it</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-keys" id="d-keys"><label for="d-keys">I proved keys only set direction</label></div>
+</section>
+
+<!-- 3. FOOD -->
+<section class="card" id="sec-food">
+  <h2>3 · Trap 2: Food Must Dodge the Body 🍎</h2>
+  <p>Random food could land <i>inside</i> your snake — unfair and invisible! So the game re-picks until the cell is free. Press <b>Spawn food</b> and watch each pick get judged.</p>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <div><div class="snake-grid" id="fGrid"></div></div>
+    <div style="flex:1;min-width:240px">
+      <div class="controls">
+        <button id="fSpawn">🎲 Spawn food</button>
+        <button id="fReset" class="ghost">New snake</button>
+      </div>
+      <div class="stat" id="fStat">picks: 0</div>
+      <div class="msg info" id="fMsg">Each ❌ is a rejected pick. Each ✅ is lunch.</div>
+      <div class="log" id="fLog"></div>
+    </div>
+  </div>
+  <div class="stat">food = random_cell()<br>while food in body: &nbsp;&nbsp;&nbsp;# Program 2! linear search<br>&nbsp;&nbsp;&nbsp;&nbsp;food = random_cell() &nbsp;# rejected — pick again</div>
+  <p style="color:var(--muted)">The <code>in</code> keyword is your linear search from Program 2, checking the body one segment at a time.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-food" id="d-food"><label for="d-food">I watched food dodge the body</label></div>
+</section>
+
+<!-- 4. UTURN -->
+<section class="card" id="sec-uturn">
+  <h2>4 · Trap 3: No U-Turns 🔄</h2>
+  <p>The snake is moving right ➡️. What if you press ⬅️? The new head would land exactly on the neck — instant self-crash! So the game <b>ignores</b> the opposite direction.</p>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <div><div class="snake-grid" id="uGrid"></div></div>
+    <div style="flex:1;min-width:240px">
+      <div class="controls">
+        <button id="uTry">⬅️ Try U-turn!</button>
+        <button id="uTick">⏭️ Next tick</button>
+        <button id="uReset" class="ghost">Reset</button>
+      </div>
+      <div class="msg info" id="uMsg">Press "Try U-turn" — the game will refuse.</div>
+      <div class="log" id="uLog"></div>
+    </div>
+  </div>
+  <div class="stat">if new_direction != (-dx, -dy): &nbsp;# not the opposite?<br>&nbsp;&nbsp;&nbsp;&nbsp;direction = new_direction &nbsp;&nbsp;# ok, turn<br># else: ignore it!</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-uturn" id="d-uturn"><label for="d-keys2">I know why U-turns are blocked</label></div>
+</section>
+
+<!-- 5. QUIZ -->
+<section class="card" id="sec-quiz">
+  <h2>5 · Quiz — Trap Master</h2>
+  <p>One try per question — it locks after you answer.</p>
+  <div id="quizBox"></div>
+  <div class="controls" style="margin-top:14px">
+    <button id="submitScore">Submit for final score</button>
+  </div>
+  <div class="score" id="finalScore"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-quiz" id="d-quiz"><label for="d-quiz">Quiz finished</label></div>
+</section>
+
+<!-- 6. BRIDGE -->
+<section class="card bridge" id="sec-bridge">
+  <h2>6 · Ready for the Real Snake 🐍</h2>
+  <p>Trap recap — the three one-liners that bug-proof your game:</p>
+  <ul>
+    <li>⌨️ <code>direction = new_direction</code> on keypress — the loop moves, keys only steer.</li>
+    <li>🍎 <code>while food in body: food = random_cell()</code> — re-pick until free (linear search inside!).</li>
+    <li>🔄 <code>if new_direction != (-dx, -dy)</code> — never drive into your own neck.</li>
+  </ul>
+  <p>🎓 <b>Final challenge:</b> open your Snake project and find these three lines. Now you know <i>why</i> each one exists.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-bridge" id="d-bridge"><label for="d-bridge">I can explain all three traps</label></div>
+</section>
+
+<!-- RESOURCES -->
+<section class="card" id="sec-res">
+  <h2>📎 Notes &amp; Links</h2>
+  <p>These trap activities are originals, built for your Snake game. For more unplugged CS:</p>
+  <div class="res">
+    <a href="https://csunplugged.org/en/topics/" target="_blank" rel="noopener"><b>CS Unplugged topics</b><br>All free activities</a>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ---------- shared grid builder ----------
+const GW=10,GH=8;
+function buildGrid(el){
+  el.innerHTML='';
+  for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){
+    const d=document.createElement('div');d.className='scell';d.dataset.c=c;d.dataset.r=r;el.appendChild(d);
+  }
+}
+function paintSnake(el,snake,food){
+  el.querySelectorAll('.scell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r;
+    if(!cell.dataset.keep){cell.className='scell';cell.textContent='';}
+    if(food&&c===food[0]&&r===food[1]&&!cell.dataset.keep){cell.classList.add('food');cell.textContent='🍎';}
+    if(snake)snake.forEach(([sc,sr],i)=>{
+      if(sc===c&&sr===r){cell.classList.add(i===0?'head':'body');cell.textContent=i===0?'🟢':'🟩';}
+    });
+  });
+}
+function clearKeep(el){el.querySelectorAll('.scell').forEach(c=>delete c.dataset.keep);}
+function markCell(el,c,r,cls,txt,ms){
+  const cell=el.querySelector(`.scell[data-c="${c}"][data-r="${r}"]`);
+  if(!cell)return;
+  cell.dataset.keep='1';cell.classList.add(cls);cell.textContent=txt;
+  if(ms)setTimeout(()=>{delete cell.dataset.keep;},ms);
+}
+
+// ---------- Trap 1: keys vs ticks ----------
+const DIRS={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+const ARROWS={up:'⬆️',down:'⬇️',left:'⬅️',right:'➡️'};
+let kSnake,kDir,kPend,kTicks,kOver;
+const kGrid=document.getElementById('kGrid'),kMsg=document.getElementById('kMsg'),
+      kStat=document.getElementById('kStat'),kLog=document.getElementById('kLog');
+function kReset(){
+  kSnake=[[4,4],[3,4],[2,4]];kDir='right';kPend='right';kTicks=0;kOver=false;
+  document.getElementById('kDir').textContent=ARROWS[kPend];
+  buildGrid(kGrid);paintSnake(kGrid,kSnake,null);kLog.innerHTML='';
+  kStat.textContent='ticks: 0';
+  kMsg.textContent='Mash keys between ticks — the snake won\'t care until the next tick!';kMsg.className='msg info';
+}
+function kKey(d){
+  if(kOver)return;
+  kPend=d;document.getElementById('kDir').textContent=ARROWS[d];
+  const e=document.createElement('div');e.textContent='⌨️ key → direction = '+ARROWS[d]+' (snake did NOT move)';kLog.prepend(e);
+}
+document.getElementById('kTick').onclick=()=>{
+  if(kOver)return;
+  kDir=kPend;const[dx,dy]=DIRS[kDir];
+  const nh=[kSnake[0][0]+dx,kSnake[0][1]+dy];
+  if(nh[0]<0||nh[0]>=GW||nh[1]<0||nh[1]>=GH){kOver=true;kMsg.textContent='💥 Wall! (keys never saved you — only ticks move the snake)';kMsg.className='msg bad';return;}
+  kSnake.unshift(nh);kSnake.pop();kTicks++;
+  paintSnake(kGrid,kSnake,null);
+  kStat.textContent='ticks: '+kTicks;
+  const e=document.createElement('div');e.textContent='⏭️ tick #'+kTicks+' → moved '+ARROWS[kDir];kLog.prepend(e);
+  kMsg.textContent='Tick #'+kTicks+': moved '+ARROWS[kDir]+'. Keys pressed since last tick: only the LAST one counted.';kMsg.className='msg good';
+};
+document.getElementById('kReset').onclick=kReset;
+document.querySelectorAll('#sec-keys [data-k]').forEach(b=>b.onclick=()=>kKey(b.dataset.k));
+document.addEventListener('keydown',e=>{
+  const m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+  if(m[e.key]){e.preventDefault();kKey(m[e.key]);}
+});
+buildGrid(kGrid);kReset();
+
+// ---------- Trap 2: food dodge ----------
+let fSnake,fBusy;
+const fGrid=document.getElementById('fGrid'),fMsg=document.getElementById('fMsg'),
+      fStat=document.getElementById('fStat'),fLog=document.getElementById('fLog');
+function fReset(){
+  fBusy=false;clearKeep(fGrid);
+  fSnake=[];
+  for(let c=1;c<=6;c++)fSnake.push([c,3]);
+  for(let c=6;c>=2;c--)fSnake.push([c,4]);
+  for(let c=2;c<=5;c++)fSnake.push([c,5]);
+  buildGrid(fGrid);paintSnake(fGrid,fSnake,null);
+  fStat.textContent='picks: 0';
+  fMsg.textContent='Each ❌ is a rejected pick. Each ✅ is lunch.';fMsg.className='msg info';
+}
+document.getElementById('fReset').onclick=fReset;
+document.getElementById('fSpawn').onclick=()=>{
+  if(fBusy)return;fBusy=true;
+  clearKeep(fGrid);paintSnake(fGrid,fSnake,null);fLog.innerHTML='';
+  let picks=0;
+  const step=()=>{
+    picks++;
+    const c=Math.floor(Math.random()*GW),r=Math.floor(Math.random()*GH);
+    markCell(fGrid,c,r,'pick','❓');
+    fStat.textContent='picks: '+picks;
+    setTimeout(()=>{
+      const onBody=fSnake.some(([sc,sr])=>sc===c&&sr===r);
+      if(onBody){
+        markCell(fGrid,c,r,'no','❌',600);
+        const e=document.createElement('div');e.textContent='❌ pick #'+picks+' ('+c+','+r+') is ON the body — rejected!';fLog.prepend(e);
+        setTimeout(step,650);
+      }else{
+        markCell(fGrid,c,r,'yes','🍎');
+        fMsg.textContent='✅ Food placed after '+picks+' pick'+(picks>1?'s':'')+'!';fMsg.className='msg good';
+        const e=document.createElement('div');e.textContent='✅ pick #'+picks+' ('+c+','+r+') is free — lunch is served!';fLog.prepend(e);
+        fBusy=false;
+      }
+    },450);
+  };
+  step();
+};
+buildGrid(fGrid);fReset();
+
+// ---------- Trap 3: no U-turns ----------
+let uSnake,uOver;
+const uGrid=document.getElementById('uGrid'),uMsg=document.getElementById('uMsg'),uLog=document.getElementById('uLog');
+function uReset(){
+  uSnake=[[5,4],[4,4],[3,4],[2,4]];uOver=false;
+  buildGrid(uGrid);paintSnake(uGrid,uSnake,null);uLog.innerHTML='';
+  uMsg.textContent='Press "Try U-turn" — the game will refuse.';uMsg.className='msg info';
+}
+document.getElementById('uReset').onclick=uReset;
+document.getElementById('uTry').onclick=()=>{
+  if(uOver)return;
+  // new_direction = left = (-1,0); current = (1,0); opposite check:
+  const e=document.createElement('div');
+  e.textContent='🛡️ new (-1,0) == -current (1,0) → IGNORED. Still moving ➡️';
+  uLog.prepend(e);
+  uMsg.textContent='🛡️ Blocked! The new head would be (4,4) — exactly where the neck is.';uMsg.className='msg good';
+};
+document.getElementById('uTick').onclick=()=>{
+  if(uOver)return;
+  const nh=[uSnake[0][0]+1,uSnake[0][1]];
+  uSnake.unshift(nh);uSnake.pop();
+  if(nh[0]>=GW){uOver=true;uMsg.textContent='💥 Wall! Reset to try again.';uMsg.className='msg bad';return;}
+  paintSnake(uGrid,uSnake,null);
+  uMsg.textContent='Moved ➡️ to ('+nh[0]+','+nh[1]+'). Safe — because the U-turn was blocked.';uMsg.className='msg info';
+};
+buildGrid(uGrid);uReset();
+
+// ---------- quiz ----------
+const QUIZ=[
+ {q:'You press ⬆️ then ⬅️ quickly, BEFORE the next tick. Which way does the snake move on the tick?',
+  opts:['⬆️ — the first key wins','⬅️ — the last key wins; keys only set direction','It moves diagonally ↖️'],
+  a:1,why:'Keys just overwrite the direction variable. Only the latest one is read when the tick moves the snake.'},
+ {q:'Why does the game use "while food in body: pick again" instead of picking once?',
+  opts:['Random is slow','One pick could land inside the snake — invisible, unfair food','The snake eats faster that way'],
+  a:1,why:'A single random pick can land on the body. The loop re-picks until the cell is free.'},
+ {q:'The snake moves right (dx=1, dy=0). Which keypress MUST be ignored?',
+  opts:['⬆️ up','⬅️ left','⬇️ down'],
+  a:1,why:'Left is (-1,0) = -(1,0), the exact opposite. The new head would land on the neck.'},
+ {q:'If U-turns were allowed, what happens on the next tick after reversing?',
+  opts:['The snake gets longer','The head moves onto the neck → instant self-crash','Nothing — it just turns around'],
+  a:1,why:'New head = old neck position. The collision check (Program 2!) finds it immediately.'},
+ {q:'In "while food in body", what does the word "in" do?',
+  opts:['It teleports the food','It runs a linear search through the body list, one segment at a time','It counts the body segments'],
+  a:1,why:'"in" scans the list one item at a time — that IS linear search from Program 2.'}
+];
+const quizBox=document.getElementById('quizBox');
+let qScore=0,qAnswered=0;
+QUIZ.forEach((item,qi)=>{
+  const div=document.createElement('div');div.className='quiz-q';div.id='qq'+qi;
+  div.innerHTML='<p>Q'+(qi+1)+'. '+item.q+'</p>'+item.opts.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+  quizBox.appendChild(div);
+  div.addEventListener('change',e=>{
+    if(div.classList.contains('locked'))return;
+    div.classList.add('locked');qAnswered++;
+    const labels=div.querySelectorAll('label');labels.forEach(l=>l.style.pointerEvents='none');
+    const ok=+e.target.value===item.a;if(ok)qScore++;
+    labels.forEach(l=>{const v=+l.querySelector('input').value;
+      if(v===item.a)l.classList.add('correct');
+      else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');});
+    const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'✔ Correct! ':'✘ Not quite. ')+item.why;div.appendChild(fb);
+  });
+});
+document.getElementById('submitScore').onclick=()=>{
+  const el=document.getElementById('finalScore');
+  if(qAnswered<QUIZ.length){el.textContent='Answer all '+QUIZ.length+' questions first ('+qAnswered+'/'+QUIZ.length+' done).';el.style.color='var(--warn)';return;}
+  el.textContent='🏁 Final score: '+qScore+' / '+QUIZ.length+(qScore===QUIZ.length?' — Trap Master! No bug can catch you now. 🪤':' — Good dodging! Review the ones you missed above.');
+  el.style.color=qScore===QUIZ.length?'var(--good)':'var(--ink)';
+};
+
+// ---------- progress ----------
+const boxes=document.querySelectorAll('.done'),TOTAL=boxes.length;
+function paint(){
+  const n=[...boxes].filter(b=>b.checked).length;
+  document.getElementById('progFill').style.width=(n/TOTAL*100)+'%';
+  document.getElementById('progLabel').textContent=`Progress: ${n} / ${TOTAL} sections complete`;
+  localStorage.setItem('snaketraps-progress',JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener('change',paint));
+try{const s=JSON.parse(localStorage.getItem('snaketraps-progress')||'[]');boxes.forEach((b,i)=>{if(s[i])b.checked=true;});}catch(e){}
+paint();
+</script>
+</body>
+</html>
