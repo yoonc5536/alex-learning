@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program 3: The Queue Train — Alex's Algorithm Lab</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --ink:#e8eefc; --muted:#93a4c4;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1150px;margin:0 auto;padding:24px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#7c2d12,#0f172a 70%);border:1px solid #7a4a22;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+  header.hero h1{margin:0 0 6px;font-size:2rem}
+  header.hero p{margin:4px 0;color:var(--muted)}
+  .back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none;font-weight:600}
+  .back:hover{text-decoration:underline}
+  .progress{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid #2b3f66;border-radius:12px;padding:10px 16px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .progress .bar{height:10px;background:#24334f;border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+  section.card{background:var(--panel);border:1px solid #2b3f66;border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  section.card h2{margin-top:0;color:var(--accent)}
+  .done-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #33456b;color:var(--muted);font-size:.95rem}
+  .done-row input{width:20px;height:20px;accent-color:var(--good);cursor:pointer}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  button{background:var(--accent);border:none;color:#06283a;font-weight:700;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:1rem}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:#33456b;color:var(--ink)}
+  .msg{margin:8px 0;min-height:24px;font-weight:600}
+  .msg.good{color:var(--good)} .msg.bad{color:var(--bad)} .msg.info{color:var(--warn)}
+  .stat{background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px 16px;margin:10px 0;font-family:ui-monospace,Consolas,monospace;overflow-x:auto}
+  .line{display:flex;gap:8px;align-items:center;min-height:64px;background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:10px 14px;margin:10px 0;flex-wrap:wrap}
+  .person{background:#1d4ed8;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem}
+  .person.served{background:#065f46}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.duo{grid-template-columns:1fr}}
+  .tub{background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px;min-height:220px}
+  .tub h4{margin:0 0 8px;color:var(--muted)}
+  .plate{background:#33456b;border-radius:8px;padding:8px;margin:5px auto;max-width:180px;text-align:center;font-weight:700}
+  .plate.top{border:2px solid var(--warn)}
+  .qperson{background:#0e7490;border-radius:8px;padding:8px;margin:5px;min-width:52px;text-align:center;font-weight:700;display:inline-block}
+  .qperson.front{border:2px solid var(--warn)}
+  .snake-grid{display:grid;grid-template-columns:repeat(10,46px);grid-template-rows:repeat(8,46px);gap:2px;background:#0b1220;padding:8px;border-radius:10px;width:max-content;margin:12px 0}
+  .scell{background:#1b2740;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+  .scell.head{background:#14532d}
+  .scell.body{background:#166534}
+  .scell.food{background:#3a1d12}
+  .dpad{display:grid;grid-template-columns:repeat(3,54px);grid-template-rows:repeat(3,54px);gap:4px;width:max-content}
+  .dpad button{padding:0;font-size:1.3rem}
+  .log{font-size:.85rem;color:var(--muted);max-height:110px;overflow-y:auto}
+  .log div{padding:2px 0;border-bottom:1px dotted #24334f}
+  .quiz-q{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:14px 16px;margin:12px 0}
+  .quiz-q p{margin:0 0 10px;font-weight:600}
+  .quiz-q label{display:block;background:#0b1220;border:1px solid #33456b;border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+  .quiz-q label:hover{border-color:var(--accent)}
+  .quiz-q.locked label{cursor:default}
+  .quiz-q label.correct{border-color:var(--good);background:#0c2b22}
+  .quiz-q label.wrong{border-color:var(--bad);background:#2b1215}
+  .fb{font-weight:700;margin-top:8px}
+  .fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+  .score{font-size:1.3rem;font-weight:800;text-align:center;padding:16px}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+  .res a{display:block;background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .res a:hover{border-color:var(--accent)}
+  .res a b{color:var(--accent)}
+  .bridge{background:linear-gradient(135deg,#123a2b,#0f172a 70%);border-color:#1f5c40}
+  .bridge h2{color:var(--good)}
+  code{background:#0b1220;border:1px solid #33456b;border-radius:5px;padding:1px 6px;font-size:.92em}
+  @media(max-width:640px){.snake-grid{grid-template-columns:repeat(10,32px);grid-template-rows:repeat(8,32px)}.scell{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="https://yoonc5536.github.io/alex-learning/algorithms/">← Back to Algorithm Lab</a>
+
+<header class="hero">
+  <h1>💻 Program 3: The Queue Train 🚂</h1>
+  <p><b>Alex's</b> Algorithm Lab · Step 3 of the Snake-game algorithm path</p>
+  <p>Your snake's body is a <b>queue</b>: a new head car joins the front, the old tail car leaves the back. Miss one side and the whole train breaks!</p>
+</header>
+
+<div class="progress">
+  <span id="progLabel">Progress: 0 / 7 sections complete</span>
+  <div class="bar"><div id="progFill"></div></div>
+</div>
+
+<!-- 1. MISSION -->
+<section class="card" id="sec-mission">
+  <h2>1 · Your Mission</h2>
+  <p>A <b>queue</b> is a line with one strict rule:</p>
+  <p style="font-size:1.25rem;font-weight:800;color:var(--warn)">FIRST in → FIRST out.</p>
+  <p>New arrivals join the <b>back</b>. Departures leave from the <b>front</b>. Nobody cuts, nobody jumps.</p>
+  <p>Your Snake body works exactly like this. Every move:</p>
+  <div class="stat">body.insert(0, new_head) &nbsp;# new head car joins the FRONT<br>body.pop() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# old tail car leaves the BACK</div>
+  <p>And when the snake eats? <b>Skip the pop()</b> — the tail stays, so the train grows by one car. 🚂</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-mission" id="d-mission"><label for="d-mission">I know the queue rule: first in, first out</label></div>
+</section>
+
+<!-- 2. LUNCH LINE -->
+<section class="card" id="sec-line">
+  <h2>2 · Activity: The Lunch Line 🍽️</h2>
+  <p>Be the cafeteria manager. New students join the <b>back</b> of the line. The <b>front</b> student gets served and leaves.</p>
+  <div class="line" id="lunchLine"><span style="color:var(--muted)">The line is empty. Add someone!</span></div>
+  <div class="controls">
+    <button id="joinBtn">➕ Person joins back</button>
+    <button id="serveBtn">🍽️ Serve front</button>
+    <button id="lineReset" class="ghost">Reset</button>
+  </div>
+  <div class="msg info" id="lineMsg">Who was served first — #1 or the newcomer?</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-line" id="d-line"><label for="d-line">I ran the lunch line</label></div>
+</section>
+
+<!-- 3. STACK VS QUEUE -->
+<section class="card" id="sec-vs">
+  <h2>3 · Activity: Stack vs Queue 🥞</h2>
+  <p>Don't mix these up! A <b>stack</b> (plates) is LAST in, first out. A <b>queue</b> (line) is FIRST in, first out. Try both with numbered items and watch the order.</p>
+  <div class="duo">
+    <div class="tub">
+      <h4>🥞 Stack — push to top, pop from top</h4>
+      <div class="controls">
+        <button id="pushBtn">Push plate</button>
+        <button id="popBtn">Pop plate</button>
+      </div>
+      <div id="stackBox"></div>
+      <div class="msg info" id="stackMsg">Popped order will be: 3, 2, 1…</div>
+    </div>
+    <div class="tub">
+      <h4>🧍 Queue — join back, leave front</h4>
+      <div class="controls">
+        <button id="enqBtn">Join back</button>
+        <button id="deqBtn">Leave front</button>
+      </div>
+      <div id="queueBox"></div>
+      <div class="msg info" id="queueMsg">Served order will be: 1, 2, 3…</div>
+    </div>
+  </div>
+  <p style="color:var(--muted)">The snake's body is the <b>queue</b> one. The head is the front of the line — always served (moved) first.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-vs" id="d-vs"><label for="d-vs">I can tell a stack from a queue</label></div>
+</section>
+
+<!-- 4. SNAKE SIM -->
+<section class="card" id="sec-sim">
+  <h2>4 · Activity: Drive the Snake Train 🚂</h2>
+  <p>Now YOU are the game loop. Steer with the arrows. Each move runs the queue: <code>insert(0, head)</code> then <code>pop()</code> — unless you eat! 🍎</p>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <div>
+      <div class="snake-grid" id="snakeGrid"></div>
+      <div class="dpad">
+        <span></span><button id="dirU">⬆️</button><span></span>
+        <button id="dirL">⬅️</button><button id="dirD">⬇️</button><button id="dirR">➡️</button>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div style="flex:1;min-width:240px">
+      <div class="controls">
+        <button id="snakeReset" class="ghost">Reset game</button>
+        <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" id="bugMode"> 🐛 Bug: never pop() the tail!</label>
+      </div>
+      <div class="stat" id="snakeList">body = []</div>
+      <div class="msg info" id="snakeMsg">Steer to the 🍎. Watch the list!</div>
+      <div class="log" id="snakeLog"></div>
+    </div>
+  </div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-sim" id="d-sim"><label for="d-sim">I drove the snake and watched the queue work</label></div>
+</section>
+
+<!-- 5. CODE IT -->
+<section class="card" id="sec-code">
+  <h2>5 · Activity: Code It — Paper First! 📝</h2>
+  <p>The whole snake move in Python:</p>
+  <div class="stat">body = [(3,3), (2,3), (1,3)] &nbsp;# head is FIRST<br>
+body.insert(0, (4,3)) &nbsp;# new head joins the front<br>
+body.pop() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# tail leaves the back &nbsp;# → [(4,3), (3,3), (2,3)]</div>
+  <ol>
+    <li><b>Trace on paper:</b> body = <code>[(5,5), (4,5), (3,5)]</code>, moves right to <code>(6,5)</code>, no food. Write the new body: ___</li>
+    <li><b>Trace with food:</b> same move, but <code>(6,5)</code> has food (skip the pop!). New body: ___</li>
+    <li><b>Bug hunt:</b> what happens if you forget <code>body.pop()</code> every move? (Try the 🐛 toggle above and see!)</li>
+    <li><b>Challenge:</b> how would you make the snake move <i>left</i> instead? Which line changes?</li>
+  </ol>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-code" id="d-code"><label for="d-code">I traced the queue code on paper</label></div>
+</section>
+
+<!-- 6. QUIZ -->
+<section class="card" id="sec-quiz">
+  <h2>6 · Quiz — Think Like a Queue</h2>
+  <p>One try per question — it locks after you answer.</p>
+  <div id="quizBox"></div>
+  <div class="controls" style="margin-top:14px">
+    <button id="submitScore">Submit for final score</button>
+  </div>
+  <div class="score" id="finalScore"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-quiz" id="d-quiz"><label for="d-quiz">Quiz finished</label></div>
+</section>
+
+<!-- 7. BRIDGE -->
+<section class="card bridge" id="sec-bridge">
+  <h2>7 · Bridge to Your Snake Game 🐍</h2>
+  <ul>
+    <li><b>body list = the train.</b> Index 0 is the engine (head), the last index is the caboose (tail).</li>
+    <li><b>Every move = one queue cycle:</b> new head joins the front, old tail leaves the back.</li>
+    <li><b>Eating = skip the pop().</b> That's the entire growing mechanism — one missing line!</li>
+    <li><b>Program 2 meets Program 3:</b> after moving, the game runs a <i>linear search</i> (Program 2) over this queue to check collisions.</li>
+  </ul>
+  <p>Next on this path: <b>Program 4 — the game loop</b>, the simulation heartbeat that runs all of this every tick.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-bridge" id="d-bridge"><label for="d-bridge">I see how the queue drives my Snake game</label></div>
+</section>
+
+<!-- RESOURCES -->
+<section class="card" id="sec-res">
+  <h2>📎 Notes &amp; Links</h2>
+  <p>CS Unplugged doesn't have a queue-only lesson, so the train activities above are originals, designed for your Snake game. For more unplugged CS:</p>
+  <div class="res">
+    <a href="https://csunplugged.org/en/topics/" target="_blank" rel="noopener"><b>CS Unplugged topics</b><br>All free activities</a>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ---------- Activity 2: lunch line ----------
+let lineArr=[],lineN=0;
+const lineEl=document.getElementById('lunchLine'),lineMsg=document.getElementById('lineMsg');
+function lineDraw(){
+  lineEl.innerHTML=lineArr.length?lineArr.map(n=>`<span class="person">${n}</span>`).join('<span style="color:var(--muted)">→</span>')+'<span style="color:var(--muted)">→ 🍽️ (front)</span>':'<span style="color:var(--muted)">The line is empty. Add someone!</span>';
+}
+document.getElementById('joinBtn').onclick=()=>{lineN++;lineArr.push(lineN);lineDraw();lineMsg.textContent='#'+lineN+' joined the BACK of the line.';lineMsg.className='msg info';};
+document.getElementById('serveBtn').onclick=()=>{
+  if(!lineArr.length){lineMsg.textContent='Nobody to serve!';lineMsg.className='msg bad';return;}
+  const s=lineArr.shift();lineDraw();
+  lineMsg.textContent='🍽️ Served #'+s+' — first in, first out! '+(lineArr.length?lineArr.length+' still waiting.':'Line is empty.');lineMsg.className='msg good';
+};
+document.getElementById('lineReset').onclick=()=>{lineArr=[];lineN=0;lineDraw();lineMsg.textContent='Who was served first — #1 or the newcomer?';lineMsg.className='msg info';};
+
+// ---------- Activity 3: stack vs queue ----------
+let stackArr=[],queueArr=[],sqN=0;
+function sqDraw(){
+  document.getElementById('stackBox').innerHTML=stackArr.length?[...stackArr].reverse().map((n,i)=>`<div class="plate${i===0?' top':''}">${n}</div>`).join(''):'<span style="color:var(--muted)">empty</span>';
+  document.getElementById('queueBox').innerHTML=queueArr.length?queueArr.map((n,i)=>`<span class="qperson${i===0?' front':''}">${n}</span>`).join(''):'<span style="color:var(--muted)">empty</span>';
+}
+document.getElementById('pushBtn').onclick=()=>{sqN++;stackArr.push(sqN);sqDraw();};
+document.getElementById('popBtn').onclick=()=>{
+  const m=document.getElementById('stackMsg');
+  if(!stackArr.length){m.textContent='Stack is empty!';m.className='msg bad';return;}
+  m.textContent='Popped plate #'+stackArr.pop()+' — LAST in, first out!';m.className='msg good';sqDraw();
+};
+document.getElementById('enqBtn').onclick=()=>{sqN++;queueArr.push(sqN);sqDraw();};
+document.getElementById('deqBtn').onclick=()=>{
+  const m=document.getElementById('queueMsg');
+  if(!queueArr.length){m.textContent='Queue is empty!';m.className='msg bad';return;}
+  m.textContent='Served #'+queueArr.shift()+' — FIRST in, first out!';m.className='msg good';sqDraw();
+};
+sqDraw();
+
+// ---------- Activity 4: snake queue simulator ----------
+const GW=10,GH=8;
+let snake,dir,food,over;
+const sGrid=document.getElementById('snakeGrid'),sMsg=document.getElementById('snakeMsg'),
+      sList=document.getElementById('snakeList'),sLog=document.getElementById('snakeLog');
+function buildSnakeGrid(){
+  sGrid.innerHTML='';
+  for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){
+    const d=document.createElement('div');d.className='scell';d.dataset.c=c;d.dataset.r=r;sGrid.appendChild(d);
+  }
+}
+function rndFood(){
+  for(;;){
+    const c=Math.floor(Math.random()*GW),r=Math.floor(Math.random()*GH);
+    if(!snake.some(([sc,sr])=>sc===c&&sr===r))return[c,r];
+  }
+}
+function slog(t){
+  const d=document.createElement('div');d.textContent=t;sLog.prepend(d);
+  while(sLog.children.length>6)sLog.lastChild.remove();
+}
+function sDraw(){
+  sGrid.querySelectorAll('.scell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r;
+    cell.className='scell';cell.textContent='';
+    if(c===food[0]&&r===food[1]){cell.classList.add('food');cell.textContent='🍎';}
+    snake.forEach(([sc,sr],i)=>{
+      if(sc===c&&sr===r){cell.classList.add(i===0?'head':'body');cell.textContent=i===0?'🟢':'🟩';}
+    });
+  });
+  sList.textContent='body = ['+snake.map(s=>`(${s[0]},${s[1]})`).join(', ')+']';
+}
+function sReset(){
+  snake=[[4,4],[3,4],[2,4]];dir=[1,0];over=false;
+  food=rndFood();sLog.innerHTML='';
+  sDraw();sMsg.textContent='Steer to the 🍎. Watch the list!';sMsg.className='msg info';
+}
+function sStep(){
+  if(over)return;
+  const nh=[snake[0][0]+dir[0],snake[0][1]+dir[1]];
+  if(nh[0]<0||nh[0]>=GW||nh[1]<0||nh[1]>=GH){over=true;sMsg.textContent='💥 Wall crash! Press Reset.';sMsg.className='msg bad';return;}
+  if(snake.some(([sc,sr])=>sc===nh[0]&&sr===nh[1])){over=true;sMsg.textContent='💥 Self crash! (Linear search found the head inside the body list — Program 2!)';sMsg.className='msg bad';return;}
+  snake.unshift(nh);slog('body.insert(0, ('+nh[0]+','+nh[1]+'))  ← new head joins FRONT');
+  const bug=document.getElementById('bugMode').checked;
+  if(nh[0]===food[0]&&nh[1]===food[1]){
+    slog('🍎 Ate food — pop() skipped, train grows!');
+    sMsg.textContent='🍎 Yum! No pop() → the train grew by one car.';sMsg.className='msg good';
+    food=rndFood();
+  }else if(bug){
+    slog('🐛 BUG: pop() skipped — growing out of control!');
+    sMsg.textContent='🐛 Bug mode: the tail never leaves. Watch it grow forever!';sMsg.className='msg bad';
+  }else{
+    const t=snake.pop();slog('body.pop()  ← tail ('+t[0]+','+t[1]+') leaves BACK');
+  }
+  sDraw();
+}
+[['dirU',[0,-1]],['dirL',[-1,0]],['dirD',[0,1]],['dirR',[1,0]]].forEach(([id,d])=>{
+  document.getElementById(id).onclick=()=>{
+    if(d[0]===-dir[0]&&d[1]===-dir[1])return; // no 180° turns
+    dir=d;sStep();
+  };
+});
+document.getElementById('snakeReset').onclick=sReset;
+buildSnakeGrid();sReset();
+
+// ---------- quiz ----------
+const QUIZ=[
+ {q:'In a lunch line (a queue), who gets served first?',
+  opts:['The last person who joined','The person who has waited longest (joined first)','Anyone — the manager picks'],
+  a:1,why:'First in, first out. The front of the line is always the one who arrived first.'},
+ {q:'body = [(5,5), (4,5), (3,5)]. The snake moves right to (6,5). No food. What is the new body?',
+  opts:['[(6,5), (5,5), (4,5)]','[(6,5), (5,5), (4,5), (3,5)]','[(5,5), (4,5), (3,5), (6,5)]'],
+  a:0,why:'insert(0,(6,5)) puts the new head first, then pop() removes the old tail (3,5).'},
+ {q:'Same move, but (6,5) has food. What is the new body?',
+  opts:['[(6,5), (5,5), (4,5)]','[(6,5), (5,5), (4,5), (3,5)]','[(6,5)]'],
+  a:1,why:'Eating skips the pop() — the tail stays, so the body grows by exactly one.'},
+ {q:'A stack of plates vs a lunch line: which one behaves like the snake\'s body?',
+  opts:['The stack — last in, first out','The lunch line — first in, first out','Both behave the same'],
+  a:1,why:'The snake removes its oldest segment (the tail) first — FIFO, like the lunch line.'},
+ {q:'In Python, which two list operations run the snake\'s queue?',
+  opts:['append() and remove()','insert(0, x) and pop()','sort() and reverse()'],
+  a:1,why:'insert(0, head) adds to the front; pop() removes from the back. That is the whole queue.'}
+];
+const quizBox=document.getElementById('quizBox');
+let score=0,answered=0;
+QUIZ.forEach((item,qi)=>{
+  const div=document.createElement('div');div.className='quiz-q';div.id='qq'+qi;
+  div.innerHTML='<p>Q'+(qi+1)+'. '+item.q+'</p>'+item.opts.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+  quizBox.appendChild(div);
+  div.addEventListener('change',e=>{
+    if(div.classList.contains('locked'))return;
+    div.classList.add('locked');answered++;
+    const labels=div.querySelectorAll('label');labels.forEach(l=>l.style.pointerEvents='none');
+    const ok=+e.target.value===item.a;if(ok)score++;
+    labels.forEach(l=>{const v=+l.querySelector('input').value;
+      if(v===item.a)l.classList.add('correct');
+      else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');});
+    const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'✔ Correct! ':'✘ Not quite. ')+item.why;div.appendChild(fb);
+  });
+});
+document.getElementById('submitScore').onclick=()=>{
+  const el=document.getElementById('finalScore');
+  if(answered<QUIZ.length){el.textContent='Answer all '+QUIZ.length+' questions first ('+answered+'/'+QUIZ.length+' done).';el.style.color='var(--warn)';return;}
+  el.textContent='🏁 Final score: '+score+' / '+QUIZ.length+(score===QUIZ.length?' — Full steam ahead, Engineer Alex! 🚂':' — Good work! Review the ones you missed above.');
+  el.style.color=score===QUIZ.length?'var(--good)':'var(--ink)';
+};
+
+// ---------- progress ----------
+const boxes=document.querySelectorAll('.done'),TOTAL=boxes.length;
+function paint(){
+  const n=[...boxes].filter(b=>b.checked).length;
+  document.getElementById('progFill').style.width=(n/TOTAL*100)+'%';
+  document.getElementById('progLabel').textContent=`Progress: ${n} / ${TOTAL} sections complete`;
+  localStorage.setItem('queue-progress',JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener('change',paint));
+try{const s=JSON.parse(localStorage.getItem('queue-progress')||'[]');boxes.forEach((b,i)=>{if(s[i])b.checked=true;});}catch(e){}
+paint();
+</script>
+</body>
+</html>
