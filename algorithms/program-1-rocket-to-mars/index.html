@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program 1: Rocket to Mars — Alex's Algorithm Lab</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --ink:#e8eefc; --muted:#93a4c4;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1150px;margin:0 auto;padding:24px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#0f172a 70%);border:1px solid #2b3f66;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+  header.hero h1{margin:0 0 6px;font-size:2rem}
+  header.hero p{margin:4px 0;color:var(--muted)}
+  .back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none;font-weight:600}
+  .back:hover{text-decoration:underline}
+  .progress{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid #2b3f66;border-radius:12px;padding:10px 16px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .progress .bar{height:10px;background:#24334f;border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+  section.card{background:var(--panel);border:1px solid #2b3f66;border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  section.card h2{margin-top:0;color:var(--accent)}
+  .done-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #33456b;color:var(--muted);font-size:.95rem}
+  .done-row input{width:20px;height:20px;accent-color:var(--good);cursor:pointer}
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+  .role{background:var(--panel2);border-radius:10px;padding:14px;border:1px solid #33456b}
+  .role h3{margin:0 0 6px}
+  .lang{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+  .cmd{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:10px 16px;font-size:1.3rem;text-align:center;min-width:130px}
+  .cmd small{display:block;font-size:.8rem;color:var(--muted)}
+  .grid8{display:grid;grid-template-columns:repeat(8,52px);grid-template-rows:repeat(8,52px);gap:2px;background:#0b1220;padding:8px;border-radius:10px;width:max-content;margin:12px 0}
+  .cell{background:#1b2740;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;position:relative}
+  .cell.rocket{background:#123a5e}
+  .cell.mars{background:#3a1d12}
+  .coords{font-size:.62rem;color:var(--muted);position:absolute;top:2px;left:4px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  button{background:var(--accent);border:none;color:#06283a;font-weight:700;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:1rem}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:#33456b;color:var(--ink)}
+  .prog{font-family:ui-monospace,Consolas,monospace;background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px 16px;margin:10px 0;min-height:52px;font-size:1.15rem}
+  .prog .hl{background:#3b2f10;border-radius:4px;padding:1px 4px}
+  .msg{margin:8px 0;min-height:24px;font-weight:600}
+  .msg.good{color:var(--good)} .msg.bad{color:var(--bad)} .msg.info{color:var(--warn)}
+  .quiz-q{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:14px 16px;margin:12px 0}
+  .quiz-q p{margin:0 0 10px;font-weight:600}
+  .quiz-q label{display:block;background:#0b1220;border:1px solid #33456b;border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+  .quiz-q label:hover{border-color:var(--accent)}
+  .quiz-q.locked label{cursor:default}
+  .quiz-q label.correct{border-color:var(--good);background:#0c2b22}
+  .quiz-q label.wrong{border-color:var(--bad);background:#2b1215}
+  .fb{font-weight:700;margin-top:8px}
+  .fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+  .score{font-size:1.3rem;font-weight:800;text-align:center;padding:16px}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+  .res a{display:block;background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .res a:hover{border-color:var(--accent)}
+  .res a b{color:var(--accent)}
+  .bridge{background:linear-gradient(135deg,#123a2b,#0f172a 70%);border-color:#1f5c40}
+  .bridge h2{color:var(--good)}
+  kbd{background:#0b1220;border:1px solid #475569;border-bottom-width:3px;border-radius:6px;padding:2px 8px;font-family:inherit}
+  @media(max-width:640px){.grid8{grid-template-columns:repeat(8,38px);grid-template-rows:repeat(8,38px)}.cell{font-size:1.2rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="https://yoonc5536.github.io/alex-learning/algorithms/">← Back to Algorithm Lab</a>
+
+<header class="hero">
+  <h1>💻 Program 1: Rocket to Mars 🚀</h1>
+  <p><b>Alex's</b> Algorithm Lab · Step 1 of the Snake-game algorithm path</p>
+  <p>Based on <a style="color:var(--accent)" href="https://www.csunplugged.org/en/topics/kidbots/sending-a-rocket-to-mars/" target="_blank" rel="noopener">CS Unplugged: Sending a rocket to Mars</a> (Kidbots, ages 8–10). Adapted for one developer: you.</p>
+</header>
+
+<div class="progress">
+  <span id="progLabel">Progress: 0 / 7 sections complete</span>
+  <div class="bar"><div id="progFill"></div></div>
+</div>
+
+<!-- 1. CREW -->
+<section class="card" id="sec-crew">
+  <h2>1 · Your Crew</h2>
+  <p>In real programming teams, three jobs are separated. Today you will play <b>all three</b> — sometimes with Dad helping as the Bot.</p>
+  <div class="roles">
+    <div class="role"><h3>👨‍💻 Developer</h3>Writes the <b>entire program first</b>, before anything moves. No changes allowed mid-run!</div>
+    <div class="role"><h3>🔍 Tester</h3>Reads the instructions out loud, watches the Bot, and marks the exact line where a <b>bug</b> appears.</div>
+    <div class="role"><h3>🤖 Bot</h3>Follows the written instructions <b>exactly</b> — even if they are wrong. Never guesses what the Developer "meant".</div>
+  </div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-crew" id="d-crew"><label for="d-crew">I know the three jobs</label></div>
+</section>
+
+<!-- 2. LANGUAGE -->
+<section class="card" id="sec-lang">
+  <h2>2 · Your Programming Language</h2>
+  <p>A programming language is just an <b>agreement</b> about what symbols mean. Ours has only three commands:</p>
+  <div class="lang">
+    <div class="cmd">⬆️<small><b>F</b> — move Forward one square</small></div>
+    <div class="cmd">↰<small><b>L</b> — turn Left 90° (stay in square)</small></div>
+    <div class="cmd">↱<small><b>R</b> — turn Right 90° (stay in square)</small></div>
+  </div>
+  <p style="color:var(--muted)">Turning does <b>not</b> move you to a new square — you spin on the spot. This detail causes most bugs!</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-lang" id="d-lang"><label for="d-lang">I know F, L, R</label></div>
+</section>
+
+<!-- 3. TRACE -->
+<section class="card" id="sec-trace">
+  <h2>3 · Activity: Trace the Program</h2>
+  <p>Rocket starts at <b>(1, 5)</b> facing up ⬆️. Mars is at <b>(4, 3)</b>. The Developer's program is:</p>
+  <div class="prog" id="traceProg"></div>
+  <div class="grid8" id="traceGrid"></div>
+  <div class="controls">
+    <button id="traceStep">Step ▶</button>
+    <button id="traceRun">Run all ⏩</button>
+    <button id="traceReset" class="ghost">Reset</button>
+  </div>
+  <div class="msg info" id="traceMsg">Press Step to run one instruction at a time — just like the Bot.</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-trace" id="d-trace"><label for="d-trace">I traced the program to Mars</label></div>
+</section>
+
+<!-- 4. DEBUG -->
+<section class="card" id="sec-debug">
+  <h2>4 · Activity: Find the Bug 🐛</h2>
+  <p>A new program was written. The rocket did <b>not</b> reach Mars. Run it, watch carefully, then answer: <b>which step is the bug?</b></p>
+  <div class="prog" id="debugProg"></div>
+  <div class="grid8" id="debugGrid"></div>
+  <div class="controls">
+    <button id="debugStep">Step ▶</button>
+    <button id="debugRun">Run all ⏩</button>
+    <button id="debugReset" class="ghost">Reset</button>
+  </div>
+  <div class="msg info" id="debugMsg">Run the program first, then pick the buggy step below.</div>
+  <div class="quiz-q" id="bugQ">
+    <p>Which step contains the bug?</p>
+    <label><input type="radio" name="bugstep" value="3"> Step 3 — first Turn right</label>
+    <label><input type="radio" name="bugstep" value="4"> Step 4 — second Turn right</label>
+    <label><input type="radio" name="bugstep" value="6"> Step 6 — Move forward</label>
+  </div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-debug" id="d-debug"><label for="d-debug">I found and understood the bug</label></div>
+</section>
+
+<!-- 5. WRITE -->
+<section class="card" id="sec-write">
+  <h2>5 · Activity: Write Your Own Program ✍️</h2>
+  <p>You are the Developer now. Build a program with the buttons, then press <b>Run</b>.</p>
+  <p>🛰️ <b>New mission: refuel FIRST.</b> Fly through the fuel station ⛽ at <b>(4, 1)</b>, <i>then</i> land on Mars 🔴 at <b>(4, 3)</b>. Landing on Mars without refueling = mission failed!</p>
+  <p>⛽ <b>Fuel limit: 14 steps.</b> 11 steps = ⭐⭐⭐, 12–13 steps = ⭐⭐, 14 steps = ⭐. More than 14 = out of fuel.</p>
+  <div class="controls">
+    <button data-add="F">⬆️ F</button>
+    <button data-add="L" id="btnL">↰ L</button>
+    <button data-add="R">↱ R</button>
+    <button id="writeUndo" class="ghost">Undo</button>
+    <button id="writeClear" class="ghost">Clear</button>
+    <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" id="noLeft"> Hard mode: no <b>L</b> allowed!</label>
+  </div>
+  <div class="prog" id="writeProg">(empty program)</div>
+  <div class="grid8" id="writeGrid"></div>
+  <div class="controls">
+    <button id="writeRun">Run ⏩</button>
+    <button id="writeReset" class="ghost">Reset rocket</button>
+  </div>
+  <div class="msg info" id="writeMsg">Hint: a left turn can be made from right turns. How many?</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-write" id="d-write"><label for="d-write">I completed the refuel mission</label></div>
+</section>
+
+<!-- 6. OBSTACLES -->
+<section class="card" id="sec-obstacles">
+  <h2>6 · Activity: Obstacle Course ☄️</h2>
+  <p>Space junk (☄️) blocks the direct route! Program the rocket to Mars <b>without touching</b> any junk cell. Touch junk = 💥 mission failed.</p>
+  <p>⛽ <b>Fuel limit: 14 steps.</b> 9 steps = ⭐⭐⭐, 10–11 = ⭐⭐, 12–14 = ⭐.</p>
+  <div class="controls">
+    <button data-add2="F">⬆️ F</button>
+    <button data-add2="L" id="btnL2">↰ L</button>
+    <button data-add2="R">↱ R</button>
+    <button id="obsUndo" class="ghost">Undo</button>
+    <button id="obsClear" class="ghost">Clear</button>
+    <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" id="noLeft2"> Hard mode: no <b>L</b> allowed!</label>
+  </div>
+  <div class="prog" id="obsProg">(empty program)</div>
+  <div class="grid8" id="obsGrid"></div>
+  <div class="controls">
+    <button id="obsRun">Run ⏩</button>
+    <button id="obsReset" class="ghost">Reset rocket</button>
+  </div>
+  <div class="msg info" id="obsMsg">Study the junk field first. The short road is blocked — where is the safe detour?</div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-obstacles" id="d-obstacles"><label for="d-obstacles">I cleared the obstacle course</label></div>
+</section>
+
+<!-- 7. QUIZ -->
+<section class="card" id="sec-quiz">
+  <h2>7 · Quiz — Think Like a Programmer</h2>
+  <p>Answer each question. You get <b>one try</b> per question — it locks after you answer.</p>
+  <div id="quizBox"></div>
+  <div class="controls" style="margin-top:14px">
+    <button id="submitScore">Submit for final score</button>
+  </div>
+  <div class="score" id="finalScore"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-quiz" id="d-quiz"><label for="d-quiz">Quiz finished</label></div>
+</section>
+
+<!-- 7. BRIDGE -->
+<section class="card bridge" id="sec-bridge">
+  <h2>8 · Bridge to Your Snake Game 🐍</h2>
+  <p>Everything you just did is inside your Snake game:</p>
+  <ul>
+    <li><b>The Bot = the game loop.</b> Every "tick", the loop reads the next instruction (move the head one square) and runs it — no help, no guessing.</li>
+    <li><b>The program = the snake's direction.</b> Arrow keys change the program while it runs, exactly like the Developer handing new instructions to the Tester.</li>
+    <li><b>The grid = the game board.</b> Rocket (1,5) → Mars (4,3) is the same idea as head (x,y) → food (x,y).</li>
+    <li><b>Debugging = fixing your game.</b> When the snake goes the wrong way, you find the exact line — like the Tester underlining the bug.</li>
+  </ul>
+  <p>Next steps on this path: <b>queue</b> (the snake's body), <b>linear search</b> (collision check), <b>simulation</b> (the full game loop).</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-bridge" id="d-bridge"><label for="d-bridge">I see how this connects to Snake</label></div>
+</section>
+
+<!-- RESOURCES -->
+<section class="card" id="sec-res">
+  <h2>📎 Printables &amp; Links (from CS Unplugged)</h2>
+  <p>Download these for the tabletop version of the activity:</p>
+  <div class="res">
+    <a href="https://www.csunplugged.org/en/topics/kidbots/sending-a-rocket-to-mars/" target="_blank" rel="noopener"><b>Lesson page</b><br>Full teaching plan</a>
+    <a href="https://www.csunplugged.org/en/at-home/kidbots/" target="_blank" rel="noopener"><b>At-home version</b><br>Adapted for 1-to-1 play</a>
+    <a href="https://www.csunplugged.org/en/resources/grid/" target="_blank" rel="noopener"><b>8×8 grid</b><br>Printable game board</a>
+    <a href="https://www.csunplugged.org/en/resources/left-right-cards/" target="_blank" rel="noopener"><b>Left &amp; right cards</b><br>Hold while turning</a>
+    <a href="https://www.csunplugged.org/en/resources/job-badges/" target="_blank" rel="noopener"><b>Job badges</b><br>Developer · Tester · Bot</a>
+  </div>
+</section>
+
+</div>
+
+<script>
+const DIRS=[[0,-1],[1,0],[0,1],[-1,0]]; // up,right,down,left
+const ARROWS=['⬆️','➡️','⬇️','⬅️'];
+const MARS={c:4,r:3}, START={c:1,r:5,face:0};
+
+function buildGrid(el){
+  el.innerHTML='';
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    const d=document.createElement('div');d.className='cell';d.dataset.c=c;d.dataset.r=r;
+    d.innerHTML=`<span class="coords">${c},${r}</span><span class="icon"></span>`;
+    el.appendChild(d);
+  }
+}
+function draw(el,st){
+  el.querySelectorAll('.cell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r,icon=cell.querySelector('.icon');
+    cell.classList.remove('rocket','mars');icon.textContent='';
+    if(c===st.c&&r===st.r){cell.classList.add('rocket');icon.textContent='🚀'+ARROWS[st.face];}
+    if(c===MARS.c&&r===MARS.r){cell.classList.add('mars');icon.textContent='🔴';}
+  });
+}
+function stepOnce(st,cmd){
+  if(cmd==='F'){const[dc,dr]=DIRS[st.face];st.c+=dc;st.r+=dr;}
+  else if(cmd==='L'){st.face=(st.face+3)%4;}
+  else if(cmd==='R'){st.face=(st.face+1)%4;}
+  st.c=Math.max(0,Math.min(7,st.c));st.r=Math.max(0,Math.min(7,st.r));
+}
+function renderProg(el,prog,hi=-1){
+  el.innerHTML=prog.map((p,i)=>`<span class="${i===hi?'hl':''}">${i+1}.${p}</span>`).join(' ');
+}
+function fresh(){return{c:START.c,r:START.r,face:START.face};}
+
+// ---- Activity 1: trace ----
+const traceProg=['F','F','R','F','F','F'];
+let ts=fresh(),ti=0,timer=null;
+const tGrid=document.getElementById('traceGrid'),tMsg=document.getElementById('traceMsg');
+buildGrid(tGrid);draw(tGrid,ts);renderProg(document.getElementById('traceProg'),traceProg);
+function tStop(){if(timer){clearInterval(timer);timer=null;}}
+document.getElementById('traceStep').onclick=()=>{tStop();if(ti>=traceProg.length){tMsg.textContent='Program finished.';tMsg.className='msg info';return;}
+  renderProg(document.getElementById('traceProg'),traceProg,ti);stepOnce(ts,traceProg[ti]);ti++;draw(tGrid,ts);
+  if(ts.c===MARS.c&&ts.r===MARS.r){tMsg.textContent='🎉 The rocket landed on Mars! ('+ti+' steps)';tMsg.className='msg good';}
+  else if(ti>=traceProg.length){tMsg.textContent='Program ended. Rocket at ('+ts.c+','+ts.r+').';tMsg.className='msg info';}
+  else{tMsg.textContent='Step '+ti+': '+traceProg[ti-1]+' → ('+ts.c+','+ts.r+')';tMsg.className='msg info';}};
+document.getElementById('traceRun').onclick=()=>{tStop();timer=setInterval(()=>{if(ti>=traceProg.length){tStop();return;}document.getElementById('traceStep').click();},600);};
+document.getElementById('traceReset').onclick=()=>{tStop();ts=fresh();ti=0;draw(tGrid,ts);renderProg(document.getElementById('traceProg'),traceProg);tMsg.textContent='Press Step to run one instruction at a time — just like the Bot.';tMsg.className='msg info';};
+
+// ---- Activity 2: debug ----
+const debugProg=['F','F','R','R','F','F','F']; // bug at step 4
+let ds=fresh(),di=0,dtimer=null;
+const dGrid=document.getElementById('debugGrid'),dMsg=document.getElementById('debugMsg');
+buildGrid(dGrid);draw(dGrid,ds);renderProg(document.getElementById('debugProg'),debugProg);
+function dStop(){if(dtimer){clearInterval(dtimer);dtimer=null;}}
+document.getElementById('debugStep').onclick=()=>{dStop();if(di>=debugProg.length){dMsg.textContent='Program finished.';return;}
+  renderProg(document.getElementById('debugProg'),debugProg,di);stepOnce(ds,debugProg[di]);di++;draw(dGrid,ds);
+  if(ds.c===MARS.c&&ds.r===MARS.r){dMsg.textContent='It reached Mars?! Check again…';dMsg.className='msg info';}
+  else if(di>=debugProg.length){dMsg.textContent='❌ Rocket ended at ('+ds.c+','+ds.r+') — NOT Mars. Find the bug!';dMsg.className='msg bad';}
+  else{dMsg.textContent='Step '+di+': '+debugProg[di-1]+' → ('+ds.c+','+ds.r+')';dMsg.className='msg info';}};
+document.getElementById('debugRun').onclick=()=>{dStop();dtimer=setInterval(()=>{if(di>=debugProg.length){dStop();return;}document.getElementById('debugStep').click();},600);};
+document.getElementById('debugReset').onclick=()=>{dStop();ds=fresh();di=0;draw(dGrid,ds);renderProg(document.getElementById('debugProg'),debugProg);dMsg.textContent='Run the program first, then pick the buggy step below.';dMsg.className='msg info';};
+// bug quiz (instant grade + lock)
+const bugQ=document.getElementById('bugQ');
+bugQ.addEventListener('change',e=>{
+  if(bugQ.classList.contains('locked'))return;
+  bugQ.classList.add('locked');
+  const labels=bugQ.querySelectorAll('label');
+  labels.forEach(l=>{l.style.pointerEvents='none';});
+  const ok=e.target.value==='4';
+  labels.forEach(l=>{
+    const v=l.querySelector('input').value;
+    if(v==='4')l.classList.add('correct');
+    else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');
+  });
+  const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+  fb.textContent=ok?'✔ Correct! The second R spins the rocket on the spot instead of moving it forward.':'✘ Not quite — the rocket spun twice on the spot at step 4 (turn right, turn right) instead of turning once and moving forward.';
+  bugQ.appendChild(fb);
+});
+
+// ---- Activity 5: write (refuel mission) ----
+const FUEL={c:4,r:1};
+let wProg=[],ws=fresh();
+const wGrid=document.getElementById('writeGrid'),wMsg=document.getElementById('writeMsg');
+buildGrid(wGrid);
+function wDraw(){
+  draw(wGrid,ws);
+  wGrid.querySelectorAll('.cell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r;
+    if(c===FUEL.c&&r===FUEL.r){cell.querySelector('.icon').textContent='⛽';cell.style.background='#0f2f1d';}
+  });
+}
+wDraw();
+function wRender(){document.getElementById('writeProg').textContent=wProg.length?wProg.map((p,i)=>(i+1)+'.'+p).join(' '):'(empty program)';}
+wRender();
+document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{
+  if(document.getElementById('noLeft').checked&&b.dataset.add==='L'){wMsg.textContent='⛔ Hard mode: L is not allowed!';wMsg.className='msg bad';return;}
+  wProg.push(b.dataset.add);wRender();
+});
+document.getElementById('noLeft').onchange=e=>{document.getElementById('btnL').disabled=e.target.checked;};
+document.getElementById('writeUndo').onclick=()=>{wProg.pop();wRender();};
+document.getElementById('writeClear').onclick=()=>{wProg=[];wRender();};
+document.getElementById('writeReset').onclick=()=>{ws=fresh();wDraw();wMsg.textContent='Rocket reset. Press Run.';wMsg.className='msg info';};
+document.getElementById('writeRun').onclick=()=>{
+  ws=fresh();let refueled=false;
+  for(const p of wProg){stepOnce(ws,p);if(ws.c===FUEL.c&&ws.r===FUEL.r)refueled=true;}
+  wDraw();
+  const n=wProg.length,onMars=ws.c===MARS.c&&ws.r===MARS.r;
+  if(onMars&&!refueled){wMsg.textContent='🛰️ You landed on Mars WITHOUT refueling! Mission failed — route through ⛽ (4,1) first.';wMsg.className='msg bad';}
+  else if(onMars){
+    if(n<=11){wMsg.textContent='🎉 PERFECT! Refueled and landed in '+n+' steps — ⭐⭐⭐ optimal mission!';wMsg.className='msg good';}
+    else if(n<=13){wMsg.textContent='🎉 SUCCESS! Mission complete in '+n+' steps — ⭐⭐. The 11-step route exists — find it!';wMsg.className='msg good';}
+    else if(n<=14){wMsg.textContent='🎉 Made it in '+n+' steps — ⭐. It works, but mission control wants it tighter.';wMsg.className='msg info';}
+    else{wMsg.textContent='⛽ Out of fuel! '+n+' steps is over the 14-step limit.';wMsg.className='msg bad';}
+  }
+  else{wMsg.textContent='❌ Ended at ('+ws.c+','+ws.r+')'+(refueled?' (refueled ✓)':' (not refueled yet!)')+' — not Mars. Debug and try again!';wMsg.className='msg bad';}
+};
+
+// ---- Activity 6: obstacle course ----
+const OBS=[[2,3],[2,4]]; // space junk cells [col,row]
+let oProg=[],os=fresh();
+const oGrid=document.getElementById('obsGrid'),oMsg=document.getElementById('obsMsg');
+buildGrid(oGrid);
+function oDraw(){
+  draw(oGrid,os);
+  oGrid.querySelectorAll('.cell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r;
+    if(OBS.some(([oc,or])=>oc===c&&or===r)){
+      cell.querySelector('.icon').textContent=(c===os.c&&r===os.r)?'💥':'☄️';
+      cell.style.background='#3a2a10';
+    }
+  });
+}
+oDraw();
+function oRender(){document.getElementById('obsProg').textContent=oProg.length?oProg.map((p,i)=>(i+1)+'.'+p).join(' '):'(empty program)';}
+oRender();
+document.querySelectorAll('[data-add2]').forEach(b=>b.onclick=()=>{
+  if(document.getElementById('noLeft2').checked&&b.dataset.add2==='L'){oMsg.textContent='⛔ Hard mode: L is not allowed!';oMsg.className='msg bad';return;}
+  oProg.push(b.dataset.add2);oRender();
+});
+document.getElementById('noLeft2').onchange=e=>{document.getElementById('btnL2').disabled=e.target.checked;};
+document.getElementById('obsUndo').onclick=()=>{oProg.pop();oRender();};
+document.getElementById('obsClear').onclick=()=>{oProg=[];oRender();};
+document.getElementById('obsReset').onclick=()=>{os=fresh();oDraw();oMsg.textContent='Study the junk field first. The short road is blocked — where is the safe detour?';oMsg.className='msg info';};
+document.getElementById('obsRun').onclick=()=>{
+  os=fresh();let crashed=-1;
+  for(let i=0;i<oProg.length;i++){
+    stepOnce(os,oProg[i]);
+    if(OBS.some(([oc,or])=>oc===os.c&&or===os.r)){crashed=i+1;break;}
+  }
+  oDraw();
+  const n=oProg.length;
+  if(crashed>0){oMsg.textContent='💥 CRASH at step '+crashed+'! The rocket hit space junk at ('+os.c+','+os.r+'). Re-route!';oMsg.className='msg bad';}
+  else if(os.c===MARS.c&&os.r===MARS.r){
+    if(n<=9){oMsg.textContent='🎉 PERFECT! Dodged the junk and landed on Mars in '+n+' steps — ⭐⭐⭐!';oMsg.className='msg good';}
+    else if(n<=11){oMsg.textContent='🎉 SUCCESS! Mars in '+n+' steps — ⭐⭐. A tighter detour exists!';oMsg.className='msg good';}
+    else if(n<=14){oMsg.textContent='🎉 Made it in '+n+' steps — ⭐. Safe but thirsty. Can you trim it?';oMsg.className='msg info';}
+    else{oMsg.textContent='⛽ Out of fuel! '+n+' steps is over the 14-step limit.';oMsg.className='msg bad';}
+  }
+  else{oMsg.textContent='❌ Ended at ('+os.c+','+os.r+') — not Mars. Debug and try again!';oMsg.className='msg bad';}
+};
+
+// ---- Quiz ----
+const QUIZ=[
+ {q:'Why must the Developer write ALL instructions BEFORE the Bot starts moving?',
+  opts:['So the Tester has something to read','Because that is how real programs run — the computer executes code with no programmer help during the run','To make the game slower'],
+  a:1,why:'A program runs on its own. The programmer must imagine what will happen before testing — exactly what you did in Activity 1.'},
+ {q:'In the buggy program, the rocket did "turn right, turn right" on the spot. What is the smallest fix?',
+  opts:['Delete both turn-rights','Replace the second turn-right with move-forward','Add two more turn-rights'],
+  a:1,why:'One right turn aims the rocket at Mars; the second one just spins it around. Swap it for F.'},
+ {q:'Hard mode: only F and R are allowed. How do you make the rocket turn LEFT?',
+  opts:['Impossible','Two right turns','Three right turns'],
+  a:2,why:'R+R+R = 270° right = 90° left. Fewer instructions can do the same job — that is why instruction sets matter.'},
+ {q:'Two different programs both land the rocket on Mars. Which statement is true?',
+  opts:['Only the shorter one is correct','Both are correct if they reach the goal — shorter is just more efficient','The longer one is always wrong'],
+  a:1,why:'In programming there is rarely one "best" solution. Correct = reaches the goal; efficient = fewer steps.'},
+ {q:'How is the Bot like the game loop in your Snake game?',
+  opts:['They both use rockets','Both run instructions step by step, exactly as written, with no guessing','They both need Mars'],
+  a:1,why:'Each game tick, the loop executes the next move exactly as programmed — the Bot never improvises, and neither does your game.'}
+];
+const quizBox=document.getElementById('quizBox');
+let score=0,answered=0;
+QUIZ.forEach((item,qi)=>{
+  const div=document.createElement('div');div.className='quiz-q';div.id='qq'+qi;
+  div.innerHTML='<p>Q'+(qi+1)+'. '+item.q+'</p>'+item.opts.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+  quizBox.appendChild(div);
+  div.addEventListener('change',e=>{
+    if(div.classList.contains('locked'))return;
+    div.classList.add('locked');answered++;
+    const labels=div.querySelectorAll('label');labels.forEach(l=>l.style.pointerEvents='none');
+    const ok=+e.target.value===item.a;if(ok)score++;
+    labels.forEach(l=>{const v=+l.querySelector('input').value;
+      if(v===item.a)l.classList.add('correct');
+      else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');});
+    const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'✔ Correct! ':'✘ Not quite. ')+item.why;div.appendChild(fb);
+  });
+});
+document.getElementById('submitScore').onclick=()=>{
+  const el=document.getElementById('finalScore');
+  if(answered<QUIZ.length){el.textContent='Answer all '+QUIZ.length+' questions first ('+answered+'/'+QUIZ.length+' done).';el.style.color='var(--warn)';return;}
+  el.textContent='🏁 Final score: '+score+' / '+QUIZ.length+(score===QUIZ.length?' — Perfect mission, Commander Alex! 🚀':' — Good work! Review the ones you missed above.');
+  el.style.color=score===QUIZ.length?'var(--good)':'var(--ink)';
+};
+
+// ---- Progress ----
+const boxes=document.querySelectorAll('.done'),TOTAL=boxes.length;
+function paint(){
+  const n=[...boxes].filter(b=>b.checked).length;
+  document.getElementById('progFill').style.width=(n/TOTAL*100)+'%';
+  document.getElementById('progLabel').textContent=`Progress: ${n} / ${TOTAL} sections complete`;
+  localStorage.setItem('kidbots-progress',JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener('change',paint));
+try{const s=JSON.parse(localStorage.getItem('kidbots-progress')||'[]');boxes.forEach((b,i)=>{if(s[i])b.checked=true;});}catch(e){}
+paint();
+</script>
+</body>
+</html>
