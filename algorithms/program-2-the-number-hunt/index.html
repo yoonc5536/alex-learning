@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program 2: The Number Hunt — Alex's Algorithm Lab</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --ink:#e8eefc; --muted:#93a4c4;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1150px;margin:0 auto;padding:24px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#3b0764,#0f172a 70%);border:1px solid #4c2a6b;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+  header.hero h1{margin:0 0 6px;font-size:2rem}
+  header.hero p{margin:4px 0;color:var(--muted)}
+  .back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none;font-weight:600}
+  .back:hover{text-decoration:underline}
+  .progress{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid #2b3f66;border-radius:12px;padding:10px 16px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .progress .bar{height:10px;background:#24334f;border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+  section.card{background:var(--panel);border:1px solid #2b3f66;border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  section.card h2{margin-top:0;color:var(--accent)}
+  .done-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #33456b;color:var(--muted);font-size:.95rem}
+  .done-row input{width:20px;height:20px;accent-color:var(--good);cursor:pointer}
+  .cardgrid{display:grid;grid-template-columns:repeat(8,58px);gap:6px;margin:12px 0}
+  .cardgrid.small{grid-template-columns:repeat(4,58px)}
+  .pcard{background:#1b2740;border:1px solid #33456b;border-radius:8px;height:58px;font-size:1.5rem;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .pcard:hover:not(:disabled){border-color:var(--accent)}
+  .pcard:disabled{cursor:default}
+  .pcard.open{background:#0b1220}
+  .pcard.hit{background:#0c2b22;border-color:var(--good)}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  button{background:var(--accent);border:none;color:#06283a;font-weight:700;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:1rem}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:#33456b;color:var(--ink)}
+  .msg{margin:8px 0;min-height:24px;font-weight:600}
+  .msg.good{color:var(--good)} .msg.bad{color:var(--bad)} .msg.info{color:var(--warn)}
+  .stat{background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px 16px;margin:10px 0;font-family:ui-monospace,Consolas,monospace}
+  .quiz-q{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:14px 16px;margin:12px 0}
+  .quiz-q p{margin:0 0 10px;font-weight:600}
+  .quiz-q label{display:block;background:#0b1220;border:1px solid #33456b;border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+  .quiz-q label:hover{border-color:var(--accent)}
+  .quiz-q.locked label{cursor:default}
+  .quiz-q label.correct{border-color:var(--good);background:#0c2b22}
+  .quiz-q label.wrong{border-color:var(--bad);background:#2b1215}
+  .fb{font-weight:700;margin-top:8px}
+  .fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+  .score{font-size:1.3rem;font-weight:800;text-align:center;padding:16px}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+  .res a{display:block;background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .res a:hover{border-color:var(--accent)}
+  .res a b{color:var(--accent)}
+  .bridge{background:linear-gradient(135deg,#123a2b,#0f172a 70%);border-color:#1f5c40}
+  .bridge h2{color:var(--good)}
+  table.trial{border-collapse:collapse;margin:10px 0;font-size:.9rem}
+  table.trial th,table.trial td{border:1px solid #33456b;padding:6px 12px;text-align:center}
+  table.trial th{background:#0b1220}
+  .seg{display:inline-block;background:#1b2740;border:1px solid #33456b;border-radius:8px;padding:6px 10px;margin:3px;font-family:ui-monospace,Consolas,monospace}
+  .seg.done{opacity:.45}
+  .seg.cur{border-color:var(--warn);background:#3a2f10}
+  .seg.hit{border-color:var(--good);background:#0c2b22}
+  code{background:#0b1220;border:1px solid #33456b;border-radius:5px;padding:1px 6px;font-size:.92em}
+  @media(max-width:640px){.cardgrid{grid-template-columns:repeat(8,38px)}.cardgrid.small{grid-template-columns:repeat(4,38px)}.pcard{height:38px;font-size:1.1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="https://yoonc5536.github.io/alex-learning/algorithms/">← Back to Algorithm Lab</a>
+
+<header class="hero">
+  <h1>💻 Program 2: The Number Hunt 🔍</h1>
+  <p><b>Alex's</b> Algorithm Lab · Step 2 of the Snake-game algorithm path</p>
+  <p>Based on <a style="color:var(--accent)" href="https://www.csunplugged.org/en/topics/searching-algorithms/" target="_blank" rel="noopener">CS Unplugged: Searching algorithms</a> ("How many guesses?", ages 8–10). Today you <b>are</b> the search algorithm.</p>
+</header>
+
+<div class="progress">
+  <span id="progLabel">Progress: 0 / 7 sections complete</span>
+  <div class="bar"><div id="progFill"></div></div>
+</div>
+
+<!-- 1. MISSION -->
+<section class="card" id="sec-mission">
+  <h2>1 · Your Mission</h2>
+  <p>Your Snake game keeps the body as a <b>list of positions</b>. Every move, it must answer one question:</p>
+  <p style="font-size:1.2rem;font-weight:700;color:var(--warn)">"Is the head's position anywhere in this list?"</p>
+  <p>The computer <b>cannot look at the whole list at once</b>. It can only compare <b>one position at a time</b>. So it checks them one by one, in order, until it finds a match — or runs out of list.</p>
+  <p>This is called <b>linear search</b> (or <b>sequential search</b>): <i>linear</i> because the work grows in a straight line with the size of the list.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-mission" id="d-mission"><label for="d-mission">I know what linear search is</label></div>
+</section>
+
+<!-- 2. CARD HUNT -->
+<section class="card" id="sec-hunt">
+  <h2>2 · Activity: The Card Hunt 🃏</h2>
+  <p>16 cards, face down. One hides a ⭐. <b>Flip them one at a time</b> — you are the computer, and computers can't peek!</p>
+  <div class="cardgrid small" id="huntGrid"></div>
+  <div class="controls">
+    <button id="huntNew">New game 🔀</button>
+    <span class="msg info" id="huntMsg" style="margin:0">Click a card to flip it.</span>
+  </div>
+  <div class="stat" id="huntStat">Guesses this round: 0</div>
+  <p style="color:var(--muted)">Play 3 times. Write down your guesses: <b>round 1: ___, round 2: ___, round 3: ___</b>. Lucky once? Unlucky once? That's the point — it ranges from 1 to 16.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-hunt" id="d-hunt"><label for="d-hunt">I played 3 rounds of the card hunt</label></div>
+</section>
+
+<!-- 3. SILLY SEARCH -->
+<section class="card" id="sec-silly">
+  <h2>3 · Activity: The Silly Search 🎲</h2>
+  <p>What if instead of going one by one, you <b>pick a random card, check it, put it back, and repeat</b>? Let's race the two strategies — 20 trials each, computer-speed.</p>
+  <div class="controls">
+    <button id="raceBtn">Race! 🏁</button>
+  </div>
+  <div class="stat" id="raceStat">Press Race to run 20 trials per strategy.</div>
+  <div class="msg info" id="raceMsg"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-silly" id="d-silly"><label for="d-silly">I saw why the silly search is worse</label></div>
+</section>
+
+<!-- 4. DOUBLE -->
+<section class="card" id="sec-double">
+  <h2>4 · Activity: Double the Cards 📈</h2>
+  <p>Now <b>32 cards</b>. But first — predict!</p>
+  <div class="quiz-q" id="predictQ">
+    <p>If 16 cards take about 8 flips on average, about how many flips will 32 cards take on average?</p>
+    <label><input type="radio" name="pred" value="8"> About 8 — same work</label>
+    <label><input type="radio" name="pred" value="16"> About 16 — twice the cards, twice the work</label>
+    <label><input type="radio" name="pred" value="32"> About 32 — much harder</label>
+  </div>
+  <div class="cardgrid" id="bigGrid"></div>
+  <div class="controls">
+    <button id="bigNew">New game 🔀</button>
+    <span class="msg info" id="bigMsg" style="margin:0">Click a card to flip it.</span>
+  </div>
+  <div class="stat" id="bigStat">Guesses this round: 0</div>
+  <p style="color:var(--muted)">This straight-line relationship — <b>twice the data, twice the time</b> — is exactly why it's called <b><i>linear</i> search</b>.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-double" id="d-double"><label for="d-double">I tested the doubling prediction</label></div>
+</section>
+
+<!-- 5. CODE IT -->
+<section class="card" id="sec-code">
+  <h2>5 · Activity: Code the Search 🐍</h2>
+  <p>You played the computer. Now <b>be the programmer</b> — write the search as real Python, exactly like your Snake game will use.</p>
+  <p>New vocabulary: <code>body = [(3,5), (3,4), ...]</code> is a <b>list</b> — cards in a row. <code>for segment in body:</code> flips them one by one.</p>
+  <h3>Trace it in your head first</h3>
+  <div class="stat">body = [(3,5), (3,4), (3,3), (2,3), (1,3)] &nbsp;&nbsp; head = (2,3)</div>
+  <p>Trace with your finger: check 1 — is (3,5) the head? No. Check 2… <b>On which check do we find it? ___</b></p>
+  <h3>Watch it run — one step at a time</h3>
+  <div class="controls">
+    <button id="codeStep">Step ▶</button>
+    <button id="codeRun">Run all ⏩</button>
+    <button id="codeReset" class="ghost">Reset</button>
+    <label style="color:var(--muted)">head:
+      <select id="headPick" style="background:#0b1220;color:var(--ink);border:1px solid #33456b;border-radius:8px;padding:8px">
+        <option value="2,3">(2,3) — in the body</option>
+        <option value="5,5">(5,5) — NOT in the body</option>
+        <option value="3,5">(3,5) — first segment</option>
+      </select>
+    </label>
+  </div>
+  <div class="stat" id="codeStrip" style="font-size:1.05rem"></div>
+  <div class="stat" id="codeStat">checks: 0</div>
+  <div class="msg info" id="codeMsg">Press Step — each step is one card flip.</div>
+  <h3>Your turn — paper first! 📝</h3>
+  <ol>
+    <li>On paper, write the loop from memory. Then compare with the tracer above.</li>
+    <li>Change <code>head</code> to <code>(9,9)</code> in real Python. Predict the check count: ___. Run it and check.</li>
+    <li>Challenge: add a line that prints <code>"CRASH!"</code> if found, else <code>"Safe."</code></li>
+  </ol>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-code" id="d-code"><label for="d-code">I traced and coded the search</label></div>
+</section>
+
+<!-- 6. QUIZ -->
+<section class="card" id="sec-quiz">
+  <h2>6 · Quiz — Think Like a Search Algorithm</h2>
+  <p>One try per question — it locks after you answer.</p>
+  <div id="quizBox"></div>
+  <div class="controls" style="margin-top:14px">
+    <button id="submitScore">Submit for final score</button>
+  </div>
+  <div class="score" id="finalScore"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-quiz" id="d-quiz"><label for="d-quiz">Quiz finished</label></div>
+</section>
+
+<!-- 6. BRIDGE -->
+<section class="card bridge" id="sec-bridge">
+  <h2>7 · Bridge to Your Snake Game 🐍</h2>
+  <p>Your Snake collision check <b>is</b> this activity:</p>
+  <ul>
+    <li><b>The cards = the snake's body list.</b> Each card is one body segment's position.</li>
+    <li><b>The ⭐ = the head's position.</b> You're asking: "is the head anywhere in this body?"</li>
+    <li><b>Flipping one by one = the loop.</b> <code>for segment in body: if segment == head: crash!</code></li>
+    <li><b>Doubling</b> = when your snake grows longer, collision checks take longer. A 40-segment snake costs twice the checks of a 20-segment one.</li>
+  </ul>
+  <p>Next on this path: <b>Program 3 — the queue</b> (how the body itself grows and shrinks).</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-bridge" id="d-bridge"><label for="d-bridge">I see how search runs my Snake game</label></div>
+</section>
+
+<!-- RESOURCES -->
+<section class="card" id="sec-res">
+  <h2>📎 Printables &amp; Links (from CS Unplugged)</h2>
+  <div class="res">
+    <a href="https://www.csunplugged.org/en/topics/searching-algorithms/" target="_blank" rel="noopener"><b>Topic page</b><br>Searching algorithms unit</a>
+    <a href="https://www.csunplugged.org/en/topics/searching-algorithms/how-many-guesses/" target="_blank" rel="noopener"><b>"How many guesses?"</b><br>The full lesson plan</a>
+    <a href="https://www.csunplugged.org/en/resources/searching-cards/" target="_blank" rel="noopener"><b>Searching cards</b><br>Printable card set</a>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ---------- shared card-game engine ----------
+function makeHunt(gridId, msgId, statId, newBtnId, n){
+  const grid=document.getElementById(gridId),msg=document.getElementById(msgId),
+        stat=document.getElementById(statId);
+  let target=0,guesses=0,over=false;
+  function build(){
+    grid.innerHTML='';target=Math.floor(Math.random()*n);guesses=0;over=false;
+    for(let i=0;i<n;i++){
+      const b=document.createElement('button');b.className='pcard';b.textContent='❓';
+      b.onclick=()=>{
+        if(over||b.disabled)return;
+        b.disabled=true;b.classList.add('open');guesses++;
+        if(i===target){b.textContent='⭐';b.classList.add('hit');over=true;
+          grid.querySelectorAll('.pcard').forEach(x=>x.disabled=true);
+          msg.textContent='⭐ Found it in '+guesses+' guess'+(guesses>1?'es':'')+'!';msg.className='msg good';
+        }else{b.textContent='·';
+          msg.textContent='Not this one… ('+guesses+' flipped)';msg.className='msg info';}
+        stat.textContent='Guesses this round: '+guesses;
+      };
+      grid.appendChild(b);
+    }
+    stat.textContent='Guesses this round: 0';
+    msg.textContent='Click a card to flip it.';msg.className='msg info';
+  }
+  document.getElementById(newBtnId).onclick=build;
+  build();
+}
+makeHunt('huntGrid','huntMsg','huntStat','huntNew',16);
+makeHunt('bigGrid','bigMsg','bigStat','bigNew',32);
+
+// ---------- prediction quiz (instant grade + lock) ----------
+const predictQ=document.getElementById('predictQ');
+predictQ.addEventListener('change',e=>{
+  if(predictQ.classList.contains('locked'))return;
+  predictQ.classList.add('locked');
+  const labels=predictQ.querySelectorAll('label');
+  labels.forEach(l=>l.style.pointerEvents='none');
+  const ok=e.target.value==='16';
+  labels.forEach(l=>{
+    const v=l.querySelector('input').value;
+    if(v==='16')l.classList.add('correct');
+    else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');
+  });
+  const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+  fb.textContent=ok?'✔ Correct! Now play the 32-card game and check.':'✘ Test it! Play a few 32-card rounds and compare your guess counts to the 16-card rounds.';
+  predictQ.appendChild(fb);
+});
+
+// ---------- silly search race ----------
+document.getElementById('raceBtn').onclick=()=>{
+  const N=16,TRIALS=20;
+  let smartTotal=0,sillyTotal=0,sillyWorst=0;
+  for(let t=0;t<TRIALS;t++){
+    const target=Math.floor(Math.random()*N);
+    smartTotal+=target+1; // one-by-one: finds it at position target (1-indexed)
+    let g=0;
+    do{g++;if(g>5000)break;}while(Math.floor(Math.random()*N)!==target);
+    sillyTotal+=g;if(g>sillyWorst)sillyWorst=g;
+  }
+  const sAvg=(smartTotal/TRIALS).toFixed(1),siAvg=(sillyTotal/TRIALS).toFixed(1);
+  document.getElementById('raceStat').innerHTML=
+    'Smart (one by one): avg <b>'+sAvg+'</b> guesses &nbsp;|&nbsp; '+
+    'Silly (random + put back): avg <b>'+siAvg+'</b> guesses, worst trial <b>'+sillyWorst+'</b>';
+  document.getElementById('raceMsg').textContent=
+    'The silly search re-checks cards it already saw — and in theory, it could NEVER finish. One-by-one always finishes in at most '+N+'.';
+  document.getElementById('raceMsg').className='msg bad';
+};
+
+// ---------- code tracer: linear search in Python ----------
+const CODE_BODY=[[3,5],[3,4],[3,3],[2,3],[1,3]];
+let cs={i:0,checks:0,done:false,head:[2,3]};
+const codeMsg=document.getElementById('codeMsg');
+function codeDraw(){
+  document.getElementById('codeStrip').innerHTML=CODE_BODY.map((s,i)=>{
+    let cls='seg';
+    if(cs.done&&i===cs.i&&cs.checks>0&&s[0]===cs.head[0]&&s[1]===cs.head[1])cls+=' hit';
+    else if(i<cs.i||(cs.done&&i===cs.i))cls+=' done';
+    else if(i===cs.i&&!cs.done)cls+=' cur';
+    return `<span class="${cls}">(${s[0]},${s[1]})</span>`;
+  }).join(' ');
+  document.getElementById('codeStat').textContent='checks: '+cs.checks+(cs.done?' — loop finished':'');
+}
+function codeReset(){
+  const v=document.getElementById('headPick').value.split(',').map(Number);
+  cs={i:0,checks:0,done:false,head:v};
+  codeDraw();
+  codeMsg.textContent='Press Step — each step is one card flip.';codeMsg.className='msg info';
+}
+function codeStep(){
+  if(cs.done)return;
+  const seg=CODE_BODY[cs.i];
+  cs.checks++;
+  if(seg[0]===cs.head[0]&&seg[1]===cs.head[1]){
+    cs.done=true;
+    codeMsg.textContent='⚡ Match on check #'+cs.checks+'! The loop breaks early — found it.';codeMsg.className='msg good';
+  }else{
+    cs.i++;
+    if(cs.i>=CODE_BODY.length){
+      cs.done=true;
+      codeMsg.textContent='No match after '+cs.checks+' checks — worst case: the whole list.';codeMsg.className='msg bad';
+    }else{
+      codeMsg.textContent='Check '+cs.checks+': ('+seg[0]+','+seg[1]+') ≠ head ('+cs.head[0]+','+cs.head[1]+'). Next…';codeMsg.className='msg info';
+    }
+  }
+  codeDraw();
+}
+let codeTimer=null;
+document.getElementById('codeStep').onclick=()=>{if(codeTimer){clearInterval(codeTimer);codeTimer=null;}codeStep();};
+document.getElementById('codeRun').onclick=()=>{if(codeTimer)clearInterval(codeTimer);codeTimer=setInterval(()=>{if(cs.done){clearInterval(codeTimer);codeTimer=null;return;}codeStep();},700);};
+document.getElementById('codeReset').onclick=()=>{if(codeTimer){clearInterval(codeTimer);codeTimer=null;}codeReset();};
+document.getElementById('headPick').onchange=()=>{if(codeTimer){clearInterval(codeTimer);codeTimer=null;}codeReset();};
+codeReset();
+
+// ---------- main quiz ----------
+const QUIZ=[
+ {q:'Why can\'t the computer just "look at" the whole body list at once to find the head?',
+  opts:['Computers are slow','It can only compare one item at a time','The list is too long to see'],
+  a:1,why:'A computer checks data one piece at a time. That single limitation is why search algorithms exist.'},
+ {q:'Your snake body list is unsorted: [(3,5),(7,1),(2,8),...]. In the WORST case, how many comparisons to check the head against 20 segments?',
+  opts:['1','10','20'],
+  a:2,why:'Worst case = the match is last, or there is no match. You must check all 20.'},
+ {q:'16 cards take ~8 flips on average. About how many for 64 cards?',
+  opts:['About 8','About 16','About 32'],
+  a:2,why:'Linear means proportional: 4× the cards → 4× the work. 8 × 4 = 32.'},
+ {q:'Why is "pick random, check, put back, repeat" a BAD search algorithm?',
+  opts:['It uses too much memory','It can check the same card again and again — and might never finish','It only works on sorted cards'],
+  a:1,why:'Putting the card back means no progress is remembered. In theory it could run forever.'},
+ {q:'Which TWO places in your Snake game use linear search?',
+  opts:['Drawing the screen and playing sounds','Head-vs-body collision check, and making sure new food does not land on the body','Making the snake longer and shorter'],
+  a:1,why:'Both ask "is this position in the list?" — answered by checking the list one item at a time.'}
+];
+const quizBox=document.getElementById('quizBox');
+let score=0,answered=0;
+QUIZ.forEach((item,qi)=>{
+  const div=document.createElement('div');div.className='quiz-q';div.id='qq'+qi;
+  div.innerHTML='<p>Q'+(qi+1)+'. '+item.q+'</p>'+item.opts.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+  quizBox.appendChild(div);
+  div.addEventListener('change',e=>{
+    if(div.classList.contains('locked'))return;
+    div.classList.add('locked');answered++;
+    const labels=div.querySelectorAll('label');labels.forEach(l=>l.style.pointerEvents='none');
+    const ok=+e.target.value===item.a;if(ok)score++;
+    labels.forEach(l=>{const v=+l.querySelector('input').value;
+      if(v===item.a)l.classList.add('correct');
+      else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');});
+    const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'✔ Correct! ':'✘ Not quite. ')+item.why;div.appendChild(fb);
+  });
+});
+document.getElementById('submitScore').onclick=()=>{
+  const el=document.getElementById('finalScore');
+  if(answered<QUIZ.length){el.textContent='Answer all '+QUIZ.length+' questions first ('+answered+'/'+QUIZ.length+' done).';el.style.color='var(--warn)';return;}
+  el.textContent='🏁 Final score: '+score+' / '+QUIZ.length+(score===QUIZ.length?' — Flawless search, Detective Alex! 🔍':' — Good hunting! Review the ones you missed above.');
+  el.style.color=score===QUIZ.length?'var(--good)':'var(--ink)';
+};
+
+// ---------- progress ----------
+const boxes=document.querySelectorAll('.done'),TOTAL=boxes.length;
+function paint(){
+  const n=[...boxes].filter(b=>b.checked).length;
+  document.getElementById('progFill').style.width=(n/TOTAL*100)+'%';
+  document.getElementById('progLabel').textContent=`Progress: ${n} / ${TOTAL} sections complete`;
+  localStorage.setItem('search-progress',JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener('change',paint));
+try{const s=JSON.parse(localStorage.getItem('search-progress')||'[]');boxes.forEach((b,i)=>{if(s[i])b.checked=true;});}catch(e){}
+paint();
+</script>
+</body>
+</html>
