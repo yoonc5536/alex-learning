@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Algorithm Lab — Alex's Learning Hub</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 40px 20px; background: #f4f7fb; color: #1e293b;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 900px; }
+    a.back { color: #0284c7; text-decoration: none; font-weight: 600; }
+    a.back:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; margin: 12px 0 8px; }
+    .sub { color: #64748b; margin: 0 0 24px; font-size: 1.05rem; }
+    .cards { display: grid; gap: 16px; }
+    .card {
+      display: block; background: #fff; border-radius: 16px; padding: 22px 24px;
+      text-decoration: none; color: inherit;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.08);
+      border: 1px solid #e2e8f0; transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.12); }
+    .card .emoji { font-size: 1.8rem; }
+    .card h3 { margin: 8px 0 4px; font-size: 1.25rem; }
+    .card p { margin: 0; color: #64748b; font-size: 0.95rem; }
+    .card.soon { opacity: .55; }
+    .tag { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: .8rem;
+           font-weight: 700; border-radius: 20px; padding: 2px 12px; margin-bottom: 6px; }
+    footer { margin-top: 40px; color: #94a3b8; font-size: 0.85rem; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="https://yoonc5536.github.io/alex-learning/">← Back to Learning Hub</a>
+  <h1>🧠 Algorithm Lab</h1>
+  <p class="sub">Play first, name the algorithm later. These unplugged missions build the exact thinking your Snake game needs.</p>
+
+  <div class="cards">
+    <a class="card" href="program-1-rocket-to-mars/">
+      <span class="tag">PROGRAM 1 · DONE FIRST</span>
+      <div class="emoji">🚀</div>
+      <h3>Rocket to Mars</h3>
+      <p>Give a robot exact instructions: forward, left, right. Then debug them, beat the fuel limit, and dodge space junk. Based on CS Unplugged Kidbots.</p>
+    </a>
+    <div class="card soon">
+      <span class="tag">PROGRAM 2 · COMING SOON</span>
+      <div class="emoji">🚂</div>
+      <h3>The Queue Train</h3>
+      <p>Your snake's body is a queue: new head car joins the front, old tail car leaves the back. Coming next.</p>
+    </div>
+    <div class="card soon">
+      <span class="tag">PROGRAM 3 · COMING SOON</span>
+      <div class="emoji">🔍</div>
+      <h3>Collision Search</h3>
+      <p>How does the game know the snake bit itself? Search the body, one segment at a time. Coming next.</p>
+    </div>
+    <div class="card soon">
+      <span class="tag">PROGRAM 4 · COMING SOON</span>
+      <div class="emoji">🔁</div>
+      <h3>The Game Loop</h3>
+      <p>Move, check, eat, repeat — the simulation heartbeat of every game. Coming next.</p>
+    </div>
+  </div>
+
+  <footer>Made for Alex &middot; Keep coding! 🚀</footer>
+</div>
+</body>
+</html>
