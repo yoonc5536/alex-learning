@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program 4: The Game Loop — Alex's Algorithm Lab</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --ink:#e8eefc; --muted:#93a4c4;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1150px;margin:0 auto;padding:24px 20px 80px}
+  header.hero{background:linear-gradient(135deg,#1e1b4b,#0f172a 70%);border:1px solid #3b3a7a;border-radius:16px;padding:28px 30px;margin-bottom:18px}
+  header.hero h1{margin:0 0 6px;font-size:2rem}
+  header.hero p{margin:4px 0;color:var(--muted)}
+  .back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none;font-weight:600}
+  .back:hover{text-decoration:underline}
+  .progress{position:sticky;top:0;z-index:5;background:#0b1220ee;border:1px solid #2b3f66;border-radius:12px;padding:10px 16px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .progress .bar{height:10px;background:#24334f;border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+  section.card{background:var(--panel);border:1px solid #2b3f66;border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  section.card h2{margin-top:0;color:var(--accent)}
+  .done-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #33456b;color:var(--muted);font-size:.95rem}
+  .done-row input{width:20px;height:20px;accent-color:var(--good);cursor:pointer}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  button{background:var(--accent);border:none;color:#06283a;font-weight:700;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:1rem}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:#33456b;color:var(--ink)}
+  .msg{margin:8px 0;min-height:24px;font-weight:600}
+  .msg.good{color:var(--good)} .msg.bad{color:var(--bad)} .msg.info{color:var(--warn)}
+  .stat{background:#0b1220;border:1px solid #33456b;border-radius:10px;padding:12px 16px;margin:10px 0;font-family:ui-monospace,Consolas,monospace;overflow-x:auto}
+  .phases{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .phase{background:#1b2740;border:1px solid #33456b;border-radius:10px;padding:8px 14px;font-weight:700;color:var(--muted)}
+  .phase.on{border-color:var(--warn);color:var(--warn);background:#3a2f10}
+  .phase small{display:block;font-weight:400;font-size:.75rem}
+  .snake-grid{display:grid;grid-template-columns:repeat(10,46px);grid-template-rows:repeat(8,46px);gap:2px;background:#0b1220;padding:8px;border-radius:10px;width:max-content;margin:12px 0}
+  .scell{background:#1b2740;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+  .scell.head{background:#14532d}
+  .scell.body{background:#166534}
+  .scell.food{background:#3a1d12}
+  .dpad{display:grid;grid-template-columns:repeat(3,54px);grid-template-rows:repeat(2,54px);gap:4px;width:max-content}
+  .dpad button{padding:0;font-size:1.3rem}
+  input[type=range]{accent-color:var(--accent)}
+  .quiz-q{background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:14px 16px;margin:12px 0}
+  .quiz-q p{margin:0 0 10px;font-weight:600}
+  .quiz-q label{display:block;background:#0b1220;border:1px solid #33456b;border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+  .quiz-q label:hover{border-color:var(--accent)}
+  .quiz-q.locked label{cursor:default}
+  .quiz-q label.correct{border-color:var(--good);background:#0c2b22}
+  .quiz-q label.wrong{border-color:var(--bad);background:#2b1215}
+  .fb{font-weight:700;margin-top:8px}
+  .fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+  .score{font-size:1.3rem;font-weight:800;text-align:center;padding:16px}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+  .res a{display:block;background:var(--panel2);border:1px solid #33456b;border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .res a:hover{border-color:var(--accent)}
+  .res a b{color:var(--accent)}
+  .bridge{background:linear-gradient(135deg,#123a2b,#0f172a 70%);border-color:#1f5c40}
+  .bridge h2{color:var(--good)}
+  .pchip{display:inline-block;border-radius:6px;padding:1px 8px;font-size:.78rem;font-weight:700;margin-left:6px}
+  .p1{background:#1d3a5f;color:#7dd3fc}.p2{background:#3a2b10;color:#fbbf24}.p3{background:#123a2b;color:#34d399}
+  code{background:#0b1220;border:1px solid #33456b;border-radius:5px;padding:1px 6px;font-size:.92em}
+  @media(max-width:640px){.snake-grid{grid-template-columns:repeat(10,32px);grid-template-rows:repeat(8,32px)}.scell{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="https://yoonc5536.github.io/alex-learning/algorithms/">← Back to Algorithm Lab</a>
+
+<header class="hero">
+  <h1>💻 Program 4: The Game Loop 🔁</h1>
+  <p><b>Alex's</b> Algorithm Lab · Step 4 of the Snake-game algorithm path</p>
+  <p>A game is a <b>loop that never stops</b> — until it's game over. Every tick runs the same steps, in the same order. Programs 1, 2 and 3 all live <i>inside</i> this loop.</p>
+</header>
+
+<div class="progress">
+  <span id="progLabel">Progress: 0 / 6 sections complete</span>
+  <div class="bar"><div id="progFill"></div></div>
+</div>
+
+<!-- 1. MISSION -->
+<section class="card" id="sec-mission">
+  <h2>1 · Your Mission</h2>
+  <p>Every video game has a <b>heartbeat</b> called the <b>game loop</b>. It repeats forever:</p>
+  <div class="stat">while True: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# the loop never stops…<br>
+&nbsp;&nbsp;&nbsp;&nbsp;move_snake() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ① MOVE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_crash() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ② CHECK collisions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_food() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ③ CHECK food<br>
+&nbsp;&nbsp;&nbsp;&nbsp;draw_screen() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ④ DRAW<br>
+&nbsp;&nbsp;&nbsp;&nbsp;wait_a_moment() &nbsp;&nbsp;&nbsp;# ⏱ tick speed</div>
+  <p>One trip through all the steps = one <b>tick</b>. Notice something? The <b>order is the algorithm</b> (Program 1!): exact instructions, exact sequence. Scramble the order and the game breaks.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-mission" id="d-mission"><label for="d-mission">I know what a game loop tick is</label></div>
+</section>
+
+<!-- 2. LOOP LAB -->
+<section class="card" id="sec-lab">
+  <h2>2 · Activity: The Loop Lab 🔁</h2>
+  <p><b>Step</b> through the loop one phase at a time — or press <b>Auto</b> and watch the heartbeat. Steer with the arrows.</p>
+  <div class="phases">
+    <div class="phase" id="ph0">① MOVE<small>queue: new head joins front</small></div>
+    <div class="phase" id="ph1">② CHECK crash<small>linear search the body</small></div>
+    <div class="phase" id="ph2">③ CHECK food<small>grow or pop the tail</small></div>
+    <div class="phase" id="ph3">④ DRAW<small>show the new frame</small></div>
+  </div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+    <div>
+      <div class="snake-grid" id="snakeGrid"></div>
+      <div class="dpad">
+        <span></span><button id="dirU">⬆️</button><span></span>
+        <button id="dirL">⬅️</button><button id="dirD">⬇️</button><button id="dirR">➡️</button>
+      </div>
+    </div>
+    <div style="flex:1;min-width:250px">
+      <div class="controls">
+        <button id="stepBtn">⏭️ Next phase</button>
+        <button id="autoBtn">▶ Auto</button>
+        <button id="loopReset" class="ghost">Reset</button>
+      </div>
+      <div class="controls">
+        <label style="color:var(--muted);font-size:.9rem">Speed: <input type="range" id="speed" min="1" max="8" value="3"> <span id="speedVal">3</span> ticks/sec</label>
+      </div>
+      <div class="controls">
+        <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" id="bugCrash"> 🐛 Skip crash check</label>
+        <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" id="bugDraw"> 🐛 Skip redraw</label>
+      </div>
+      <div class="stat" id="loopStat">tick: 0 · score: 0</div>
+      <div class="msg info" id="loopMsg">Press "Next phase" — watch the phases light up in order.</div>
+    </div>
+  </div>
+  <div class="quiz-q" id="predictQ">
+    <p>🤔 Predict: what would happen if we ran ③ CHECK food <b>before</b> ① MOVE?</p>
+    <label><input type="radio" name="pred" value="a"> The snake would eat food from one cell away — before even arriving!</label>
+    <label><input type="radio" name="pred" value="b"> Nothing changes — order doesn't matter</label>
+    <label><input type="radio" name="pred" value="c"> The game would run faster</label>
+  </div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-lab" id="d-lab"><label for="d-lab">I stepped through the loop and tried the bug toggles</label></div>
+</section>
+
+<!-- 3. CODE IT -->
+<section class="card" id="sec-code">
+  <h2>3 · Activity: Code It — Paper First! 📝</h2>
+  <p>The loop your Snake game will really use:</p>
+  <div class="stat">while True:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_head = (head_x + dx, head_y + dy)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;body.insert(0, new_head) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Program 3: queue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if new_head in body[1:]: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Program 2: linear search<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# game over!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if new_head == food:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score += 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# skip pop() → grow!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.pop()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;draw() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# show it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(0.2) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 5 ticks per second</div>
+  <ol>
+    <li><b>Trace on paper:</b> run 2 ticks by hand with body = <code>[(2,2),(1,2)]</code>, moving right, food at <code>(5,5)</code>. Write the body after each tick.</li>
+    <li><b>Speed math:</b> <code>time.sleep(0.2)</code> = 5 ticks/sec. What sleep gives 10 ticks/sec? ___</li>
+    <li><b>Break it on purpose:</b> delete the <code>break</code> line. What happens when the snake crashes? (Then put it back!)</li>
+    <li><b>Challenge:</b> add <code>score</code> display — where in the loop should it update?</li>
+  </ol>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-code" id="d-code"><label for="d-code">I traced the game loop on paper</label></div>
+</section>
+
+<!-- 4. QUIZ -->
+<section class="card" id="sec-quiz">
+  <h2>4 · Quiz — Think Like a Game Loop</h2>
+  <p>One try per question — it locks after you answer.</p>
+  <div id="quizBox"></div>
+  <div class="controls" style="margin-top:14px">
+    <button id="submitScore">Submit for final score</button>
+  </div>
+  <div class="score" id="finalScore"></div>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-quiz" id="d-quiz"><label for="d-quiz">Quiz finished</label></div>
+</section>
+
+<!-- 5. BRIDGE -->
+<section class="card bridge" id="sec-bridge">
+  <h2>5 · The Full Snake Machine 🐍</h2>
+  <p>You now know <b>every algorithm</b> your Snake game needs. Here's how they fit:</p>
+  <div class="stat">while True: <span class="pchip p1">Program 1: exact instructions, exact order</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;body.insert(0, new_head); … <span class="pchip p3">Program 3: the queue</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if new_head in body[1:]: break <span class="pchip p2">Program 2: linear search</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if new_head == food: grow! <span class="pchip p3">Program 3: skip pop()</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;draw(); sleep() <span class="pchip p1">Program 4: the loop itself</span></div>
+  <p><b>Program 1</b> taught you that order is everything. <b>Program 2</b> gave you the search. <b>Program 3</b> gave you the body. <b>Program 4</b> is the heartbeat running them all, tick after tick.</p>
+  <p>🎓 <b>Graduation challenge:</b> open your Snake project and find each of these four programs hiding in the code. They're all there.</p>
+  <div class="done-row"><input type="checkbox" class="done" data-sec="sec-bridge" id="d-bridge"><label for="d-bridge">I can see all 4 programs inside the Snake game</label></div>
+</section>
+
+<!-- RESOURCES -->
+<section class="card" id="sec-res">
+  <h2>📎 Notes &amp; Links</h2>
+  <p>The loop activities above are originals, built for your Snake game. For more unplugged CS:</p>
+  <div class="res">
+    <a href="https://csunplugged.org/en/topics/" target="_blank" rel="noopener"><b>CS Unplugged topics</b><br>All free activities</a>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ---------- Loop Lab simulator ----------
+const GW=10,GH=8;
+let snake,dir,food,over,phase,tick,score,autoTimer=null;
+const sGrid=document.getElementById('snakeGrid'),sMsg=document.getElementById('loopMsg'),
+      sStat=document.getElementById('loopStat');
+const phases=[0,1,2,3].map(i=>document.getElementById('ph'+i));
+function buildGrid(){
+  sGrid.innerHTML='';
+  for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){
+    const d=document.createElement('div');d.className='scell';d.dataset.c=c;d.dataset.r=r;sGrid.appendChild(d);
+  }
+}
+function rndFood(){
+  for(;;){
+    const c=Math.floor(Math.random()*GW),r=Math.floor(Math.random()*GH);
+    if(!snake.some(([sc,sr])=>sc===c&&sr===r))return[c,r];
+  }
+}
+function lightPhase(){
+  phases.forEach((p,i)=>p.classList.toggle('on',i===phase));
+}
+function drawGrid(){
+  sGrid.querySelectorAll('.scell').forEach(cell=>{
+    const c=+cell.dataset.c,r=+cell.dataset.r;
+    cell.className='scell';cell.textContent='';
+    if(c===food[0]&&r===food[1]){cell.classList.add('food');cell.textContent='🍎';}
+    snake.forEach(([sc,sr],i)=>{
+      if(sc===c&&sr===r){cell.classList.add(i===0?'head':'body');cell.textContent=i===0?'🟢':'🟩';}
+    });
+  });
+}
+function statDraw(){sStat.textContent='tick: '+tick+' · score: '+score+' · length: '+snake.length;}
+function loopReset(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('autoBtn').textContent='▶ Auto';}
+  snake=[[4,4],[3,4],[2,4]];dir=[1,0];over=false;phase=0;tick=0;score=0;
+  food=rndFood();lightPhase();drawGrid();statDraw();
+  sMsg.textContent='Press "Next phase" — watch the phases light up in order.';sMsg.className='msg info';
+}
+function crash(why){
+  over=true;
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('autoBtn').textContent='▶ Auto';}
+  sMsg.textContent='💥 GAME OVER — '+why+' (tick '+tick+')';sMsg.className='msg bad';
+}
+function doPhase(){
+  if(over)return;
+  lightPhase();
+  const skipCrash=document.getElementById('bugCrash').checked;
+  const skipDraw=document.getElementById('bugDraw').checked;
+  if(phase===0){
+    // ① MOVE — Program 3 queue: new head joins front
+    const nh=[snake[0][0]+dir[0],snake[0][1]+dir[1]];
+    snake.unshift(nh);
+    sMsg.textContent='① MOVE: new head ('+nh[0]+','+nh[1]+') joined the front.';sMsg.className='msg info';
+  }else if(phase===1){
+    // ② CHECK crash — Program 2 linear search
+    const h=snake[0];
+    const hitWall=h[0]<0||h[0]>=GW||h[1]<0||h[1]>=GH;
+    const hitSelf=snake.slice(1).some(([sc,sr])=>sc===h[0]&&sr===h[1]);
+    if((hitWall||hitSelf)&&!skipCrash){crash(hitWall?'hit the wall!':'bit itself!');return;}
+    if((hitWall||hitSelf)&&skipCrash){sMsg.textContent='② CHECK crash: 🐛 SKIPPED — ghost snake passes through!';sMsg.className='msg bad';}
+    else{sMsg.textContent='② CHECK crash: all clear.';sMsg.className='msg info';}
+  }else if(phase===2){
+    // ③ CHECK food — grow or pop
+    const h=snake[0];
+    if(h[0]===food[0]&&h[1]===food[1]){
+      score++;food=rndFood();
+      sMsg.textContent='③ CHECK food: 🍎 eaten! Tail stays — score '+score+'.';sMsg.className='msg good';
+    }else{
+      const t=snake.pop();
+      sMsg.textContent='③ CHECK food: none. Tail ('+t[0]+','+t[1]+') popped.';sMsg.className='msg info';
+    }
+  }else{
+    // ④ DRAW
+    if(!skipDraw)drawGrid();
+    else{sMsg.textContent='④ DRAW: 🐛 SKIPPED — the list moved but the screen is frozen!';sMsg.className='msg bad';}
+    tick++;
+  }
+  phase=(phase+1)%4;
+  statDraw();
+  // refresh head/body colors if a draw was skipped mid-tick? draw only in phase 3 — fine.
+}
+document.getElementById('stepBtn').onclick=()=>{if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('autoBtn').textContent='▶ Auto';}doPhase();};
+document.getElementById('autoBtn').onclick=e=>{
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;e.target.textContent='▶ Auto';return;}
+  if(over)loopReset();
+  e.target.textContent='⏸ Pause';
+  const tickMs=()=>1000/(+document.getElementById('speed').value)/4;
+  const run=()=>{doPhase();if(!over)autoTimer=setTimeout(run,tickMs());else{e.target.textContent='▶ Auto';autoTimer=null;}};
+  run();
+};
+document.getElementById('speed').oninput=e=>{document.getElementById('speedVal').textContent=e.target.value;};
+document.getElementById('loopReset').onclick=loopReset;
+[['dirU',[0,-1]],['dirL',[-1,0]],['dirD',[0,1]],['dirR',[1,0]]].forEach(([id,d])=>{
+  document.getElementById(id).onclick=()=>{
+    if(d[0]===-dir[0]&&d[1]===-dir[1])return;
+    dir=d;
+  };
+});
+buildGrid();loopReset();
+
+// ---------- prediction quiz (instant grade + lock) ----------
+const predictQ=document.getElementById('predictQ');
+predictQ.addEventListener('change',e=>{
+  if(predictQ.classList.contains('locked'))return;
+  predictQ.classList.add('locked');
+  const labels=predictQ.querySelectorAll('label');
+  labels.forEach(l=>l.style.pointerEvents='none');
+  const ok=e.target.value==='a';
+  labels.forEach(l=>{
+    const v=l.querySelector('input').value;
+    if(v==='a')l.classList.add('correct');
+    else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');
+  });
+  const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+  fb.textContent=ok?'✔ Exactly! The food check must see the NEW head position — order is the algorithm.':'✘ Think: the check looks at where the head IS. If it runs before moving, it sees the OLD position…';
+  predictQ.appendChild(fb);
+});
+
+// ---------- quiz ----------
+const QUIZ=[
+ {q:'Why must ② CHECK crash come AFTER ① MOVE?',
+  opts:['It looks cooler that way','The head hasn\'t moved yet — you\'d check the old position','Checks are faster after moving'],
+  a:1,why:'Each step reads the result of the previous one. Check before moving and the new head is never examined.'},
+ {q:'What happens if ④ DRAW runs BEFORE ① MOVE?',
+  opts:['The screen always shows last tick\'s position — one step behind','Nothing — drawing is instant','The snake moves twice as fast'],
+  a:0,why:'DRAW shows the current list. Draw before moving and you display the pre-move state every tick.'},
+ {q:'The loop runs 5 ticks per second. How many moves happen in 10 seconds?',
+  opts:['15','50','500'],
+  a:1,why:'One move per tick: 5 × 10 = 50. The tick speed IS the game speed.'},
+ {q:'Which earlier Programs run INSIDE every tick of the loop?',
+  opts:['Only Program 3 (queue)','Programs 1, 2 and 3 — instructions, search, and queue','None — the loop replaces them'],
+  a:1,why:'MOVE is the queue (P3), CHECK crash is linear search (P2), and the fixed order is exact instructions (P1).'},
+ {q:'How does the game actually stop?',
+  opts:['The computer gets tired','break exits the while True loop on crash','The food runs out'],
+  a:1,why:'while True runs forever until break. The crash check is the only exit — that\'s the game-over moment.'}
+];
+const quizBox=document.getElementById('quizBox');
+let qScore=0,qAnswered=0;
+QUIZ.forEach((item,qi)=>{
+  const div=document.createElement('div');div.className='quiz-q';div.id='qq'+qi;
+  div.innerHTML='<p>Q'+(qi+1)+'. '+item.q+'</p>'+item.opts.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+  quizBox.appendChild(div);
+  div.addEventListener('change',e=>{
+    if(div.classList.contains('locked'))return;
+    div.classList.add('locked');qAnswered++;
+    const labels=div.querySelectorAll('label');labels.forEach(l=>l.style.pointerEvents='none');
+    const ok=+e.target.value===item.a;if(ok)qScore++;
+    labels.forEach(l=>{const v=+l.querySelector('input').value;
+      if(v===item.a)l.classList.add('correct');
+      else if(l.querySelector('input')===e.target&&!ok)l.classList.add('wrong');});
+    const fb=document.createElement('div');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'✔ Correct! ':'✘ Not quite. ')+item.why;div.appendChild(fb);
+  });
+});
+document.getElementById('submitScore').onclick=()=>{
+  const el=document.getElementById('finalScore');
+  if(qAnswered<QUIZ.length){el.textContent='Answer all '+QUIZ.length+' questions first ('+qAnswered+'/'+QUIZ.length+' done).';el.style.color='var(--warn)';return;}
+  el.textContent='🏁 Final score: '+qScore+' / '+QUIZ.length+(qScore===QUIZ.length?' — Loop Master! The Snake game is yours now. 🐍':' — Good looping! Review the ones you missed above.');
+  el.style.color=qScore===QUIZ.length?'var(--good)':'var(--ink)';
+};
+
+// ---------- progress ----------
+const boxes=document.querySelectorAll('.done'),TOTAL=boxes.length;
+function paint(){
+  const n=[...boxes].filter(b=>b.checked).length;
+  document.getElementById('progFill').style.width=(n/TOTAL*100)+'%';
+  document.getElementById('progLabel').textContent=`Progress: ${n} / ${TOTAL} sections complete`;
+  localStorage.setItem('gameloop-progress',JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener('change',paint));
+try{const s=JSON.parse(localStorage.getItem('gameloop-progress')||'[]');boxes.forEach((b,i)=>{if(s[i])b.checked=true;});}catch(e){}
+paint();
+</script>
+</body>
+</html>
