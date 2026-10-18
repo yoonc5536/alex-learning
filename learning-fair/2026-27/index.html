@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learning Fair 2026–27 — Alex's Learning Hub</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 40px 20px; background: #f4f7fb; color: #1e293b;
+      display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 1100px; }
+    a.back { color: #0284c7; text-decoration: none; font-weight: 600; }
+    a.back:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; margin: 12px 0 8px; }
+    .sub { color: #64748b; margin: 0 0 24px; font-size: 1.05rem; max-width: 800px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .pill { background: #fff; border: 1px solid #e2e8f0; border-radius: 20px;
+            padding: 6px 16px; font-size: .9rem; font-weight: 600; color: #475569; }
+    .pill b { color: #0284c7; }
+    .progress-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+            padding: 20px 24px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(30,41,59,.08); }
+    .progress-card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+    .bar { height: 14px; background: #e2e8f0; border-radius: 8px; overflow: hidden; }
+    .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, #0284c7, #38bdf8);
+            border-radius: 8px; transition: width .4s ease; }
+    .progress-label { margin-top: 8px; color: #64748b; font-size: .9rem; }
+    .how { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 16px;
+           padding: 18px 22px; margin-bottom: 28px; font-size: .95rem; color: #0c4a6e; }
+    .how strong { color: #0369a1; }
+    .phase { margin-bottom: 32px; }
+    .phase > h2 { font-size: 1.4rem; margin: 0 0 4px; }
+    .phase > p { color: #64748b; margin: 0 0 16px; font-size: .95rem; }
+    .weeks { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .week { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px 20px;
+            box-shadow: 0 2px 10px rgba(30,41,59,.06); display: flex; flex-direction: column; }
+    .week-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .week-num { font-weight: 800; font-size: .95rem; }
+    .week-dates { color: #94a3b8; font-size: .82rem; }
+    .status { margin-left: auto; font-size: .75rem; font-weight: 700; border-radius: 20px; padding: 3px 12px; }
+    .status.todo { background: #f1f5f9; color: #64748b; }
+    .status.doing { background: #fef3c7; color: #b45309; }
+    .status.done { background: #dcfce7; color: #15803d; }
+    .week .goal { margin: 0 0 10px; font-size: .95rem; }
+    .week .goal strong { color: #0369a1; }
+    .tasks { margin: 0 0 12px; padding-left: 20px; font-size: .9rem; color: #475569; }
+    .tasks li { margin-bottom: 4px; }
+    .notes { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px;
+             padding: 10px 14px; font-size: .88rem; color: #475569; margin-top: auto; }
+    .notes strong { display: block; margin-bottom: 4px; color: #334155; font-size: .82rem;
+             text-transform: uppercase; letter-spacing: .04em; }
+    .notes p { margin: 0; }
+    .notes .empty-note { color: #94a3b8; font-style: italic; }
+    .week.done-week { border-color: #bbf7d0; }
+    .rest { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+            padding: 12px 18px; font-size: .9rem; color: #92400e; margin-bottom: 16px; }
+    .fair-day { background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 2px solid #fdba74;
+            border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+    .fair-day h2 { margin: 0 0 8px; }
+    .fair-day p { color: #9a3412; margin: 0 0 6px; }
+    footer { margin-top: 40px; color: #94a3b8; font-size: 0.85rem; text-align: center; }
+    footer a { color: #0284c7; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← Back to Learning Fair Projects</a>
+  <h1>🎪 Learning Fair 2026–27</h1>
+  <p class="sub">Alex's first Learning Fair project journal. One question, one investigation, one board — tracked week by week from October to fair day.</p>
+
+  <div class="meta">
+    <span class="pill">Fair date: <b>late January 2027</b> (exact date TBA by school)</span>
+    <span class="pill">Topic: <b>to be decided (Week 3)</b></span>
+    <span class="pill">Sessions: <b>about once a week, 30–45 min</b></span>
+  </div>
+
+  <div class="progress-card">
+    <h3>Project progress</h3>
+    <div class="bar"><div id="progress-fill"></div></div>
+    <div class="progress-label" id="progress-label">0 of 13 weeks complete</div>
+  </div>
+
+  <div class="how">
+    <strong>How this journal works:</strong> each week Alex finishes the tasks, then this page gets updated
+    with what actually happened — notes, photos, and surprises. The plan below is the map; the notes are the journey.
+    Check back any time to watch the project grow.
+  </div>
+
+  <!-- ============ PHASE 1 ============ -->
+  <div class="phase">
+    <h2>🔍 Phase 1 — Find a Question</h2>
+    <p>Every good project starts with a question you actually care about.</p>
+    <div class="weeks">
+      <div class="week" id="w1">
+        <div class="week-head"><span class="week-num">Week 1</span><span class="week-dates">Oct 17 – Oct 23</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Brainstorm 3 things you're curious about.</p>
+        <ul class="tasks">
+          <li>Write down 3 things you wonder about</li>
+          <li>Turn each one into a question starting with "I wonder…"</li>
+          <li>Star the ones that feel most exciting</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w2">
+        <div class="week-head"><span class="week-num">Week 2</span><span class="week-dates">Oct 24 – Oct 30</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Taste-test each idea a little.</p>
+        <ul class="tasks">
+          <li>Spend about 10 minutes reading or watching about each idea</li>
+          <li>Write one cool fact you learned per idea</li>
+          <li>Rank your 3 ideas: 1st, 2nd, 3rd</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w3">
+        <div class="week-head"><span class="week-num">Week 3</span><span class="week-dates">Oct 31 – Nov 6</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Lock in your question.</p>
+        <ul class="tasks">
+          <li>Pick the winning idea</li>
+          <li>Write your question in one clear sentence</li>
+          <li>Say your question out loud to someone</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PHASE 2 ============ -->
+  <div class="phase">
+    <h2>🧪 Phase 2 — Investigate</h2>
+    <p>Now find the answer your own way — observe, experiment, or build.</p>
+    <div class="weeks">
+      <div class="week" id="w4">
+        <div class="week-head"><span class="week-num">Week 4</span><span class="week-dates">Nov 7 – Nov 13</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Plan how you'll investigate.</p>
+        <ul class="tasks">
+          <li>Choose your method: observe, experiment, or build?</li>
+          <li>List everything you'll need</li>
+          <li>Write the steps in order, 1-2-3</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w5">
+        <div class="week-head"><span class="week-num">Week 5</span><span class="week-dates">Nov 14 – Nov 20</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Investigate, round 1 — and record everything.</p>
+        <ul class="tasks">
+          <li>Do the investigation</li>
+          <li>Take photos of what happens</li>
+          <li>Write down what you see — surprises count too</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+    </div>
+    <div class="rest" style="margin-top:16px">🦃 <strong>Thanksgiving week (Nov 21 – Nov 27):</strong> rest week, no session.</div>
+    <div class="weeks">
+      <div class="week" id="w6">
+        <div class="week-head"><span class="week-num">Week 6</span><span class="week-dates">Nov 28 – Dec 4</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Investigate, round 2 — then conclude.</p>
+        <ul class="tasks">
+          <li>Repeat it, or change one thing and compare</li>
+          <li>Finish this sentence: "I found out that…"</li>
+          <li>Pick your best photos for the board</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PHASE 3 ============ -->
+  <div class="phase">
+    <h2>🎨 Phase 3 — Build the Board</h2>
+    <p>The board tells your story: question → how you investigated → what you found → conclusion.</p>
+    <div class="weeks">
+      <div class="week" id="w7">
+        <div class="week-head"><span class="week-num">Week 7</span><span class="week-dates">Dec 5 – Dec 11</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Sketch the board on paper first.</p>
+        <ul class="tasks">
+          <li>Draw 4 boxes: Question / How I investigated / What I found / Conclusion</li>
+          <li>Decide where each photo goes</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w8">
+        <div class="week-head"><span class="week-num">Week 8</span><span class="week-dates">Dec 12 – Dec 18</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Build the board, part 1.</p>
+        <ul class="tasks">
+          <li>Write short text for each box — in your own words</li>
+          <li>Attach photos and drawings (big pictures beat long paragraphs)</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w9">
+        <div class="week-head"><span class="week-num">Week 9</span><span class="week-dates">Dec 19 – Dec 25</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Make the board easy to read.</p>
+        <ul class="tasks">
+          <li>Ask someone to read it — can they understand it?</li>
+          <li>Fix the confusing parts</li>
+          <li>Light session is fine (holiday week)</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PHASE 4 ============ -->
+  <div class="phase">
+    <h2>🎤 Phase 4 — Practice</h2>
+    <p>The fair isn't a stage speech — visitors walk up and you explain. Practice talking, not memorizing.</p>
+    <div class="weeks">
+      <div class="week" id="w10">
+        <div class="week-head"><span class="week-num">Week 10</span><span class="week-dates">Jan 2 – Jan 8</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Build your 1–2 minute explanation.</p>
+        <ul class="tasks">
+          <li>Say your project out loud, like telling a friend</li>
+          <li>No memorized script — just talk it through</li>
+          <li>Time yourself: aim for 1–2 minutes</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w11">
+        <div class="week-head"><span class="week-num">Week 11</span><span class="week-dates">Jan 9 – Jan 15</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Rehearse in front of family.</p>
+        <ul class="tasks">
+          <li>Stand by your board and present to family</li>
+          <li>Family asks questions like visitors would</li>
+          <li>Note which parts were hard to explain</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w12">
+        <div class="week-head"><span class="week-num">Week 12</span><span class="week-dates">Jan 16 – Jan 22</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Train for questions.</p>
+        <ul class="tasks">
+          <li>Write 5 questions a visitor might ask</li>
+          <li>Practice answering each one</li>
+          <li>Fix weak spots on the board</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+      <div class="week" id="w13">
+        <div class="week-head"><span class="week-num">Week 13</span><span class="week-dates">Jan 23 – Jan 29</span><span class="status todo">Not started</span></div>
+        <p class="goal"><strong>Goal:</strong> Final run — fair-ready.</p>
+        <ul class="tasks">
+          <li>Full run-through: standing, pointing at the board</li>
+          <li>Pack everything you need for fair day</li>
+        </ul>
+        <div class="notes"><strong>Week notes</strong><p class="empty-note">Nothing yet — check back after this week's session.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FAIR DAY ============ -->
+  <div class="fair-day">
+    <h2>🎉 Fair Day</h2>
+    <p><strong>When:</strong> late January 2027 (exact date announced by school)</p>
+    <p><em>This section gets filled in after the fair — what happened, the best moments, and what Alex would do differently next year.</em></p>
+  </div>
+
+  <footer>
+    <a href="../">← Learning Fair Projects</a> ·
+    <a href="https://yoonc5536.github.io/alex-learning/">Learning Hub</a><br/>
+    Updated as the project grows — check back weekly.
+  </footer>
+</div>
+<script>
+  (function () {
+    var weeks = document.querySelectorAll('.week');
+    var done = document.querySelectorAll('.week.done-week').length;
+    var total = weeks.length;
+    var pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' of ' + total + ' weeks complete';
+  })();
+</script>
+</body>
+</html>
