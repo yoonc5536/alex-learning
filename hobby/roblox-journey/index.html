@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Roblox Game-Making Journey</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif; background: #f0f7ff; color: #22303f; font-size: 18px; line-height: 1.6; }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 0 24px 60px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; border-radius: 0 0 28px 28px; overflow: hidden; box-shadow: 0 8px 30px rgba(20,60,120,.25); }
+  .hero img { display: block; width: 100%; height: auto; }
+  .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 32px 22px;
+    background: linear-gradient(to top, rgba(10,40,90,.82), rgba(10,40,90,0)); color: #fff; }
+  .hero-text h1 { font-size: 46px; line-height: 1.1; letter-spacing: .5px; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+  .hero-text p { font-size: 20px; margin-top: 6px; color: #ffe9a8; font-weight: bold; }
+
+  .intro { text-align: center; font-size: 20px; max-width: 820px; margin: 34px auto 8px; color: #33506e; }
+  .intro b { color: #e8590c; }
+
+  /* ---------- Progress ---------- */
+  .progress-box { background: #fff; border: 3px solid #ffd43b; border-radius: 20px; padding: 18px 24px; margin: 26px 0 10px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap; box-shadow: 0 4px 14px rgba(20,60,120,.10); }
+  .progress-box .label { font-weight: bold; font-size: 20px; color: #7048e8; white-space: nowrap; }
+  .bar { flex: 1; min-width: 200px; height: 22px; background: #e7f0fb; border-radius: 11px; overflow: hidden; }
+  .bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #51cf66, #94d82d); border-radius: 11px; transition: width .4s; }
+  .progress-count { font-weight: bold; font-size: 20px; color: #2b8a3e; }
+
+  /* ---------- How I learn ---------- */
+  h2.section { font-size: 30px; margin: 44px 0 6px; color: #1971c2; text-align: center; }
+  .section-sub { text-align: center; color: #5c7a99; margin-bottom: 22px; font-size: 18px; }
+  .learn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .learn-card { background: #fff; border-radius: 18px; padding: 20px 16px; text-align: center; box-shadow: 0 4px 14px rgba(20,60,120,.10); border-top: 6px solid #ffa94d; }
+  .learn-card:nth-child(2) { border-top-color: #69db7c; }
+  .learn-card:nth-child(3) { border-top-color: #4dabf7; }
+  .learn-card:nth-child(4) { border-top-color: #da77f2; }
+  .learn-num { display: inline-block; width: 52px; height: 52px; line-height: 52px; border-radius: 50%; background: #fff3bf; color: #e8590c; font-size: 26px; font-weight: bold; margin-bottom: 10px; }
+  .learn-card h3 { font-size: 21px; margin-bottom: 6px; }
+  .learn-card p { font-size: 16.5px; color: #4a647d; }
+  .rule-box { background: #fff9db; border: 2px dashed #fab005; border-radius: 16px; padding: 16px 22px; margin-top: 16px; font-size: 18px; text-align: center; }
+  .rule-box b { color: #e8590c; }
+
+  /* ---------- Journey ---------- */
+  .journey { position: relative; margin-top: 26px; padding-left: 74px; }
+  .journey::before { content: ""; position: absolute; left: 33px; top: 10px; bottom: 10px; width: 6px; border-radius: 3px;
+    background: repeating-linear-gradient(#ffd43b 0 14px, #fff 14px 26px); border: 2px solid #fab005; }
+  .step { position: relative; background: #fff; border-radius: 20px; padding: 24px 26px; margin-bottom: 26px;
+    box-shadow: 0 4px 16px rgba(20,60,120,.10); border-left: 8px solid #4dabf7; }
+  .step:nth-child(2) { border-left-color: #69db7c; }
+  .step:nth-child(3) { border-left-color: #ffa94d; }
+  .step:nth-child(4) { border-left-color: #ffd43b; }
+  .step:nth-child(5) { border-left-color: #63e6be; }
+  .step:nth-child(6) { border-left-color: #da77f2; }
+  .step:nth-child(7) { border-left-color: #ff8787; }
+  .step:nth-child(8) { border-left-color: #e8590c; }
+  .step-num { position: absolute; left: -74px; top: 22px; width: 68px; height: 68px; border-radius: 50%; background: #fff;
+    border: 4px solid #fab005; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; color: #1971c2;
+    box-shadow: 0 3px 10px rgba(20,60,120,.18); z-index: 1; }
+  .step-num small { font-size: 15px; color: #868e96; }
+  .step-head { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .step-icon { flex: 0 0 72px; width: 72px; height: 72px; }
+  .step-icon svg { width: 72px; height: 72px; }
+  .step-head h3 { font-size: 26px; line-height: 1.25; }
+  .step-head .tag { display: inline-block; font-size: 14px; font-weight: bold; color: #fff; background: #1971c2; border-radius: 999px; padding: 3px 12px; margin-top: 6px; }
+  .step-head .tag.green { background: #2b8a3e; }
+  .step-head .tag.orange { background: #e8590c; }
+  .step-head .tag.purple { background: #7048e8; }
+  .step p { margin-top: 12px; }
+  .step p b { color: #1971c2; }
+  .step .code-line { background: #f1f3f5; border-radius: 10px; padding: 10px 14px; margin-top: 12px; font-family: Consolas, monospace; font-size: 16px; color: #495057; overflow-x: auto; white-space: nowrap; }
+  .step .code-line .hl { color: #d6336c; font-weight: bold; }
+  .step-img { margin-top: 16px; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(20,60,120,.15); }
+  .step-img img { display: block; width: 100%; height: auto; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .btn { display: inline-block; background: #1971c2; color: #fff; font-weight: bold; text-decoration: none; padding: 10px 20px; border-radius: 999px; font-size: 17px; }
+  .btn:hover { background: #1864ab; }
+  .btn.green { background: #2b8a3e; }
+  .btn.green:hover { background: #2f9e44; }
+  .btn.orange { background: #e8590c; }
+  .btn.orange:hover { background: #d9480f; }
+  .btn.light { background: #e7f5ff; color: #1971c2; }
+  .btn.light:hover { background: #d0ebff; }
+  .done-btn { margin-left: auto; background: #fff; color: #2b8a3e; border: 3px solid #69db7c; font-weight: bold; font-size: 17px; padding: 8px 18px; border-radius: 999px; cursor: pointer; font-family: inherit; }
+  .done-btn:hover { background: #ebfbee; }
+  .step.done { background: #f3faf0; border-left-color: #51cf66 !important; }
+  .step.done .done-btn { background: #51cf66; color: #fff; border-color: #51cf66; }
+  .step.done h3::after { content: "  ✓"; color: #2b8a3e; }
+
+  .mini-list { margin: 10px 0 0 22px; }
+  .mini-list li { margin-bottom: 4px; }
+
+  /* ---------- Checklist ---------- */
+  .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .check-item { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(20,60,120,.10); cursor: pointer; border: 3px solid transparent; }
+  .check-item:hover { border-color: #ffd43b; }
+  .check-item.checked { border-color: #51cf66; background: #f3faf0; }
+  .check-item .box { display: inline-block; width: 26px; height: 26px; border: 3px solid #adb5bd; border-radius: 7px; vertical-align: middle; margin-right: 10px; text-align: center; line-height: 22px; font-size: 18px; color: #fff; }
+  .check-item.checked .box { background: #51cf66; border-color: #51cf66; }
+  .check-item b { font-size: 19px; }
+  .check-item p { font-size: 16.5px; color: #4a647d; margin-top: 6px; }
+
+  /* ---------- Later / rules ---------- */
+  .later { background: #f3f0ff; border: 2px solid #b197fc; border-radius: 20px; padding: 22px 26px; margin-top: 44px; }
+  .later h3 { font-size: 23px; color: #7048e8; margin-bottom: 8px; }
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .rule-card { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(20,60,120,.10); font-size: 18px; }
+  .rule-card b { color: #e8590c; display: block; font-size: 19px; margin-bottom: 4px; }
+
+  footer { text-align: center; color: #868e96; font-size: 15px; margin-top: 40px; }
+
+  @media (max-width: 760px) {
+    .hero-text h1 { font-size: 32px; }
+    .hero-text p { font-size: 17px; }
+    .learn-grid { grid-template-columns: 1fr 1fr; }
+    .check-grid, .rules { grid-template-columns: 1fr; }
+    .journey { padding-left: 56px; }
+    .journey::before { left: 24px; }
+    .step-num { left: -56px; width: 50px; height: 50px; font-size: 20px; }
+    .step { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="assets/hero.webp" alt="A blocky game world with floating platforms and gold coins">
+    <div class="hero-text">
+      <h1>🎮 My Roblox Game-Making Journey</h1>
+      <p>From my first block to my very own game — one step at a time!</p>
+    </div>
+  </div>
+
+  <p class="intro">Hi! This is <b>your map</b> for making games in Roblox Studio.
+  You don't need to write lots of code. You need to <b>read code, guess what it does, and check your guess</b>.
+  Finish one step, tick it off, then go to the next one!</p>
+
+  <!-- PROGRESS -->
+  <div class="progress-box">
+    <span class="label">🏆 My progress</span>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 8 steps done</span>
+  </div>
+
+  <!-- HOW I LEARN -->
+  <h2 class="section">🧠 How I Learn Code</h2>
+  <p class="section-sub">Use these 4 moves every time you meet new code. This is your superpower!</p>
+  <div class="learn-grid">
+    <div class="learn-card"><div class="learn-num">1</div><h3>👀 READ</h3><p>Read the code, line by line. What does each line do?</p></div>
+    <div class="learn-card"><div class="learn-num">2</div><h3>🔮 PREDICT</h3><p>Before you run it, say what you <i>think</i> will happen.</p></div>
+    <div class="learn-card"><div class="learn-num">3</div><h3>🔧 CHANGE</h3><p>Change ONE small thing — one number, one word.</p></div>
+    <div class="learn-card"><div class="learn-num">4</div><h3>▶️ RUN &amp; CHECK</h3><p>Run it! Did it match your guess? If not, why?</p></div>
+  </div>
+  <div class="rule-box">🕵️ <b>Bug Hunt game:</b> read a script and find the bug <b>without running it</b> — the fastest way to get good at reading code!
+  <br>🗣️ <b>Explain-back rule:</b> if you can't explain the code in your own words, you don't own it yet.</div>
+
+  <!-- JOURNEY -->
+  <h2 class="section">🗺️ The Journey</h2>
+  <p class="section-sub">Follow the path from top to bottom. Click <b>Done</b> when you finish a step!</p>
+
+  <div class="journey">
+
+    <!-- STEP 0 -->
+    <div class="step" data-step="0">
+      <div class="step-num">0</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><path d="M36 6 L60 14 V34 C60 50 50 62 36 66 C22 62 12 50 12 34 V14 Z" fill="#4dabf7" stroke="#1971c2" stroke-width="3"/><path d="M26 36 L33 43 L47 27" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Get Ready</h3><span class="tag">with a parent</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will do:</b> Make your Roblox account with a parent. Check the safety settings together (chat, purchases, content). Install <b>Roblox Studio</b> — it's free!</p>
+      <p><b>Remember:</b> never share your password, and never save a payment card in Roblox.</p>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step" data-step="1">
+      <div class="step-num">1</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><rect x="10" y="42" width="24" height="20" rx="3" fill="#69db7c" stroke="#2b8a3e" stroke-width="3"/><rect x="38" y="42" width="24" height="20" rx="3" fill="#ffd43b" stroke="#e8590c" stroke-width="3"/><rect x="24" y="18" width="24" height="20" rx="3" fill="#ffa94d" stroke="#d9480f" stroke-width="3"/></svg></div>
+        <div><h3>Build Without Code</h3><span class="tag green">no code needed!</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will make:</b> an <b>obby</b> — an obstacle course where players jump across platforms and dodge lava. A real game, made of blocks only!</p>
+      <p><b>First:</b> learn the Studio buttons in the Studio lesson. <b>Then:</b> build the obby with the Classic Obby template.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://create.roblox.com/docs/tutorials/curriculums/studio" target="_blank" rel="noopener">▶ Studio lesson</a>
+        <a class="btn green" href="https://create.roblox.com/docs/tutorials/curriculums/building" target="_blank" rel="noopener">▶ Build an obby</a>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" data-step="2">
+      <div class="step-num">2</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><path d="M36 16 C28 8 14 8 8 12 V58 C14 54 28 54 36 62 C44 54 58 54 64 58 V12 C58 8 44 8 36 16 Z" fill="#fff3bf" stroke="#e8590c" stroke-width="3"/><line x1="36" y1="16" x2="36" y2="62" stroke="#e8590c" stroke-width="3"/><line x1="14" y1="24" x2="30" y2="24" stroke="#868e96" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="34" x2="30" y2="34" stroke="#868e96" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="24" x2="58" y2="24" stroke="#868e96" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="34" x2="58" y2="34" stroke="#868e96" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <div><h3>Start Reading Code</h3><span class="tag orange">story game</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will make:</b> a <b>story game</b> — like Mad Libs! Players type their own words (a name, an animal, a place) and the story fills in the blanks.</p>
+      <p><b>Learn to read:</b> variables and strings. Read each line, say what it does, change one word and <b>predict</b> what happens before you run it.</p>
+      <div class="code-line">local story = ("The great wizard " <span class="hl">.. name</span>) &nbsp;-- ".." joins words, like + in Python</div>
+      <div class="btn-row">
+        <a class="btn" href="https://create.roblox.com/docs/tutorials/curriculums/coding" target="_blank" rel="noopener">▶ Intro to coding</a>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" data-step="3">
+      <div class="step-num">3</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="28" fill="#ffd43b" stroke="#e8590c" stroke-width="4"/><path d="M36 18 L41 30 L54 31 L44 40 L48 53 L36 45 L24 53 L28 40 L18 31 L31 30 Z" fill="#fff" stroke="#e8590c" stroke-width="2"/></svg></div>
+        <div><h3>My First Game</h3><span class="tag">coin platformer</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will make:</b> a 3D platformer — collect coins and trade them for jump power!</p>
+      <p><b>Learn to read:</b> the game's scripts, line by line. Change ONE number — like the coin value or the jump power — <b>predict</b> what happens, then run and check.</p>
+      <p><b>Build it in 3 parts:</b> ① Build a greybox world &nbsp;② Script the gameplay &nbsp;③ Polish the game.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://create.roblox.com/docs/tutorials/curriculums/core" target="_blank" rel="noopener">▶ Core curriculum — my first game</a>
+      </div>
+    </div>
+
+    <!-- STEP 3.5 -->
+    <div class="step" data-step="3.5">
+      <div class="step-num">3<small>.5</small></div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><path d="M36 8 L58 22 L58 52 L36 64 L14 52 L14 22 Z" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/><path d="M36 26 L42 36 L36 46 L30 36 Z" fill="#da77f2" stroke="#862e9c" stroke-width="2"/><circle cx="48" cy="48" r="6" fill="#ffd43b" stroke="#e8590c" stroke-width="2"/><circle cx="24" cy="46" r="4" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/></svg></div>
+        <div><h3>My Second Game — Adventure Game!</h3><span class="tag green">a whole game with money!</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <div class="step-img"><img src="assets/adventure.webp" alt="A blocky character collecting glowing gems near a market stall full of gold coins"></div>
+      <p><b>You will make:</b> an <b>adventure game</b> — explore the world, harvest gems, <b>sell them for coins</b>, and <b>buy upgrades</b>. It's like a simulator game!</p>
+      <p><b>Learn to read:</b> <span style="font-family:Consolas,monospace">if</span> statements and functions — the new ideas here. You meet them <i>inside</i> the game, one at a time.</p>
+      <p><b>Play the finished game first</b> (the "Adventure Game Example" on the start page) so you know what you're building!</p>
+      <div class="btn-row">
+        <a class="btn green" href="https://create.roblox.com/docs/en-us/education/adventure-game-series/landing" target="_blank" rel="noopener">▶ Start the adventure game</a>
+      </div>
+      <ul class="mini-list">
+        <li>1 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/create-the-map" target="_blank" rel="noopener">Create the Map</a></li>
+        <li>2 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/code-the-leaderboard" target="_blank" rel="noopener">Code the Leaderboard</a></li>
+        <li>3 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/collect-items" target="_blank" rel="noopener">Collecting Items</a></li>
+        <li>4 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/selling-items" target="_blank" rel="noopener">Selling Items</a></li>
+        <li>5 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/buying-upgrades" target="_blank" rel="noopener">Buying Upgrades</a></li>
+        <li>6 · <a href="https://create.roblox.com/docs/en-us/education/adventure-game-series/finishing-the-project" target="_blank" rel="noopener">Finishing the Project</a></li>
+      </ul>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" data-step="4">
+      <div class="step-num">4</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><rect x="14" y="16" width="44" height="36" rx="10" fill="#b197fc" stroke="#7048e8" stroke-width="3"/><circle cx="28" cy="32" r="5" fill="#fff"/><circle cx="44" cy="32" r="5" fill="#fff"/><path d="M28 44 Q36 50 44 44" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="36" y1="52" x2="36" y2="62" stroke="#7048e8" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="16" x2="14" y2="8" stroke="#7048e8" stroke-width="3" stroke-linecap="round"/><line x1="52" y1="16" x2="58" y2="8" stroke="#7048e8" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <div><h3>Build With AI</h3><span class="tag purple">you direct, AI writes</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will do:</b> design your game on paper first. Then ask the AI Assistant for <b>ONE function at a time</b> — never the whole game at once.</p>
+      <p><b>Your job:</b> read the code AI gives you, explain it in your own words, run it, and check it against your prediction. If it's wrong, find the bug by <b>reading</b>.</p>
+      <p>🤖 AI is your <b>hands</b>, not your <b>brain</b>. You are the designer!</p>
+      <div class="btn-row">
+        <a class="btn" href="https://create.roblox.com/docs/tutorials/curriculums/building" target="_blank" rel="noopener">▶ "Code with AI Assistant" (in the obby lesson)</a>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" data-step="5">
+      <div class="step-num">5</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><path d="M36 8 L43 26 L62 27 L47 39 L52 58 L36 47 L20 58 L25 39 L10 27 L29 26 Z" fill="#ffd43b" stroke="#e8590c" stroke-width="3"/><circle cx="58" cy="14" r="5" fill="#69db7c" stroke="#2b8a3e" stroke-width="2"/><circle cx="12" cy="58" r="4" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/></svg></div>
+        <div><h3>Make It GOOD + Playtest</h3><span class="tag orange">polish time!</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <p><b>You will do:</b> add the fun stuff — a sound when you jump, sparkles when you grab a coin, a timer, a leaderboard. Then let your <b>friends play</b> and fix what confuses them.</p>
+      <p><b>Remember:</b> a small game that is FINISHED beats a big game that is never done!</p>
+      <div class="btn-row">
+        <a class="btn" href="https://create.roblox.com/docs/tutorials" target="_blank" rel="noopener">▶ Tutorials hub — pick what you need</a>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step" data-step="6">
+      <div class="step-num">6</div>
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 72 72"><path d="M36 6 C46 16 50 28 48 40 L40 48 L32 48 L24 40 C22 28 26 16 36 6 Z" fill="#ff8787" stroke="#c92a2a" stroke-width="3"/><circle cx="36" cy="28" r="7" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/><path d="M24 40 L16 52 L26 50 Z" fill="#ffa94d" stroke="#d9480f" stroke-width="2"/><path d="M48 40 L56 52 L46 50 Z" fill="#ffa94d" stroke="#d9480f" stroke-width="2"/><path d="M32 48 L30 60 L34 56 L36 62 L38 56 L42 60 L40 48 Z" fill="#ffd43b" stroke="#e8590c" stroke-width="2"/></svg></div>
+        <div><h3>My OWN Game! 🚀</h3><span class="tag">your game, your rules</span></div>
+        <button class="done-btn" onclick="toggleDone(this)">☐ Done</button>
+      </div>
+      <div class="step-img"><img src="assets/rocket.webp" alt="A blocky astronaut standing next to a colorful rocket under confetti"></div>
+      <p><b>You will do:</b> design your game on paper first — what game is it? What are the rules? What makes it fun?</p>
+      <p><b>Then:</b> build it small, with AI helping. You read, check, and direct. Publish it and share it with your friends!</p>
+      <p>🎯 A good game is one your friends play for 10+ minutes and ask to play again.</p>
+    </div>
+
+  </div><!-- /journey -->
+
+  <!-- GOOD GAME CHECKLIST -->
+  <h2 class="section">⭐ What Makes a Game GREAT?</h2>
+  <p class="section-sub">Tap each box when your game has it!</p>
+  <div class="check-grid">
+    <div class="check-item" onclick="toggleCheck(this)"><span class="box"></span><b>Fun in 30 seconds</b><p>The first minute already feels fun. The first 3 platforms of an obby are fun!</p></div>
+    <div class="check-item" onclick="toggleCheck(this)"><span class="box"></span><b>A reason to keep playing</b><p>Coins, upgrades, beating your record — a goal that pulls you back in.</p></div>
+    <div class="check-item" onclick="toggleCheck(this)"><span class="box"></span><b>Juice! ✨</b><p>Small reactions make a game feel alive: a sound when you jump, sparkles when you grab a coin.</p></div>
+    <div class="check-item" onclick="toggleCheck(this)"><span class="box"></span><b>Not too hard, not too easy</b><p>Easy wins first, then it slowly gets harder. Too hard = quit. Too easy = bored.</p></div>
+    <div class="check-item" onclick="toggleCheck(this)" style="grid-column: 1 / -1;"><span class="box"></span><b>Friends tested it! 🧪</b><p>Watch your friends play. Fix what confuses them or bores them. Playtesting is how games get great.</p></div>
+  </div>
+
+  <!-- TWO GOLDEN RULES -->
+  <div class="rules">
+    <div class="rule-card"><b>🥇 One project at a time</b>Finish one game before starting the next one. Depth beats volume!</div>
+    <div class="rule-card"><b>🥈 Make first, code after</b>Start with things you can finish without code. Feel the fun first, then attach scripts.</div>
+  </div>
+
+  <!-- LATER -->
+  <div class="later">
+    <h3>🔜 For Later — Laser Tag Game</h3>
+    <p>After you have met <b>if/then, loops, and tables</b> inside your games, there's a bigger official path: <b>Gameplay scripting</b> — a team laser tag game (teams, rounds, blasters, hit detection). It's a big jump, so save it for later. <b>Chapter 1 (Create teams)</b> is a good first taste.</p>
+    <div class="btn-row">
+      <a class="btn light" href="https://create.roblox.com/docs/tutorials/curriculums/gameplay-scripting" target="_blank" rel="noopener">▶ Gameplay scripting (later)</a>
+    </div>
+  </div>
+
+  <footer>Made for Jinwoo · Roblox Creator Docs tutorials · One step at a time! 🎮</footer>
+</div>
+
+<script>
+  // Step Done toggles, saved in this browser
+  function loadDone() {
+    try {
+      var done = JSON.parse(localStorage.getItem('roblox-journey-done') || '[]');
+      document.querySelectorAll('.step').forEach(function (el) {
+        var id = el.getAttribute('data-step');
+        var btn = el.querySelector('.done-btn');
+        if (done.indexOf(id) !== -1) {
+          el.classList.add('done');
+          if (btn) btn.textContent = '✓ Done!';
+        }
+      });
+      updateProgress();
+    } catch (e) {}
+  }
+  function toggleDone(btn) {
+    var card = btn.closest('.step');
+    var id = card.getAttribute('data-step');
+    var done = [];
+    try { done = JSON.parse(localStorage.getItem('roblox-journey-done') || '[]'); } catch (e) {}
+    var i = done.indexOf(id);
+    if (i === -1) { done.push(id); card.classList.add('done'); btn.textContent = '✓ Done!'; }
+    else { done.splice(i, 1); card.classList.remove('done'); btn.textContent = '☐ Done'; }
+    try { localStorage.setItem('roblox-journey-done', JSON.stringify(done)); } catch (e) {}
+    updateProgress();
+  }
+  function updateProgress() {
+    var total = document.querySelectorAll('.step').length;
+    var n = document.querySelectorAll('.step.done').length;
+    var fill = document.getElementById('barFill');
+    var count = document.getElementById('progressCount');
+    if (fill) fill.style.width = (total ? Math.round(n / total * 100) : 0) + '%';
+    if (count) count.textContent = n + ' / ' + total + ' steps done';
+  }
+  // Great-game checklist toggles
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    var box = el.querySelector('.box');
+    if (box) box.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+  loadDone();
+</script>
+</body>
+</html>
