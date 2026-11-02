@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 NYS Grade 3 ELA Practice Test</title>
+<style>
+  :root{
+    --ink:#1e293b; --muted:#64748b; --line:#e2e8f0; --bg:#f1f5f9;
+    --brand:#1d4ed8; --brand-d:#1e40af; --ok:#15803d; --okbg:#f0fdf4;
+    --bad:#b91c1c; --badbg:#fef2f2; --warn:#b45309; --warnbg:#fffbeb;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 20px 120px}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;
+    border-radius:16px;padding:28px 28px;margin-bottom:20px}
+  header.hero h1{margin:0 0 6px;font-size:26px}
+  header.hero p{margin:4px 0;opacity:.92}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:16px}
+  .card h2{margin:0 0 10px;font-size:20px}
+  .card h3{margin:18px 0 8px;font-size:17px}
+  .muted{color:var(--muted)}
+  .btn{display:inline-block;border:0;border-radius:10px;padding:12px 22px;
+    font-size:16px;font-weight:700;cursor:pointer;background:var(--brand);color:#fff}
+  .btn:hover{background:var(--brand-d)}
+  .btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+  .btn.ghost:hover{background:#eff6ff}
+  .btn.small{padding:8px 14px;font-size:14px}
+  .btn:disabled{opacity:.5;cursor:default}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .session-card{border:2px solid var(--line);border-radius:14px;padding:20px;background:#fff}
+  .session-card h3{margin-top:0}
+  .tag{display:inline-block;background:#dbeafe;color:#1e40af;font-weight:700;
+    border-radius:999px;padding:2px 12px;font-size:13px;margin-right:6px}
+  /* passage */
+  .passage{background:#fffdf5;border:1px solid #fde68a;border-radius:12px;
+    padding:18px 22px;margin:22px 0 8px}
+  .passage .ptitle{font-weight:800;font-size:18px;margin-bottom:2px}
+  .passage .pby{color:var(--muted);font-size:14px;margin-bottom:10px}
+  .passage p{margin:10px 0}
+  /* questions */
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;margin:12px 0}
+  .q .qnum{font-weight:800;color:var(--brand);margin-bottom:6px}
+  .q .stem{font-weight:600;margin-bottom:10px}
+  .q .stem .qtext{font-weight:400;font-style:italic;display:block;margin-top:6px;
+    background:#f8fafc;border-left:4px solid var(--brand);padding:8px 12px}
+  .choices{display:grid;gap:8px;margin-top:6px}
+  .choice{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;
+    background:#f8fafc;border:2px solid var(--line);border-radius:10px;
+    padding:10px 12px;font-size:15px;cursor:pointer}
+  .choice:hover{border-color:#93c5fd}
+  .choice.sel{border-color:var(--brand);background:#eff6ff}
+  .choice .letter{font-weight:800;min-width:22px;color:var(--brand)}
+  .choice.correct{border-color:var(--ok);background:var(--okbg)}
+  .choice.correct .letter{color:var(--ok)}
+  .choice.wrongpick{border-color:var(--bad);background:var(--badbg)}
+  .choice.wrongpick .letter{color:var(--bad)}
+  .choice.disabled{cursor:default}
+  textarea.wr{width:100%;min-height:130px;border:2px solid var(--line);
+    border-radius:10px;padding:10px 12px;font-size:15px;font-family:inherit;
+    line-height:1.6;resize:vertical}
+  textarea.wr:focus{outline:none;border-color:var(--brand)}
+  .wrans{background:#f8fafc;border:1px dashed var(--line);border-radius:10px;
+    padding:10px 14px;margin:8px 0;white-space:pre-wrap}
+  /* footer bar */
+  .footbar{position:fixed;left:0;right:0;bottom:0;background:#fff;
+    border-top:1px solid var(--line);padding:12px 20px;
+    display:flex;align-items:center;gap:14px;z-index:50}
+  .footbar .prog{font-weight:700}
+  .footbar .spacer{flex:1}
+  .confirm{background:#fffbeb;border:2px solid #f59e0b;border-radius:12px;
+    padding:14px 18px;margin:14px 0}
+  /* results */
+  .score-big{font-size:34px;font-weight:800}
+  .pill{display:inline-block;border-radius:999px;padding:3px 14px;font-weight:700;font-size:14px}
+  .pill.ok{background:var(--okbg);color:var(--ok)}
+  .pill.bad{background:var(--badbg);color:var(--bad)}
+  .pill.warn{background:var(--warnbg);color:var(--warn)}
+  details.rubric{margin:10px 0;border:1px solid var(--line);border-radius:10px;
+    background:#f8fafc;padding:8px 14px}
+  details.rubric summary{cursor:pointer;font-weight:700;color:var(--brand)}
+  .scorebtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .scorebtns button{border:2px solid var(--line);background:#fff;border-radius:10px;
+    padding:8px 16px;font-size:15px;font-weight:700;cursor:pointer}
+  .scorebtns button.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .att{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;
+    background:#fff;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .att .grow{flex:1;min-width:200px}
+  pre.copybox{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px;
+    white-space:pre-wrap;font-size:13px;max-height:300px;overflow:auto}
+  .hidden{display:none!important}
+  .backlink{color:var(--brand);cursor:pointer;font-weight:700;background:none;border:0;
+    font-size:15px;padding:0;margin-bottom:12px}
+  .credit-tag{font-size:13px;color:var(--warn);font-weight:700}
+  kbd{background:#f1f5f9;border:1px solid var(--line);border-radius:6px;padding:1px 7px;
+    font-family:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>2026 New York State Grade 3 ELA — Practice Test</h1>
+    <p>Released questions from the Spring 2026 test &middot; Read each passage, then answer the questions.</p>
+  </header>
+  <main id="app"></main>
+</div>
+<div class="footbar hidden" id="footbar"></div>
+
+<script id="quiz-data" type="application/json">{
+  "testTitle": "2026 New York State Grade 3 English Language Arts Test — Released Questions",
+  "tips": "TIPS FOR TAKING THE TEST\nHere are some ideas to help you do your best:\n- Read the whole passage before you answer the questions. Most questions will only make sense after you read the whole passage.\n- You might need to read the passage more than once to answer a question.\n- Read each question carefully. Take your time.\n- A question may include a quote from a passage. You might need to review both the quote and the whole passage to answer the question.\nWhen you write your answers\n- make sure to answer the whole question;\n- use examples or details from the text;\n- write in complete sentences; and\n- use correct spelling, grammar, capitalization, and punctuation.",
+  "sessions": [
+    {
+      "id": "session-1",
+      "name": "Session 1",
+      "passages": [
+        {
+          "id": "s1p1",
+          "title": "Excerpt from Little Shaq: Star of the Week",
+          "byline": "by Shaquille O'Neal",
+          "paragraphs": [
+            "At Little Shaq's school, one student is the star every week. The Star of the Week passes out snacks, takes care of the class rabbit named Flopsy, and has other jobs.",
+            "1 \"Hey, look at this!\" said Aubrey. She was pointing at a flier on the rec center's front door. \"There's going to be a pet fair here all next week!\"",
+            "[vocabulary box] rec center = place to meet and play games",
+            "2 \"No way!\" said Little Shaq. \"You guys are so lucky that you already have pets.\"",
+            "3 Walter and Aubrey nodded. They had a brown, furry dog named Monty. Rosa's cat was Mittens, and Barry had a tropical fish named Louie.",
+            "4 \"Maybe you could bring your parents to the rec center,\" said Barry. \"I bet the fair will have kittens.\"",
+            "5 Little Shaq had been asking for a kitten for as long as he could remember.",
+            "6 \"I don't know,\" he replied. \"They've never said yes before.\"",
+            "7 That night during dinner, Little Shaq was nervous about bringing up the pet fair to his parents. He was so nervous that he couldn't even eat his favorite meal. His spaghetti and meatballs sat on his plate untouched, but his parents didn't notice. His younger brother, Tater, had made a tower out of meatballs that had fallen over in a saucy mess. Mom was not happy. And his older sister, Malia, was going on and on about her school play. Finally, Dad caught Little Shaq's eye.",
+            "8 \"How was your game today, buddy?\" Dad asked.",
+            "9 \"It was okay,\" he answered. \"We lost, but the rec center is having a really cool event next week.\"",
+            "10 \"Oh yeah?\" asked Mom.",
+            "11 Little Shaq took a deep breath. \"Yeah, they're hosting a pet adoption fair.\"",
+            "12 \"Shaquille, we've been through this before,\" said Mom.",
+            "13 \"A pet is a lot of responsibility,\" said Dad.",
+            "[vocabulary box] responsibility = work that has to get done",
+            "14 \"I am responsible!\" said Little Shaq.",
+            "15 \"What about your chores?\" asked Mom. \"We always have to remind you to make your bed.\"",
+            "16 Little Shaq sighed. It was true. He wasn't good at remembering to take out the trash, and Mom did have to tell him every morning to make his bed. He couldn't understand the point of making it, if he was just going to get back in it later.",
+            "17 Little Shaq shook his head. There had to be a way he could prove he was ready for a kitten before the fair was over. He glanced around the room and saw his backpack. His Star of the Week instruction sheet was sticking out from the top.",
+            "18 In all the excitement about the pet fair, Little Shaq had forgotten to tell his parents the big news. \"Wait, starting Monday, I'm going to be Star of the Week,\" he said. \"I'll have loads of responsibilities!\"",
+            "19 \"That's true,\" said Malia. \"Being Star of the Week is a lot of work.\"",
+            "20 \"Yeah,\" piped in Tater, even though he was way too young to know.",
+            "21 \"Plus, I have to take care of Flopsy this weekend,\" Little Shaq added. He grabbed the instruction sheet and handed it to Mom. \"If everything goes well, then can I get a kitten?\"",
+            "22 Mom and Dad looked at each other and laughed.",
+            "23 \"We'll think about it,\" they said.",
+            "24 Little Shaq smiled. It was a start."
+          ]
+        },
+        {
+          "id": "s1p2",
+          "title": "Porcupette Explores the Night",
+          "byline": "by Susan Yoder Ackerman",
+          "paragraphs": [
+            "[photo of a baby porcupine with its mother]",
+            "Baby porcupines stay with their mothers until they are about 4 months old. Then they are big enough to take care of themselves.",
+            "1 The full moon is rising over rocky mountain peaks. It shines down into a canyon. Under the roots of an old pine tree, there is scuffling and snuffling. A young porcupine, called a porcupette, comes out of the den where she spent the day resting. Her mother is still asleep in the branches above.",
+            "2 Porcupette looks awkward as she slowly waddles on her short, sturdy legs, but she is calm and confident. She is not bothered when a raccoon trundles past her on its way to fish in the nearby stream. She is not afraid to come out at night alone.",
+            "3 Right now, Porcupette is hungry. Mother's milk is good, but porcupines are born with a mouth full of teeth and ready to bite. Porcupette is looking for something to chew on. Clover would be nice, but it isn't always easy to find. Pine needles and the inner bark of the pine tree make a good snack, though, and are never too far away in the forest.",
+            "4 Lucky for Porcupette, she is an expert climber. She grips the tree trunk with the rough soles of her feet, where there is no hair. Her long, curved claws pull her along.",
+            "5 A great horned owl calls from the treetop. Porcupette stops and raises the quills on her back as a warning. It makes her look a lot bigger than she is. The owl takes off on giant wings to prey on smaller animals that don't have quills.",
+            "[vocabulary box] quills = sharp pointy hairs",
+            "6 Porcupette backs down the tree and wanders over to the nearby stream. She slips in, searching for tasty water plants. She's a good swimmer. Her quills are hollow, and that helps her stay afloat.",
+            "7 A beaver glides past her in the night. Beavers are the biggest rodents in North America, but porcupines aren't far behind. In fact, when Porcupette was born, fully covered in blackish fur, she already weighed about a pound—bigger than a newborn black bear! It took only a few hours for some of her soft fur to harden into quills. When grown, Porcupette will weigh about 14 pounds and measure almost 3 feet in length.",
+            "[vocabulary box] rodents = small animals that have sharp front teeth",
+            "8 Porcupette pulls herself out of the stream. She sniffs the air, checking it for treats. A bit of salt might be found on a canoe paddle. She could gnaw on bones or antlers lying around in the forest, to enjoy their tasty minerals. That would be the perfect end to a night of nibbling.",
+            "9 Suddenly Porcupette catches the strong odor of a mountain lion sneaking up behind her. There is no time to lose. She shakes her body, raising the quills on her rump until she looks like a giant pincushion. Her teeth chatter a warning as she swings her tail back and forth forcefully.",
+            "10 Porcupines can't throw their quills. If the menacing cat can flip Porcupette on to her back, he will bite into her soft, smooth stomach where no quills grow. He creeps closer.",
+            "[vocabulary box] menacing = dangerous",
+            "11 There is a snarl of pain. The plan to flip Porcupette has failed. The mountain lion slinks away, batting at his mouth where sharp quills dangle. The cat won't get rid of those any time soon.",
+            "12 Morning is coming. Time to rest! Porcupette finds a large boulder to nestle under. Soon she is fast asleep, dreaming of more adventures in her prickly porcupine world."
+          ]
+        },
+        {
+          "id": "s1p3",
+          "title": "Excerpt from Vote for Our Zoo",
+          "byline": "by Lori Mortensen",
+          "paragraphs": [
+            "1 Jamie ran through the zoo gate with her friend Sam. \"I love the zoo!\" she cried. . . .\"",
+            "2 But then Jamie saw a poster. \"Oh, no, Sam,\" she said. \"This field trip to the zoo might be our last!\"",
+            "3 \"What do you mean?\" asked Sam.\"",
+            "4 Jamie read, \"Save our zoo! Vote 'yes' on November 4!\" She shook her head. \"The city is having a special vote to raise money for the zoo. If people vote 'no,' there won't be a city zoo anymore.\"",
+            "5 \"We can't let that happen,\" Sam said. \"How much money does the zoo need? Maybe we could have a bake sale.\"",
+            "6 Jamie sighed. \"The poster says the zoo needs four million dollars.\"",
+            "7 \"Wow!\" said Sam. \"We'd have to sell a lot of cookies to make that much money.\"",
+            "8 \"The poster says the zoo's cages are too small. And they're falling apart,\" Jamie said. \"The zoo needs money to rebuild. Without money, the zoo will have to close.\"",
+            "9 Jamie looked around. If she were an animal, she'd want to live in a newer place ten times bigger. \"I'd vote for a new zoo,\" she said, \"if I could vote.\"",
+            "10 \"Me, too,\" said Sam. \"I wish we were older.\"",
+            "11 Then Jamie had an idea. \"Maybe we don't need to vote,\" she said.\"",
+            "12 \"What do you mean?\" asked Sam.\"",
+            "13 \"Instead of voting, we'll campaign,\" Jamie said. \"We'll get everyone in town who can vote to vote for the zoo.\"",
+            "[vocabulary box] campaign = ask people to vote for something",
+            "14 \"Great idea,\" said Sam. \"But how will we do that?\"",
+            "15 \"Remember when the new principal came?\" asked Jamie.\"",
+            "16 \"Sure,\" said Sam. \"We tied tons of ribbons on the school's fence.\"",
+            "17 \"This time we'll spell out 'Save Our Zoo!' with ribbons,\" said Jamie.\"",
+            "18 \"We could make posters, too,\" said Sam. \"I'm great at making posters.\" . . .\"",
+            "19 The next day, Jamie's class tied green ribbons to the playground fence. The ribbons spelled out \"Save Our Zoo!\" . . .",
+            "20 By the end of the week, Jamie and her class had dozens of posters and fliers. They put them in stores and in their front yards.",
+            "21 \"Do you think it will work?\" asked Sam.\"",
+            "22 \"I hope so,\" said Jamie. \"We have to save the zoo.\"",
+            "23 That night, Jamie and her family went to a special town meeting. The city council held the meeting so people could talk about the vote. Jamie hoped everyone wanted to save the zoo like she did.",
+            "[vocabulary box] city council = group of people who are chosen to make decisions for the city",
+            "24 But some people had other ideas.",
+            "25 \"We have a set amount of money,\" said Mr. Li. \"I think the city should use the money to make the library bigger.\"",
+            "26 \"We should build a new fire station,\" said Mrs. Bradley.\"",
+            "27 \"We need a new soccer field,\" said Mrs. Lopez.\"",
+            "28 Jamie realized there were many ways to spend four million dollars. People needed fire stations, libraries, and soccer fields, too.",
+            "29 On voting day, Jamie worried. She watched people going in and out of the school library to vote. Her school was one of many polling sites in the city. Every neighborhood had its own polling site. . . .",
+            "[vocabulary box] polling sites = places where people vote",
+            "30 The next morning, Jamie raced outside to get the newspaper. . . .",
+            "31 Jamie's heart sank. The zoo had lost. She wished her class could have campaigned longer. What would happen to the animals now?",
+            "32 \"I'm sorry, Jamie,\" said her mother. \"But look! After the zoo closes, all of the animals will go to the Heritage Wildlife Preserve. The animals will have lots of space there. And it's only a few hours away.\"",
+            "[vocabulary box] wildlife preserve = area of land where animals are protected",
+            "33 \"The zoo lost the vote,\" said Jamie, \"but I guess the animals won.\""
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "s1q1",
+          "n": 1,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "The expression \"actions speak louder than words\" means that people are often judged more by what they do than what they say. Which sentence from the story best supports this idea?",
+          "choices": [
+            "\"Little Shaq had been asking for a kitten for as long as he could remember.\" (paragraph 5)",
+            "\"We lost, but the rec center is having a really cool event next week.\" (paragraph 9)",
+            "\"He wasn't good at remembering to take out the trash, and Mom did have to tell him every morning to make his bed.\" (paragraph 16)",
+            "\"In all the excitement about the pet fair, Little Shaq had forgotten to tell his parents the big news.\" (paragraph 18)"
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s1q2",
+          "n": 2,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "Which detail from paragraph 7 best supports the idea that Little Shaq is nervous?",
+          "choices": [
+            "The food sits untouched.",
+            "The meatballs make a mess.",
+            "His mom feels unhappy.",
+            "His father catches his eye."
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s1q3",
+          "n": 3,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "What does \"glanced\" mean as it is used in paragraph 17?",
+          "choices": [
+            "looked for something",
+            "reached over",
+            "picked an object up",
+            "turned away"
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s1q4",
+          "n": 4,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "How do the details in paragraphs 18 through 21 support a theme of the story?",
+          "choices": [
+            "They show that pet fairs are big events.",
+            "They show that hard work can be rewarded.",
+            "They show that instructions should be followed.",
+            "They show that families should talk to each other."
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s1q5",
+          "n": 5,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "What does paragraph 24 show about Little Shaq?",
+          "choices": [
+            "He is thankful because his parents are laughing at a joke he told.",
+            "He is pleased because his brother and sister agree with him.",
+            "He is excited because his brother and sister are proud of him.",
+            "He is happy because his parents have agreed to think about his question."
+          ],
+          "answer": 3,
+          "answerLetter": "D"
+        },
+        {
+          "id": "s1q6",
+          "n": 6,
+          "passage": "s1p1",
+          "kind": "mc",
+          "stem": "Which detail would be most important to include in a summary of the story?",
+          "choices": [
+            "Little Shaq will take care of Flopsy.",
+            "Barry has a fish named Louie.",
+            "Tater makes a mess at dinner.",
+            "Malia is in a school play."
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s1q13",
+          "n": 13,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "Which sentence from the passage best shows a cause-and-effect relationship?",
+          "choices": [
+            "\"Under the roots of an old pine tree, there is scuffling and snuffling.\" (paragraph 1)",
+            "\"Porcupette backs down the tree and wanders over to the nearby stream.\" (paragraph 6)",
+            "\"Beavers are the biggest rodents in North America, but porcupines aren't far behind.\" (paragraph 7)",
+            "\"The mountain lion slinks away, batting at his mouth where sharp quills dangle.\" (paragraph 11)"
+          ],
+          "answer": 3,
+          "answerLetter": "D"
+        },
+        {
+          "id": "s1q14",
+          "n": 14,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "Why is the picture important to understanding paragraph 2?",
+          "choices": [
+            "It compares a baby porcupine's size to its mother.",
+            "It suggests that porcupines should fear big animals.",
+            "It includes where porcupines go to find food at night.",
+            "It shows what a baby porcupine's body looks like."
+          ],
+          "answer": 3,
+          "answerLetter": "D"
+        },
+        {
+          "id": "s1q15",
+          "n": 15,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "Read this sentence from paragraph 12.\nSoon she is fast asleep, dreaming of more adventures in her prickly porcupine world.\nWhat does the phrase \"prickly porcupine world\" mean as it is used in this sentence?",
+          "choices": [
+            "an angry world",
+            "a world full of excitement",
+            "a scary world",
+            "a world full of plants"
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s1q16",
+          "n": 16,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "What does the author most likely think about Porcupette?",
+          "choices": [
+            "Porcupette needs help from her mother.",
+            "Porcupette should be more careful.",
+            "Porcupette is able to survive on her own.",
+            "Porcupette is safe with other animals."
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s1q17",
+          "n": 17,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "Which sentence best states a central idea of the passage?",
+          "choices": [
+            "Porcupines are awake at night and sleep during the day.",
+            "Porcupines drink their mother's milk when they are babies.",
+            "Porcupines use their quills to stay safe from enemies.",
+            "Porcupines weigh more than baby black bears at birth."
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s1q18",
+          "n": 18,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "How does the author mainly organize the information in the passage?",
+          "choices": [
+            "by telling Porcupette's problem and the solution",
+            "by telling, in order, how Porcupette spends her night",
+            "by comparing Porcupette's nights to her days",
+            "by describing how some other animals affect Porcupette"
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s1q19",
+          "n": 19,
+          "passage": "s1p2",
+          "kind": "mc",
+          "stem": "Sometimes different animals can peacefully share the same community. How does the passage support this idea?",
+          "choices": [
+            "by describing how Porcupette is not afraid of raccoons at night",
+            "by explaining how the owl causes Porcupette to raise her quills",
+            "by showing how Porcupette senses the odor of a mountain lion",
+            "by telling how the mountain lion is unable to attack Porcupette"
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s1q20",
+          "n": 20,
+          "passage": "s1p3",
+          "kind": "mc",
+          "stem": "Which quote best supports a central idea of the story?",
+          "choices": [
+            "\"This field trip to the zoo might be our last!\" (paragraph 2)",
+            "\"'Remember when the new principal came?' asked Jamie.\" (paragraph 15)",
+            "\"'I hope so,' said Jamie. 'We have to save the zoo.'\" (paragraph 22)",
+            "\"I think the city should use the money to make the library bigger.\" (paragraph 25)"
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s1q21",
+          "n": 21,
+          "passage": "s1p3",
+          "kind": "mc",
+          "stem": "How does Jamie support her claim that she and her friends can help save the zoo, even if they are not old enough to vote?",
+          "choices": [
+            "by raising money",
+            "by making posters and fliers",
+            "by speaking at the town meeting",
+            "by explaining what is wrong with the city"
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s1q22",
+          "n": 22,
+          "passage": "s1p3",
+          "kind": "mc",
+          "stem": "In paragraph 31, what does \"Jamie's heart sank\" mean?",
+          "choices": [
+            "Jamie felt pain in her chest.",
+            "Jamie felt excited she could vote.",
+            "Jamie was sad the zoo lost the vote.",
+            "Jamie was tired of reading the newspaper."
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s1q23",
+          "n": 23,
+          "passage": "s1p3",
+          "kind": "mc",
+          "stem": "Paragraph 32 shows that Jamie's mother believes",
+          "choices": [
+            "the campaign to save the zoo was a bad idea",
+            "the zoo animals will be fine at the preserve",
+            "the city will make the library bigger",
+            "the newspaper should only be read by adults"
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s1q24",
+          "n": 24,
+          "passage": "s1p3",
+          "kind": "mc",
+          "stem": "How does Jamie change from the beginning of the story to the end of the story?",
+          "choices": [
+            "First, she is excited to save the zoo by campaigning. After, she is thankful the animals will go to a wildlife preserve.",
+            "First, she is disappointed that the zoo might be closing. After, she is sad that the animals will be so far away.",
+            "First, she is sad that she cannot vote to save the zoo. After, she is angry at her city for not voting the way she wanted.",
+            "First, she is happy that her friend wants to help her. After, she is worried that she did not do enough for the zoo."
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s1q25",
+          "n": 25,
+          "passage": "s1p3",
+          "kind": "short",
+          "stem": "This question is worth 2 credits.\nMany people think that it is important to stand up for what you believe. How do Jamie's actions support this idea? Include your claim and use two details from the story to support your response.",
+          "credits": 2,
+          "rubric": "Apply 2-credit holistic rubric.",
+          "exemplar": "Jamie's actions in \"Excerpt from Vote for Our Zoo\" support the idea that it is important to stand up for what you believe, because when she finds out the zoo might close forever, she does everything she can think of to raise support for the zoo that she loves. Jamie and her friends start campaigning. The story says \"Jamie's class tied green ribbons to the playground fence. The ribbons spelled out 'Save Our Zoo!'\" It also says, \"By the end of the week, Jamie and her class had dozens of posters and fliers.\" This shows some of the ideas that they came up with, and the actions they took to try and get the adults to vote in favor of the zoo's funding.",
+          "details": "Other relevant text-based details"
+        }
+      ]
+    },
+    {
+      "id": "session-2",
+      "name": "Session 2",
+      "passages": [
+        {
+          "id": "s2p1",
+          "title": "Excerpt from “Sabeel’s Shell”",
+          "byline": "by Paula DePaolo",
+          "paragraphs": [
+            "Sabeel's parents take him, his older brother, Vikram, and younger sister, Puja, to the beach. Their grandmother, Dadi, is also with them.",
+            "[illustration of a shell]",
+            "1 As Sabeel and his grandmother stood on the beach watching the sunrise, a perfect, speckled shell washed ashore. Sabeel could not believe his eyes. All vacation he had hoped to find such a treasure. Now, with one scoop of his hand, the awesome shell was his. Sabeel ran to his grandmother. \"Dadi, look!\" he said.\"",
+            "2 \"Beautiful,\" she replied.\"",
+            "3 Sabeel turned it over. Inside, the shell was as pink as a bunny's ear.",
+            "4 \"It is a gift from the sea,\" said Dadi as they walked to their cottage. \"Take good care of it.\" . . .\"",
+            "5 Sabeel placed the shell on his nightstand and then headed to the boardwalk with his parents and Puja. Dadi stayed at the cottage. So did Vikram, who was busy taking pictures.",
+            "[vocabulary box] boardwalk = walkway by the shore with games, food, and activities",
+            "6 At the boardwalk, Sabeel saw shells for sale, but none were as special as his. He and Dad rode bumper cars, and Mom won a stuffed caterpillar for Puja.",
+            "7 Back at the cottage, Sabeel ran to his room to admire the shell. It was gone! Only a pinch of sand remained. \"My shell!\" he cried. \"Dadi, where's my shell?\"",
+            "8 \"Where did you put it?\" Dadi asked.\"",
+            "9 \"It's not there!\" cried Sabeel. Then something caught his eye... under Vikram's bed. \"Vikram took it,\" he said.\"",
+            "10 \"I did not!\" argued Vikram. \"I was taking pictures at the beach. Who cares about your boring shell?\"",
+            "11 This time, Sabeel tucked the shell under his pillow, where no one could see it.",
+            "12 After lunch, Sabeel and Vikram walked to the arcade. Sabeel played Skee-Ball and won a golden treasure box, perfect for his shell. . . .",
+            "[vocabulary box] arcade = place with games",
+            "13 Back at the cottage, Sabeel searched under his pillow. Oh, no! Not again. \"Mom!\" he called. \"Where's my shell?\"...\"",
+            "14 Sabeel found Puja holding the shell in her lap. \"Mine,\" she said.\"",
+            "15 First Vikram. Now Puja. The shell was his. He'd found it. Quietly, Sabeel hid it in the dresser, under his last pair of underwear. He checked on it twice before everyone went to the beach for the last time. . . .",
+            "16 That evening, Sabeel and his family packed to go home. Sabeel opened his drawer. The shell was not under his last pair of underwear. It was inside his last pair of socks.",
+            "17 Sabeel peeked into the living room. Mom was reading to Dadi. Dad and Puja were asleep in a chair, and Vikram was taking selfies. Sabeel buried his treasure in his sneaker and then climbed into bed.",
+            "18 In the morning, his sneakers had vanished. Sabeel found Mom shaking sand from them outside. \"Did you find my shell?\" he asked. . . .\"",
+            "19 Then, just as he took a sip of milk, he saw... No, it couldn't be! But it was. Sabeel's missing shell walked into the room. \"Look!\" said Sabeel, pointing.",
+            "20 Everyone looked. The beautiful, speckled shell with the pink inside now had beady eyes and brown legs that raced for the door. . . .",
+            "21 \"It's a hermit crab!\" exclaimed Vikram.\"",
+            "22 Sabeel ran over and picked it up. The brown legs and beady eyes disappeared inside. \"I'll call you Sandy,\" said Sabeel, peeking into the shell. \"You can live at my house.\"",
+            "23 \"He already has a house,\" teased Dad.\"",
+            "24 \"And a home,\" said Dadi, looking into Sabeel's eyes.\"",
+            "25 Sabeel remembered how his shell had washed up from the ocean. That was Sandy's real home. That was where he wanted to be. \"Dadi, will you come to the beach with me?\" Sabeel asked with a sigh. \"I have to return a gift.\" Dadi smiled. . . .\"",
+            "26 At the beach, he put Sandy down by some rocks and waited. Sandy's legs reappeared and carried his perfect, speckled shell to the water's edge. With the next wave, he was gone.",
+            "27 \"Goodbye,\" whispered Sabeel, feeling good and awful at the same time.\""
+          ]
+        },
+        {
+          "id": "s2p2",
+          "title": "Kids on the High Seas",
+          "byline": "by Dave and Jaja Martin",
+          "paragraphs": [
+            "[photo of sailboat]",
+            "1 Chris, Holly, and Teiga live on a sailboat. With their mom and dad, they sail all over the world. You can't have a much better view of the ocean than that. It's kind of like having the ocean for your backyard.",
+            "2 One summer they sail from the United States all the way across the ocean to a country called Iceland. The voyage lasts 23 days.",
+            "3 That's a long time to spend on a small boat at sea, but everything the children need is on board. They have food, water, clothes, and toys. They don't have a television, but they have fun coloring, playing with Legos, reading books, and listening to music.",
+            "4 Sometimes it storms. When the boat dances wildly in the big waves, simple tasks such as putting on clothes, eating, brushing your teeth, or going to the bathroom become hard work. The bathroom on the boat, called the \"head,\" has handles mounted on the walls for hanging on to.",
+            "5 During mealtimes in a storm, Chris, Holly, and Teiga wedge themselves onto a bunk. That's a bed built into a wall. A chair would just slide around. Mom hands them bowls of food and they eat slowly. When they are finished, Mom takes the bowls away and hands them cups of juice. It's too bumpy to hold a bowl and a cup at the same time.",
+            "6 The best part of a storm is when it's over. During bad weather, Dad keeps watch outside up on deck and the children have to stay inside the cabin. When the sea smooths again, they are allowed to go on deck and play.",
+            "7 At first glance, the middle of the ocean seems empty. All you see are water and sky. But if you look hard, you'll notice a lot. Even far away from land, birds skim the water searching for food. Dolphins swim in crisscross paths under the front of the boat, called the bow. If you are lucky, you might glimpse a huge whale gliding across the water's surface. And sooner or later, you spot land.",
+            "8 On the twenty-third day at sea, the children spy the barren hills of Iceland. As the boat sails nearer to land, they begin to see lighthouses and buoys, then buses, cars, and people walking! As soon as the boat is tied up in the harbor, the family ventures into the heart of Reykjavik, Iceland's capital city. After the long ocean voyage, the noise and commotion of the busy streets are bewildering. Everyone on land seems in such a hurry!",
+            "[vocabulary box] bewildering = confusing",
+            "9 Exploring Iceland will be fun, but Chris, Holly, and Teiga can't wait to set sail again. Exploring the ocean is their family's favorite thing to do."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "s2q26",
+          "n": 26,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "How does the author use paragraphs 5 and 10 to develop Vikram?",
+          "choices": [
+            "by describing how he is more interested in taking pictures than in a shell",
+            "by describing how he is a good brother who enjoys spending time with family",
+            "by explaining why he and his brother argue all the time",
+            "by explaining the different kinds of activities he enjoys doing while on vacation"
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s2q27",
+          "n": 27,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "Which sentence best supports a theme of the story?",
+          "choices": [
+            "\"Back at the cottage, Sabeel ran to his room to admire the shell.\" (paragraph 7)",
+            "\"This time, Sabeel tucked the shell under his pillow, where no one could see it.\" (paragraph 11)",
+            "\"I have to return a gift.\" (paragraph 25)",
+            "\"With the next wave, he was gone.\" (paragraph 26)"
+          ],
+          "answer": 2,
+          "answerLetter": "C"
+        },
+        {
+          "id": "s2q28",
+          "n": 28,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "What claim does Sabeel make in paragraph 9?",
+          "choices": [
+            "that Vikram has stolen the shell",
+            "that Vikram does not like him",
+            "that he has lost the shell",
+            "that he wants to go to the arcade"
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s2q29",
+          "n": 29,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "What do the details in paragraph 22 show about the hermit crab?",
+          "choices": [
+            "It needs water.",
+            "It senses danger.",
+            "It likes the name Sandy.",
+            "It wants to live at Sabeel's house."
+          ],
+          "answer": 1,
+          "answerLetter": "B"
+        },
+        {
+          "id": "s2q30",
+          "n": 30,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "What does the word \"washed\" mean as it is used in paragraph 25?",
+          "choices": [
+            "cleaned with soap",
+            "felt worn out",
+            "became equal to something",
+            "carried by flowing water"
+          ],
+          "answer": 3,
+          "answerLetter": "D"
+        },
+        {
+          "id": "s2q31",
+          "n": 31,
+          "passage": "s2p1",
+          "kind": "mc",
+          "stem": "How does knowing the shell is a hermit crab change Dadi's thoughts on what Sabeel should do?",
+          "choices": [
+            "First, Dadi tells Sabeel the shell is a gift from the sea. After, Dadi thinks Sabeel needs to return the crab to its home.",
+            "First, Dadi thinks the shell is very beautiful. After, Dadi thinks Sabeel should buy a new shell at the boardwalk.",
+            "First, Dadi wants Sabeel to share his shell with his siblings. After, Dadi thinks Sabeel should treasure his gift on his own.",
+            "First, Dadi likes the pink inside of the shell. After, Dadi thinks Sabeel should find a shell the same color as the crab."
+          ],
+          "answer": 0,
+          "answerLetter": "A"
+        },
+        {
+          "id": "s2q32",
+          "n": 32,
+          "passage": "s2p2",
+          "kind": "short",
+          "stem": "This question is worth 2 credits.\nIn \"Kids on the High Seas,\" how are the ideas in paragraphs 2 and 8 connected? Include your claim and use two details from the passage to support your response.",
+          "credits": 2,
+          "rubric": "Apply 2-credit holistic rubric.",
+          "exemplar": "Paragraphs 2 and 8 from \"Kids on the High Seas,\" connect because they show us both ends of the journey. Paragraph 2 says, \"One summer they sail from the United States all the way across the ocean to a country called Iceland.\" This is where the family started their trip. And in paragraph 8 it says, \"As soon as the boat is tied up in the harbor, the family ventures into the heart of Reykjavik, Iceland's capital city.\" This shows the end of the trip as the family arrives in Iceland, 23 days after their trip began in the U.S.",
+          "details": "Other relevant text-based details"
+        },
+        {
+          "id": "s2q33",
+          "n": 33,
+          "passage": "s2p2",
+          "kind": "short",
+          "stem": "This question is worth 2 credits.\nIn \"Kids on the High Seas,\" what claim do the authors make in paragraph 3? Include your claim and use two details from the passage to support your response.",
+          "credits": 2,
+          "rubric": "Apply 2-credit holistic rubric.",
+          "exemplar": "In paragraph 3 of \"Kids on the High Seas,\" the authors claim that there are many different things to do on the boat to pass time, because they have nearly everything you could want. It says, \"They don't have a television, but they do have fun coloring, playing with Legos, reading books and listening to music.\" Additionally, \"When the sea is smooth, they are allowed to go on deck and play.\" While they play on deck they can watch birds, dolphins, and whales, which sounds like a fun way to pass time.",
+          "details": "Other relevant text-based details"
+        },
+        {
+          "id": "s2q34",
+          "n": 34,
+          "passage": "s2p2",
+          "kind": "short",
+          "stem": "This question is worth 2 credits.\nWhat is a central idea of the passage \"Kids on the High Seas\"? Include your claim and use two details from the passage to support your response.",
+          "credits": 2,
+          "rubric": "Apply 2-credit holistic rubric.",
+          "exemplar": "A central idea of the passage \"Kids on the High Seas\" is about everything that the family does while living on a boat and sailing across the ocean. They may not have everything, but they still have fun things to do. The passage says, \"They don't have a television, but they have fun coloring, playing with Legos, reading books, and listening to music.\" It also says, \"During mealtimes in a storm, Chris, Holly, and Teiga wedge themselves onto a bunk.\" Which shows what they must do during storms at sea just to eat.",
+          "details": "Other relevant text-based details"
+        }
+      ]
+    }
+  ]
+}</script>
+
+<script>
+"use strict";
+/* ============================== data ============================== */
+const DATA = JSON.parse(document.getElementById('quiz-data').textContent || '{}');
+const LS_KEY = 'nysg3ela2026_attempts';
+
+/* ============================== helpers ============================== */
+const $ = s => document.querySelector(s);
+const app = () => $('#app');
+const footbar = () => $('#footbar');
+function esc(s){
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+function loadAttempts(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); }
+  catch(e){ return []; }
+}
+function saveAttempts(a){ localStorage.setItem(LS_KEY, JSON.stringify(a)); }
+function fmtDate(ts){
+  const d = new Date(ts);
+  return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+function sessionById(id){ return (DATA.sessions||[]).find(s=>s.id===id); }
+function mcQuestions(sess){ return sess.questions.filter(q=>q.kind==='mc'); }
+function writtenQuestions(sess){ return sess.questions.filter(q=>q.kind!=='mc'); }
+
+/* ============================== landing ============================== */
+function renderLanding(){
+  footbar().classList.add('hidden');
+  const sess = DATA.sessions || [];
+  const attempts = loadAttempts().slice().reverse();
+  let h = '';
+
+  h += `<div class="card"><h2>How this works</h2>
+    <p>This practice test uses the <b>released questions</b> from the actual Spring 2026
+    New York State Grade 3 ELA test — the same test you took last spring.</p>
+    <ul>
+      <li>There are <b>two sessions</b>. Take them on different days, just like the real test.</li>
+      <li><b>Session 1</b> is multiple-choice only. <b>Session 2</b> has multiple-choice plus written answers.</li>
+      <li>Answer every question, then press <b>Submit</b>. Your multiple-choice answers are checked right away.</li>
+      <li>Written answers are scored by a parent with the official rubric, then everything is saved.</li>
+    </ul>
+    <p class="muted" style="font-size:13px">Note: questions 7–12 were field-test items and were not released,
+    so the numbering jumps from 6 to 13 — that matches the official released booklet.</p>
+    ${DATA.tips ? `<h3>Tips for taking the test</h3><p class="muted">${esc(DATA.tips)}</p>` : ''}
+  </div>`;
+
+  h += `<div class="grid2">`;
+  for(const s of sess){
+    const mc = mcQuestions(s).length, wr = writtenQuestions(s).length;
+    h += `<div class="session-card">
+      <h3>${esc(s.name)}</h3>
+      <p><span class="tag">${mc} multiple-choice</span>${wr?`<span class="tag">${wr} written</span>`:''}</p>
+      <p class="muted">${esc((s.passages||[]).map(p=>p.title).join(' · '))}</p>
+      <button class="btn" data-start="${esc(s.id)}">Start ${esc(s.name)}</button>
+    </div>`;
+  }
+  h += `</div>`;
+
+  h += `<div class="card"><h2>My results</h2>`;
+  if(!attempts.length){
+    h += `<p class="muted">No attempts yet. Your scores will appear here after you submit a session.</p>`;
+  }else{
+    for(const a of attempts){
+      const s = sessionById(a.sessionId);
+      const mcScore = a.mc.filter(m=>m.ok).length;
+      const mcTotal = a.mc.length;
+      const wScored = a.written.filter(w=>w.score!=null);
+      const wPts = wScored.reduce((t,w)=>t+w.score,0);
+      const wMax = a.written.reduce((t,w)=>t+w.max,0);
+      const wNote = a.written.length
+        ? (wScored.length===a.written.length ? ` · Written ${wPts}/${wMax}` : ` · Written ${wScored.length}/${a.written.length} scored`)
+        : '';
+      h += `<div class="att">
+        <div class="grow"><b>${esc(s?s.name:a.sessionId)}</b>
+          <span class="muted"> · ${fmtDate(a.ts)}</span><br>
+          <span>Multiple-choice: <b>${mcScore}/${mcTotal}</b>${wNote}</span>
+        </div>
+        <button class="btn small ghost" data-view="${a.id}">Review</button>
+        <button class="btn small ghost" data-del="${a.id}">Delete</button>
+      </div>`;
+    }
+  }
+  h += `</div>`;
+
+  app().innerHTML = h;
+
+  app().querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>renderSession(b.dataset.start));
+  app().querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>renderResults(b.dataset.view));
+  app().querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
+    if(!confirm('Delete this attempt?')) return;
+    saveAttempts(loadAttempts().filter(a=>String(a.id)!==b.dataset.del));
+    renderLanding();
+  });
+}
+
+/* ============================== session ============================== */
+let cur = null; // {sessionId, answers:{qid: idx|string}, confirm:false}
+
+function renderSession(sessionId){
+  const s = sessionById(sessionId);
+  if(!s) return;
+  cur = {sessionId, answers:{}, confirm:false};
+  drawSession();
+  window.scrollTo(0,0);
+}
+
+function drawSession(){
+  const s = sessionById(cur.sessionId);
+  const qs = s.questions || [];
+  let h = `<button class="backlink" id="backBtn">← Back to start</button>`;
+  h += `<div class="card"><h2>${esc(s.name)}</h2>
+    <p class="muted">${mcQuestions(s).length} multiple-choice${writtenQuestions(s).length?` · ${writtenQuestions(s).length} written`:''} · Answer every question, then press Submit.</p></div>`;
+
+  for(const p of (s.passages||[])){
+    h += `<div class="passage"><div class="ptitle">${esc(p.title)}</div>
+      ${p.byline?`<div class="pby">${esc(p.byline)}</div>`:''}
+      ${(p.paragraphs||[]).map(t=>`<p>${esc(t)}</p>`).join('')}</div>`;
+    for(const q of qs.filter(q=>q.passage===p.id)) h += questionHTML(q, false, null);
+  }
+  const orphans = qs.filter(q=>!(s.passages||[]).some(p=>p.id===q.passage));
+  for(const q of orphans) h += questionHTML(q, false, null);
+
+  if(cur.confirm){
+    h += `<div class="confirm" id="confirmBox"><b>Submit ${esc(s.name)}?</b><br>
+      <span class="muted">Once submitted, multiple-choice answers are checked and the attempt is saved.</span><br><br>
+      <button class="btn" id="yesSubmit">Yes, submit</button>
+      <button class="btn ghost" id="keepWorking">Keep working</button></div>`;
+  }
+
+  app().innerHTML = h;
+  $('#backBtn').onclick = ()=>{ if(confirm('Leave without submitting? Your answers will be lost.')) renderLanding(); };
+  wireQuestions();
+  const yb = $('#yesSubmit'); if(yb) yb.onclick = doSubmit;
+  const kw = $('#keepWorking'); if(kw) kw.onclick = ()=>{cur.confirm=false; drawSession();};
+  drawFootbar();
+}
+
+function stemHTML(stem){
+  return String(stem==null?'':stem).split('\n').map(line=>{
+    const t = line.trim();
+    if(t.startsWith('>')) return `<span class="qtext">${esc(t.replace(/^>\s?/,''))}</span>`;
+    return esc(line);
+  }).join('<br>');
+}
+
+function questionHTML(q, review, attempt){
+  const letters = ['A','B','C','D','E','F'];
+  let h = `<div class="q" id="q-${esc(q.id)}">`;
+  h += `<div class="qnum">Question ${q.n}${q.kind!=='mc'?` <span class="credit-tag">(${q.credits||'?'} credits — written)</span>`:''}</div>`;
+  h += `<div class="stem">${stemHTML(q.stem)}</div>`;
+  if(q.kind==='mc'){
+    const att = review ? attempt.mc.find(m=>m.qid===q.id) : null;
+    const yours = review ? att.yours : cur.answers[q.id];
+    h += `<div class="choices">`;
+    (q.choices||[]).forEach((c,i)=>{
+      let cls = 'choice';
+      if(review){
+        if(i===q.answer) cls += ' correct';
+        else if(i===yours) cls += ' wrongpick';
+        if(i===yours) cls += ' sel';
+      }else if(cur.answers[q.id]===i){ cls += ' sel'; }
+      h += `<button class="${cls}" data-q="${esc(q.id)}" data-i="${i}"${review?' disabled':''}>
+        <span class="letter">${letters[i]||''}</span><span>${esc(c)}</span></button>`;
+    });
+    h += `</div>`;
+    if(review){
+      if(q.answer==null) h += `<p><span class="pill warn">Answer key not available — check the scoring materials</span></p>`;
+      else if(att.ok) h += `<p><span class="pill ok">Correct</span></p>`;
+      else h += `<p><span class="pill bad">Your answer: ${letters[yours]||'—'} · Correct answer: ${letters[q.answer]}</span></p>`;
+    }
+  }else{
+    if(review){
+      const w = attempt.written.find(x=>x.qid===q.id);
+      h += `<div class="wrans">${esc(w&&w.yours?w.yours:'(no answer written)')}</div>`;
+    }else{
+      const v = cur.answers[q.id]||'';
+      h += `<textarea class="wr" data-wq="${esc(q.id)}" placeholder="Write your answer in complete sentences. Use details from the text.">${esc(v)}</textarea>`;
+    }
+  }
+  h += `</div>`;
+  return h;
+}
+
+function wireQuestions(){
+  app().querySelectorAll('.choice[data-q]').forEach(b=>{
+    b.onclick = ()=>{
+      const qid = b.dataset.q;
+      cur.answers[qid] = +b.dataset.i;
+      const box = b.closest('.q');
+      box.querySelectorAll('.choice').forEach(c=>c.classList.remove('sel'));
+      b.classList.add('sel');
+      drawFootbar();
+    };
+  });
+  app().querySelectorAll('textarea.wr').forEach(t=>{
+    t.oninput = ()=>{ cur.answers[t.dataset.wq] = t.value; drawFootbar(); };
+  });
+}
+
+function drawFootbar(){
+  const s = sessionById(cur.sessionId);
+  const mcs = mcQuestions(s);
+  const answered = mcs.filter(q=>cur.answers[q.id]!=null).length;
+  const wrs = writtenQuestions(s);
+  const wDraft = wrs.filter(q=>(cur.answers[q.id]||'').trim()).length;
+  const fb = footbar();
+  fb.classList.remove('hidden');
+  fb.innerHTML = `<span class="prog" id="progText">Answered ${answered} of ${mcs.length} multiple-choice${wrs.length?` · ${wDraft}/${wrs.length} written drafted`:''}</span>
+    <span class="pill warn hidden" id="footWarn"></span>
+    <span class="spacer"></span>
+    <button class="btn" id="submitBtn" style="margin-left:auto">Submit answers</button>`;
+  $('#submitBtn').onclick = ()=>{
+    const un = mcs.filter(q=>cur.answers[q.id]==null);
+    if(un.length){
+      const f = document.getElementById('q-'+un[0].id);
+      const w = $('#footWarn');
+      w.textContent = `Question ${un[0].n} is not answered yet`;
+      w.classList.remove('hidden');
+      if(f){
+        f.scrollIntoView({behavior:'smooth',block:'center'});
+        f.style.outline = '3px solid #f59e0b';
+        setTimeout(()=>{ f.style.outline=''; }, 2500);
+      }
+      return;
+    }
+    cur.confirm = true;
+    drawSession();
+    setTimeout(()=>{ const el=$('#confirmBox'); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }, 60);
+  };
+}
+
+function doSubmit(){
+  const s = sessionById(cur.sessionId);
+  const mc = mcQuestions(s).map(q=>{
+    const yours = cur.answers[q.id];
+    return {qid:q.id, n:q.n, yours: yours==null?null:yours,
+            correct: q.answer==null?null:q.answer,
+            ok: q.answer!=null && yours===q.answer,
+            keyMissing: q.answer==null};
+  });
+  const written = writtenQuestions(s).map(q=>({
+    qid:q.id, n:q.n, yours:(cur.answers[q.id]||'').trim(),
+    score:null, max:q.credits||2
+  }));
+  const att = {id:Date.now(), ts:Date.now(), sessionId:s.id, mc, written};
+  const all = loadAttempts(); all.push(att); saveAttempts(all);
+  cur = null;
+  renderResults(att.id);
+  window.scrollTo(0,0);
+}
+
+/* ============================== results ============================== */
+function getAttempt(id){ return loadAttempts().find(a=>String(a.id)===String(id)); }
+
+function renderResults(attemptId){
+  footbar().classList.add('hidden');
+  const a = getAttempt(attemptId);
+  if(!a){ renderLanding(); return; }
+  const s = sessionById(a.sessionId);
+  if(!s){ renderLanding(); return; }
+  const mcScore = a.mc.filter(m=>m.ok).length;
+  const mcTotal = a.mc.length;
+  const keyMissing = a.mc.filter(m=>m.keyMissing).length;
+  const wScored = a.written.filter(w=>w.score!=null);
+  const wPts = wScored.reduce((t,w)=>t+(+w.score||0),0);
+  const wMax = a.written.reduce((t,w)=>t+(+w.max||0),0);
+  const wDone = a.written.length && wScored.length===a.written.length;
+
+  let h = `<button class="backlink" id="backBtn2">← Back to results</button>`;
+  h += `<div class="card"><h2>${esc(s.name)} — Results</h2>
+    <p class="muted">${fmtDate(a.ts)}</p>
+    <div class="score-big">${mcScore + wPts}<span class="muted" style="font-size:18px"> / ${mcTotal + wMax}</span></div>
+    <p>Multiple-choice: <b>${mcScore}/${mcTotal}</b>${keyMissing?` <span class="pill warn">${keyMissing} key missing</span>`:''}<br>
+    ${a.written.length ? `Written: <b>${wDone ? wPts+'/'+wMax : wScored.length+'/'+a.written.length+' scored'}</b>` : 'No written questions in this session.'}</p>
+    <button class="btn small" id="copyBtn">Copy results for analysis</button>
+    <p class="muted" style="font-size:13px">Copies a text summary you can paste in chat — Lux will analyze Alex's current level from it.</p>
+    <pre class="copybox hidden" id="copyBox"></pre>
+  </div>`;
+
+  h += `<div class="card"><h2>Multiple-choice review</h2>`;
+  for(const q of mcQuestions(s)) h += questionHTML(q, true, a);
+  h += `</div>`;
+
+  if(a.written.length){
+    h += `<div class="card"><h2>Written answers — parent scoring</h2>
+      <p class="muted">Read Alex's answer, check the official rubric and the exemplary response,
+      then tap the score. Scores save automatically and update the total above.</p>
+      <p class="muted" style="font-size:13px"><b>How the 2-credit scoring works</b> (from the state's official guide papers):
+      <b>2</b> = a valid inference or claim supported by <b>two</b> text details ·
+      <b>1</b> = text details without a clear claim, or a claim with only one detail ·
+      <b>0</b> = off-prompt or no valid text support.</p>`;
+    for(const q of writtenQuestions(s)){
+      const w = a.written.find(x=>x.qid===q.id);
+      h += `<div class="q"><div class="qnum">Question ${q.n} <span class="credit-tag">(${w.max} credits)</span></div>
+        <div class="stem">${stemHTML(q.stem)}</div>
+        <h3>Alex's answer</h3><div class="wrans">${esc(w.yours||'(no answer written)')}</div>
+        <details class="rubric"><summary>Official rubric (${w.max} credits)</summary>
+          <p>${esc(q.rubric||'Rubric was not available in the transcript.').replace(/\n/g,'<br>')}</p></details>
+        <details class="rubric"><summary>Exemplary response</summary>
+          <p>${esc(q.exemplar||'Not available.').replace(/\n/g,'<br>')}</p></details>
+        ${q.details?`<details class="rubric"><summary>Possible details to include</summary>
+          <p>${esc(q.details).replace(/\n/g,'<br>')}</p></details>`:''}
+        <h3>Score</h3><div class="scorebtns" data-wscore="${esc(q.id)}">`;
+      for(let i=0;i<=w.max;i++) h += `<button data-v="${i}" class="${w.score===i?'sel':''}">${i}</button>`;
+      h += `</div></div>`;
+    }
+    h += `</div>`;
+  }
+
+  app().innerHTML = h;
+  $('#backBtn2').onclick = renderLanding;
+
+  app().querySelectorAll('[data-wscore]').forEach(box=>{
+    box.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+      const qid = box.dataset.wscore;
+      const all = loadAttempts();
+      const att = all.find(x=>String(x.id)===String(attemptId));
+      if(!att) return;
+      const w = att.written.find(x=>x.qid===qid);
+      w.score = +b.dataset.v;
+      saveAttempts(all);
+      renderResults(attemptId);
+    });
+  });
+
+  $('#copyBtn').onclick = ()=>{
+    const txt = buildCopyText(a, s);
+    const box = $('#copyBox');
+    box.textContent = txt;
+    box.classList.remove('hidden');
+    const done = ok => {
+      $('#copyBtn').textContent = ok ? 'Copied! Paste it in chat for analysis.' : 'Select the text below and copy it manually.';
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>done(true), ()=>done(false));
+    }else{ done(false); }
+    box.scrollIntoView({behavior:'smooth',block:'center'});
+  };
+}
+
+function buildCopyText(a, s){
+  const L = ['A','B','C','D','E','F'];
+  const mcScore = a.mc.filter(m=>m.ok).length;
+  const lines = [];
+  lines.push(`${DATA.testTitle||'2026 NYS Grade 3 ELA practice'} — ${s.name}`);
+  lines.push(`Date: ${fmtDate(a.ts)}`);
+  lines.push(`Multiple-choice: ${mcScore}/${a.mc.length}`);
+  for(const m of a.mc){
+    const mark = m.keyMissing ? '?' : (m.ok ? 'OK' : 'X');
+    lines.push(`  Q${m.n}: ${mark} (yours: ${m.yours==null?'-':L[m.yours]}${m.correct==null?'':' | key: '+L[m.correct]})`);
+  }
+  for(const w of a.written){
+    lines.push(`  Q${w.n} (written, ${w.max} credits): ${w.score==null?'not scored yet':w.score+'/'+w.max}`);
+    if(w.yours) lines.push(`    Alex wrote: ${w.yours.length>300 ? w.yours.slice(0,300)+'…' : w.yours}`);
+  }
+  const wScored = a.written.filter(w=>w.score!=null);
+  const total = mcScore + wScored.reduce((t,w)=>t+(+w.score||0),0);
+  const totalMax = a.mc.length + a.written.reduce((t,w)=>t+(+w.max||0),0);
+  lines.push(`TOTAL: ${total}/${totalMax}${wScored.length<a.written.length?' (written partly unscored)':''}`);
+  return lines.join('\n');
+}
+
+/* ============================== boot ============================== */
+(function boot(){
+  if(!DATA.sessions || !DATA.sessions.length){
+    footbar().classList.add('hidden');
+    app().innerHTML = `<div class="card"><h2>Quiz data is being prepared</h2>
+      <p class="muted">If you see this on the published page, the question data did not load. Please tell Lux.</p></div>`;
+    return;
+  }
+  renderLanding();
+})();
+</script>
+</body>
+</html>
